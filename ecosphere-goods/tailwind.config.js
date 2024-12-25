@@ -7,6 +7,7 @@ module.exports = {
       'dark-brown': '#362D2D'
     },
     fontSize: {
+      'xLHeader': '64px',
       'header': '32px',
       'subtitle': '20px',
     },

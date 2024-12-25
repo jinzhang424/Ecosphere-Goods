@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between items-center bg-off-white p-8">
+    <div className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center bg-off-white p-8 w-full text-dark-brown">
       <div className="flex items-center space-x-2 text-header font-header ml-4 cursor-pointer">
         <MdOutlineCottage className="w-10 h-10"/>
         <h1>Ecosphere Goods</h1>
