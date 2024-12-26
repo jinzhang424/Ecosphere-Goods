@@ -2,7 +2,7 @@ import React from 'react'
 
 const Item = ({imageUrl, price, name}) => {
   return (
-    <div className="p-6 w-80 justify-between bg-dark-brown aspect-w-6 aspect-itemCard">
+    <div className="p-6 w-80 justify-between bg-dark-brown aspect-itemCard">
       <div className="h-4/6">
         <img src={imageUrl} alt="" className="object-cover w-full h-full"/>
       </div>

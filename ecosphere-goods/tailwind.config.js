@@ -10,12 +10,14 @@ module.exports = {
       'xLHeader': '64px',
       'header': '32px',
       'subtitle': '20px',
+      'body': '16px'
     },
     fontWeight: {
       'header': '500',
     },
     aspectRatio: {
-      'itemCard': '5/7'
+      'itemCard': '5/7',
+      'climateFactCard': '1/2'
     },
     extend: {
       scrollbarHide: {
@@ -27,17 +29,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    function ({ addUtilities }) {
-      addUtilities({
-        '.scrollbar-hide': {
-          '-ms-overflow-style': 'none', 
-          'scrollbar-width': 'none',
-          '&::-webkit-scrollbar': {
-            display: 'none',
-          },
-        },
-      });
-    },
-  ],
+  plugins: [],
 }

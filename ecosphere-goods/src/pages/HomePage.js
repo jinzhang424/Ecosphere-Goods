@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import SpecialItems from '../components/SpecialItems'
+import ClimateFacts from '../components/ClimateFacts'
 
 function HomePage() {
   return (
@@ -9,6 +10,8 @@ function HomePage() {
       <Navbar/>
       <Hero/>
       <SpecialItems/>
+      <ClimateFacts></ClimateFacts>
+      <a href="https://lordicon.com/">Icons by Lordicon.com</a>
     </div>
   )
 }
