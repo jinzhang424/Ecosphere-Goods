@@ -4,7 +4,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Navigation } from 'swiper/modules';
 import heroSliderData from '../data/heroSliderData.json';
-import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Item from './Item';
 import './ItemSlider.css'
 
@@ -35,11 +35,11 @@ const ItemSlider = ({ nextButtonClass, prevButtonClass }) => {
         </Swiper>
 
         <div className="flex relative justify-between align-middle top-1/2 space-x-6 p-8">
-            <CiCircleChevLeft 
-                className={`${prevButtonClass} cursor-pointer w-11 h-11 opacity-50 hover:opacity-100 text-dark-brown`}
+            <FaChevronLeft 
+                className={`${prevButtonClass} cursor-pointer w-8 h-8 opacity-50 hover:opacity-100 text-dark-brown transition-opacity ease-in-out duration-2000`}
             />
-            <CiCircleChevRight 
-                className={`${nextButtonClass} cursor-pointer w-11 h-11 opacity-50 hover:opacity-100 text-dark-brown`}
+            <FaChevronRight
+                className={`${nextButtonClass} cursor-pointer w-8 h-8 opacity-50 hover:opacity-100 text-dark-brown transition-opacity ease-in-out duration-2000`}
             />
         </div>
       </div>
