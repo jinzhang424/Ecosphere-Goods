@@ -44,6 +44,7 @@ const Hero = () => {
             <div className="absolute bottom-0 left-0 right-0 flex justify-center space-x-6 p-4">
                 {heroSliderData.map((_, index) => (
                 <FaCircle 
+                    key={index}
                     className={`cursor-pointer w-3 ${index === currentSlide ? 'opacity-100' : 'opacity-70'}`}
                     onClick={() => setCurrentSlide(index)}
                 />

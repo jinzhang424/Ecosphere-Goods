@@ -1,0 +1,22 @@
+.swiper {
+    height: 500px;
+}
+
+.swiper-pagination {
+    position: relative;
+}
+
+.swiper-pagination-bullet {
+    position: relative;
+    bottom: 12px;
+    background-color: #362D2D; 
+    opacity: 0.5;
+    width: 11px;
+    height: 11px;
+    transition: ease-in-out 200ms;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #362D2D; 
+    opacity: 1;
+}
