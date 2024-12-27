@@ -8,11 +8,9 @@ import Footer from '../components/Footer'
 function HomePage() {
   return (
     <div>
-      <Navbar/>
       <Hero/>
       <SpecialItems/>
-      <ClimateFacts></ClimateFacts>
-      <Footer></Footer>
+      <ClimateFacts/>
     </div>
   )
 }
