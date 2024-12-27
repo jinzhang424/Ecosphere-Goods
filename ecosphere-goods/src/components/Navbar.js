@@ -3,11 +3,27 @@ import { IoMdSearch } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import { NavLink } from 'react-router-dom'
 import Logo from './Logo';
+import { useState, useEffect } from 'react';
 
 
 const Navbar = () => {
+  const [show, handleShow] = useState(true);
+  
+  const transitionNavBar = () => {
+    if (window.scrollY > 100) {
+      handleShow(false);
+    } else {
+      handleShow(true);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", transitionNavBar);
+    return () => window.removeEventListener("scroll", transitionNavBar);
+  }, [])
+
   return (
-    <div className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center bg-off-white p-8 w-full text-dark-brown">
+    <div className={`fixed top-0 left-0 right-0 z-10 flex justify-between items-center bg-off-white p-8 w-full text-dark-brown transition-opacity ease-in-out duration-200 ${show ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <div className="ml-4">
         <Logo/>
       </div>
