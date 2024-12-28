@@ -4,15 +4,19 @@ module.exports = {
   theme: {
     colors: {
       'off-white': '#E9E1DE',
-      'dark-brown': '#362D2D'
+      'dark-brown': '#362D2D',
+      'tint': 'rgba(0, 0, 0, 0.3)'
     },
     fontSize: {
       'xLHeader': '64px',
+      'LHeader' : '42px',
       'header': '32px',
+      'sHeader': '24px',
       'subtitle': '20px',
       'body': '16px'
     },
     fontWeight: {
+      'LHeader': '700', 
       'header': '500',
     },
     aspectRatio: {
