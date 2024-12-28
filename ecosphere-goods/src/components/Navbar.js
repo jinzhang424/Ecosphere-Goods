@@ -29,8 +29,18 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center space-x-8 text-subtitle mr-4 transition-">
-        <NavLink className="hover:underline duration-300 ease-in-out">Home</NavLink>
-        <NavLink className="hover:underline duration-300 ease-in-out">Products</NavLink>
+        <NavLink 
+          to="/"
+          className="hover:underline duration-300 ease-in-out">
+            Home
+        </NavLink>
+
+        <NavLink 
+          to="/products" 
+          className="hover:underline duration-300 ease-in-out">
+            Products
+        </NavLink>
+
         <NavLink className="hover:underline duration-300 ease-in-out">About Us</NavLink>
         <IoCartOutline className="w-7 h-7"></IoCartOutline>
         <IoMdSearch className="w-7 h-7"></IoMdSearch>
