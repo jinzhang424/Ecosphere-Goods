@@ -1,5 +1,5 @@
 import React from 'react'
-import BasicSelector from './BasicSelector'
+import BasicSelector from '../utility/BasicSelector'
 
 const SortByAndAppliedFilters = () => {
     return (

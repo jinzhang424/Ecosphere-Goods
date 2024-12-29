@@ -2,7 +2,7 @@ import React from 'react'
 import { IoMdSearch } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import { NavLink } from 'react-router-dom'
-import Logo from './Logo';
+import Logo from '../utility/Logo';
 import { useState, useEffect } from 'react';
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaSquareXTwitter, FaSquareYoutube, FaSquareInstagram } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
-import Logo from './Logo';
+import Logo from '../utility/Logo';
 
 const Footer = () => {
     const handleSubmit = (event) => {

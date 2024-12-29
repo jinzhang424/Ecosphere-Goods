@@ -1,8 +1,8 @@
 import React from 'react'
-import ProductFilter from '../components/ProductFilter'
-import PriceFilter from '../components/PriceFilter'
+import ProductFilter from '../components/Filter/ProductFilter'
+import PriceFilter from '../components/Filter/PriceFilter'
 import SaleBanner from '../components/SaleBanner'
-import SortByAndAppliedFilters from '../components/SortByAndAppliedFilters'
+import SortByAndAppliedFilters from '../components/Filter/SortByAndAppliedFilters'
 import ProductDisplay from '../components/ProductDisplay'
 
 const ProductsPage = () => {
