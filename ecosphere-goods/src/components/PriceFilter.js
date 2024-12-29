@@ -15,18 +15,16 @@ function valuetext(value) {
 const CustomSlider = styled(Slider)({
     '& .MuiSlider-valueLabel': {
         position: 'relative',
-        top: '10px',
+        top: '60px',
         background: 'rgba(54, 45, 45, 0.3)',
         color: '#362D2D',
-        transform: 'rotate(180deg)',
         borderRadius: '8px'
     },
     '& .MuiSlider-valueLabel > span': {
-        transform: 'rotate(180deg)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontWeight: '700'
+        fontWeight: '700',
     },
     '& .MuiSlider-valueLabel::before': {
         display: 'none'
