@@ -5,6 +5,7 @@ module.exports = {
     colors: {
       'off-white': '#E9E1DE',
       'dark-brown': '#362D2D',
+      'light-brown': '#5A5150',
       'tint': 'rgba(0, 0, 0, 0.3)'
     },
     fontSize: {
