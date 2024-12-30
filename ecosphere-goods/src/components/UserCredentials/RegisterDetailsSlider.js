@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
 import Button from '@mui/material/Button';
-import RegisterEmail from './RegisterEmail';
-import RegisterPersonalInfo from './RegisterPersonalInfo';
 import { FaCircle } from "react-icons/fa";
+import ContainedBrownButton from '../utility/ContainedBrownButton';
 
-const RegisterDetailsSlider = () => {
+const RegisterDetailsSlider = ({ children }) => {
     const [slide, setSlide] = useState(0)
     
         const nextSlide = () => {
@@ -26,43 +25,25 @@ const RegisterDetailsSlider = () => {
                     className='flex transition-transform duration-500 ease-in-out'
                     style={{ transform: `translateX(-${slide * 100}%)` }}
                 >
-                    <div className='w-full flex-shrink-0'>
-                        <RegisterEmail />
-                    </div>
-                    <div className='w-full flex-shrink-0'>
-                        <RegisterPersonalInfo />
-                    </div>
+                    {children.map((section, index) => (
+                        <div className='w-full flex-shrink-0'>
+                            { section }
+                        </div>
+                    ))}
                 </div>
             </div>
+            
             <div className='flex justify-between'>
-                <Button 
-                    onClick={prevSlide}
-                    variant='contained'
-                    sx={{
-                        backgroundColor: '#362D2D'
-                    }}
-                >
-                    Prev
-                </Button>
+                <ContainedBrownButton clickAction={prevSlide} label="Prev"/>
                 <div className='flex items-center space-x-3'>
-                    <FaCircle 
-                        className={`h-3 w-3 ${slide === 0 ? 'opacity-100' : 'opacity-70'}`}
-                        color='#362D2D'
-                    />
-                    <FaCircle 
-                        className={`h-3 w-3 ${slide === 1 ? 'opacity-100' : 'opacity-70'}`}
-                        color='#362D2D'
-                    />
+                    {children.map((_, index) => (
+                        <FaCircle 
+                            className={`h-3 w-3 transition-opacity duration-500 ${slide === index ? 'opacity-100' : 'opacity-70'}`}
+                            color='#362D2D'
+                        />
+                    ))}
                 </div>
-                <Button 
-                    onClick={nextSlide}
-                    variant='contained'
-                    sx={{
-                        backgroundColor: '#362D2D'
-                    }}
-                >
-                    Next
-                </Button>
+                <ContainedBrownButton clickAction={nextSlide} label="Next"/>
             </div>
         </div>
     )
