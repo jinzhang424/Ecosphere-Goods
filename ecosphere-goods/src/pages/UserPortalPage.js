@@ -1,17 +1,11 @@
 import React from 'react'
-import SignInPanel from '../components/UserCredentials/SignInPanel'
-import RegisterPanel from '../components/UserCredentials/RegisterPanel'
+import SignInRegisterSlider from '../components/utility/SignInRegisterSlider'
 
 const UserPortalPage = () => {
   return (
     <div>
       <div className='flex bg-dark-brown'>
-        <div className='flex h-screen w-1/2 p-32 pl-40 pr-40'>
-          <div className='flex w=full h-full overflow-hidden bg-off-white rounded-3xl'>
-            <RegisterPanel style='p-12 pl-16 pr-16'/>
-            <SignInPanel style='p-12 pl-16 pr-16'/>
-          </div>
-        </div>
+        <SignInRegisterSlider/>
 
         <img 
           className='w-1/2 h-screen z-50'

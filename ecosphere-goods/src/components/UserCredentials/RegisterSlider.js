@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import { FaCircle } from "react-icons/fa";
 import ContainedBrownButton from '../utility/ContainedBrownButton';
 
-const RegisterDetailsSlider = ({ children }) => {
+const RegisterSlider = ({ children }) => {
     const [slide, setSlide] = useState(0)
     
         const nextSlide = () => {
@@ -26,7 +26,7 @@ const RegisterDetailsSlider = ({ children }) => {
                     style={{ transform: `translateX(-${slide * 100}%)` }}
                 >
                     {children.map((section, index) => (
-                        <div className='w-full flex-shrink-0'>
+                        <div key={ index } className='w-full flex-shrink-0'>
                             { section }
                         </div>
                     ))}
@@ -38,6 +38,7 @@ const RegisterDetailsSlider = ({ children }) => {
                 <div className='flex items-center space-x-3'>
                     {children.map((_, index) => (
                         <FaCircle 
+                            key={ index }
                             className={`h-3 w-3 transition-opacity duration-500 ${slide === index ? 'opacity-100' : 'opacity-70'}`}
                             color='#362D2D'
                         />
@@ -49,4 +50,4 @@ const RegisterDetailsSlider = ({ children }) => {
     )
 }
 
-export default RegisterDetailsSlider
+export default RegisterSlider
