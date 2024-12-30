@@ -1,7 +1,6 @@
 import React from 'react'
 import SignInPanel from '../components/UserCredentials/SignInPanel'
 import RegisterPanel from '../components/UserCredentials/RegisterPanel'
-import CredentialContainer from '../components/UserCredentials/CredentialContainer'
 
 const UserPortalPage = () => {
   return (
