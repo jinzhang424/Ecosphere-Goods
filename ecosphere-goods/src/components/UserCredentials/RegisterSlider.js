@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
-import Button from '@mui/material/Button';
 import { FaCircle } from "react-icons/fa";
 import ContainedBrownButton from '../utility/ContainedBrownButton';
 
-const RegisterSlider = ({ children }) => {
+const RegisterSlider = ({ children, backToSignIn }) => {
     const [slide, setSlide] = useState(0)
     
         const nextSlide = () => {
@@ -15,6 +14,8 @@ const RegisterSlider = ({ children }) => {
         const prevSlide = () => {
             if (slide > 0) {
                 setSlide(slide - 1)
+            } else {
+                backToSignIn()
             }
         }
 
@@ -34,7 +35,7 @@ const RegisterSlider = ({ children }) => {
             </div>
             
             <div className='flex justify-between'>
-                <ContainedBrownButton clickAction={prevSlide} label="Prev"/>
+                <ContainedBrownButton clickAction={prevSlide} label="Back"/>
                 <div className='flex items-center space-x-3'>
                     {children.map((_, index) => (
                         <FaCircle 

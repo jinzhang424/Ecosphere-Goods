@@ -18,7 +18,7 @@ const SignInRegisterSlider = () => {
                         <SignInPanel style='p-12 pl-16 pr-16' setSignUp={ () => setSlide(1) }/>
                     </div>
                     <div className='flex-shrink-0 w-full'>
-                        <RegisterPanel style='p-12 pl-16 pr-16'/>
+                        <RegisterPanel style='p-12 pl-16 pr-16' backToSignIn={ () => setSlide(0)}/>
                     </div>
                 </div>
             </div>
