@@ -1,36 +1,15 @@
-import React from 'react'
-import Button from '@mui/material/Button';
-import RegisterEmail from './RegisterEmail';
-import RegisterPersonalInfo from './RegisterPersonalInfo';
+import React, { useState } from 'react'
+import RegisterDetailsSlider from './RegisterDetailsSlider'
 
 const RegisterPanel = ({ style='' }) => {
-  return (
-    <div className={`w-full flex-shrink-0 ${style} space-y-8 overflow-hidden`}>
-        <h1 className='font-LHeader text-header'>Register</h1>
-        <div className='flex'>
-            <RegisterEmail/>
-            <RegisterPersonalInfo/>
+
+    return (
+        <div className={`w-full flex-shrink-0 ${style} space-y-8`}>
+            <h1 className='font-LHeader text-header'>Register</h1>
+            <RegisterDetailsSlider/>
+            
         </div>
-        <div className='flex justify-between'>
-            <Button 
-                variant='contained'
-                sx={{
-                    backgroundColor: '#362D2D'
-                }}
-            >
-                Prev
-            </Button>
-            <Button 
-                variant='contained'
-                sx={{
-                    backgroundColor: '#362D2D'
-                }}
-            >
-                Next
-            </Button>
-        </div>
-    </div>
-  )
+    )
 }
 
 export default RegisterPanel
