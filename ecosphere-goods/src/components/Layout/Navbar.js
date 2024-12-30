@@ -4,6 +4,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { NavLink } from 'react-router-dom'
 import Logo from '../utility/Logo';
 import { useState, useEffect } from 'react';
+import { MdAccountCircle } from "react-icons/md";
 
 
 const Navbar = () => {
@@ -42,8 +43,9 @@ const Navbar = () => {
         </NavLink>
 
         <NavLink className="hover:underline duration-300 ease-in-out">About Us</NavLink>
-        <IoCartOutline className="w-7 h-7"></IoCartOutline>
-        <IoMdSearch className="w-7 h-7"></IoMdSearch>
+        <IoCartOutline className="w-7 h-7 cursor-pointer"/>
+        <NavLink to='/user-portal'><MdAccountCircle className="w-7 h-7 cursor-pointer"/></NavLink>
+        <IoMdSearch className="w-7 h-7 cursor-pointer"/>
       </div>
     </div>
   )
