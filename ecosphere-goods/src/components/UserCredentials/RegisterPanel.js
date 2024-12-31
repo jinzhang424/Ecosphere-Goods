@@ -3,12 +3,12 @@ import RegisterSlider from './RegisterSlider'
 import RegisterEmail from './RegisterEmail'
 import RegisterPersonalInfo from './RegisterPersonalInfo'
 
-const RegisterPanel = ({ style='', backToSignIn}) => {
+const RegisterPanel = () => {
 
     return (
-        <div className={`w-full flex-shrink-0 ${style} space-y-8`}>
+        <div className={`w-full flex-shrink-0 space-y-8 p-32`}>
             <h1 className='font-LHeader text-header'>Register</h1>
-            <RegisterSlider backToSignIn={ backToSignIn }>
+            <RegisterSlider>
                 <RegisterEmail/>
                 <RegisterPersonalInfo/>
             </RegisterSlider>

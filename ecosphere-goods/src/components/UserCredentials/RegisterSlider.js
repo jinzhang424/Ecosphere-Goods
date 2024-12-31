@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { FaCircle } from "react-icons/fa";
 import ContainedBrownButton from '../utility/ContainedBrownButton';
 
-const RegisterSlider = ({ children, backToSignIn }) => {
+const RegisterSlider = ({ children }) => {
     const [slide, setSlide] = useState(0)
     
         const nextSlide = () => {
@@ -14,9 +14,7 @@ const RegisterSlider = ({ children, backToSignIn }) => {
         const prevSlide = () => {
             if (slide > 0) {
                 setSlide(slide - 1)
-            } else {
-                backToSignIn()
-            }
+            } 
         }
 
     return (
@@ -36,15 +34,15 @@ const RegisterSlider = ({ children, backToSignIn }) => {
             
             <div className='flex justify-between'>
                 <ContainedBrownButton clickAction={prevSlide} label="Back"/>
-                <div className='flex items-center space-x-3'>
-                    {children.map((_, index) => (
-                        <FaCircle 
-                            key={ index }
-                            className={`h-3 w-3 transition-opacity duration-500 ${slide === index ? 'opacity-100' : 'opacity-70'}`}
-                            color='#362D2D'
-                        />
-                    ))}
-                </div>
+                    <div className='flex items-center space-x-3'>
+                        {children.map((_, index) => (
+                            <FaCircle 
+                                key={ index }
+                                className={`h-3 w-3 transition-opacity duration-500 ${slide === index ? 'opacity-100' : 'opacity-70'}`}
+                                color='#362D2D'
+                            />
+                        ))}
+                    </div>
                 <ContainedBrownButton clickAction={nextSlide} label="Next"/>
             </div>
         </div>
