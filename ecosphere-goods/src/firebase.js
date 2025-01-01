@@ -2,10 +2,8 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
-require('dotenv').config();
-
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "ecosphere-goods.firebaseapp.com",
   projectId: "ecosphere-goods",
   storageBucket: "ecosphere-goods.firebasestorage.app",

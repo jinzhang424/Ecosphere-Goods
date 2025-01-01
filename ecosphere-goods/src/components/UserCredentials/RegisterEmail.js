@@ -22,6 +22,18 @@ const RegisterEmail = () => {
     setPasswordMatch(password === newPassword);
   };
 
+  const registerUser = () => {
+    createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).then((authUser) => {
+      console.log(authUser)
+    }).catch((error) => {
+      alert(error.message)
+    })
+  }
+
   return (
     <div className='flex flex-col items-center space-y-8 flex-shrink-0 w-full'>
       <Box
@@ -43,6 +55,7 @@ const RegisterEmail = () => {
       <Button 
           variant="contained" 
           fullWidth
+          onClick={ registerUser }
           sx={{
               backgroundColor: '#362D2D',
               height: '3rem',
