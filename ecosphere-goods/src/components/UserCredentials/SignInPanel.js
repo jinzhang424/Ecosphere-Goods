@@ -4,12 +4,11 @@ import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
+import PasswordTextField from './PasswordTextField';
 
 const SignInPanel = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
-    console.log(email)
-    console.log(password)
     
     const handleSignIn = () => {
         signInWithEmailAndPassword(
@@ -38,13 +37,7 @@ const SignInPanel = () => {
                     variant="outlined" 
                     fullWidth
                 />
-                <TextField 
-                    id="sign-in-password-textfield" 
-                    onChange={(e) => setPassword(e.target.value)}
-                    label="Password" 
-                    variant="outlined" 
-                    fullWidth
-                />
+                <PasswordTextField setPassword={ setPassword }/>
                 <div className='flex justify-between w-full'>
                     <p>Remember Me</p>
                     <p className='font-header cursor-pointer hover:underline'>Forgot Password?</p>
