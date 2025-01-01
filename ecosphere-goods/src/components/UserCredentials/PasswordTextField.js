@@ -7,7 +7,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const PasswordTextField = ({ label, setPassword }) => {
+const PasswordTextField = ({ label, setPassword, value }) => {
 const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -17,6 +17,7 @@ const [showPassword, setShowPassword] = useState(false);
         <InputLabel htmlFor="outlined-adornment-password">{ label }</InputLabel>
         <OutlinedInput
             onChange={(e) => (setPassword(e.target.value))}
+            value={ value }
             id="outlined-adornment-password"
             type={showPassword ? 'text' : 'password'}
             endAdornment={

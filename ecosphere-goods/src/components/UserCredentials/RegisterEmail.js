@@ -5,10 +5,9 @@ import Button from '@mui/material/Button';
 import PasswordTextField from './PasswordTextField';
 import { auth } from '../../firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+import { toast } from 'react-toastify';
 
-const RegisterEmail = () => {
+const RegisterEmail = ({ backToSignIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -35,6 +34,7 @@ const RegisterEmail = () => {
       setEmail('')
       setPassword('')
       setConfirmPassword('')
+      backToSignIn()
     }).catch((error) => {
       toast.error(error.message);
     })
@@ -55,11 +55,20 @@ const RegisterEmail = () => {
           label="Email" 
           variant="outlined" 
           fullWidth
+          value={ email }
           onChange={(e) => setEmail(e.target.value)}
         />
-        <PasswordTextField label="Password" setPassword={ handlePasswordChange }/>
+        <PasswordTextField 
+          label="Password" 
+          setPassword={ handlePasswordChange } 
+          value={ password }
+        />
         <div className='w-full space-y-2'>
-          <PasswordTextField label="Confirm Password" setPassword={ handleConfirmPasswordChange }/>
+          <PasswordTextField 
+            label="Confirm Password" 
+            setPassword={ handleConfirmPasswordChange }
+            value={ confirmPassword }
+          />
           <p className={`${(!passwordMatch && confirmPassword !== '') ? 'opacity-100' : 'opacity-0'} text-error`}>* Password does not match!</p>
         </div>
       </Box>
@@ -75,7 +84,6 @@ const RegisterEmail = () => {
       >
         Sign Up
       </Button>
-      <ToastContainer />
     </div>
   )
 }

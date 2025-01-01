@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import RegisterPanel from '../UserCredentials/RegisterPanel'
 import SignInPanel from '../UserCredentials/SignInPanel'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const LogInRegisterSlider = () => {
     const [slide1, setSlide1] = useState(0);
@@ -29,7 +31,7 @@ const LogInRegisterSlider = () => {
                 className='absolute flex-shrink-0 w-1/2 h-full bg-off-white z-10 transition-transform ease-in-out duration-500'
                 style={{ transform: `translateX(${(slide1 + 2) * 100}%)` }}
             >
-                <RegisterPanel backToSignIn={ () => setSlide1(0)}/>
+                <RegisterPanel backToSignIn={ () => setLogin(0)}/>
             </div>
 
             <div 
@@ -56,6 +58,7 @@ const LogInRegisterSlider = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer/>
         </div>
     )
 }
