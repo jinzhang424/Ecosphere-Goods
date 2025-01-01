@@ -49,8 +49,10 @@ const RegisterEmail = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <PasswordTextField label="Password" setPassword={ handlePasswordChange }/>
-        <PasswordTextField label="Confirm Password" setPassword={ handleConfirmPasswordChange }/>
-        {!passwordMatch && confirmPassword !== '' && <p className='text-red-500'>* Password does not match!</p>}
+        <div className='w-full space-y-2'>
+          <PasswordTextField label="Confirm Password" setPassword={ handleConfirmPasswordChange }/>
+          <p className={`${!passwordMatch && confirmPassword !== ' ' ? 'opacity-100' : 'opacity-0'} text-error`}>* Password does not match!</p>
+        </div>
       </Box>
       <Button 
           variant="contained" 

@@ -14,12 +14,11 @@ const [showPassword, setShowPassword] = useState(false);
 
   return (
     <FormControl variant="outlined" fullWidth>
-        <InputLabel htmlFor="outlined-adornment-password" fullWidth>{ label }</InputLabel>
+        <InputLabel htmlFor="outlined-adornment-password">{ label }</InputLabel>
         <OutlinedInput
             onChange={(e) => (setPassword(e.target.value))}
             id="outlined-adornment-password"
             type={showPassword ? 'text' : 'password'}
-            fullWidth
             endAdornment={
                 <InputAdornment position="end">
                     <IconButton
