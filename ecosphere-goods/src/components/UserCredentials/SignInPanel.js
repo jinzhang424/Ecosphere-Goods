@@ -37,7 +37,7 @@ const SignInPanel = () => {
                     variant="outlined" 
                     fullWidth
                 />
-                <PasswordTextField setPassword={ setPassword }/>
+                <PasswordTextField setPassword={ setPassword } label='Password'/>
                 <div className='flex justify-between w-full'>
                     <p>Remember Me</p>
                     <p className='font-header cursor-pointer hover:underline'>Forgot Password?</p>

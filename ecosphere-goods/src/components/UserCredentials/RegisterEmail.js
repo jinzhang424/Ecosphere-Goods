@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import PasswordTextField from './PasswordTextField';
 import { auth } from '../../firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const RegisterEmail = () => {
   const [email, setEmail] = useState('');
@@ -29,8 +31,12 @@ const RegisterEmail = () => {
       password
     ).then((authUser) => {
       console.log(authUser)
+      toast.success('Account Successfully Created!');
+      setEmail('')
+      setPassword('')
+      setConfirmPassword('')
     }).catch((error) => {
-      alert(error.message)
+      toast.error(error.message);
     })
   }
 
@@ -40,6 +46,9 @@ const RegisterEmail = () => {
         component="form"
         className='space-y-8'
         noValidate
+        sx={{
+          width: '100%'
+        }}
       >
         <TextField 
           id="outlined-basic" 
@@ -51,7 +60,7 @@ const RegisterEmail = () => {
         <PasswordTextField label="Password" setPassword={ handlePasswordChange }/>
         <div className='w-full space-y-2'>
           <PasswordTextField label="Confirm Password" setPassword={ handleConfirmPasswordChange }/>
-          <p className={`${!passwordMatch && confirmPassword !== ' ' ? 'opacity-100' : 'opacity-0'} text-error`}>* Password does not match!</p>
+          <p className={`${(!passwordMatch && confirmPassword !== '') ? 'opacity-100' : 'opacity-0'} text-error`}>* Password does not match!</p>
         </div>
       </Box>
       <Button 
@@ -66,6 +75,7 @@ const RegisterEmail = () => {
       >
         Sign Up
       </Button>
+      <ToastContainer />
     </div>
   )
 }
