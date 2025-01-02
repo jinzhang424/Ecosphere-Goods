@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import PasswordTextField from './PasswordTextField';
+import { toast } from 'react-toastify';
 
 const SignInPanel = () => {
     const [email, setEmail] = useState('')
@@ -18,7 +19,7 @@ const SignInPanel = () => {
         ).then((authUser) => {
             console.log(authUser)
         }).catch((error) => {
-            alert(error.message)
+            toast.error(error.message)
         })
     }
     

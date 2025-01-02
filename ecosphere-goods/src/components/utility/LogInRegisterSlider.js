@@ -44,7 +44,7 @@ const LogInRegisterSlider = () => {
                         >
                             <h1 className='text-header font-LHeader '>Join our journey for a greener planet!</h1>
                             <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum</p>
-                            <button className='p-3 w-48 bg-dark-brown rounded-full font-header' onClick={ setLogin }>Login</button>
+                            <button className='p-3 w-48 bg-dark-brown rounded-full font-header hover:scale-110 transition-transform ease-in-out duration-300' onClick={ setLogin }>Login</button>
                         </div>
 
                         <div className='flex flex-col justify-center items-center w-1/2 p-40 text-center text-off-white space-y-8 transition-transform ease-in-out duration-500'
@@ -52,7 +52,7 @@ const LogInRegisterSlider = () => {
                         >
                             <h1 className='text-header font-LHeader '>Let's create a greener planet for all!</h1>
                             <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum</p>
-                            <button className='p-3 w-48 bg-dark-brown rounded-full font-header' onClick={ setRegister }>Register</button>
+                            <button className='p-3 w-48 bg-dark-brown rounded-full font-header hover:scale-110 transition-transform ease-in-out duration-300' onClick={ setRegister }>Register</button>
                         </div>
 
                     </div>
