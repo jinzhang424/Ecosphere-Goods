@@ -55,18 +55,18 @@ const ProductFilter = () => {
                 {/* Furniture */}
                 <FilterCategory categoryName='Furniture'>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox />} label="Utensils" />
-                        <FormControlLabel control={<Checkbox />} label="Cutting Boards" />
-                        <FormControlLabel control={<Checkbox />} label="Knives" />
+                        <FormControlLabel control={<Checkbox />} label="Tables" />
+                        <FormControlLabel control={<Checkbox />} label="Chairs" />
+                        <FormControlLabel control={<Checkbox />} label="Couches" />
                     </FormGroup>
                 </FilterCategory>
 
                 {/* Decor */}
                 <FilterCategory categoryName='Decor'>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox />} label="Utensils" />
-                        <FormControlLabel control={<Checkbox />} label="Cutting Boards" />
-                        <FormControlLabel control={<Checkbox />} label="Knives" />
+                        <FormControlLabel control={<Checkbox />} label="House Plants" />
+                        <FormControlLabel control={<Checkbox />} label="Lights" />
+                        <FormControlLabel control={<Checkbox />} label="Paintings" />
                     </FormGroup>
                 </FilterCategory>
             </Collapse>
