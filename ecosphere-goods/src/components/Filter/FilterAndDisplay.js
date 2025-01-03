@@ -9,7 +9,7 @@ const FilterAndDisplay = () => {
     const [products, setProducts] = useState([])
     const [filters, setFilters] = useState(new Set())
     const [minUnitCost, setMinUnitCost] = useState(0)
-    const [maxUnitCost, setMaxUnitCost] = useState(300)
+    const [maxUnitCost, setMaxUnitCost] = useState(30000)
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -18,7 +18,7 @@ const FilterAndDisplay = () => {
 
             if (filters.size > 0) {
                 const filtersArray = Array.from(filters)
-                queryConditions.push(where('metaData.itemCategory', 'in', filtersArray))
+                queryConditions.push(where('metadata.itemCategory', 'in', filtersArray))
             }
 
             const q = query(productsRef, queryConditions)
@@ -49,6 +49,7 @@ const FilterAndDisplay = () => {
         fetchProducts()
     }, [filters, maxUnitCost, minUnitCost])
 
+    console.log('Filters:', filters)
     console.log('Min: ', minUnitCost, 'Max', maxUnitCost)
 
     return (
