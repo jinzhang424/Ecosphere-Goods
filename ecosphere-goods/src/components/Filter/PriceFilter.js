@@ -31,12 +31,14 @@ const CustomSlider = styled(Slider)({
     }
 });
 
-const PriceFilter = () => {
+const PriceFilter = ({ setMinCost, setMaxCost }) => {
     const [value, setValue] = useState([0, 300]);
     const [openSlider, setOpenSlider] = useState(true);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        setMinCost(newValue[0] * 100)
+        setMaxCost(newValue[1] * 100)
     };
 
     const handlePricesClick = () => {
