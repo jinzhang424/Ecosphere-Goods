@@ -9,11 +9,27 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-const ProductFilter = () => {
+const ProductFilter = ({ setFilters }) => {
     const [openCategories, setOpenCategories] = useState(true);
+    const [selectedFilters, setSelectedFilters] = useState(new Set())
 
     const handleCategoriesClick = () => {
         setOpenCategories(!openCategories);
+    }
+
+    const handleSelectFilter = (e) => {
+        const { id, checked } = e.target;
+        setSelectedFilters((prevFilters) => {
+            const newFilters = new Set(prevFilters);
+            if (checked) {
+                newFilters.add(id);
+            } else {
+                newFilters.delete(id);
+            }
+            
+            setFilters(newFilters)
+            return newFilters
+        })
     }
   
     return (
@@ -46,27 +62,27 @@ const ProductFilter = () => {
                 {/* Kitchenware */}
                 <FilterCategory categoryName='Kitchenware'>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox />} label="Utensils" />
-                        <FormControlLabel control={<Checkbox />} label="Cutting Boards" />
-                        <FormControlLabel control={<Checkbox />} label="Knives" />
+                        <FormControlLabel control={<Checkbox id='utensil'/>} label="Utensils" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='cuttingBoard'/>} label="Cutting Boards" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='knife'/>} label="Knives" onChange={ handleSelectFilter }/>
                     </FormGroup>
                 </FilterCategory>
                 
                 {/* Furniture */}
                 <FilterCategory categoryName='Furniture'>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox />} label="Tables" />
-                        <FormControlLabel control={<Checkbox />} label="Chairs" />
-                        <FormControlLabel control={<Checkbox />} label="Couches" />
+                        <FormControlLabel control={<Checkbox id='table'/>} label="Tables" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='chair'/>} label="Chairs" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='couch'/>} label="Couches" onChange={ handleSelectFilter }/>
                     </FormGroup>
                 </FilterCategory>
 
                 {/* Decor */}
                 <FilterCategory categoryName='Decor'>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox />} label="House Plants" />
-                        <FormControlLabel control={<Checkbox />} label="Lights" />
-                        <FormControlLabel control={<Checkbox />} label="Paintings" />
+                        <FormControlLabel control={<Checkbox id='housePlant'/>} label="House Plants" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='light'/>} label="Lights" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='painting'/>} label="Paintings" onChange={ handleSelectFilter }/>
                     </FormGroup>
                 </FilterCategory>
             </Collapse>
