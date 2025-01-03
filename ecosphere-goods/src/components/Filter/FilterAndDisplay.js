@@ -14,14 +14,14 @@ const FilterAndDisplay = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             const productsRef = collection(db, 'products')
-            let queryConditions = [where('active', '==', true)];
+            let q;
 
             if (filters.size > 0) {
                 const filtersArray = Array.from(filters)
-                queryConditions.push(where('metadata.itemCategory', 'in', filtersArray))
+                q = query(productsRef, where('metadata.itemCategory', 'in', filtersArray))
+            } else {
+                q = query(productsRef, where('active', '==', true))
             }
-
-            const q = query(productsRef, queryConditions)
             
             const querySnapShot = await getDocs(q);
             const products = {};
@@ -39,6 +39,7 @@ const FilterAndDisplay = () => {
                 if (unitCost >= minUnitCost && unitCost <= maxUnitCost) {
                     productData.prices = prices;
                     products[productDoc.id] = productData;
+                    console.log(products)
                 }
               });
         
