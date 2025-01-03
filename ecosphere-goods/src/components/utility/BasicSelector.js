@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export default function BasicSelector() {
-  const [sortBy, setSortBy] = useState('Date Added');
+  const [sortBy, setSortBy] = useState('Newest');
 
   const handleChange = (event) => {
     setSortBy(event.target.value);
@@ -30,7 +30,8 @@ export default function BasicSelector() {
                     },
                 }}
             >
-                <MenuItem value="Date Added">Date Added</MenuItem>
+                <MenuItem value="Newest">Newest</MenuItem>
+                <MenuItem value="Oldest">Oldest</MenuItem>
                 <MenuItem value="Price: Low to High">Price: Low to High</MenuItem>
                 <MenuItem value="Price: High to Low">Price: High to Low</MenuItem>
             </Select>

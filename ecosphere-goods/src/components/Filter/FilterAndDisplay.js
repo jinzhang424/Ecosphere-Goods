@@ -14,14 +14,13 @@ const FilterAndDisplay = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             const productsRef = collection(db, 'products')
-            let q;
+            let queryConditions = [where('active', '==', true)];
 
             if (filters.length > 0) {
-                q = query(productsRef, where('metadata.itemCategory', 'in', filters))
-            } else {
-                q = query(productsRef, where('active', '==', true))
+                queryConditions.push(where('metadata.itemCategory', 'in', filters));
             }
             
+            const q = query(productsRef, ...queryConditions)
             const querySnapShot = await getDocs(q);
             const products = {};
             
@@ -38,7 +37,6 @@ const FilterAndDisplay = () => {
                 if (unitCost >= minUnitCost && unitCost <= maxUnitCost) {
                     productData.prices = prices;
                     products[productDoc.id] = productData;
-                    console.log(products)
                 }
               });
         
@@ -49,9 +47,6 @@ const FilterAndDisplay = () => {
         fetchProducts()
     }, [filters, maxUnitCost, minUnitCost])
 
-    console.log('Filters:', filters)
-    console.log('Min: ', minUnitCost, 'Max', maxUnitCost)
-
     return (
         <div className="flex p-12 pt-32">
             <div className="p-8 w-1/4 rounded-2xl border-4 border-dark-brown border-opacity-80">
@@ -61,7 +56,7 @@ const FilterAndDisplay = () => {
             </div>
             
             <div className='pl-8 w-3/4'>
-                <SortByAndAppliedFilters/>
+                <SortByAndAppliedFilters filters={ filters }/>
                 <div className='pt-8 h-screen'>
                 <ProductDisplay products={ products }/>
                 </div>

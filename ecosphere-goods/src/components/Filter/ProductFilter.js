@@ -19,6 +19,7 @@ const ProductFilter = ({ setFilters }) => {
 
     const handleSelectFilter = (e) => {
         const { id, checked } = e.target;
+        console.log("PAPTETTWRWAR WAEWD:", e.target.nextSibling.textContent)
         setSelectedFilters((prevFilters) => {
             const newFilters = new Set(prevFilters);
             if (checked) {
@@ -62,7 +63,7 @@ const ProductFilter = ({ setFilters }) => {
                 {/* Kitchenware */}
                 <FilterCategory categoryName='Kitchenware'>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox id='utensil'/>} label="Utensils" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='utensil' label="Utensils"/>} label="Utensils" onChange={ handleSelectFilter }/>
                         <FormControlLabel control={<Checkbox id='cuttingBoard'/>} label="Cutting Boards" onChange={ handleSelectFilter }/>
                         <FormControlLabel control={<Checkbox id='knife'/>} label="Knives" onChange={ handleSelectFilter }/>
                     </FormGroup>
