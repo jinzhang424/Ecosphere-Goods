@@ -7,7 +7,7 @@ import PriceFilter from './PriceFilter'
 
 const FilterAndDisplay = () => {
     const [products, setProducts] = useState([])
-    const [filters, setFilters] = useState(new Set())
+    const [filters, setFilters] = useState([])
     const [minUnitCost, setMinUnitCost] = useState(0)
     const [maxUnitCost, setMaxUnitCost] = useState(30000)
 
@@ -16,9 +16,8 @@ const FilterAndDisplay = () => {
             const productsRef = collection(db, 'products')
             let q;
 
-            if (filters.size > 0) {
-                const filtersArray = Array.from(filters)
-                q = query(productsRef, where('metadata.itemCategory', 'in', filtersArray))
+            if (filters.length > 0) {
+                q = query(productsRef, where('metadata.itemCategory', 'in', filters))
             } else {
                 q = query(productsRef, where('active', '==', true))
             }

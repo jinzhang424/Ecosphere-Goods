@@ -27,7 +27,7 @@ const ProductFilter = ({ setFilters }) => {
                 newFilters.delete(id);
             }
             
-            setFilters(newFilters)
+            setFilters(Array.from(newFilters))
             return newFilters
         })
     }
