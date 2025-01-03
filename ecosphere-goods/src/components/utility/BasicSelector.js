@@ -30,9 +30,9 @@ export default function BasicSelector() {
                     },
                 }}
             >
-                <MenuItem value={10}>Trending</MenuItem>
-                <MenuItem value={20}>Date Added</MenuItem>
-                <MenuItem value={30}>Price</MenuItem>
+                <MenuItem value="Date Added">Date Added</MenuItem>
+                <MenuItem value="Price: Low to High">Price: Low to High</MenuItem>
+                <MenuItem value="Price: High to Low">Price: High to Low</MenuItem>
             </Select>
       </FormControl>
     </Box>
