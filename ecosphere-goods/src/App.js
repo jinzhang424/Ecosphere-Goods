@@ -1,21 +1,28 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import MainLayout from './layouts/MainLayout';
 import ProductsPage from './pages/ProductsPage';
 import UserPortalPage from './pages/UserPortalPage'
+import ProductPage from './pages/ProductPage';
+import { productLoader } from './pages/ProductPage';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: 'products', element: <ProductsPage /> },
+      { path: ':productName', element: <ProductPage />, loader: productLoader },
+    ],
+  },
+  { path: '/user-portal', element: <UserPortalPage /> },
+]);
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout/>}>
-          <Route index element={<HomePage/>}/>
-          <Route path="/products" element={<ProductsPage/>}/>
-        </Route>
-        <Route path="/user-portal" element={<UserPortalPage/>}/>
-      </Routes>
-    </Router>
+    <RouterProvider router={router} />
   );
 }
 
