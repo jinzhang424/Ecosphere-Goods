@@ -62,27 +62,27 @@ const ProductFilter = ({ setFilters }) => {
                 {/* Kitchenware */}
                 <FilterCategory categoryName='Kitchenware'>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox id='utensil' label="Utensils"/>} label="Utensils" onChange={ handleSelectFilter }/>
-                        <FormControlLabel control={<Checkbox id='cuttingBoard'/>} label="Cutting Boards" onChange={ handleSelectFilter }/>
-                        <FormControlLabel control={<Checkbox id='knife'/>} label="Knives" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='Utensils' label="Utensils"/>} label="Utensils" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='Cutting Boards'/>} label="Cutting Boards" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='Knives'/>} label="Knives" onChange={ handleSelectFilter }/>
                     </FormGroup>
                 </FilterCategory>
                 
                 {/* Furniture */}
                 <FilterCategory categoryName='Furniture'>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox id='table'/>} label="Tables" onChange={ handleSelectFilter }/>
-                        <FormControlLabel control={<Checkbox id='chair'/>} label="Chairs" onChange={ handleSelectFilter }/>
-                        <FormControlLabel control={<Checkbox id='couch'/>} label="Couches" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='Tables'/>} label="Tables" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='Chairs'/>} label="Chairs" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='Couches'/>} label="Couches" onChange={ handleSelectFilter }/>
                     </FormGroup>
                 </FilterCategory>
 
                 {/* Decor */}
                 <FilterCategory categoryName='Decor'>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox id='housePlant'/>} label="House Plants" onChange={ handleSelectFilter }/>
-                        <FormControlLabel control={<Checkbox id='light'/>} label="Lights" onChange={ handleSelectFilter }/>
-                        <FormControlLabel control={<Checkbox id='painting'/>} label="Paintings" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='House Plants'/>} label="House Plants" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='Lights'/>} label="Lights" onChange={ handleSelectFilter }/>
+                        <FormControlLabel control={<Checkbox id='Paintings'/>} label="Paintings" onChange={ handleSelectFilter }/>
                     </FormGroup>
                 </FilterCategory>
             </Collapse>

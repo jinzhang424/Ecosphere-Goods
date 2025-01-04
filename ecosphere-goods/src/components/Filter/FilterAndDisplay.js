@@ -12,8 +12,6 @@ const FilterAndDisplay = () => {
     const [maxUnitCost, setMaxUnitCost] = useState(30000)
     const [sortByVal, setSortByVal] = useState('Newest')
 
-    console.log("Current Sort By:", sortByVal)
-
     useEffect(() => {
       const fetchProducts = async () => {
         const productsRef = collection(db, 'products')
@@ -25,11 +23,9 @@ const FilterAndDisplay = () => {
           
         console.log('fetching')
         if (sortByVal === 'Oldest') {
-            console.log('sort newest')
             queryConditions.push(orderBy('date_created', 'desc'));
         }
         else if (sortByVal ==='Oldest') {
-            console.log('sort oldest')
             queryConditions.push(orderBy('date_created', 'asc'));
         }
           
