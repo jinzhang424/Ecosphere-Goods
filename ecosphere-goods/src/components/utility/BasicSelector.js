@@ -4,11 +4,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelector() {
+export default function BasicSelector({ setSortByVal }) {
   const [sortBy, setSortBy] = useState('Newest');
 
   const handleChange = (event) => {
     setSortBy(event.target.value);
+    setSortByVal(event.target.value)
   };
 
   return (

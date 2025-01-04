@@ -19,7 +19,6 @@ const ProductFilter = ({ setFilters }) => {
 
     const handleSelectFilter = (e) => {
         const { id, checked } = e.target;
-        console.log("PAPTETTWRWAR WAEWD:", e.target.nextSibling.textContent)
         setSelectedFilters((prevFilters) => {
             const newFilters = new Set(prevFilters);
             if (checked) {
