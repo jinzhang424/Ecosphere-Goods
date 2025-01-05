@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import db, { getDocs, collection, query, where } from '../firebase'
 import { useLoaderData } from 'react-router-dom'
+import SimilarProductsDisplay from '../components/SimilarProductsDisplay'
+import HighLevelProductView from '../components/HighLevelProductView'
 
 const productLoader = async ({ params }) => {
     const { productName } = params;
@@ -55,7 +57,6 @@ const fetchSimilarProducts = async (category, curProductId) => {
 }
 
 const ProductPage = () => {
-    const fillerText = 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum '
     const product = useLoaderData()
     const [similarProducts, setSimilarProducts] = useState([]);
 
@@ -65,38 +66,24 @@ const ProductPage = () => {
             setSimilarProducts(products);
         };
 
-        if (product) {
-            loadSimilarProducts();
-        }
+        loadSimilarProducts();
+
     }, [product]);
+
+    console.log(similarProducts)
 
     return (
         <div className='pt-32'>
-            <div className='flex p-16 space-x-10'>
-                <img 
-                    className='w-5/12 object-cover object-center h-5/6 rounded-3xl'
-                    src={ product.images[0] } 
-                    alt="" 
-                />
-                <div className='flex flex-col justify-between border-l-2 border-opacity-40 border-dark-brown pl-8'>
-                    <article className='flex flex-col space-y-2'>
-                        <h1 className='font-LHeader text-header text-dark-brown'>{ product.name }</h1>
-                        <p>{ product.description != null ? product.description : fillerText }</p>
-                    </article>
-                    <div className='flex justify-between'>
-                        <h2 className='font-LHeader text-sHeader text-dark-brown'>${ product.prices[0].priceData.unit_amount / 100 }</h2>
-                        <button className='bg-off-white p-2 pl-4 pr-4 rounded-xl font-header text-dark-brown'>Add to Cart</button>
-                    </div>
-                </div>
-            </div>
+            <HighLevelProductView product={ product }/>
 
             <div className='p-12 pt-0'>
-                <div className='border-t-2 border-dark-brown border-opacity-40'>
-                    {Object.entries(similarProducts).map(([productId, productData]) => (
-                        <div key={ productId }>
-                            {productData.name}
-                        </div>
-                    ))}
+                <div className='border-t-2 border-dark-brown border-opacity-40 p-4 pt-12'>
+                    <h1 className='text-dark-brown font-LHeader text-header'>Similar Products</h1>
+                    <SimilarProductsDisplay 
+                        data={ similarProducts } 
+                        nextButtonClass='similar-next' 
+                        prevButtonClass='similar-prev'
+                    />
                 </div>
             </div>
         </div>
