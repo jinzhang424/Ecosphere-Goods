@@ -73,17 +73,20 @@ const ProductPage = () => {
     console.log(similarProducts)
 
     return (
-        <div className='pt-32'>
-            <HighLevelProductView product={ product }/>
+        <div className='pt-48 p-32 bg-dark-brown'>
 
-            <div className='p-12 pt-0'>
-                <div className='border-t-2 border-dark-brown border-opacity-40 p-4 pt-12'>
-                    <h1 className='text-dark-brown font-LHeader text-header'>Similar Products</h1>
-                    <SimilarProductsDisplay 
-                        data={ similarProducts } 
-                        nextButtonClass='similar-next' 
-                        prevButtonClass='similar-prev'
-                    />
+            <div className='bg-off-white rounded-3xl'>
+                <HighLevelProductView product={ product }/>
+
+                <div className='p-12 pt-0'>
+                    <div className='border-t-2 border-dark-brown border-opacity-40 p-4 pt-12'>
+                        <h1 className='text-dark-brown font-LHeader text-header'>Similar Products</h1>
+                        <SimilarProductsDisplay 
+                            data={ similarProducts } 
+                            nextButtonClass='similar-next' 
+                            prevButtonClass='similar-prev'
+                        />
+                    </div>
                 </div>
             </div>
         </div>
