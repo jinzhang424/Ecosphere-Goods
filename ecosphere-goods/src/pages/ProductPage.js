@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import db, { getDocs, collection, query, where } from '../firebase'
 import { useLoaderData } from 'react-router-dom'
 import SimilarProductsDisplay from '../components/SimilarProductsDisplay'
-import HighLevelProductView from '../components/HighLevelProductView'
+import LowLevelProductView from '../components/LowLevelProductView'
 
 const productLoader = async ({ params }) => {
     const { productName } = params;
@@ -76,7 +76,7 @@ const ProductPage = () => {
         <div className='pt-48 p-32 bg-dark-brown'>
 
             <div className='bg-off-white rounded-3xl'>
-                <HighLevelProductView product={ product }/>
+                <LowLevelProductView product={ product }/>
 
                 <div className='p-12 pt-0'>
                     <div className='border-t-2 border-dark-brown border-opacity-40 p-4 pt-12'>

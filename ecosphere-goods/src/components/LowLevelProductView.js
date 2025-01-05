@@ -1,7 +1,7 @@
 import React from 'react'
 import unitToDollarString from '../utilityFunctions/unitToDollarString'
 
-const HighLevelProductView = ({ product }) => {
+const LowLevelProductView = ({ product }) => {
     const fillerText = 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum '
 
     return (
@@ -28,4 +28,4 @@ const HighLevelProductView = ({ product }) => {
     )
 }
 
-export default HighLevelProductView
+export default LowLevelProductView
