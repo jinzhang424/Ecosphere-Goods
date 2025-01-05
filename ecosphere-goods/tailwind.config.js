@@ -23,7 +23,8 @@ module.exports = {
     },
     aspectRatio: {
       'itemCard': '5/7',
-      'climateFactCard': '1/2'
+      'climateFactCard': '1/2',
+      '1/1': '1/1'
     },
     extend: {
       scrollbarHide: {
