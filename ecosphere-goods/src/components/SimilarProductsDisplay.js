@@ -14,11 +14,12 @@ const SimilarProductsDisplay = ({ data }) => {
 
         <div className='w-full'>
             {Object.entries(data).map(([productID, product]) => (
-                <div key={ productID } className='w-1/6'>
+                <div key={ productID } className='w-60'>
                     <Item 
                         imageUrl={product.images[0]} 
                         price={product.prices[0].priceData.unit_amount / 100} 
                         name={ product.name }
+                        className='w-fit h-fit'
                     /> 
                 </div>
             ))}
