@@ -8,7 +8,7 @@ const HighLevelProductView = ({ product }) => {
         <div className='w-full'>
             <div className='flex p-20 space-x-48 bg-off-white rounded-3xl'>
                 <img 
-                    className='w-5/12 object-cover object-center h-5/6 rounded-3xl aspect-1/1'
+                    className='w-5/12 object-cover object-center h-5/6 rounded-3xl aspect-1/1 border-4 border-dark-brown border-opacity-50'
                     src={ product.images[0] } 
                     alt="" 
                 />
