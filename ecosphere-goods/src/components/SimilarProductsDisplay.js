@@ -17,7 +17,7 @@ const SimilarProductsDisplay = ({ data }) => {
                 <div key={ productID } className='w-60'>
                     <Item 
                         imageUrl={product.images[0]} 
-                        price={product.prices[0].priceData.unit_amount / 100} 
+                        price={product.prices[0].priceData.unit_amount} 
                         name={ product.name }
                         className='w-fit h-fit'
                     /> 

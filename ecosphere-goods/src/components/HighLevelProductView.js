@@ -1,4 +1,5 @@
 import React from 'react'
+import unitToDollarString from '../utilityFunctions/unitToDollarString'
 
 const HighLevelProductView = ({ product }) => {
     const fillerText = 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum '
@@ -18,7 +19,7 @@ const HighLevelProductView = ({ product }) => {
                     </article>
                     
                     <div className='flex justify-between'>
-                        <h2 className='font-LHeader text-sHeader text-dark-brown'>${ product.prices[0].priceData.unit_amount / 100 }</h2>
+                        <h2 className='font-LHeader text-sHeader text-dark-brown'>{ unitToDollarString(product.prices[0].priceData.unit_amount) }</h2>
                         <button className='bg-light-brown p-2 pl-4 pr-4 rounded-xl font-header text-dark-brown bg-opacity-50'>Add to Cart</button>
                     </div>
                 </div>
