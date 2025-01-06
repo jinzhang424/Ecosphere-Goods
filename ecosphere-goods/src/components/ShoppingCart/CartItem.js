@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const CartItem = ({ imgUrl, price, qty = 1, total, className}) => {
+const CartItem = ({ product, className='' }) => {
+  const [quantity, setQuantity] = useState(1)
+
   return (
     <div className={ className }>
-      <img src={ imgUrl } alt="" />
-      <h1>{ price }</h1>
-      <h1>{ qty }.</h1>
-      <h1>{ total }.</h1>
+      <div className='flex w-full h-full space-x-8'>
+        <img 
+          src={ product.images[0] } 
+          alt="" 
+          className='h-48 aspect-1/1 object-cover object-center'
+        />
+        
+        <h1>{ product.name }</h1>
+        <h1>'$10.00'</h1>
+        <h1>{ quantity }</h1>
+        <h1>'$10.00'</h1>
+      </div>
     </div>
   )
 }
