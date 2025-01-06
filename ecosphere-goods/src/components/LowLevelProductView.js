@@ -1,8 +1,26 @@
 import React from 'react'
 import unitToDollarString from '../utilityFunctions/unitToDollarString'
+import { addItem, selectCart } from '../features/shoppingCartSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
 
 const LowLevelProductView = ({ product }) => {
+    const cart = useSelector(selectCart)
+    const dispatch = useDispatch()
     const fillerText = 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum '
+
+    const handleAddToCart = (e) => {
+        try {
+            const serializableProduct = {
+                ...product,
+                date_created: product.date_created.toDate().toISOString(), // Convert Timestamp to ISO string
+            };
+            dispatch(addItem(serializableProduct));
+            toast.success('Successfully Added to Cart');
+        } catch(error){
+            toast.error('Error, something has gone wrong.')
+        }
+    }
 
     return (
         <div className='w-full'>
@@ -20,10 +38,16 @@ const LowLevelProductView = ({ product }) => {
                     
                     <div className='flex justify-between'>
                         <h2 className='font-LHeader text-sHeader text-dark-brown'>{ unitToDollarString(product.prices[0].priceData.unit_amount) }</h2>
-                        <button className='bg-light-brown p-2 pl-4 pr-4 rounded-xl font-header text-dark-brown bg-opacity-50'>Add to Cart</button>
+                        <button 
+                            className='bg-light-brown p-2 pl-4 pr-4 rounded-xl font-header text-dark-brown bg-opacity-50'
+                            onClick={ handleAddToCart }
+                        >
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
             </div>
+            <ToastContainer/>
         </div>
     )
 }
