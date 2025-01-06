@@ -43,7 +43,7 @@ const Navbar = () => {
         </NavLink>
 
         <NavLink className="hover:underline duration-300 ease-in-out">About Us</NavLink>
-        <IoCartOutline className="w-7 h-7 cursor-pointer"/>
+        <NavLink to='/shopping-cart'><IoCartOutline className="w-7 h-7 cursor-pointer"/></NavLink>
         <NavLink to='/user-portal'><MdAccountCircle className="w-7 h-7 cursor-pointer"/></NavLink>
         <IoMdSearch className="w-7 h-7 cursor-pointer"/>
       </div>

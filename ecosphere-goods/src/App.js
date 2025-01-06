@@ -5,6 +5,7 @@ import MainLayout from './layouts/MainLayout';
 import ProductsPage from './pages/ProductsPage';
 import UserPortalPage from './pages/UserPortalPage'
 import ProductPage from './pages/ProductPage';
+import ShoppingCartPage from './pages/ShoppingCartPage';
 import { productLoader } from './pages/ProductPage';
 
 const router = createBrowserRouter([
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
     ],
   },
   { path: '/user-portal', element: <UserPortalPage /> },
+  { path: 'shopping-cart', element: <ShoppingCartPage /> },
 ]);
 
 function App() {
