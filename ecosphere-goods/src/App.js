@@ -1,5 +1,6 @@
 import './App.css';
-import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom'
+import { useEffect } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import MainLayout from './layouts/MainLayout';
 import ProductsPage from './pages/ProductsPage';
@@ -8,8 +9,8 @@ import ProductPage from './pages/ProductPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 import { productLoader } from './pages/ProductPage';
 import { auth } from './firebase';
-import { useDispatch } from 'react-redux';
-import { login, logout } from './features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout, selectUser } from './features/userSlice';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const user = useSelector(selectUser)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,8 +42,10 @@ function App() {
       }
     })
 
-    unsubscribe
+    return unsubscribe
   }, [dispatch])
+
+  console.log('dwadawdw:', user)
 
   return (
     <RouterProvider router={router} />
