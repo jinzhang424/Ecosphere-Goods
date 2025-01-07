@@ -7,7 +7,7 @@ const CartItemDisplay = () => {
   const cart = useSelector( selectCart )
 
   return (
-    <div className='w-full space-y-4'>
+    <div className='w-full h-full space-y-4'>
         <header className='w-full flex justify-between p-6 border-b-2 border-dark-brown border-opacity-40'>
           <div className='w-1/2'>
             <h1>Product</h1>
@@ -19,7 +19,7 @@ const CartItemDisplay = () => {
           </div>
         </header>
 
-        <div className='space-y-4'>
+        <div className='space-y-4 overflow-y-scroll h-5/6'>
           {Object.entries(cart).map(([productId, product]) => (
             <div key={ productId }>
               <CartItem product={ product }/>

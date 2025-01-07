@@ -14,7 +14,7 @@ const ShoppingCartPage = () => {
                 <p className='text-dark-brown font-header'>Back To Shopping</p>
             </Link>
 
-            <div className='w-9/12 bg-off-white p-32 pt-24 pb-0 font-header text-dark-brown'>
+            <div className='w-9/12 h-full bg-off-white p-32 pt-24 pb-8 font-header text-dark-brown'>
                 <CartItemDisplay/>
             </div>
             <div className='w-3/12 bg-reddish-beige'>
