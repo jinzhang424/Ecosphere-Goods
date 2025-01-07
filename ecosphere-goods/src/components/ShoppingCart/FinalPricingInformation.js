@@ -1,6 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { selectCart } from '../../features/shoppingCartSlice'
 
 const FinalPricingInformation = () => {
+    const cart = useSelector(selectCart)
+
     return (
         <div className='flex flex-col space justify-between h-full'>
             <div className='flex flex-col space-y-16 mt-4'>
@@ -24,7 +28,7 @@ const FinalPricingInformation = () => {
                     <p className='text-header'>$525.00</p>
                 </div>
 
-                <button className='p-3 pl-6 pr-6 rounded-full bg-dark-brown text-off-white tracking-3px'>CHECKOUT</button>
+                <button className='p-3 pl-6 pr-6 rounded-full bg-dark-brown text-off-white tracking-3px hover:scale-105 transition-transform ease-in-out duration-300'>CHECKOUT</button>
             </div>
         </div>
     )
