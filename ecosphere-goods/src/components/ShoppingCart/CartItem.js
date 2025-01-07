@@ -10,7 +10,9 @@ const CartItem = ({ product }) => {
   }
 
   const decrementQuantity = () => {
-    setQuantity(quantity - 1)
+    if (quantity > 1) {
+      setQuantity(quantity - 1)
+    }
   }
 
   return (
