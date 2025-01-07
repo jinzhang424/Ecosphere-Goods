@@ -12,7 +12,9 @@ const ShoppingCartPage = () => {
                 Back To Shopping
             </Link>
 
-            <CartItemDisplay className='w-9/12 bg-off-white p-32 font-header text-dark-brown'/>
+            <div className='w-9/12 bg-off-white p-32 font-header text-dark-brown'>
+                <CartItemDisplay/>
+            </div>
             <div className='w-3/12 bg-dark-brown'>
                 hi
             </div>

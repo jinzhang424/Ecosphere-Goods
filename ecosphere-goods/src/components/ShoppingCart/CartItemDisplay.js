@@ -3,21 +3,23 @@ import { useSelector } from 'react-redux'
 import { selectCart } from '../../features/shoppingCartSlice'
 import CartItem from './CartItem'
 
-const CartItemDisplay = ({ className }) => {
+const CartItemDisplay = () => {
   const cart = useSelector( selectCart )
 
   return (
-    <div className={ className }>
-        <header className='flex justify-between p-6 border-b-2 border-dark-brown border-opacity-40'>
+    <div className='w-full'>
+        <header className='w-full flex justify-between p-6 border-b-2 border-dark-brown border-opacity-40'>
+          <div className='w-1/2'>
             <h1>Product</h1>
-            <div className='flex space-x-32'>
-                <h1>Price</h1>
-                <h1>Qty.</h1>
-                <h1>Total</h1>
-            </div>
+          </div>
+          <div className='flex w-1/2 justify-between'>
+              <h1>Price</h1>
+              <h1>Qty.</h1>
+              <h1>Total</h1>
+          </div>
         </header>
 
-        <div>
+        <div className='space-y-4'>
           {Object.entries(cart).map(([productId, product]) => (
             <div key={ productId }>
               <CartItem product={ product }/>
