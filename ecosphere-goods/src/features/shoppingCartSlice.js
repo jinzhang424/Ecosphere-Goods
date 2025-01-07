@@ -24,4 +24,5 @@ export const shoppingCartSlice = createSlice({
 
 export const { addItem, removeItem } = shoppingCartSlice.actions
 export const selectCart = (state) => state.cart.items
+export const selectCartSubtotal = (state) => state.cart.items.reduce((total, item) => total + item.product.prices[0].priceData.unit_amount * item.quantity, 0)
 export default shoppingCartSlice.reducer
