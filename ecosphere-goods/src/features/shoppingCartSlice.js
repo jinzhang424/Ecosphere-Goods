@@ -17,7 +17,10 @@ export const shoppingCartSlice = createSlice({
         },
 
         removeItem: (state, action) => {
-            state.items = state.items.filter(item => item.product.id !== action.payload.id);
+            const existingItem = state.items.find(item => item.product.id === action.payload.id);
+            if (existingItem && existingItem.quantity > 1) {
+                existingItem.quantity -= 1;
+            } 
         }
     }
 })
