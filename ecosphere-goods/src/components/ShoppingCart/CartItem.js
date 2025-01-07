@@ -21,7 +21,7 @@ const CartItem = ({ product }) => {
         <img 
           src={ product.images[0] } 
           alt="" 
-          className='h-48 aspect-1/1 object-cover object-center'
+          className='h-28 aspect-1/1 object-cover object-center'
         />
         <h1 className='text-center p-8'>{ product.name }</h1>
       </div>

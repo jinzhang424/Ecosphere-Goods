@@ -7,7 +7,7 @@ const CartItemDisplay = () => {
   const cart = useSelector( selectCart )
 
   return (
-    <div className='w-full'>
+    <div className='w-full space-y-4'>
         <header className='w-full flex justify-between p-6 border-b-2 border-dark-brown border-opacity-40'>
           <div className='w-1/2'>
             <h1>Product</h1>

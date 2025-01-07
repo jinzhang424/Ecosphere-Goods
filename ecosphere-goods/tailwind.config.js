@@ -7,7 +7,8 @@ module.exports = {
       'dark-brown': '#362D2D',
       'light-brown': '#5A5150',
       'tint': 'rgba(0, 0, 0, 0.3)',
-      'error': '#b02715'
+      'error': '#b02715',
+      'reddish-beige': '#B8A9A7',
     },
     fontSize: {
       'xLHeader': '64px',
