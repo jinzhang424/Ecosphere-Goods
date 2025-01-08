@@ -1,11 +1,10 @@
 import React from 'react'
 import unitToDollarString from '../utilityFunctions/unitToDollarString'
-import { addItem, selectCart } from '../features/shoppingCartSlice'
-import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../features/shoppingCartSlice'
+import { useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 
 const LowLevelProductView = ({ product }) => {
-    const cart = useSelector(selectCart)
     const dispatch = useDispatch()
     const fillerText = 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum '
 

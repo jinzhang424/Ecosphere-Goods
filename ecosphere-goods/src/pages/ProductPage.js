@@ -70,8 +70,6 @@ const ProductPage = () => {
 
     }, [product]);
 
-    console.log(similarProducts)
-
     return (
         <div className='pt-48 p-32 bg-dark-brown'>
 
