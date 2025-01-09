@@ -16,6 +16,16 @@ export const shoppingCartSlice = createSlice({
             }
         },
 
+        addItemBulk: (state, action) => {
+            const { product, quantity } = action.payload;
+            const existingItem = state.items.find(item => item.product.id === action.payload.id);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                state.items.push({ product: product, quantity: quantity });
+            }
+        },
+
         removeItem: (state, action) => {
             const existingItem = state.items.find(item => item.product.id === action.payload.id);
             if (existingItem && existingItem.quantity > 1) {
@@ -25,7 +35,7 @@ export const shoppingCartSlice = createSlice({
     }
 })
 
-export const { addItem, removeItem } = shoppingCartSlice.actions
+export const { addItem, removeItem, addItemBulk } = shoppingCartSlice.actions
 export const selectCart = (state) => state.cart.items
 export const selectCartSubtotal = (state) => state.cart.items.reduce((total, item) => total + item.product.prices[0].priceData.unit_amount * item.quantity, 0)
 export default shoppingCartSlice.reducer
