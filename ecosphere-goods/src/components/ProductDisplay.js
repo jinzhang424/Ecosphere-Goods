@@ -5,7 +5,7 @@ const ProductDisplay = ({ products }) => {
 
 
     return (
-        <div className='flex flex-wrap overflow-y-scroll h-full'>
+        <div className='flex flex-wrap overflow-y-scroll h-full pt-6 pl-6'>
             {Object.entries(products).map(([productId, productData]) => (
                 <div className='w-80 mb-8 pr-8' key={ productId } >
                     <Item  
