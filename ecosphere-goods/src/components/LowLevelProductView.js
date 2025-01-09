@@ -43,7 +43,7 @@ const LowLevelProductView = ({ product }) => {
                     <div className='flex justify-between'>
                         <h2 className='font-LHeader text-sHeader text-dark-brown'>{ unitToDollarString(product.prices[0].priceData.unit_amount) }</h2>
                         <button 
-                            className='relative bg-light-brown p-2 pl-4 pr-4 rounded-xl font-header text-dark-brown bg-opacity-50 flex items-center justify-center'
+                            className='relative bg-light-brown p-2 pl-4 pr-4 rounded-xl font-header text-dark-brown bg-opacity-50 flex items-center justify-center hover:scale-105 transition-transform ease-in-out duration-300'
                             onClick={ handleAddToCart }
                             disabled={loading}
                         >
