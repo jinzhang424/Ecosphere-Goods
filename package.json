@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@stripe/stripe-js": "^5.5.0",
     "react-toastify": "^11.0.2"
   }
 }
