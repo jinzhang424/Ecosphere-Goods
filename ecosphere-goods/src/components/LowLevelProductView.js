@@ -1,14 +1,26 @@
 import React, { useState } from 'react'
 import unitToDollarString from '../utilityFunctions/unitToDollarString'
-import { addItem } from '../features/shoppingCartSlice'
+import { addItemBulk } from '../features/shoppingCartSlice'
 import { useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import CircularProgress from '@mui/material/CircularProgress';
+import QuantityAdjuster from './utility/QuantityAdjuster';
 
 const LowLevelProductView = ({ product }) => {
     const dispatch = useDispatch()
+    const [quantity, setQuantity] = useState(1)
     const [loading, setLoading] = useState(false);
     const fillerText = 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum '
+
+    const handleIncrement = () => {
+        setQuantity(quantity + 1)
+    }
+
+    const handleDecrement = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1)
+        }
+    }
 
     const handleAddToCart = (e) => {
         setLoading(true)
@@ -17,10 +29,11 @@ const LowLevelProductView = ({ product }) => {
                 ...product,
                 date_created: product.date_created.toDate().toISOString(), // Convert Timestamp to ISO string
             };
-            dispatch(addItem(serializableProduct));
+            dispatch(addItemBulk({ product: serializableProduct, quantity: quantity }));
             toast.success('Successfully Added to Cart');
         } catch (error) {
             toast.error('Error, something has gone wrong.');
+            console.log(error)
         } finally {
             setLoading(false);
         }
@@ -40,8 +53,14 @@ const LowLevelProductView = ({ product }) => {
                         <p>{ product.description != null ? product.description : fillerText }</p>
                     </article>
                     
-                    <div className='flex justify-between'>
+                    <div className='flex justify-between items-center'>
                         <h2 className='font-LHeader text-sHeader text-dark-brown'>{ unitToDollarString(product.prices[0].priceData.unit_amount) }</h2>
+                        <QuantityAdjuster 
+                            increment={ handleIncrement } 
+                            decrement={ handleDecrement } 
+                            quantity={ quantity } 
+                            className='rounded-md bg-dark-brown overflow-hidden bg-opacity-30 h-fit'
+                        />
                         <button 
                             className='relative bg-light-brown p-2 pl-4 pr-4 rounded-xl font-header text-dark-brown bg-opacity-50 flex items-center justify-center hover:scale-105 transition-transform ease-in-out duration-300'
                             onClick={ handleAddToCart }
