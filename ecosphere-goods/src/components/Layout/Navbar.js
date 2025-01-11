@@ -9,7 +9,7 @@ import { MdAccountCircle } from "react-icons/md";
 
 const Navbar = () => {
   const [show, handleShow] = useState(true);
-  const navLinkStyle = ({ isActive }) => isActive ? 'text-off-white bg-dark-brown p-2 pl-3 pr-3 rounded-md' : 'hover:bg-dark-brown hover:text-off-white transition-colors ease-in-out duration-300 p-2 pl-3 pr-3 rounded-md'
+  const navLinkStyle = ({ isActive }) => isActive ? 'text-off-white bg-dark-brown p-2 pl-4 pr-4 rounded-md' : 'hover:bg-dark-brown hover:text-off-white transition-colors ease-in-out duration-300 p-2 pl-4 pr-4 rounded-md'
   
   const transitionNavBar = () => {
     if (window.scrollY > 250) {
