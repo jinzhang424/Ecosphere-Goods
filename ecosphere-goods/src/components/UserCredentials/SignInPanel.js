@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import PasswordTextField from './PasswordTextField';
 import { toast } from 'react-toastify';
+import BackToBrowsingButton from '../utility/BackToBrowsingButton';
 
 const SignInPanel = () => {
     const [email, setEmail] = useState('')
@@ -25,6 +26,7 @@ const SignInPanel = () => {
     
     return (
         <div className={`w-full space-y-8 flex-shrink-0 p-32`}>
+            <BackToBrowsingButton/>
             <h1 className='text-header font-LHeader'>Sign In</h1>
             <Box
                 component="form"
