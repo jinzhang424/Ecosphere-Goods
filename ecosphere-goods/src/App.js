@@ -7,6 +7,7 @@ import ProductsPage from './pages/ProductsPage';
 import UserPortalPage from './pages/UserPortalPage'
 import ProductPage from './pages/ProductPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
+import ProfilePage from './pages/ProfilePage'
 import { productLoader } from './pages/ProductPage';
 import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'products', element: <ProductsPage /> },
       { path: ':productName', element: <ProductPage />, loader: productLoader },
+      { path: 'profile/:profile', element: <ProfilePage />}
     ],
   },
   { path: '/user-portal', element: <UserPortalPage /> },
