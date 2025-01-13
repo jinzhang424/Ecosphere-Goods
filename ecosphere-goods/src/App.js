@@ -21,11 +21,11 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'products', element: <ProductsPage /> },
       { path: ':productName', element: <ProductPage />, loader: productLoader },
-      { path: 'profile/:profile', element: <ProfilePage />}
     ],
   },
   { path: '/user-portal', element: <UserPortalPage /> },
   { path: 'shopping-cart', element: <ShoppingCartPage /> },
+  { path: 'profile/:profile', element: <ProfilePage />}
 ]);
 
 function App() {
