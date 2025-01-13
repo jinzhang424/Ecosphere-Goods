@@ -19,21 +19,21 @@ const UserDashBoard = () => {
                 </section>
 
                 <section className='bg-off-white w-7/12 h-full rounded-3xl p-8 flex-grow'>
-                    This is the tracking part
+                    Order Tracker (TBC)
                 </section>
             </div>
 
             <div className='flex h-1/2 space-x-8 pt-4'>
                 <section className='aspect-square h-full bg-off-white rounded-3xl p-8'>
-                    Average carbon emissions reduced
+                    Past Orders (TBC)
                 </section>
 
                 <section className='aspect-square h-full bg-off-white rounded-3xl p-8'>
-                    Past Orders
+                Past Orders (TBC)
                 </section>
 
                 <section className='aspect-square h-full bg-off-white rounded-3xl p-8 flex-grow'>
-                    Past Orders
+                    Past Orders (TBC)
                 </section>
             </div>
         </div>
