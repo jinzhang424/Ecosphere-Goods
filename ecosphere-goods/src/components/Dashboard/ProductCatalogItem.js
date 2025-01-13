@@ -2,21 +2,26 @@ import React from 'react'
 import unitToDollarString from '../../utilityFunctions/unitToDollarString'
 
 const ProductCatalogItem = (productData) => {
-    const productImgUrl = productData.productData.images[0]
-    const productName = productData.productData.name
-    const productUnitAmount = productData.productData.prices[0].priceData.unit_amount
-    const productCategory = productData.productData.stripe_metadata_itemCategory
+    const imgUrl = productData.productData.images[0]
+    const name = productData.productData.name
+    const unitAmount = productData.productData.prices[0].priceData.unit_amount
+    const category = productData.productData.stripe_metadata_itemCategory
+    const dateCreated = productData.productData.date_created
+
+    const date = new Date(dateCreated.seconds * 1000 + dateCreated.nanoseconds / 1000000);
+    const dateString = date.toLocaleDateString();
 
     return (
-        <span className='flex justify-between text-dark-brown font-header h-24'>
+        <span className='flex justify-between items-center text-dark-brown font-header h-16 pr-12 bg-dark-brown bg-opacity-10 rounded-xl overflow-hidden'>
             <img 
-                src={ productImgUrl } 
-                className='aspect-square object-cover' 
+                src={ imgUrl } 
+                className='aspect-square object-cover h-16 w-16' 
             />
             
-            <p>{ productName }</p>
-            <p>{ productCategory }</p>
-            <p>{ unitToDollarString(productUnitAmount) }</p>
+            <p className='text-center w-48'>{ name }</p>
+            <p className='text-center w-48'>{ dateString }</p>
+            <p className='text-center w-48'>{ category }</p>
+            <p className='text-center w-48'>{ unitToDollarString(unitAmount) }</p>
         </span>
     )
 }
