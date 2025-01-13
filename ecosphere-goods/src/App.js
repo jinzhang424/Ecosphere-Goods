@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
 import DashBoardLayout from './layouts/DashBoardLayout';
 import DashBoardHomePage from './pages/DashBoardHomePage';
+import AdminProductCatalog from './components/Dashboard/AdminProductCatalog';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,8 @@ const router = createBrowserRouter([
     path : '/dashboard',
     element: <DashBoardLayout />,
     children: [
-      { path: 'home', element: <DashBoardHomePage />}
+      { path: 'home', element: <DashBoardHomePage />},
+      { path: 'product-catalog', element: <AdminProductCatalog />}
     ]
   },
   { path: '/user-portal', element: <UserPortalPage /> },
