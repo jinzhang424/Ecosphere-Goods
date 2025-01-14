@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import SelectCategory from "./SelectCategory";
 import SelectSubcategory from "./SelectSubcategory";
 import { NewItemContext } from "./NewItemContext";
+import ImageInput from "../utility/ImageInput";
 
 export default function AddItemDialog() {
   const [open, setOpen] = useState(false);
@@ -37,7 +38,10 @@ export default function AddItemDialog() {
               <h1 className='font-header text-dark-brown text-sHeader'>Add New Product</h1>
               
               <form onSubmit={ handleSubmit }>
+                <ImageInput/>
+                
                 <TextField id="product-name" label="Product Name" variant="outlined" />
+                <TextField id="price" label="Price" variant="outlined" />
                 
                 <SelectCategory/>
                 <SelectSubcategory/>
