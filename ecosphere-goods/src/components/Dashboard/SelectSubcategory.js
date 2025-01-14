@@ -9,8 +9,7 @@ import db, { collection, getDocs } from '../../firebase'
 
 const SelectSubcategory = () => {
     const [subcategories, setSubcategories] = useState([])
-    const [subcategory, setSubcategory] = useState([])
-    const { category } = useContext(NewItemContext)
+    const { category, subcategory, setSubcategory } = useContext(NewItemContext)
 
     const handleChange = (event) => {
         setSubcategory(event.target.value);
