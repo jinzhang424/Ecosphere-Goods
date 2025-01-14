@@ -13,7 +13,7 @@ const NewItemProvider = ({ children }) => {
         <NewItemContext.Provider 
             value={{ 
                 category, setCategory, 
-                subCategory, setSubcategory, 
+                subcategory, setSubcategory, 
                 image, setImage, 
                 name, setName, 
                 price, setPrice 
