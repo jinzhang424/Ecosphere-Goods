@@ -31,7 +31,7 @@ const ImageInput = () => {
             />
             <div 
                 onClick={() => document.getElementById('image').click()}
-                className={ `flex flex-col justify-center items-center cursor-pointer p-12 border-dashed border-4 border-dark-brown rounded-3xl aspect-square w-1/2 hover:opacity-100 opacity-80 transition-opacity ease-in-out duration-100 ${ image ? 'border-opacity-0' : ''}` }
+                className={ `flex flex-col w-full justify-center items-center cursor-pointer p-12 border-dashed border-4 border-dark-brown rounded-3xl aspect-square hover:opacity-100 opacity-80 transition-opacity ease-in-out duration-100 ${ image ? 'border-opacity-0' : ''}` }
                 style={{
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',

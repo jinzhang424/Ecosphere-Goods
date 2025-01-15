@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 import db, { collection, getDocs } from '../../firebase';
 import { NewItemContext } from './NewItemContext';
 
-const SelectCategory = () => {
+const SelectCategory = ({ className = ''}) => {
     const { category, setCategory } = useContext(NewItemContext);
     const [categories, setCategories] = useState([])
 
@@ -32,8 +32,8 @@ const SelectCategory = () => {
     }, [])
 
     return (
-        <div>
-            <Box sx={{ minWidth: 120 }}>
+        <div className={ className }>
+            <Box sx={{ width: '100%' }}>
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Category</InputLabel>
                     <Select

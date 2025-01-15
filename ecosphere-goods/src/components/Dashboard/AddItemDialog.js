@@ -37,19 +37,25 @@ export default function AddItemDialog() {
           <>
             <div className='fixed inset-0 bg-black bg-opacity-50' onClick={ handleCancel }></div>
             
-            <dialog open className='fixed inset-0 z-40 w-5/12 p-10 pr-12 pl-12 bg-off-white rounded-3xl m-auto h-5/6'>
+            <dialog open className='flex flex-col fixed inset-0 z-40 w-7/12 p-10 pr-12 pl-12 bg-off-white rounded-3xl h-fit'>
               <h1 className='font-header text-dark-brown text-sHeader'>Add New Product</h1>
               
-              <form onSubmit={ handleSubmit }>
-                <ImageInput/>
-                
-                <TextField id="product-name" label="Product Name" variant="outlined" />
-                <TextField id="price" label="Price" variant="outlined" />
-                
-                <SelectCategory/>
-                <SelectSubcategory/>
+              <form onSubmit={ handleSubmit } className='flex flex-col flex-grow justify-between mt-8'>
+                <div className='flex justify-between'>
+                  <ImageInput/>
+                  
+                  <div className='flex-grow pl-10 flex flex-col justify-between space-y-8'>
+                    <TextField fullWidth id="product-name" label="Product Name" variant="outlined" />
+                    <TextField fullWidth id="price" label="Price" variant="outlined" />
+                    
+                    <div className='flex justify-between space-x-8 mt-8'>
+                      <SelectCategory className='flex-grow'/>
+                      <SelectSubcategory className='flex-grow'/>
+                    </div>
+                  </div>
+                </div>
 
-                <div className='flex w-full justify-between'>
+                <div className='flex w-full justify-between mt-8'>
                   <DialogButton label={ 'Cancel' } onClick={ handleCancel } />
                   <DialogButton label={ 'Add' } type="submit" />
                 </div>

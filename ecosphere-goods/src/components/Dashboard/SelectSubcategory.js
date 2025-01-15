@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 import { NewItemContext } from './NewItemContext';
 import db, { collection, getDocs } from '../../firebase'
 
-const SelectSubcategory = () => {
+const SelectSubcategory = ({ className }) => {
     const [subcategories, setSubcategories] = useState([])
     const { category, subcategory, setSubcategory } = useContext(NewItemContext)
 
@@ -35,15 +35,15 @@ const SelectSubcategory = () => {
     console.log('Subcategories: ', subcategories)
 
     return (
-        <Box sx={{ minWidth: 120 }}>
+        <Box className={ className }>
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Subcategory</InputLabel>
+                <InputLabel id="subcategory-label">Subcategory</InputLabel>
                 <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={subcategory}
-                label="Subcategory"
-                onChange={handleChange}
+                    labelId="subcategory-label"
+                    id="subcategory-select"
+                    value={subcategory}
+                    label="Subcategory"
+                    onChange={handleChange}
                 >
                     {subcategories.map((subcategory, index) => (
                         <MenuItem key={ index } value={ subcategory }>{ subcategory }</MenuItem>
