@@ -14,6 +14,7 @@ const SelectCategory = ({ className = ''}) => {
 
     const handleChange = (event) => {
         setCategory(event.target.value);
+        setSubcategory([])
     };
 
     useEffect(() => {
