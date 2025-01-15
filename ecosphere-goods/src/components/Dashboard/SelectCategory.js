@@ -8,7 +8,7 @@ import db, { collection, getDocs } from '../../firebase';
 import { NewItemContext } from './NewItemContext';
 
 const SelectCategory = ({ className = ''}) => {
-    const { category, setCategory } = useContext(NewItemContext);
+    const { category, setCategory, setSubcategory } = useContext(NewItemContext);
     const [categories, setCategories] = useState([])
 
 

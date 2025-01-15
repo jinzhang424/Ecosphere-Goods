@@ -48,9 +48,9 @@ export default function AddItemDialog() {
                     <TextField fullWidth id="product-name" label="Product Name" variant="outlined" />
                     <TextField fullWidth id="price" label="Price" variant="outlined" />
                     
-                    <div className='flex justify-between space-x-8 mt-8'>
-                      <SelectCategory className='flex-grow'/>
-                      <SelectSubcategory className='flex-grow'/>
+                    <div className='flex justify-between mt-8'>
+                      <SelectCategory className='w-52'/>
+                      <SelectSubcategory className='w-52'/>
                     </div>
                   </div>
                 </div>
