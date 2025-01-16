@@ -17,18 +17,8 @@ const ImageInput = () => {
         }
     }
 
-    console.log('IMAGE:', image)
-
     return (
         <div>
-            <input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                className='hidden'
-                onChange={ handleImageChange }
-            />
             <div 
                 onClick={() => document.getElementById('image').click()}
                 className={ `flex flex-col w-full justify-center items-center cursor-pointer p-12 border-dashed border-4 border-dark-brown rounded-3xl aspect-square hover:opacity-100 opacity-80 transition-opacity ease-in-out duration-100 ${ image ? 'border-opacity-0' : ''}` }
@@ -36,7 +26,7 @@ const ImageInput = () => {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundImage: `url(${image})`
-                  }}
+                }}
             >
                 {!image && (
                     <>
@@ -44,9 +34,18 @@ const ImageInput = () => {
                         <h1 className='text-center font-header'>Upload the Product Image</h1>
                     </>
                 )}
-            </div> 
+            </div>
+            <input
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+                className='opacity-0 absolute bottom-28 left-28'
+                onChange={ handleImageChange }
+                required
+            /> 
         </div>
     )
-    }
+}
 
 export default ImageInput

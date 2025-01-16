@@ -38,11 +38,12 @@ const SelectCategory = ({ className = ''}) => {
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Category</InputLabel>
                     <Select
-                    labelId="demo-simple-select-label"
-                    id="category-selector"
-                    value={ category }
-                    label="Category"
-                    onChange={handleChange}
+                        labelId="demo-simple-select-label"
+                        id="category-selector"
+                        value={ category }
+                        label="Category"
+                        onChange={handleChange}
+                        required
                     >
                         {categories.map((category, index) => (
                             <MenuItem key={ index } value={ category }>{ category }</MenuItem>

@@ -65,6 +65,7 @@ const SelectSubcategory = ({ className }) => {
                         }}
                         error={error}
                         open={!error && isFocused}
+                        required
                     >
                         {subcategories.map((subcategory, index) => (
                             <MenuItem key={ index } value={ subcategory }>{ subcategory }</MenuItem>
