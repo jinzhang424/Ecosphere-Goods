@@ -28,12 +28,10 @@ const ImageInput = () => {
                     backgroundImage: `url(${image})`
                 }}
             >
-                {!image && (
-                    <>
-                        <MdCloudUpload className='w-20 h-20 text-dark-brown'/>
-                        <h1 className='text-center font-header'>Upload the Product Image</h1>
-                    </>
-                )}
+                <div className={`${!image ? '' : 'opacity-0'} flex flex-col justify-center items-center`}>
+                    <MdCloudUpload className='w-20 h-20 text-dark-brown'/>
+                    <h1 className='text-center font-header'>Upload the Product Image</h1>
+                </div>
             </div>
             <input
                 type="file"
