@@ -30,4 +30,24 @@ const registerUser = async (req, res) => {
     }
 }
 
-module.exports(registerUser)
+const signInUser = async(req, res) => {
+    const { email, password, token } = req.body
+
+    if (!email || !password) {
+        return res.status(400).json({ success: false, message: 'Invalid email or password'})
+    }
+
+    try {
+        const idToken = token
+
+        const decodedToken = await admin.auth().verifyIdToken(idToken);
+        const uid = decodedToken.uid
+
+        const customToken = await admin.auth().createCustomToken(uid)
+        return res.status(200).json({ success: true, token: customToken });
+    } catch (error) {
+        console.error('Error signing in user:', error)
+    }
+}
+
+module.exports(registerUser, signInUser)
