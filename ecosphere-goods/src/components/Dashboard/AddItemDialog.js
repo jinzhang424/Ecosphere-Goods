@@ -51,8 +51,25 @@ export default function AddItemDialog() {
                   <ImageInput/>
                   
                   <div className='flex-grow pl-10 flex flex-col justify-between space-y-8'>
-                    <TextField required fullWidth id="product-name" label="Product Name" variant="outlined" />
-                    <TextField required fullWidth id="price" label="Price" variant="outlined" />
+                    <TextField 
+                      required 
+                      fullWidth 
+                      id="product-name" 
+                      label="Product Name" 
+                      variant="outlined" 
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                    
+                    <TextField 
+                      required 
+                      fullWidth 
+                      id="price" 
+                      label="Price" 
+                      variant="outlined" 
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                    />
                     
                     <div className='flex justify-between mt-8'>
                       <SelectCategory className='w-52'/>
