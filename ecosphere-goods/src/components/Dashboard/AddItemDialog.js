@@ -5,10 +5,12 @@ import SelectCategory from "./SelectCategory";
 import SelectSubcategory from "./SelectSubcategory";
 import { NewItemContext } from "./NewItemContext";
 import ImageInput from "../utility/ImageInput";
+import { ref, uploadString, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase";
 
 export default function AddItemDialog() {
   const [open, setOpen] = useState(false);
-  const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
+  const { setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
   const [fieldsNotFilled, setFieldsNotFilled] = useState(false)
 
   const handleClickOpen = () => {
@@ -25,7 +27,7 @@ export default function AddItemDialog() {
     setFieldsNotFilled(false)
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
     if (!form.checkValidity()) {
@@ -33,7 +35,41 @@ export default function AddItemDialog() {
       return
     }
 
-    handleCancel();
+    setFieldsNotFilled(false)
+    try {
+      const storageRef = ref(storage, `images/${Date.now()}`);
+      await uploadString(storageRef, image, 'data_url');
+      const imageUrl = await getDownloadURL(storageRef);
+
+      console.log('SUBCATEGORY:', subcategory)
+
+      const newProduct = {
+        name,
+        price,
+        image: imageUrl,
+        subcategory
+      };
+
+      const response = await fetch('https://australia-southeast1-ecosphere-goods.cloudfunctions.net/createStripeProduct', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newProduct)
+      })
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Failed to create producDADDADA:', errorText);
+        throw new Error('Failed to create product');
+      }
+
+      const data = await response.json();
+      console.log('Product created:', data)
+      handleCancel();
+    } catch (error) {
+      console.error('Failed to create product:', error);
+    }
   };
 
   return (

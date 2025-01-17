@@ -4,7 +4,7 @@ const NewItemContext = createContext();
 
 const NewItemProvider = ({ children }) => {
     const [category, setCategory] = useState('');
-    const [subcategory, setSubcategory] = useState([]);
+    const [subcategory, setSubcategory] = useState('');
     const [image, setImage] = useState(null)
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
