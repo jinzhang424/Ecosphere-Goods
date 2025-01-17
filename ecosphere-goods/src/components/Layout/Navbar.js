@@ -5,9 +5,12 @@ import { NavLink, Link } from 'react-router-dom'
 import Logo from '../utility/Logo';
 import { useState, useEffect } from 'react';
 import { MdAccountCircle } from "react-icons/md";
-
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../features/userSlice';
 
 const Navbar = () => {
+  const user = useSelector(selectUser)
+
   const [show, handleShow] = useState(true);
   const navLinkStyle = ({ isActive }) => isActive ? 'text-off-white bg-dark-brown p-2 pl-4 pr-4 rounded-md' : 'hover:bg-dark-brown hover:text-off-white transition-colors ease-in-out duration-300 p-2 pl-4 pr-4 rounded-md'
   
@@ -53,7 +56,7 @@ const Navbar = () => {
             <IoCartOutline className="w-7 h-7 cursor-pointer"/>
         </NavLink>
         
-        <NavLink to='/user-portal'>
+        <NavLink to='dashboard/home'>
           <MdAccountCircle className="w-7 h-7 cursor-pointer"/>
         </NavLink>
         

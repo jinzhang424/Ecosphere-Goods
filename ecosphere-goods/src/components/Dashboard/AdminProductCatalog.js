@@ -1,0 +1,32 @@
+import React from 'react'
+import ProductCatalogDisplay from './ProductCatalogDisplay'
+import AddItemDialog from './AddItemDialog'
+import { NewItemProvider } from './NewItemContext'
+
+const AdminProductCatalog = () => {
+
+  return (
+    <NewItemProvider>
+      <div className='space-y-8 bg-off-white w-full h-full rounded-3xl text-dark-brown p-8 pr-12 pl-12'>
+        <div className='flex w-full justify-between items-center'>
+          <h1 className='text-header font-header'>Product Catalog</h1>
+          <AddItemDialog/>
+        </div>
+
+        <span className='flex font-header opacity-80 w-full justify-between pr-16 border-b-2 border-dark-brown border-opacity-70 pb-4'>
+          <p className='text-center w-16'>Image</p>
+          <p className='text-center w-48'>Name</p>
+          <p className='text-center w-48'>Date Added</p>
+          <p className='text-center w-48'>Category</p>
+          <p className='text-center w-48'>Price</p>
+        </span>
+
+        <div className='h-4/6'>
+          <ProductCatalogDisplay />
+        </div>
+      </div>
+    </NewItemProvider>  
+  )
+}
+
+export default AdminProductCatalog

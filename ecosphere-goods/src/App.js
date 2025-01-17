@@ -7,10 +7,14 @@ import ProductsPage from './pages/ProductsPage';
 import UserPortalPage from './pages/UserPortalPage'
 import ProductPage from './pages/ProductPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
+import ProfilePage from './pages/DashBoardHomePage'
 import { productLoader } from './pages/ProductPage';
 import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
+import DashBoardLayout from './layouts/DashBoardLayout';
+import DashBoardHomePage from './pages/DashBoardHomePage';
+import AdminProductCatalog from './components/Dashboard/AdminProductCatalog';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +25,14 @@ const router = createBrowserRouter([
       { path: 'products', element: <ProductsPage /> },
       { path: ':productName', element: <ProductPage />, loader: productLoader },
     ],
+  },
+  {
+    path : '/dashboard',
+    element: <DashBoardLayout />,
+    children: [
+      { path: 'home', element: <DashBoardHomePage />},
+      { path: 'product-catalog', element: <AdminProductCatalog />}
+    ]
   },
   { path: '/user-portal', element: <UserPortalPage /> },
   { path: 'shopping-cart', element: <ShoppingCartPage /> },
@@ -45,7 +57,7 @@ function App() {
     return unsubscribe
   }, [dispatch])
 
-  console.log('dwadawdw:', user)
+  console.log('Current user:', user)
 
   return (
     <RouterProvider router={router} />
