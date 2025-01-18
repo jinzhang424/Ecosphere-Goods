@@ -35,7 +35,7 @@ const sortByPrice = (products, order) => {
     }
 }
 
-const fetchProducts = async (snapshot, minUnitCost, maxUnitCost) => {
+const getProducts = async (snapshot, minUnitCost, maxUnitCost) => {
 
     const products = [];
     const productPromises = snapshot.docs.map(async (doc) => {
@@ -58,7 +58,7 @@ const fetchProducts = async (snapshot, minUnitCost, maxUnitCost) => {
     return products
 }
 
-const getProducts = async (req, res) => {
+const fetchProducts = async (req, res) => {
     const { minUnitCost, maxUnitCost } = req.unitCostRange
     const { filters } = req.filters
     const { order } = req.order
@@ -69,7 +69,7 @@ const getProducts = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Products not found'})
         }
         
-        const products = fetchProducts(snapshot, minUnitCost, maxUnitCost)
+        const products = getProducts(snapshot, minUnitCost, maxUnitCost)
 
         // Sorting by price if needed
         sortByPrice(products, order)
@@ -80,4 +80,4 @@ const getProducts = async (req, res) => {
     }
 }
 
-module.exports = { getProducts }
+module.exports = { fetchProducts }
