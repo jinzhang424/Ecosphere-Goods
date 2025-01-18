@@ -2,26 +2,36 @@ import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
 import PasswordTextField from './PasswordTextField';
 import { toast } from 'react-toastify';
 import BackToBrowsingButton from '../utility/BackToBrowsingButton';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase';
 
 const SignInPanel = () => {
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     
-    const handleSignIn = () => {
-        signInWithEmailAndPassword(
-            auth,
-            email,
-            password,
-        ).then((authUser) => {
-            console.log(authUser)
-        }).catch((error) => {
-            toast.error(error.message)
-        })
+    const handleSignIn = async () => {
+        if (!email || !password) {
+            toast.error('Please enter your email and password.')
+            return
+        }
+
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password)
+            const idToken = await userCredential.user.getIdToken()
+
+            const response = await axios.post('http://localhost:5000/auth/sign-in', { idToken })
+
+            toast.success('Sign-in successful!');
+            navigate('/')
+        } catch (error) {
+            toast.error(error.message || 'Error signing in')
+        }
     }
     
     return (

@@ -31,15 +31,13 @@ const registerUser = async (req, res) => {
 }
 
 const signInUser = async(req, res) => {
-    const { email, password, token } = req.body
+    const { idToken } = req.body
 
-    if (!email || !password) {
-        return res.status(400).json({ success: false, message: 'Invalid email or password'})
+    if (!idToken) {
+        return res.status(400).json({ success: false, message: 'ID token is required' });
     }
 
     try {
-        const idToken = token
-
         const decodedToken = await admin.auth().verifyIdToken(idToken);
         const uid = decodedToken.uid
 
