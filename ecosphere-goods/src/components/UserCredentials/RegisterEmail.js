@@ -6,6 +6,7 @@ import PasswordTextField from './PasswordTextField';
 import { auth } from '../../firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const RegisterEmail = ({ backToSignIn }) => {
   const [email, setEmail] = useState('');
@@ -23,21 +24,26 @@ const RegisterEmail = ({ backToSignIn }) => {
     setPasswordMatch(password === newPassword);
   };
 
-  const registerUser = () => {
-    createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).then((authUser) => {
-      console.log(authUser)
-      toast.success('Account Successfully Created!');
+  const registerUser = async () => {
+    if (!passwordMatch) {
+      toast.error('Passwords do not match!')
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/auth/register', { 
+        email, 
+        password 
+      })
+
+      toast.success('Account Successfully Created!')
       setEmail('')
       setPassword('')
       setConfirmPassword('')
       backToSignIn()
-    }).catch((error) => {
-      toast.error(error.message);
-    })
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Error registering user')
+    }
   }
 
   return (
