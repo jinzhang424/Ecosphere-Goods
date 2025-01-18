@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import PasswordTextField from './PasswordTextField';
 import { registerUser } from '../../utilityFunctions/userAuth';
+import { toast } from 'react-toastify';
 
 const RegisterEmail = ({ backToSignIn }) => {
   const [email, setEmail] = useState('');
@@ -23,7 +24,7 @@ const RegisterEmail = ({ backToSignIn }) => {
 
   const onRegister = async () => {
     try {
-      await registerUser(email, password, confirmPassword);
+      await registerUser(email, password, passwordMatch);
 
       // Resetting the state and moving the user to sign in
       setEmail('');
@@ -31,7 +32,7 @@ const RegisterEmail = ({ backToSignIn }) => {
       setConfirmPassword('');
       backToSignIn();
     } catch (error) {
-      console.error('Error during registration:', error);
+      toast.error(error.message);
     }
   }
 

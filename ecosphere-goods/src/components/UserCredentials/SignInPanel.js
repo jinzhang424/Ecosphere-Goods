@@ -6,6 +6,7 @@ import PasswordTextField from './PasswordTextField';
 import BackToBrowsingButton from '../utility/BackToBrowsingButton';
 import { useNavigate } from 'react-router-dom';
 import { handleSignIn } from '../../utilityFunctions/userAuth';
+import { toast } from 'react-toastify';
 
 const SignInPanel = () => {
     const navigate = useNavigate()
@@ -13,7 +14,13 @@ const SignInPanel = () => {
     const [password, setPassword] = useState('');
     
     const onSignIn = async () => {
-        handleSignIn(email, password, navigate)
+        try {
+            await handleSignIn(email, password, navigate)
+            toast.success('Sign-in successful!');
+            navigate('/');
+        } catch (error) {
+            toast.error(error.message)
+        }
     }
     
     return (
