@@ -42,20 +42,7 @@ function App() {
   const user = useSelector(selectUser)
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
-      if (userAuth) {
-        dispatch(login({
-          uid: userAuth.uid,
-          email: userAuth.email
-        }))
-      } else {
-        dispatch(logout())
-      }
-    })
-
-    return unsubscribe
-  }, [dispatch])
+  
 
   console.log('Current user:', user)
 

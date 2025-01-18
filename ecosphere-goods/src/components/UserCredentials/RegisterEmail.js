@@ -3,10 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import PasswordTextField from './PasswordTextField';
-import { auth } from '../../firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { toast } from 'react-toastify';
-import axios from 'axios';
+import { registerUser } from '../../utilityFunctions/userAuth';
 
 const RegisterEmail = ({ backToSignIn }) => {
   const [email, setEmail] = useState('');
@@ -24,25 +21,17 @@ const RegisterEmail = ({ backToSignIn }) => {
     setPasswordMatch(password === newPassword);
   };
 
-  const registerUser = async () => {
-    if (!passwordMatch) {
-      toast.error('Passwords do not match!')
-      return;
-    }
-
+  const onRegister = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/auth/register', { 
-        email, 
-        password 
-      })
+      await registerUser(email, password, confirmPassword);
 
-      toast.success('Account Successfully Created!')
-      setEmail('')
-      setPassword('')
-      setConfirmPassword('')
-      backToSignIn()
+      // Resetting the state and moving the user to sign in
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      backToSignIn();
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Error registering user')
+      console.error('Error during registration:', error);
     }
   }
 
@@ -81,7 +70,7 @@ const RegisterEmail = ({ backToSignIn }) => {
       <Button 
           variant="contained" 
           fullWidth
-          onClick={ registerUser }
+          onClick={ onRegister }
           sx={{
               backgroundColor: '#362D2D',
               height: '3rem',

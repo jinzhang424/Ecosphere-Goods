@@ -3,35 +3,17 @@ import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import PasswordTextField from './PasswordTextField';
-import { toast } from 'react-toastify';
 import BackToBrowsingButton from '../utility/BackToBrowsingButton';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { handleSignIn } from '../../utilityFunctions/userAuth';
 
 const SignInPanel = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     
-    const handleSignIn = async () => {
-        if (!email || !password) {
-            toast.error('Please enter your email and password.')
-            return
-        }
-
-        try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            const idToken = await userCredential.user.getIdToken()
-
-            const response = await axios.post('http://localhost:5000/auth/sign-in', { idToken })
-
-            toast.success('Sign-in successful!');
-            navigate('/')
-        } catch (error) {
-            toast.error(error.message || 'Error signing in')
-        }
+    const onSignIn = async () => {
+        handleSignIn(email, password, navigate)
     }
     
     return (
@@ -58,7 +40,7 @@ const SignInPanel = () => {
                 <Button 
                     variant="contained" 
                     fullWidth
-                    onClick={ handleSignIn }
+                    onClick={ onSignIn }
                     sx={{
                         backgroundColor: '#362D2D',
                         height: '3rem',
