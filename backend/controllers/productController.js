@@ -1,32 +1,35 @@
 const { db } = require('../config/firebase.js')
-const { getDocs, collection, query, orderBy } = require('firebase/firestore');
+const { getDocs, collection } = require('firebase-admin/firestore')
 
 // Gets the snapshot while filtering and ordering products
 const getSnapshot = async (filters = [], order) => {
-    const productsRef = db.collection('prducts')
+    try {
+        const productsRef = db.collection('products')
+        let productsQuery = productsRef.where('active', '==', true)
 
-    let productsQuery = productsRef.where('active', '==', true)
-    if (filters.length > 0) {
-        productsQuery = productsQuery.where('metadata.itemCategory', 'in', filters)
+        if (filters.length > 0) {
+            productsQuery = productsQuery.where('metadata.itemCategory', 'in', filters)
+        }
+        productsQuery = orderByDateCreated(productsQuery, order)
+        const snapshot = await productsQuery.get();
+
+        return snapshot
+    } catch (error) {
+        console.log(error.message)
+        throw new Error('Error while getting snapshot')
     }
-    orderByDateCreated(productsQuery)
-
-    const snapshot = await productsQuery.get()
-
-    return snapshot
 }
 
-// Adding conditions to order by creation date if order is based on creation date
 const orderByDateCreated = (productQuery, order) => {
     if (order === 'Newest') {
-        productQuery.orderBy('date_created', 'desc');
+        return productQuery.orderBy('date_created', 'desc');
+    } else if (order ==='Oldest') {
+        return productQuery.orderBy('date_created', 'asc');
     }
-    else if (order ==='Oldest') {
-        productQuery.orderBy('date_created', 'asc');
-    }
+
+    return productQuery
 }
 
-// Sorts products by price if order is based on price
 const sortByPrice = (products, order) => {
     if (order === 'Price: Low to High') {
         products.sort((a, b) => a.prices[0].priceData.unit_amount - b.prices[0].priceData.unit_amount);
@@ -38,17 +41,22 @@ const sortByPrice = (products, order) => {
 const getProducts = async (snapshot, minUnitCost, maxUnitCost) => {
 
     const products = [];
+    const hasPriceRange = !minUnitCost || !maxUnitCost
+
     const productPromises = snapshot.docs.map(async (doc) => {
         const productData = doc.data()
-        const priceSnap = await getDocs(collection(doc.ref, 'prices'))
+        const priceSnap = await doc.ref.collection('prices').get()
         
-        const prices = priceSnap.forEach((price) => ({
+        const prices = priceSnap.docs.map((price) => ({
             priceId: price.id,
             priceData: price.data(),
         }))
         const unitCost = prices[0]?.priceData.unit_amount;
 
-        if (minUnitCost <= unitCost && unitCost <= maxUnitCost) {
+        if (!hasPriceRange) {
+            productData.prices = prices
+            products.push({id: doc.id, ...productData})   
+        } else if (minUnitCost <= unitCost && unitCost <= maxUnitCost) {
             productData.prices = prices
             products.push({id: doc.id, ...productData})   
         }
@@ -59,23 +67,22 @@ const getProducts = async (snapshot, minUnitCost, maxUnitCost) => {
 }
 
 const fetchProducts = async (req, res) => {
-    const { minUnitCost, maxUnitCost } = req.unitCostRange
-    const { filters } = req.filters
-    const { order } = req.order
+    const { minUnitCost, maxUnitCost, filters = [], order } = req.query
 
     try {
-        const snapshot = getSnapshot(filters)
+        console.log('GETTING SNAPSHOT')
+        const snapshot = await getSnapshot(filters, order)
+        console.log('GOT SNAPSHOT')
         if (snapshot.empty) {
             return res.status(404).json({ success: false, message: 'Products not found'})
         }
         
-        const products = getProducts(snapshot, minUnitCost, maxUnitCost)
-
-        // Sorting by price if needed
+        const products = await getProducts(snapshot, minUnitCost, maxUnitCost)
         sortByPrice(products, order)
 
         return res.status(200).json({ success: true, data: products})
     } catch (error) {
+        console.error(error.message)
         return res.status(500).json({ success: false, message: 'Error fetching products'})
     }
 }

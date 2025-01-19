@@ -3,6 +3,6 @@ const { fetchProducts } = require('../controllers/productController')
 
 const router = express.Router()
 
-router.get('/getProducts', fetchProducts)
+router.get('/fetch-products', fetchProducts)
 
 module.exports = router
