@@ -6,42 +6,24 @@ import { Pagination, Navigation } from 'swiper/modules';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Item from './Item';
 import './ItemSlider.css'
-import db, { collection, query, getDocs, orderBy, limit, where } from '../firebase';
 import CircularProgress from '@mui/material/CircularProgress';
+import { fetchProducts } from '../utilityFunctions/productHandling';
 
 const ItemSlider = ({ nextButtonClass, prevButtonClass, sortBy }) => {
   const [products, setProducts] = useState([])
   const buttonStyle = 'cursor-pointer w-8 h-8 opacity-50 hover:opacity-100 text-dark-brown transition-opacity ease-in-out duration-2000'
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchProductsAndOrder = async () => {
       try {
-        const productsRef = collection(db, 'products')
-        const q = query(productsRef, where('active', '==', true), orderBy(sortBy, 'asc'), limit(7))
-        const querySnapShot = await getDocs(q)
-        const products = [];
-
-        const productPromises = querySnapShot.docs.map(async (productDoc) => {
-          const productData = productDoc.data();
-          const priceSnap = await getDocs(collection(productDoc.ref, 'prices'))
-
-          const prices = priceSnap.docs.map((price) => ({
-            priceId: price.id,
-            priceData: price.data(),
-          }));
-
-          productData.prices = prices;
-          products.push({ id: productDoc.id, ...productData});
-        })
-
-        await Promise.all(productPromises)
+        const products = await fetchProducts(undefined, undefined, undefined, sortBy)
         setProducts(products)
       } catch (error) {
         console.log(error)
       }
     }
 
-    fetchProducts()
+    fetchProductsAndOrder()
   }, [sortBy])
   
   return (
