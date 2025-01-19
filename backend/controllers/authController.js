@@ -1,4 +1,4 @@
-const admin = require('../config/firebase') // Import admin
+const { admin } = require('../config/firebase') // Import admin
 
 const registerUser = async (req, res) => {
     const { email, password } = req.body;
