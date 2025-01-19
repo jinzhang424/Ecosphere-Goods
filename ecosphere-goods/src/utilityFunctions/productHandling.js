@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const fetchProducts = async (filters, minUnitCost, maxUnitCost, order) => {
+export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost = Infinity, order = 'Newest') => {
     try {
         const response = await axios.get('http://localhost:5000/products/fetch-products', {
             params: {
