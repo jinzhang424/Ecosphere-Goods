@@ -1,5 +1,4 @@
 const { db } = require('../config/firebase.js')
-const { getDocs, collection } = require('firebase-admin/firestore')
 
 // Gets the snapshot while filtering and ordering products
 const getSnapshot = async (filters = [], order) => {
@@ -70,11 +69,9 @@ const fetchProducts = async (req, res) => {
     const { minUnitCost, maxUnitCost, filters = [], order } = req.query
 
     try {
-        console.log('GETTING SNAPSHOT')
         const snapshot = await getSnapshot(filters, order)
-        console.log('GOT SNAPSHOT')
         if (snapshot.empty) {
-            return res.status(404).json({ success: false, message: 'Products not found'})
+            console.log('Snapshot was empty. This could be an error, or there were simply no items in the category.')
         }
         
         const products = await getProducts(snapshot, minUnitCost, maxUnitCost)
