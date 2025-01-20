@@ -37,12 +37,17 @@ const registerUser = async (req, res) => {
     }
 }
 
-const fetchUserRole = (uid) => {
+const fetchUserRole = async (uid) => {
     const userDoc = db.collection('customers').doc(uid).get()
     if (!userDoc.exists) {
         return res.status(404).json({ success: false, message: 'User not found' });
     }
     const userData = userDoc.data()
+
+    if (!userData.role) {
+        userData.role = 'customer' // Updates the local userData
+        await db.collection('customer').doc(uid).update({ role: 'customer'}) // Updating actual database
+    }
 
     const role = userData.role
     
