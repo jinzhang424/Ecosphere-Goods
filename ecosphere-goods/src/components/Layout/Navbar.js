@@ -4,14 +4,9 @@ import { IoCartOutline } from "react-icons/io5";
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 import Logo from '../utility/Logo';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../features/userSlice';
 import ProfileIconAndMenu from './ProfileIconAndMenu';
 
 const Navbar = () => {
-  const user = useSelector(selectUser)
-  const navigate = useNavigate()
-
   const [show, handleShow] = useState(true);
   const navLinkStyle = ({ isActive }) => isActive ? 'text-off-white bg-dark-brown p-2 pl-4 pr-4 rounded-md' : 'hover:bg-dark-brown hover:text-off-white transition-colors ease-in-out duration-300 p-2 pl-4 pr-4 rounded-md'
   
@@ -27,12 +22,6 @@ const Navbar = () => {
     window.addEventListener("scroll", transitionNavBar);
     return () => window.removeEventListener("scroll", transitionNavBar);
   }, [])
-
-  const navigateToUserPortal = () => {
-    if (!user) {
-      navigate('/user-portal')
-    }
-  }
 
   return (
     <div className={`fixed top-0 left-0 right-0 z-10 flex justify-between items-center bg-off-white p-8 w-full text-dark-brown transition-opacity ease-in-out duration-200 ${show ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
@@ -63,7 +52,7 @@ const Navbar = () => {
             <IoCartOutline className="w-7 h-7 cursor-pointer"/>
         </NavLink>
         
-        <button onClick={ navigateToUserPortal }><ProfileIconAndMenu/></button>
+        <ProfileIconAndMenu/>
         
         <IoMdSearch className="w-7 h-7 cursor-pointer"/>
       </div>
