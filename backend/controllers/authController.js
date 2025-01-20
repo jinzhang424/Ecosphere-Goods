@@ -6,7 +6,7 @@ const getUserRole = async (uid) => {
         throw new Error('UID is requried')
     }
 
-    const userDoc = await db.collection('uers').doc
+    const userDoc = await db.collection('customers').doc(uid).get()
     if (!userDoc.exists) {
         throw new Error('User not found')
     }
@@ -15,7 +15,7 @@ const getUserRole = async (uid) => {
     if (!userData.role) {
         // Set default role if not present
         userData.role = 'customer';
-        await db.collection('users').doc(uid).update({ role: 'customer' });
+        await db.collection('customers').doc(uid).update({ role: 'customer' });
     }
 
     return userData.role
@@ -68,11 +68,9 @@ const fetchUserRole = async (req, res) => {
         const role = await getUserRole(uid)
         return res.status(200).json({ success: true, role: role })
     } catch (error) {
-        console.error('Error fetching user role')
+        console.error( error.message || 'Error fetching user role')
         return res.status(500).json({ success: false, message: 'Error fetching user role'})
     }
-    
-    return role
 }
 
 const signInUser = async(req, res) => {
