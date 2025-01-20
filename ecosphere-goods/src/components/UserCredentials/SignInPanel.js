@@ -15,7 +15,7 @@ const SignInPanel = () => {
     
     const onSignIn = async () => {
         try {
-            await handleSignIn(email, password, navigate)
+            await handleSignIn(email, password)
             toast.success('Sign-in successful!');
             navigate('/');
         } catch (error) {

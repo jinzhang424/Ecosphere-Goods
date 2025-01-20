@@ -2,7 +2,7 @@ import axios from "axios";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase"; // Adjust the import path as needed
 
-export const handleSignIn = async (email, password, navigate) => {
+export const handleSignIn = async (email, password) => {
     if (!email || !password) {
         throw new Error('Please enter your email and password')
     }
