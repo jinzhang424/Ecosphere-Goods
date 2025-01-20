@@ -38,9 +38,8 @@ const sortByPrice = (products, order) => {
 }
 
 const getProducts = async (snapshot, minUnitCost, maxUnitCost) => {
-
     const products = [];
-    const hasPriceRange = !minUnitCost || !maxUnitCost
+    const hasPriceRange = minUnitCost && maxUnitCost
 
     const productPromises = snapshot.docs.map(async (doc) => {
         const productData = doc.data()
