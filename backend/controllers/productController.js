@@ -1,4 +1,6 @@
 const { db } = require('../config/firebase.js')
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Ensure you have your Stripe secret key in your environment variables
 
 // Gets the snapshot while filtering and ordering products
 const getSnapshot = async (filters = [], order) => {
@@ -84,25 +86,30 @@ const fetchProducts = async (req, res) => {
 }
 
 const addNewProduct = async (req, res) => {
-    const { name, price, subcategory, image, } = req.body;
+    const { name, price, subcategory, image } = req.body;
 
-    if (!name || !price || !category || !image) {
+    console.log( name, price, subcategory, image )
+
+    if (!name || !price || !subcategory || !image) {
         res.status(400).json({ success: false, message: 'All fields are required. Fields: name, price, cateogory, image'})
     }
 
     try {
-        const newProduct = {
+        const stripeProduct = await stripe.products.create({
             name,
-            price,
-            image,
-            subcategory,
-            date_created: new Data(),
-            active: true,
-        }
+            images: [image],
+            metadata: {
+                itemCategory: subcategory,
+            }
+        })
 
-        const productRef = await db.collection('products').add(newProduct)
+        const stripePrice = await stripe.prices.create({
+            unit_amount: price * 100,
+            currency: 'nzd',
+            product: stripeProduct.id
+        })
 
-        return res.status(201).json({ success: true, message: 'Product added successfully', productId: productRef.id})
+        return res.status(201).json({ success: true, message: 'Product added successfully', stripeProduct, price: stripePrice})
     } catch (error) {
         console.error('Error adding product:', error);
         return res.status(500).json({ success: false, message: 'Error adding product' });
