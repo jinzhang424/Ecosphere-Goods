@@ -28,8 +28,8 @@ const DashBoardNav = () => {
                 </NavLink>
             </div>
             
-            <div className='pt-7 border-t-2 border-light-brown'>   
-                <NavLink className='h-fit text-dark-brown'>
+            <div className={`pt-7 border-t-2 border-light-brown`}>
+                <NavLink className='h-fit hover:bg-white text-dark-brown' to='/'>
                     <ImExit className={ iconSize }/>
                 </NavLink>
             </div>
