@@ -7,6 +7,8 @@ import { NewItemContext } from "./NewItemContext";
 import ImageInput from "../utility/ImageInput";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
+import { addNewProduct } from "../../utilityFunctions/productHandling";
+import { toast } from "react-toastify";
 
 export default function AddItemDialog() {
   const [open, setOpen] = useState(false);
@@ -41,34 +43,9 @@ export default function AddItemDialog() {
       await uploadString(storageRef, image, 'data_url');
       const imageUrl = await getDownloadURL(storageRef);
 
-      console.log('SUBCATEGORY:', subcategory)
-
-      const newProduct = {
-        name,
-        price,
-        image: imageUrl,
-        subcategory
-      };
-
-      const response = await fetch('https://australia-southeast1-ecosphere-goods.cloudfunctions.net/createStripeProduct', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newProduct)
-      })
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Failed to create producDADDADA:', errorText);
-        throw new Error('Failed to create product');
-      }
-
-      const data = await response.json();
-      console.log('Product created:', data)
-      handleCancel();
+      await addNewProduct(name, price, subcategory, imageUrl)
     } catch (error) {
-      console.error('Failed to create product:', error);
+      console.error(error.message);
     }
   };
 
