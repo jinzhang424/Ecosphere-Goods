@@ -13,12 +13,18 @@ const registerUser = async (req, res) => {
             password,
         });
 
+        await db.collection('users').doc(userRecord.uid).set({
+            email: userRecord.email,
+            role: 'customer',
+        });
+
         res.status(201).json({
             success: true,
             message: 'Account successfully created',
             user: {
                 uid: userRecord.uid,
                 email: userRecord.email,
+                role: 'customer',
             }
         })
     } catch (error) {
