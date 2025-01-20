@@ -31,3 +31,15 @@ export const registerUser = async (email, password, passwordMatch) => {
         throw new Error('Error occured while registering.');
     }
 };
+
+export const fetchRole = async (uid) => {
+    try {
+        const response = await axios.post('http://localhost:5000/auth/fetch-user-role', {
+            params: { uid }
+        })
+
+        return response.data.role
+    } catch (error) {
+        throw new Error('Error occurred while fetching role')
+    }
+}
