@@ -83,4 +83,30 @@ const fetchProducts = async (req, res) => {
     }
 }
 
-module.exports = { fetchProducts }
+const addNewProduct = async (req, res) => {
+    const { name, price, subcategory, image, } = req.body;
+
+    if (!name || !price || !category || !image) {
+        res.status(400).json({ success: false, message: 'All fields are required. Fields: name, price, cateogory, image'})
+    }
+
+    try {
+        const newProduct = {
+            name,
+            price,
+            image,
+            subcategory,
+            date_created: new Data(),
+            active: true,
+        }
+
+        const productRef = await db.collection('products').add(newProduct)
+
+        return res.status(201).json({ success: true, message: 'Product added successfully', productId: productRef.id})
+    } catch (error) {
+        console.error('Error adding product:', error);
+        return res.status(500).json({ success: false, message: 'Error adding product' });
+    }
+}
+
+module.exports = { fetchProducts, addNewProduct }
