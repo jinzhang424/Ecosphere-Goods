@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MdOutlineSpaceDashboard, MdLogout } from "react-icons/md";
 import Menu from '@mui/material/Menu';
 import { MdAccountCircle } from "react-icons/md";
@@ -36,6 +36,18 @@ const ProfileIconAndMenu = () => {
         dispatch(logout())
         navigate('/user-portal')
     }
+
+    useEffect(() => {
+        const handleScroll = () => {
+            handleClose()
+        }
+
+        window.addEventListener('scroll', handleScroll)
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
 
     return (
         <div className='flex relative z-0'>
