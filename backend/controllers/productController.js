@@ -88,10 +88,8 @@ const fetchProducts = async (req, res) => {
 const addNewProduct = async (req, res) => {
     const { name, price, subcategory, image } = req.body;
 
-    console.log( name, price, subcategory, image )
-
     if (!name || !price || !subcategory || !image) {
-        res.status(400).json({ success: false, message: 'All fields are required. Fields: name, price, cateogory, image'})
+        res.status(400).json({ success: false, message: 'All fields are required.'})
     }
 
     try {
@@ -108,6 +106,9 @@ const addNewProduct = async (req, res) => {
             currency: 'nzd',
             product: stripeProduct.id
         })
+
+        const newProductId = stripeProduct.id
+        await db.collection('products').doc(newProductId).update({ date_created: new Date() })
 
         return res.status(201).json({ success: true, message: 'Product added successfully', stripeProduct, price: stripePrice})
     } catch (error) {
