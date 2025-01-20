@@ -3,8 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import PasswordTextField from './PasswordTextField';
-import { auth } from '../../firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { registerUser } from '../../utilityFunctions/userAuth';
 import { toast } from 'react-toastify';
 
 const RegisterEmail = ({ backToSignIn }) => {
@@ -23,21 +22,18 @@ const RegisterEmail = ({ backToSignIn }) => {
     setPasswordMatch(password === newPassword);
   };
 
-  const registerUser = () => {
-    createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).then((authUser) => {
-      console.log(authUser)
-      toast.success('Account Successfully Created!');
-      setEmail('')
-      setPassword('')
-      setConfirmPassword('')
-      backToSignIn()
-    }).catch((error) => {
+  const onRegister = async () => {
+    try {
+      await registerUser(email, password, passwordMatch);
+
+      // Resetting the state and moving the user to sign in
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      backToSignIn();
+    } catch (error) {
       toast.error(error.message);
-    })
+    }
   }
 
   return (
@@ -75,7 +71,7 @@ const RegisterEmail = ({ backToSignIn }) => {
       <Button 
           variant="contained" 
           fullWidth
-          onClick={ registerUser }
+          onClick={ onRegister }
           sx={{
               backgroundColor: '#362D2D',
               height: '3rem',

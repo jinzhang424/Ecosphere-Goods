@@ -1,36 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import ProductCatalogItem from './ProductCatalogItem'
-import { collection, query, where, getDocs } from '../../firebase'
-import db from '../../firebase'
+import { fetchProducts } from '../../utilityFunctions/productHandling'
 
 const ProductCatalogDisplay = () => {
     const [products, setProducts] = useState([])
     
     useEffect(() => {
-        const fetchProducts = async () => {
-            const productsRef = collection(db, 'products')
-            const q = query(productsRef, where('active', '==', true))
-            const qSnapShot = await getDocs(q)
-            const products = []
-
-            const productPromises = qSnapShot.docs.map(async (productDoc) => {
-            const productData = productDoc.data()
-            const priceSnap = await getDocs(collection(productDoc.ref, 'prices'));
-
-            const prices = priceSnap.docs.map((price) => ({
-                priceId: price.id,
-                priceData: price.data()
-            }))
-
-            productData.prices = prices
-            products.push({id: productDoc.id, ...productData})
-            })
-
-            await Promise.all(productPromises)
+        const getProducts = async () => {
+            const products = await fetchProducts(undefined, undefined, undefined, 'Newest')
             setProducts(products)
         }
 
-        fetchProducts()
+        getProducts()
     }, [])
 
     console.log(products)

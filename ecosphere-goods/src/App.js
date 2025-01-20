@@ -7,7 +7,6 @@ import ProductsPage from './pages/ProductsPage';
 import UserPortalPage from './pages/UserPortalPage'
 import ProductPage from './pages/ProductPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
-import ProfilePage from './pages/DashBoardHomePage'
 import { productLoader } from './pages/ProductPage';
 import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +14,7 @@ import { login, logout, selectUser } from './features/userSlice';
 import DashBoardLayout from './layouts/DashBoardLayout';
 import DashBoardHomePage from './pages/DashBoardHomePage';
 import AdminProductCatalog from './components/Dashboard/AdminProductCatalog';
+import { fetchRole } from './utilityFunctions/userAuth';
 
 const router = createBrowserRouter([
   {
@@ -43,11 +43,20 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+    const unsubscribe = auth.onAuthStateChanged( async (userAuth) => {
       if (userAuth) {
+        let role
+
+        try {
+          role = await fetchRole(userAuth.uid)
+        } catch (error) {
+          console.error('Error fetching UID')
+        }
+
         dispatch(login({
           uid: userAuth.uid,
-          email: userAuth.email
+          email: userAuth.email,
+          role: role
         }))
       } else {
         dispatch(logout())

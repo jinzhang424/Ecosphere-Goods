@@ -5,6 +5,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const admin = require('./config/firebase');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes')
 
 // Create an Express app
 const app = express();
@@ -27,3 +29,4 @@ app.listen(PORT, () => {
 
 // Routes
 app.use('/auth', authRoutes)
+app.use('/products', productRoutes)

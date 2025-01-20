@@ -2,26 +2,25 @@ import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
 import PasswordTextField from './PasswordTextField';
-import { toast } from 'react-toastify';
 import BackToBrowsingButton from '../utility/BackToBrowsingButton';
+import { useNavigate } from 'react-router-dom';
+import { handleSignIn } from '../../utilityFunctions/userAuth';
+import { toast } from 'react-toastify';
 
 const SignInPanel = () => {
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     
-    const handleSignIn = () => {
-        signInWithEmailAndPassword(
-            auth,
-            email,
-            password,
-        ).then((authUser) => {
-            console.log(authUser)
-        }).catch((error) => {
+    const onSignIn = async () => {
+        try {
+            await handleSignIn(email, password)
+            toast.success('Sign-in successful!');
+            navigate('/');
+        } catch (error) {
             toast.error(error.message)
-        })
+        }
     }
     
     return (
@@ -48,7 +47,7 @@ const SignInPanel = () => {
                 <Button 
                     variant="contained" 
                     fullWidth
-                    onClick={ handleSignIn }
+                    onClick={ onSignIn }
                     sx={{
                         backgroundColor: '#362D2D',
                         height: '3rem',

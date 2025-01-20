@@ -56,7 +56,7 @@ const Navbar = () => {
             <IoCartOutline className="w-7 h-7 cursor-pointer"/>
         </NavLink>
         
-        <NavLink to='dashboard/home'>
+        <NavLink to={`${user ? 'dashboard/home' : 'user-portal'}`}>
           <MdAccountCircle className="w-7 h-7 cursor-pointer"/>
         </NavLink>
         
