@@ -44,8 +44,10 @@ export default function AddItemDialog() {
       const imageUrl = await getDownloadURL(storageRef);
 
       await addNewProduct(name, price, subcategory, imageUrl)
+      toast.success('Successfully added new product.')
     } catch (error) {
       console.error(error.message);
+      toast.error('Successfully added new product.')
     }
   };
 

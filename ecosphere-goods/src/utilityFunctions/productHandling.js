@@ -27,8 +27,6 @@ export const addNewProduct = async (name, price, subcategory, image) => {
         image: image
     }
 
-    console.log('new product params:', newProduct)
-
     try {
         const response = await axios.post('http://localhost:5000/products/add-new-product', newProduct)
     } catch(error) {
