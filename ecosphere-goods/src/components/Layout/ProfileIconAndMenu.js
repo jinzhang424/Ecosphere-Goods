@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
 import { useSelector } from 'react-redux';
+import { logout } from '../../features/userSlice';
 
 const ProfileIconAndMenu = () => {
     const user = useSelector(selectUser)
@@ -19,7 +20,7 @@ const ProfileIconAndMenu = () => {
         if (user) {
             setAnchorEl(event.currentTarget);
         } else {
-            navigate('user-portal')
+            navigate('/user-portal')
         }
     };
 
@@ -31,7 +32,7 @@ const ProfileIconAndMenu = () => {
         navigate('/dashboard/home')
     }
 
-    const logout = () => {
+    const logoutClick = () => {
         dispatch(logout())
         navigate('/user-portal')
     }
@@ -63,7 +64,7 @@ const ProfileIconAndMenu = () => {
                 <ProfileMenuItem onClick={navigateToDashboard} label='Dashboard'>
                     <MdOutlineSpaceDashboard/>
                 </ProfileMenuItem>
-                <ProfileMenuItem onClick={logout} label='Logout' color='red-700'>
+                <ProfileMenuItem onClick={logoutClick} label='Logout' color='red-700'>
                     <MdLogout/>
                 </ProfileMenuItem>
             </Menu>
