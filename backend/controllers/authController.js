@@ -86,7 +86,7 @@ const signInUser = async(req, res) => {
         const decodedToken = await admin.auth().verifyIdToken(idToken);
         const uid = decodedToken.uid
 
-        const role = fetchUserRole(uid)
+        const role = getUserRole(uid)
         const customToken = await admin.auth().createCustomToken(uid)
 
         return res.status(200).json({ success: true, token: customToken, role: role });
