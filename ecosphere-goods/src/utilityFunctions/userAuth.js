@@ -34,7 +34,7 @@ export const registerUser = async (email, password, passwordMatch) => {
 
 export const fetchRole = async (uid) => {
     try {
-        const response = await axios.post('http://localhost:5000/auth/fetch-user-role', {
+        const response = await axios.get('http://localhost:5000/auth/fetch-user-role', {
             params: { uid }
         })
 
