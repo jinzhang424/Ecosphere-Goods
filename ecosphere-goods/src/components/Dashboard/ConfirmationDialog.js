@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { FaTrash } from "react-icons/fa";
+import { deleteProduct } from "../../utilityFunctions/productHandling";
 
 export default function ConfirmationDialog({ productId, imgUrl, name, price, subcategory, dateString}) {
     const [open, setOpen] = useState(false);
@@ -18,11 +19,13 @@ export default function ConfirmationDialog({ productId, imgUrl, name, price, sub
         event.preventDefault();
 
         try {
+            await deleteProduct(productId)
 
-        toast.success('Successfully added new product.')
+            handleClose()
+            toast.success('Successfully deleted product.')
         } catch (error) {
-        console.error(error.message);
-        toast.error('Successfully added new product.')
+            console.error(error.message);
+            toast.error('Failed to delete product.')
         }
     };
 
