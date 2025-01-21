@@ -117,6 +117,18 @@ const addNewProduct = async (req, res) => {
     }
 }
 
+const deletePrices = async (productId) => {
+    try {
+        const prices = await stripe.prices.list({ product: productId })
+
+        for (const price of prices.data) {
+            await stripe.prices.update(price.id, { active: false })
+        }
+    } catch (error) {
+        throw new Error(error.message || 'Error deleting stripe prices')
+    }
+}
+
 const deleteProduct = async (req, res) => {
     const { productId } = req.body
 
@@ -125,10 +137,13 @@ const deleteProduct = async (req, res) => {
     }
 
     try {
-        await stripe.products.del(productId);
-        console.log('Product Successfully deleted')
+        await deletePrices(productId)
+        await stripe.products.update(productId, { active: false });
+        await db.collection('products').doc(productId).delete()
+
         return res.status(201).json({ success: true, message: 'Product Successfully deleted'})
-    } catch {
+    } catch (error) {
+        console.log(error.message)
         return res.status(500).json({ success: false, message: 'Error deleting product'})
     }
 } 
