@@ -36,7 +36,9 @@ export const addNewProduct = async (name, price, subcategory, image) => {
 
 export const deleteProduct = async(productId) => {
     try {
-        const response = await axios.delete('http://localhost:5000/products/delete-product', productId)
+        const response = await axios.delete('http://localhost:5000/products/delete-product',{ 
+            data: { productId }
+        })
     } catch (error) {
         throw new Error(error.message || 'Error while adding new product')
     }
