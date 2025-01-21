@@ -117,4 +117,20 @@ const addNewProduct = async (req, res) => {
     }
 }
 
-module.exports = { fetchProducts, addNewProduct }
+const deleteProduct = async (req, res) => {
+    const { productId } = req.body
+
+    if (!productId) {
+        return res.status(400).json({ success: false, message: 'A product ID is required'})
+    }
+
+    try {
+        await stripe.products.del(productId);
+        console.log('Product Successfully deleted')
+        return res.status(201).json({ success: true, message: 'Product Successfully deleted'})
+    } catch {
+        return res.status(500).json({ success: false, message: 'Error deleting product'})
+    }
+} 
+
+module.exports = { fetchProducts, addNewProduct, deleteProduct }
