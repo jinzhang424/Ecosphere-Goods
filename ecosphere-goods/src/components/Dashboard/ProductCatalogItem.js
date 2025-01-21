@@ -27,7 +27,7 @@ const ProductCatalogItem = (productData) => {
             <p className='text-center w-24'>{ dateString }</p>
             <p className='text-center w-24'>{ subcategory }</p>
             <p className='text-center w-24'>{ price }</p>
-            <ConfirmationDialog productId={productData.id} imgUrl={imgUrl} name={name} price={price} subcategory={subcategory} dateString={dateString}/>
+            <ConfirmationDialog productId={productData.productData.id} imgUrl={imgUrl} name={name} price={price} subcategory={subcategory} dateString={dateString}/>
         </span>
     )
 }
