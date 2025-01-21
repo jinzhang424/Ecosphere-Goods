@@ -16,11 +16,12 @@ const ProductCatalogDisplay = () => {
 
     console.log(products)
 
-
     return (
         <div className='overflow-y-scroll h-full space-y-4'>
             {Object.entries(products).map(([productId, productData]) => (
-                <ProductCatalogItem key={ productId } productData={ productData }/>
+                <div key={ productId }>
+                    <ProductCatalogItem key={ productId } productData={ productData }/>
+                </div>
             ))}
         </div>
     )
