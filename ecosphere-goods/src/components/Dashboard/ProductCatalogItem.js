@@ -1,12 +1,12 @@
 import React from 'react'
 import unitToDollarString from '../../utilityFunctions/unitToDollarString'
-import { FaTrash } from "react-icons/fa";
+import ConfirmationDialog from './ConfirmationDialog';
 
 const ProductCatalogItem = (productData) => {
     const imgUrl = productData.productData.images[0]
     const name = productData.productData.name
-    const unitAmount = productData.productData.prices[0].priceData.unit_amount
-    const category = productData.productData.stripe_metadata_itemCategory
+    const price = unitToDollarString(productData.productData.prices[0].priceData.unit_amount)
+    const subcategory = productData.productData.stripe_metadata_itemCategory
     const dateCreated = productData.productData.date_created
 
     const date = new Date(dateCreated.seconds * 1000 + dateCreated.nanoseconds / 1000000);
@@ -25,9 +25,9 @@ const ProductCatalogItem = (productData) => {
             
             <p className='text-center w-48'>{ name }</p>
             <p className='text-center w-24'>{ dateString }</p>
-            <p className='text-center w-24'>{ category }</p>
-            <p className='text-center w-24'>{ unitToDollarString(unitAmount) }</p>
-            <button onClick={ handleDelete }><FaTrash className='w-5 h-5 text-red-600 opacity-70 hover:opacity-100'/></button>
+            <p className='text-center w-24'>{ subcategory }</p>
+            <p className='text-center w-24'>{ price }</p>
+            <ConfirmationDialog productId={productData.id} imgUrl={imgUrl} name={name} price={price} subcategory={subcategory} dateString={dateString}/>
         </span>
     )
 }
