@@ -1,6 +1,8 @@
 import React from 'react'
 import unitToDollarString from '../../utilityFunctions/unitToDollarString'
 import ConfirmationDialog from './ConfirmationDialog';
+import ProductDialog from './ProductDialog';
+import { FaEdit } from "react-icons/fa";
 
 const ProductCatalogItem = (productData) => {
     const imgUrl = productData.productData.images[0]
@@ -17,17 +19,25 @@ const ProductCatalogItem = (productData) => {
     }
 
     return (
-        <span className='flex justify-between items-center text-dark-brown font-header h-16 pr-12 bg-dark-brown bg-opacity-10 rounded-xl overflow-hidden'>
-            <img 
-                src={ imgUrl } 
-                className='aspect-square object-cover h-16 w-16' 
-            />
-            
-            <p className='text-center w-48'>{ name }</p>
-            <p className='text-center w-24'>{ dateString }</p>
-            <p className='text-center w-24'>{ subcategory }</p>
-            <p className='text-center w-24'>{ price }</p>
-            <ConfirmationDialog productId={productData.productData.id} imgUrl={imgUrl} name={name} price={price} subcategory={subcategory} dateString={dateString}/>
+        <span className='flex bg-dark-brown bg-opacity-10 rounded-xl overflow-hidden'>
+            <div className='flex justify-between items-center text-dark-brown font-header h-16 pr-12 w-11/12'>
+                <img 
+                    src={ imgUrl } 
+                    className='aspect-square object-cover h-16 w-16' 
+                />
+                
+                <p className='text-center w-48'>{ name }</p>
+                <p className='text-center w-24'>{ dateString }</p>
+                <p className='text-center w-24'>{ subcategory }</p>
+                <p className='text-center w-24'>{ price }</p>   
+            </div>
+
+            <div className='flex space-x-4 items-center'>
+                <ProductDialog>
+                    <FaEdit className='w-6 h-6 text-blue-500 opacity-70 hover:opacity-100'/>
+                </ProductDialog>
+                <ConfirmationDialog productId={productData.productData.id} imgUrl={imgUrl} name={name} price={price} subcategory={subcategory} dateString={dateString}/>
+            </div>
         </span>
     )
 }

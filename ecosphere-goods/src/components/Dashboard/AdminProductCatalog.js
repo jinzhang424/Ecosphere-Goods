@@ -15,7 +15,7 @@ const AdminProductCatalog = () => {
           </ProductDialog>
         </div>
 
-        <span className='flex font-header opacity-80 w-full justify-between pr-16 border-b-2 border-dark-brown border-opacity-70 pb-4'>
+        <span className='flex font-header opacity-80 w-full justify-between pr-4 border-b-2 border-dark-brown border-opacity-70 pb-4'>
           <p className='text-center w-16'>Image</p>
           <p className='text-center w-48'>Name</p>
           <p className='text-center w-24'>Date Added</p>
