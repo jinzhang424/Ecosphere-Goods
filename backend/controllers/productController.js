@@ -157,6 +157,11 @@ const updateProduct = async (req, res) => {
         return res.status(400).json({ success: false, message: 'Missing paramters!'})
     }
 
+    if (!productId || !priceId) {
+        console.error('Missing product and price ID')
+        return res.status(400).json({ success: false, message: 'Missing product and price ID'})
+    }
+
     try {
         await stripe.products.update(productId, {
             name,
