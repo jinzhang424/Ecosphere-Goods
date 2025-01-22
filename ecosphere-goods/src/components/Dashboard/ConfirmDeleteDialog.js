@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { FaTrash } from "react-icons/fa";
 import { deleteProduct } from "../../utilityFunctions/productHandling";
 
-export default function ConfirmationDialog({ productId, imgUrl, name, price, subcategory, dateString}) {
+export default function ConfirmDeleteDialog({ productId, productName }) {
     const [open, setOpen] = useState(false);
     const buttonStyle = 'text-xl text-off-white p-1 pl-4 pr-4 rounded-lg bg-opacity-85 hover:bg-opacity-100'
 
@@ -43,7 +43,10 @@ export default function ConfirmationDialog({ productId, imgUrl, name, price, sub
                 
                 <dialog open className='flex flex-col fixed inset-0 z-40 w-7/12 p-10 pr-12 pl-12 bg-off-white rounded-3xl h-fit'>
                     <div className='flex justify-between items-center'>
-                        <p className='text-xl text-dark-brown'>Are you sure you want to delete: {name}?</p>
+                        <span className='flex text-xl font-header text-dark-brown space-x-4'> 
+                            <p className='opacity-80'>Are you sure you want to delete:</p>
+                            <p>{ productName }?</p>
+                        </span>
                         
                         <div className='space-x-6 flex items-center'>
                             <button className={`${buttonStyle} bg-green-600`} onClick={handleConfirmDelete}>Yes</button>

@@ -1,6 +1,6 @@
 import React from 'react'
 import unitToDollarString from '../../utilityFunctions/unitToDollarString'
-import ConfirmationDialog from './ConfirmationDialog';
+import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import ProductDialog from './ProductDialog';
 import { FaEdit } from "react-icons/fa";
 
@@ -35,7 +35,7 @@ const ProductCatalogItem = (productData) => {
                 <ProductDialog isEditing={ true } p>
                     <FaEdit className='w-6 h-6 text-blue-500 opacity-70 hover:opacity-100'/>
                 </ProductDialog>
-                <ConfirmationDialog productId={productData.productData.id} imgUrl={imgUrl} name={name} price={price} subcategory={subcategory} dateString={dateString}/>
+                <ConfirmDeleteDialog productId={productData.productData.id} productName={ product.name }/>
             </div>
         </span>
     )
