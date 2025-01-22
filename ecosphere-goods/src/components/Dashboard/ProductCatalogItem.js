@@ -32,7 +32,7 @@ const ProductCatalogItem = (productData) => {
             </div>
 
             <div className='flex space-x-4 items-center'>
-                <ProductDialog isEditing={ true } p>
+                <ProductDialog isEditing={ true } product={ product } p>
                     <FaEdit className='w-6 h-6 text-blue-500 opacity-70 hover:opacity-100'/>
                 </ProductDialog>
                 <ConfirmDeleteDialog productId={productData.productData.id} productName={ product.name }/>
