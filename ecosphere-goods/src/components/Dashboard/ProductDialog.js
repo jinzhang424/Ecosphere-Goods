@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 
 export default function ProductDialog({ children, isEditing = false }) {
   const [open, setOpen] = useState(false);
-  const { setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
+  const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
   const [fieldsNotFilled, setFieldsNotFilled] = useState(false)
 
   const handleClickOpen = () => {
@@ -43,7 +43,7 @@ export default function ProductDialog({ children, isEditing = false }) {
       await uploadString(storageRef, image, 'data_url');
       const imageUrl = await getDownloadURL(storageRef);
 
-      await addNewProduct(name, price, subcategory, imageUrl)
+      await addNewProduct(name, price, subcategory, imageUrl, category)
       toast.success('Successfully added new product.')
     } catch (error) {
       console.error(error.message);

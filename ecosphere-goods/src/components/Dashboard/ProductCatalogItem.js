@@ -8,7 +8,7 @@ const ProductCatalogItem = (productData) => {
     const imgUrl = productData.productData.images[0]
     const name = productData.productData.name
     const price = unitToDollarString(productData.productData.prices[0].priceData.unit_amount)
-    const subcategory = productData.productData.stripe_metadata_itemCategory
+    const subcategory = productData.productData.stripe_metadata_itemSubcategory
     const dateCreated = productData.productData.date_created
 
     const date = new Date(dateCreated.seconds * 1000 + dateCreated.nanoseconds / 1000000);

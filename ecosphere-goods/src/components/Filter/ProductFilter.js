@@ -8,12 +8,12 @@ import FilterCategory from './FilterCategory';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import db, { collection, getDocs, query } from '../../firebase';
+import db, { collection, getDocs } from '../../firebase';
 
 const ProductFilter = ({ setFilters }) => {
     const [openCategories, setOpenCategories] = useState(true);
     const [selectedFilters, setSelectedFilters] = useState(new Set())
-    const [categories, setCategories] = useState([]);
+    const [categories, setSubcategories] = useState([]);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -24,10 +24,10 @@ const ProductFilter = ({ setFilters }) => {
                     name: doc.id,
                     subcategories: doc.data().subcategories || []
                 }));
-                setCategories(categoryList);
+                setSubcategories(categoryList);
             } catch (error) {
                 console.error('Error fetching categories:', error);
-                setCategories([])
+                setSubcategories([])
             }
         }
 

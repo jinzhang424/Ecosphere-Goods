@@ -19,12 +19,13 @@ export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost =
     }
 }
 
-export const addNewProduct = async (name, price, subcategory, image) => {
+export const addNewProduct = async (name, price, subcategory, image, category) => {
     const newProduct = {
         name: name,
         price: price,
         subcategory: subcategory,
-        image: image
+        image: image,
+        category: category
     }
 
     try {
