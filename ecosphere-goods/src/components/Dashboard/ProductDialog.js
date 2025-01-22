@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import DialogButton from "./DialogButton";
 import TextField from '@mui/material/TextField';
 import SelectCategory from "./SelectCategory";
@@ -10,24 +10,10 @@ import { storage } from "../../firebase";
 import { addNewProduct } from "../../utilityFunctions/productHandling";
 import { toast } from "react-toastify";
 
-export default function ProductDialog({ children, isEditing = false, product }) {
+export default function ProductDialog({ children, isEditing = false }) {
   const [open, setOpen] = useState(false);
   const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
   const [fieldsNotFilled, setFieldsNotFilled] = useState(false)
-
-  useEffect(() => {
-    const setFields = () => {
-      if (product) {
-        setCategory(product.category)
-        setSubcategory(product.subcategory)
-        setImage(product.imageUrl)
-        setName(product.name)
-        setPrice(product.price)
-      }
-    }
-
-    setFields()
-  }, [])
 
   const handleClickOpen = () => {
     setOpen(true);
