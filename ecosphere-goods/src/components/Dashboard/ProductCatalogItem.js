@@ -20,6 +20,11 @@ const ProductCatalogItem = (productData) => {
     const date = new Date(dateCreated.seconds * 1000 + dateCreated.nanoseconds / 1000000);
     const dateString = date.toLocaleDateString();
 
+    const IDs = {
+        productId: productData.productData.id,
+        priceId: productData.productData.prices[0].priceId
+    }
+
     const handleEditClick = () => {
         setCategory(product.category)
         setSubcategory(product.subcategory)
@@ -43,7 +48,7 @@ const ProductCatalogItem = (productData) => {
             </div>
 
             <div className='flex space-x-4 items-center'>
-                <ProductDialog isEditing={ true } product={ product } p>
+                <ProductDialog isEditing={ true } IDs = { IDs }>
                     <FaEdit className='w-6 h-6 text-blue-500 opacity-70 hover:opacity-100' onClick={ handleEditClick }/>
                 </ProductDialog>
                 <ConfirmDeleteDialog productId={productData.productData.id} productName={ product.name }/>
