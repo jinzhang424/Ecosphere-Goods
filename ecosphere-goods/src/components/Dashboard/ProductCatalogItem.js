@@ -14,10 +14,6 @@ const ProductCatalogItem = (productData) => {
     const date = new Date(dateCreated.seconds * 1000 + dateCreated.nanoseconds / 1000000);
     const dateString = date.toLocaleDateString();
 
-    const handleDelete = () => {
-        console.log('trying to delete')
-    }
-
     return (
         <span className='flex bg-dark-brown bg-opacity-10 rounded-xl overflow-hidden'>
             <div className='flex justify-between items-center text-dark-brown font-header h-16 pr-12 w-11/12'>
@@ -33,7 +29,7 @@ const ProductCatalogItem = (productData) => {
             </div>
 
             <div className='flex space-x-4 items-center'>
-                <ProductDialog>
+                <ProductDialog isEditing={ true }>
                     <FaEdit className='w-6 h-6 text-blue-500 opacity-70 hover:opacity-100'/>
                 </ProductDialog>
                 <ConfirmationDialog productId={productData.productData.id} imgUrl={imgUrl} name={name} price={price} subcategory={subcategory} dateString={dateString}/>
