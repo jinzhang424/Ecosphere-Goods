@@ -10,9 +10,9 @@ import { storage } from "../../firebase";
 import { addNewProduct } from "../../utilityFunctions/productHandling";
 import { toast } from "react-toastify";
 
-export default function AddItemDialog() {
+export default function ProductDialog({ children, isEditing = false }) {
   const [open, setOpen] = useState(false);
-  const { setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
+  const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
   const [fieldsNotFilled, setFieldsNotFilled] = useState(false)
 
   const handleClickOpen = () => {
@@ -43,7 +43,7 @@ export default function AddItemDialog() {
       await uploadString(storageRef, image, 'data_url');
       const imageUrl = await getDownloadURL(storageRef);
 
-      await addNewProduct(name, price, subcategory, imageUrl)
+      await addNewProduct(name, price, subcategory, imageUrl, category)
       toast.success('Successfully added new product.')
     } catch (error) {
       console.error(error.message);
@@ -53,13 +53,15 @@ export default function AddItemDialog() {
 
   return (
     <div>
-        <DialogButton label={ 'Add Item' } onClick={ handleClickOpen } />
+        <button onClick={ handleClickOpen } type="submit" className='flex items-center'>
+          { children }
+        </button>
         { open && (
           <>
             <div className='fixed inset-0 bg-black bg-opacity-50' onClick={ handleCancel }></div>
             
             <dialog open className='flex flex-col fixed inset-0 z-40 w-7/12 p-10 pr-12 pl-12 bg-off-white rounded-3xl h-fit'>
-              <h1 className='font-header text-dark-brown text-sHeader'>Add New Product</h1>
+              <h1 className='font-header text-dark-brown text-sHeader'>{isEditing ? 'Update Product' : 'Add New Product'}</h1>
               
               <form onSubmit={ handleSubmit } className='flex flex-col flex-grow justify-between mt-8' noValidate >
                 <div className='flex justify-between'>
@@ -97,13 +99,13 @@ export default function AddItemDialog() {
                   <DialogButton label={ 'Cancel' } onClick={ handleCancel } />
                   <div className='flex items-center justify-center space-x-4'>
                     <p className={`${fieldsNotFilled ? 'text-red-700' : 'hidden'}`}>* Please fill out all fields</p>
-                    <div className={`${fieldsNotFilled ? 'animate-shake' : ''}`}><DialogButton label={ 'Add' } type="submit" /></div>
+                    <div className={`${fieldsNotFilled ? 'animate-shake' : ''}`}><DialogButton label={ isEditing ? 'Update' : 'Add' } type="submit" /></div>
                   </div>
                 </div>
               </form>
             </dialog>
           </>
-            )
+          )
         }
     </div>
   );

@@ -19,17 +19,28 @@ export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost =
     }
 }
 
-export const addNewProduct = async (name, price, subcategory, image) => {
+export const addNewProduct = async (name, price, subcategory, image, category) => {
     const newProduct = {
         name: name,
         price: price,
         subcategory: subcategory,
-        image: image
+        image: image,
+        category: category
     }
 
     try {
         const response = await axios.post('http://localhost:5000/products/add-new-product', newProduct)
-    } catch(error) {
+    } catch (error) {
+        throw new Error(error.message || 'Error while adding new product')
+    }
+}
+
+export const deleteProduct = async(productId) => {
+    try {
+        const response = await axios.delete('http://localhost:5000/products/delete-product',{ 
+            data: { productId }
+        })
+    } catch (error) {
         throw new Error(error.message || 'Error while adding new product')
     }
 }

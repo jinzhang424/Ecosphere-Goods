@@ -86,9 +86,9 @@ const fetchProducts = async (req, res) => {
 }
 
 const addNewProduct = async (req, res) => {
-    const { name, price, subcategory, image } = req.body;
+    const { name, price, subcategory, image, category } = req.body;
 
-    if (!name || !price || !subcategory || !image) {
+    if (!name || !price || !subcategory || !image || !category) {
         res.status(400).json({ success: false, message: 'All fields are required.'})
     }
 
@@ -96,9 +96,6 @@ const addNewProduct = async (req, res) => {
         const stripeProduct = await stripe.products.create({
             name,
             images: [image],
-            metadata: {
-                itemCategory: subcategory,
-            }
         })
 
         const stripePrice = await stripe.prices.create({
@@ -108,7 +105,11 @@ const addNewProduct = async (req, res) => {
         })
 
         const newProductId = stripeProduct.id
-        await db.collection('products').doc(newProductId).update({ date_created: new Date() })
+        await db.collection('products').doc(newProductId).update({ 
+            itemCategory: category,
+            itemSubcategory: subcategory,
+            date_created: new Date() 
+        })
 
         return res.status(201).json({ success: true, message: 'Product added successfully', stripeProduct, price: stripePrice})
     } catch (error) {
@@ -117,4 +118,35 @@ const addNewProduct = async (req, res) => {
     }
 }
 
-module.exports = { fetchProducts, addNewProduct }
+const deletePrices = async (productId) => {
+    try {
+        const prices = await stripe.prices.list({ product: productId })
+
+        for (const price of prices.data) {
+            await stripe.prices.update(price.id, { active: false })
+        }
+    } catch (error) {
+        throw new Error(error.message || 'Error deleting stripe prices')
+    }
+}
+
+const deleteProduct = async (req, res) => {
+    const { productId } = req.body
+
+    if (!productId) {
+        return res.status(400).json({ success: false, message: 'A product ID is required'})
+    }
+
+    try {
+        await deletePrices(productId)
+        await stripe.products.update(productId, { active: false });
+        await db.collection('products').doc(productId).delete()
+
+        return res.status(201).json({ success: true, message: 'Product Successfully deleted'})
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({ success: false, message: 'Error deleting product'})
+    }
+} 
+
+module.exports = { fetchProducts, addNewProduct, deleteProduct }
