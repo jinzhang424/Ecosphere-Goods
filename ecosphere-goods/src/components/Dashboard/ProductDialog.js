@@ -10,7 +10,7 @@ import { storage } from "../../firebase";
 import { addNewProduct } from "../../utilityFunctions/productHandling";
 import { toast } from "react-toastify";
 
-export default function AddItemDialog() {
+export default function ProductDialog({ children }) {
   const [open, setOpen] = useState(false);
   const { setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
   const [fieldsNotFilled, setFieldsNotFilled] = useState(false)
@@ -53,7 +53,9 @@ export default function AddItemDialog() {
 
   return (
     <div>
-        <DialogButton label={ 'Add Item' } onClick={ handleClickOpen } />
+        <button onClick={ handleClickOpen } type="submit" className='flex items-center'>
+          { children }
+        </button>
         { open && (
           <>
             <div className='fixed inset-0 bg-black bg-opacity-50' onClick={ handleCancel }></div>
@@ -103,7 +105,7 @@ export default function AddItemDialog() {
               </form>
             </dialog>
           </>
-            )
+          )
         }
     </div>
   );

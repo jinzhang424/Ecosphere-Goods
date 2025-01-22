@@ -30,7 +30,7 @@ export default function ConfirmationDialog({ productId, imgUrl, name, price, sub
     };
 
     return (
-        <div>
+        <div className='flex items-center'>
             <button 
                 className='flex items-center'
                 onClick={ handleClickOpen }
