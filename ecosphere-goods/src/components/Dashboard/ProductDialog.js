@@ -10,7 +10,7 @@ import { storage } from "../../firebase";
 import { addNewProduct } from "../../utilityFunctions/productHandling";
 import { toast } from "react-toastify";
 
-export default function ProductDialog({ children, isEditing = false }) {
+export default function ProductDialog({ children, isEditing = false, product }) {
   const [open, setOpen] = useState(false);
   const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
   const [fieldsNotFilled, setFieldsNotFilled] = useState(false)
