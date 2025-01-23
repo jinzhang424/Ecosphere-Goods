@@ -60,7 +60,7 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
       toast.success('Successfully added new product.')
     } catch (error) {
       console.error(error.message);
-      toast.error('Successfully added new product.')
+      toast.error('Error adding new product.')
     }
   }
 
