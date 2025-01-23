@@ -17,7 +17,7 @@ const ProductCatalogItem = (productData) => {
     }
 
     const dateCreated = productData.productData.date_created
-    const date = new Date(dateCreated.seconds * 1000 + dateCreated.nanoseconds / 1000000);
+    const date = new Date(dateCreated._seconds * 1000 + dateCreated._nanoseconds / 1000000);
     const dateString = date.toLocaleDateString();
 
     const IDs = {
