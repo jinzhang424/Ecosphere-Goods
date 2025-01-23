@@ -13,13 +13,13 @@ const DashBoardNav = () => {
     const inactiveNavLinkStyle = 'hover:bg-light-brown hover:text-off-white rounded-lg transition-colors ease-in-out duration-500 p-1 text-dark-brown'
 
     return (
-        <div className='flex flex-col items-center justify-between h-full p-6 bg-off-white rounded-3xl pt-10 pb-10'>
+        <div className='flex flex-col items-center justify-between h-full p-5 bg-off-white rounded-3xl pt-10 pb-10'>
             <div className='flex flex-col space-y-8'>
                 <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to='/dashboard/home'>
                     <IoIosHome className={ iconSize }/>
                 </NavLink>
 
-                <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to={`/dashboard/${ isAdmin ? 'product-catalog' : 'past-orders'}`}>
+                <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to={`/dashboard/${ isAdmin ? 'admin/product-catalog' : 'past-orders'}`}>
                     { isAdmin ? <BsBoxes className={iconSize} /> : <GoChecklist className={ iconSize }/>}
                 </NavLink>
 
