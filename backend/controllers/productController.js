@@ -86,7 +86,7 @@ const fetchProducts = async (req, res) => {
 }
 
 const addNewProduct = async (req, res) => {
-    const { name, price, subcategory, image } = req.body;
+    const { name, price, subcategory, category, image } = req.body;
 
     if (!name || !price || !subcategory || !image) {
         res.status(400).json({ success: false, message: 'All fields are required.'})
