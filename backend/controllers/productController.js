@@ -149,4 +149,48 @@ const deleteProduct = async (req, res) => {
     }
 } 
 
-module.exports = { fetchProducts, addNewProduct, deleteProduct }
+const updateProduct = async (req, res) => {
+    const { name, imgUrl, price, category, subcategory, productId, priceId } = req.body 
+
+    if (!name || !imgUrl || !price || !category || !subcategory) {
+        console.error('There were missing parameters in the input')
+        return res.status(400).json({ success: false, message: 'Missing paramters!'})
+    }
+
+    if (!productId || !priceId) {
+        console.error('Missing product and price ID')
+        return res.status(400).json({ success: false, message: 'Missing product and price ID'})
+    }
+
+    try {
+        await stripe.products.update(productId, {
+            name,
+            images: [imgUrl],
+            metadata: {
+                itemCategory: category,
+                itemSubcategory: subcategory
+            }
+        })
+
+        newPrice = await stripe.prices.create({
+            unit_amount: price,
+            currency: 'nzd',
+            product: productId
+        })
+
+        await stripe.products.update(productId, {
+            default_price: newPrice.id,
+        });
+
+        await stripe.prices.update(priceId, {
+            active: false
+        })
+
+        return res.status(201).json({ success: true, message: 'Successfully updated product'})
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({ success: false, message: 'Error occurred while updating product'})
+    }
+}
+
+module.exports = { fetchProducts, addNewProduct, deleteProduct, updateProduct }

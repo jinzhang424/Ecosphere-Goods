@@ -1,5 +1,4 @@
 import axios from "axios";
-import PriceFilter from "../components/Filter/PriceFilter";
 
 export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost = Infinity, order = 'Newest') => {
     try {
@@ -37,10 +36,27 @@ export const addNewProduct = async (name, price, subcategory, image, category) =
 
 export const deleteProduct = async(productId) => {
     try {
-        const response = await axios.delete('http://localhost:5000/products/delete-product',{ 
+        const response = await axios.delete('http://localhost:5000/products/delete-product', { 
             data: { productId }
         })
     } catch (error) {
         throw new Error(error.message || 'Error while adding new product')
+    }
+}
+
+export const updateProduct = async(product, IDs) => {
+
+    try {
+        const response = await axios.put('http://localhost:5000/products/update-product', {
+            productId: IDs.productId,
+            priceId: IDs.priceId,
+            name: product.name,
+            imgUrl: product.imgUrl,
+            price: product.price,
+            category: product.category,
+            subcategory: product.subcategory
+        })
+    } catch (error) {
+        throw new Error(error.message || 'Error while updating product')
     }
 }
