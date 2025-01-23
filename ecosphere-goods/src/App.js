@@ -15,6 +15,7 @@ import DashBoardLayout from './layouts/DashBoardLayout';
 import DashBoardHomePage from './pages/DashBoardHomePage';
 import AdminProductCatalog from './components/Dashboard/AdminProductCatalog';
 import { fetchRole } from './utilityFunctions/userAuth';
+import InsufficientPermissionsPage from './pages/InsufficientPermissionsPage';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'products', element: <ProductsPage /> },
       { path: ':productName', element: <ProductPage />, loader: productLoader },
+      { path: '/insufficient-permissions', element: <InsufficientPermissionsPage/> }
     ],
   },
   {
