@@ -37,7 +37,9 @@ const DashBoardNav = () => {
         fetchUserRole()
     }, [user])
 
-    console.log(currentLocation)
+    if (currentLocation.pathname.includes('admin') && userRole != 'admin') {
+        navigate('/insufficient-permissions')
+    }
 
     return (
         <div className='flex flex-col items-center justify-between h-full p-5 bg-off-white rounded-3xl pt-10 pb-10'>
