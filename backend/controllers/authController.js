@@ -34,7 +34,7 @@ const registerUser = async (req, res) => {
             password,
         });
 
-        await db.collection('users').doc(userRecord.uid).set({
+        await db.collection('customers').doc(userRecord.uid).set({
             email: userRecord.email,
             role: 'customer',
         });
