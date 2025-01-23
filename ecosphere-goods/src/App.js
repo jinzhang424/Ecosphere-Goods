@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import MainLayout from './layouts/MainLayout';
@@ -43,6 +43,7 @@ const router = createBrowserRouter([
 function App() {
   const user = useSelector(selectUser)
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged( async (userAuth) => {
@@ -63,12 +64,18 @@ function App() {
       } else {
         dispatch(logout())
       }
-    })
+
+      setIsLoading(false)
+    }, [])
 
     return unsubscribe
   }, [dispatch])
 
   console.log('Current user:', user)
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <RouterProvider router={router} />
