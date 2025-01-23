@@ -48,6 +48,7 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
       await handleAddProduct()
     }
     
+    handleCancel()
   };
 
   const handleAddProduct = async () => {
@@ -75,7 +76,6 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
       }
 
       await updateProduct(product, IDs)
-      handleCancel()
       toast.success('Successfully updated product.')
     } catch (error) {
       console.error(error.message)
