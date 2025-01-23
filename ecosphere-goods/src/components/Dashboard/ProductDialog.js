@@ -29,10 +29,14 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
     setFieldsNotFilled(false)
   };
 
+  const isAllFieldsFilled = () => {
+    return category && image && name && price && subcategory
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const form = event.target;
-    if (!form.checkValidity()) {
+
+    if (!isAllFieldsFilled()) {
       setFieldsNotFilled(true)
       return
     }
@@ -71,8 +75,11 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
       }
 
       await updateProduct(product, IDs)
+      handleCancel()
+      toast.success('Successfully updated product.')
     } catch (error) {
       console.error(error.message)
+      toast.success('Error updating product.')
     }
   }
 
