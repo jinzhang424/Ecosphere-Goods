@@ -7,7 +7,7 @@ import { NewItemContext } from "./NewItemContext";
 import ImageInput from "../utility/ImageInput";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
-import { addNewProduct } from "../../utilityFunctions/productHandling";
+import { addNewProduct, updateProduct } from "../../utilityFunctions/productHandling";
 import { toast } from "react-toastify";
 
 export default function ProductDialog({ children, isEditing = false, IDs }) {
@@ -39,14 +39,14 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
 
     setFieldsNotFilled(false)
     if (isEditing) {
-      await updateProduct()
+      await handleUpdateProduct()
     } else {
-      await addNewProduct()
+      await handleAddProduct()
     }
     
   };
 
-  const addNewProduct = async () => {
+  const handleAddProduct = async () => {
     try {
       const storageRef = ref(storage, `images/${Date.now()}`);
       await uploadString(storageRef, image, 'data_url');
@@ -57,6 +57,22 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
     } catch (error) {
       console.error(error.message);
       toast.error('Successfully added new product.')
+    }
+  }
+
+  const handleUpdateProduct = async () => {
+    try {
+      const product = {
+        name: name,
+        imgUrl: image,
+        price: price,
+        category: category,
+        subcategory: subcategory
+      }
+
+      await updateProduct(product, IDs)
+    } catch (error) {
+      console.error(error.message)
     }
   }
 
