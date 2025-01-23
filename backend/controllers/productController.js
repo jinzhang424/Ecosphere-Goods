@@ -172,14 +172,20 @@ const updateProduct = async (req, res) => {
             }
         })
 
+        await stripe.prices.create({
+            unit_amount: price * 100,
+            currency: 'nzd',
+            product: productId
+        })
+
         await stripe.prices.update(priceId, {
-            unit_amount: price * 100
+            active: false
         })
 
         return res.status(201).json({ success: true, message: 'Successfully updated product'})
     } catch (error) {
         console.log(error.message)
-        return res.status(500).sjon({ success: false, message: 'Error occurred while updating product'})
+        return res.status(500).json({ success: false, message: 'Error occurred while updating product'})
     }
 }
 
