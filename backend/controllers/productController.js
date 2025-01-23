@@ -172,11 +172,15 @@ const updateProduct = async (req, res) => {
             }
         })
 
-        await stripe.prices.create({
-            unit_amount: price * 100,
+        newPrice = await stripe.prices.create({
+            unit_amount: price,
             currency: 'nzd',
             product: productId
         })
+
+        await stripe.products.update(productId, {
+            default_price: newPrice.id,
+        });
 
         await stripe.prices.update(priceId, {
             active: false
