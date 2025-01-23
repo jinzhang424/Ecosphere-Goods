@@ -79,11 +79,9 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
       toast.success('Successfully updated product.')
     } catch (error) {
       console.error(error.message)
-      toast.success('Error updating product.')
+      toast.error('Error updating product.')
     }
   }
-
-  const updateProduct = async () => {}
 
   return (
     <div>
