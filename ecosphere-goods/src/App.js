@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     element: <DashBoardLayout />,
     children: [
       { path: 'home', element: <DashBoardHomePage />},
-      { path: 'product-catalog', element: <AdminProductCatalog />}
+      { path: 'admin/product-catalog', element: <AdminProductCatalog />}
     ]
   },
   { path: '/user-portal', element: <UserPortalPage /> },
