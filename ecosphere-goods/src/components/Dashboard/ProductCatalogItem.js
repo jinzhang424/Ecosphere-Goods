@@ -11,7 +11,7 @@ const ProductCatalogItem = (productData) => {
     const product = {
         imgUrl: productData.productData.images[0],
         name: productData.productData.name,
-        price: unitToDollarString(productData.productData.prices[0].priceData.unit_amount),
+        price: productData.productData.prices[0].priceData.unit_amount,
         subcategory: productData.productData.stripe_metadata_itemSubcategory,
         category: productData.productData.stripe_metadata_itemCategory,
     }
@@ -44,7 +44,7 @@ const ProductCatalogItem = (productData) => {
                 <p className='text-center w-48'>{ product.name }</p>
                 <p className='text-center w-24'>{ dateString }</p>
                 <p className='text-center w-24'>{ product.subcategory }</p>
-                <p className='text-center w-24'>{ product.price }</p>   
+                <p className='text-center w-24'>{ unitToDollarString(product.price) }</p>   
             </div>
 
             <div className='flex space-x-4 items-center'>

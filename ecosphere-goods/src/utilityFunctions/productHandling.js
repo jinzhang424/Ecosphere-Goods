@@ -1,5 +1,4 @@
 import axios from "axios";
-import PriceFilter from "../components/Filter/PriceFilter";
 
 export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost = Infinity, order = 'Newest') => {
     try {
