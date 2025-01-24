@@ -208,7 +208,7 @@ const updateProduct = async (req, res) => {
 }
 
 const fetchProductByName = async (req, res) => {
-    const { productName } = req.body()
+    const { productName } = req.query
 
     if (!productName) {
         return res.status(400).json({ sucess: false, message: 'Product name is undefined'})
