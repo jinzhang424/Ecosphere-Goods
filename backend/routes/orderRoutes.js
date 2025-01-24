@@ -1,8 +1,8 @@
 const express = require('express')
-const { fetchOrder } = require('../controllers/orderController')
+const { fetchOrders } = require('../controllers/orderController')
 
 const router = express.Router()
 
-router.get('/fetch-orders', fetchOrder)
+router.get('/fetch-orders', fetchOrders)
 
-module.exports(router)
+module.exports = router

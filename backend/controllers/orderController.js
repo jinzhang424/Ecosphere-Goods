@@ -28,18 +28,22 @@ const getAllOrders = async () => {
 }
 
 const getUserOrders = async (userID) => {
-    const customerDoc = await db.collection('customers').get().doc(userID)
-    const customerData = customerSnap.data()
-    
-    const orderSnap = customerDoc.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
-    const orders = orderSnap.map((order) => ({
-        orderID: order.id,
-        orderData: order.data()
-    }))
+    try {
+        const customerDoc = await db.collection('customers').get().doc(userID)
+        const customerData = customerSnap.data()
+        
+        const orderSnap = customerDoc.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
+        const orders = orderSnap.map((order) => ({
+            orderID: order.id,
+            orderData: order.data()
+        }))
 
-    customerData.orders = orders
-    
-    return customerData
+        customerData.orders = orders
+        
+        return customerData
+    } catch (error) {
+        throw new Error(error.message)
+    }
 }
 
 const fetchOrders = async (req, res) => {
