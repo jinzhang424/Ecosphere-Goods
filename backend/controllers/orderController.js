@@ -4,7 +4,7 @@ const { isAdmin } = require('./authController.js')
 const getAllOrders = async () => {
     try {
         const snapshot = await db.collection('customers').get()
-        const orders = []
+        const customerAndOrderData = []
 
         const orderPromise = snapshot.docs.map(async (doc) => {
             const customerData = doc.data()
@@ -16,11 +16,11 @@ const getAllOrders = async () => {
             }))
 
             customerData.orders = orders
-            orders.push({id: doc.id, ...customerData})
+            customerAndOrderData.push({id: doc.id, ...customerData})
         })
 
         await Promise.all(orderPromise)
-        return orders
+        return customerAndOrderData
 
     } catch (error) {
         throw new Error(error.message)
@@ -40,7 +40,7 @@ const getUserOrders = async (userID) => {
 
         customerData.orders = orders
         
-        return customerData
+        return [{id: customerDoc.id, ...customerData}]
     } catch (error) {
         throw new Error(error.message)
     }

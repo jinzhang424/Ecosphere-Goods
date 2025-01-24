@@ -23,6 +23,8 @@ const Orders = () => {
     getOrders()
 
   }, [])
+  
+  console.log(orders)
 
   return (
     <div className='bg-off-white rounded-3xl w-full h-full p-8  '>
