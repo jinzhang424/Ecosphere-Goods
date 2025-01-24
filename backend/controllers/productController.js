@@ -46,7 +46,7 @@ const getProducts = async (snapshot, minUnitCost, maxUnitCost) => {
 
     const productPromises = snapshot.docs.map(async (doc) => {
         const productData = doc.data()
-        const priceSnap = await doc.ref.collection('prices').get()
+        const priceSnap = await doc.ref.collection('prices').where('active', '==', true).get()
         
         const prices = priceSnap.docs.map((price) => ({
             priceId: price.id,
