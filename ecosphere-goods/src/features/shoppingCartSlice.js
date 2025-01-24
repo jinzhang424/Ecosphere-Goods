@@ -18,7 +18,7 @@ export const shoppingCartSlice = createSlice({
 
         addItemBulk: (state, action) => {
             const { product, quantity } = action.payload;
-            const existingItem = state.items.find(item => item.product.id === action.payload.id);
+            const existingItem = state.items.find(item => item.product.id === product.id);
             if (existingItem) {
                 existingItem.quantity += quantity;
             } else {
