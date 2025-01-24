@@ -160,7 +160,7 @@ const deleteProduct = async (req, res) => {
 } 
 
 const updateProduct = async (req, res) => {
-    const { name, imgUrl, price, category, subcategory, productId, priceId } = req.body 
+    const { name, imgUrl, price, category, subcategory, productId, priceId, userID } = req.body 
 
     if (!isAdmin(userID)) {
         res.status(400).json({ success: false, message: 'Insufficient Permission'})
