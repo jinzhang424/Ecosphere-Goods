@@ -21,7 +21,7 @@ const FinalPricingInformation = () => {
             customerDocRef = doc(db, 'customers', 'anonymous')
         }
 
-        const checkoutSessionRef = collection(customerDocRef, 'checkout_sessions');
+        const checkoutSessionRef = collection(customerDocRef, 'orders');
 
         const lineItems = cartItems.map(item => ({
             price: item.product.prices[0].priceId,
@@ -32,11 +32,12 @@ const FinalPricingInformation = () => {
             mode: 'payment',
             line_items: lineItems,
             success_url: window.location.origin,
-            cancel_url: window.location.origin
+            cancel_url: window.location.origin,
+            order_status: 'Pending'
         })
 
         onSnapshot(
-            doc(db, 'customers', user ? user.uid : 'anonymous', 'checkout_sessions', docRef.id), 
+            doc(db, 'customers', user ? user.uid : 'anonymous', 'orders', docRef.id), 
             async(snap) => {
                 const { error, sessionId } = snap.data();
 
