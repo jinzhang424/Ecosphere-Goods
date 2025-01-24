@@ -30,7 +30,7 @@ const ProductCatalogItem = (productData) => {
         setSubcategory(product.subcategory)
         setImage(product.imgUrl)
         setName(product.name)
-        setPrice(product.price)
+        setPrice(product.price / 100)
     }
 
     return (
