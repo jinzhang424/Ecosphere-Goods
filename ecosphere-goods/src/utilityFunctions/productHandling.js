@@ -69,7 +69,7 @@ export const fetchProductByName = async(productName) => {
             }
         })
 
-        return response.data.data
+        return response.data.data[0]
     } catch (error) {
         throw new Error(error.message || 'Error while fetching product by name')
     }
