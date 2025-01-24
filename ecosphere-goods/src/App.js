@@ -16,6 +16,7 @@ import DashBoardHomePage from './pages/DashBoardHomePage';
 import AdminProductCatalog from './components/Dashboard/AdminProductCatalog';
 import { fetchRole } from './utilityFunctions/userAuth';
 import InsufficientPermissionsPage from './pages/InsufficientPermissionsPage';
+import Orders from './components/Dashboard/Order/Orders';
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,8 @@ const router = createBrowserRouter([
     element: <DashBoardLayout />,
     children: [
       { path: 'home', element: <DashBoardHomePage />},
-      { path: 'admin/product-catalog', element: <AdminProductCatalog />}
+      { path: 'admin/product-catalog', element: <AdminProductCatalog />},
+      { path: 'orders', element: <Orders/>}
     ]
   },
   { path: '/user-portal', element: <UserPortalPage /> },
