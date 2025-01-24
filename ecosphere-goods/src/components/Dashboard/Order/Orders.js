@@ -22,7 +22,7 @@ const Orders = () => {
 
     getOrders()
 
-  }, [])
+  }, [user.uid])
   
   console.log(orders)
 

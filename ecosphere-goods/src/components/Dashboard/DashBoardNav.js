@@ -37,7 +37,7 @@ const DashBoardNav = () => {
         fetchUserRole()
     }, [user])
 
-    if (currentLocation.pathname.includes('admin') && userRole != 'admin') {
+    if (currentLocation.pathname.includes('admin') && userRole !== 'admin') {
         navigate('/insufficient-permissions')
     }
 
@@ -52,8 +52,8 @@ const DashBoardNav = () => {
                     <GoChecklist className={ iconSize }/>
                 </NavLink>
 
-                { userRole == 'admin' && 
-                    <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to={ userRole == 'admin' ? '/dashboard/admin/product-catalog' : 'insufficient-permissions' }>
+                { userRole === 'admin' && 
+                    <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to={ userRole === 'admin' ? '/dashboard/admin/product-catalog' : 'insufficient-permissions' }>
                         <BsBoxes className={iconSize} />
                     </NavLink>
                 }
