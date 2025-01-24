@@ -1,6 +1,11 @@
 const { admin } = require('../config/firebase') // Import admin
 const { db } = require('../config/firebase.js')
 
+const isAdmin = async (uid) => {
+    const userRole = getUserRole(userID)
+    return userRole == 'admin'
+}
+
 const getUserRole = async (uid) => {
     if (!uid) {
         throw new Error('UID is requried')
@@ -93,4 +98,4 @@ const signInUser = async(req, res) => {
     }
 }
 
-module.exports = { registerUser, signInUser, fetchUserRole }
+module.exports = { registerUser, signInUser, fetchUserRole, checkAdminPermission }
