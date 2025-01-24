@@ -57,9 +57,11 @@ const fetchOrders = async (req, res) => {
     
     try {
         if (isAdmin(userID)) {
-            orders = getAllOrders()
+            console.log('Getting admin orders')
+            orders = await getAllOrders()
         } else {
-            orders = getUserOrders(userID)
+            console.log('Getting admin orders')
+            orders = await getUserOrders(userID)
         }
 
         return res.status(201).json({ success: false, data: orders})
