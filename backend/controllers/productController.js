@@ -216,24 +216,11 @@ const fetchProductByName = async (req, res) => {
 
     try {
         const productRef = db.collection('products').where('name', '==', productName)
-        const productSnap = await getDocs(productRef)
+        const productSnap = await productRef.get()
 
-        let product
+        const product = await getProducts(productSnap)
 
-        const productPromise = productSnap.docs.map(async (doc) => {
-            const productData = doc.data()
-            const priceSnapData = await getDocs(collection(doc.ref, 'prices').where('active', '==', true))
-
-            const price = priceSnapData.map((price) => ({
-                priceId: price.id,
-                priceData: price.data()
-            }))
-
-            priceData.prices = price
-            product = ({ id: doc.id, ...productData})
-        })
-
-        await Promise.all(productPromise)
+        console.log(product)
 
         return res.status(201).json({ success: true, data: product})
 
