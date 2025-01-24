@@ -32,6 +32,7 @@ const FinalPricingInformation = () => {
 
             const docRef = await addDoc(orderRef, {
                 mode: 'payment',
+                products: cartItems,
                 line_items: lineItems,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
