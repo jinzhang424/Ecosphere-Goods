@@ -43,7 +43,7 @@ const getUserOrders = async (userID) => {
 }
 
 const fetchOrders = async (req, res) => {
-    const { userID } = req.body
+    const { userID } = req.query
 
     if (!userID) {
         res.status(400).json({ success: false, message: 'Fetching Orders. User ID was missing.'})
