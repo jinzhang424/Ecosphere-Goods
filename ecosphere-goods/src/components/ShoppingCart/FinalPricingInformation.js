@@ -14,44 +14,51 @@ const FinalPricingInformation = () => {
     const user = useSelector(selectUser)
 
     const loadCheckout = async () => {
-        let customerDocRef;
-        if (user) {
-            customerDocRef = doc(db, 'customers', user.uid);
-        } else {
-            customerDocRef = doc(db, 'customers', 'anonymous')
-        }
-
-        const checkoutSessionRef = collection(customerDocRef, 'orders');
-
-        const lineItems = cartItems.map(item => ({
-            price: item.product.prices[0].priceId,
-            quantity: item.quantity,
-        }));
-
-        const docRef = await addDoc(checkoutSessionRef, {
-            mode: 'payment',
-            line_items: lineItems,
-            success_url: window.location.origin,
-            cancel_url: window.location.origin,
-            order_status: 'Pending'
-        })
-
-        onSnapshot(
-            doc(db, 'customers', user ? user.uid : 'anonymous', 'orders', docRef.id), 
-            async(snap) => {
-                const { error, sessionId } = snap.data();
-
-                if (error) {
-                    console.log(error)
-                    toast.error('An unexpected error has occurred.')
-                }
-
-                if (sessionId) {
-                    const stripe = await loadStripe("pk_test_51QbDQdE7piTFR3g09Nfa4RMahLOWE8dvS8WOJh3aJ4bfTXm2ybKtoWlC9FPu5QFcbF9ki7v0iSI9ndHZb38XDLSU00lVgKJ8hI")
-                    stripe.redirectToCheckout({ sessionId })
-                }
+        try {
+            let customerDocRef;
+            if (user) {
+                customerDocRef = doc(db, 'customers', user.uid);
+            } else {
+                toast.error('You must be signed in before checking out')
+                return
             }
-        )
+
+            const orderRef = collection(customerDocRef, 'checkout_sessions');
+
+            const lineItems = cartItems.map(item => ({
+                price: item.product.prices[0].priceId,
+                quantity: item.quantity,
+            }));
+
+            const docRef = await addDoc(orderRef, {
+                mode: 'payment',
+                line_items: lineItems,
+                success_url: window.location.origin,
+                cancel_url: window.location.origin,
+                order_stataus: 'Pending'
+            })
+
+            onSnapshot(
+                doc(db, 'customers', user.uid, 'checkout_sessions', docRef.id), async(snap) => {
+                    const { error, sessionId } = snap.data();
+
+                    console.log(snap.data())
+                    
+                    if (error) {
+                        console.log(error)
+                        toast.error('An unexpected error has occurred.')
+                    }
+
+                    if (sessionId) {
+                        const stripe = await loadStripe("pk_test_51QbDQdE7piTFR3g09Nfa4RMahLOWE8dvS8WOJh3aJ4bfTXm2ybKtoWlC9FPu5QFcbF9ki7v0iSI9ndHZb38XDLSU00lVgKJ8hI")
+                        stripe.redirectToCheckout({ sessionId })
+                    }
+                }
+            )
+        } catch (error) {
+            toast.error('An unexpected error has occurred')
+            console.error(error.message)
+        }
     }
 
     
