@@ -10,7 +10,7 @@ const getAllOrders = async () => {
             const customerData = doc.data()
             const ordersSnap = await doc.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
 
-            const orders = ordersSnap.map((order) => ({
+            const orders = ordersSnap.docs.map((order) => ({
                 orderID: order.id,
                 orderData: order.data()
             }))
@@ -33,7 +33,7 @@ const getUserOrders = async (userID) => {
         const customerData = customerSnap.data()
         
         const orderSnap = customerDoc.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
-        const orders = orderSnap.map((order) => ({
+        const orders = orderSnap.docs.map((order) => ({
             orderID: order.id,
             orderData: order.data()
         }))
