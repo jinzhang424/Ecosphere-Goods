@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import MainLayout from './layouts/MainLayout';
@@ -15,6 +15,7 @@ import DashBoardLayout from './layouts/DashBoardLayout';
 import DashBoardHomePage from './pages/DashBoardHomePage';
 import AdminProductCatalog from './components/Dashboard/AdminProductCatalog';
 import { fetchRole } from './utilityFunctions/userAuth';
+import InsufficientPermissionsPage from './pages/InsufficientPermissionsPage';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'products', element: <ProductsPage /> },
       { path: ':productName', element: <ProductPage />, loader: productLoader },
+      { path: '/insufficient-permissions', element: <InsufficientPermissionsPage/> }
     ],
   },
   {
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
     element: <DashBoardLayout />,
     children: [
       { path: 'home', element: <DashBoardHomePage />},
-      { path: 'product-catalog', element: <AdminProductCatalog />}
+      { path: 'admin/product-catalog', element: <AdminProductCatalog />}
     ]
   },
   { path: '/user-portal', element: <UserPortalPage /> },
@@ -41,6 +43,7 @@ const router = createBrowserRouter([
 function App() {
   const user = useSelector(selectUser)
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged( async (userAuth) => {
@@ -61,12 +64,18 @@ function App() {
       } else {
         dispatch(logout())
       }
-    })
+
+      setIsLoading(false)
+    }, [])
 
     return unsubscribe
   }, [dispatch])
 
   console.log('Current user:', user)
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <RouterProvider router={router} />

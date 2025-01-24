@@ -9,11 +9,14 @@ import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 import { addNewProduct, updateProduct } from "../../utilityFunctions/productHandling";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 
 export default function ProductDialog({ children, isEditing = false, IDs }) {
   const [open, setOpen] = useState(false);
   const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
   const [fieldsNotFilled, setFieldsNotFilled] = useState(false)
+  const user = useSelector(selectUser)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,7 +60,7 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
       await uploadString(storageRef, image, 'data_url');
       const imageUrl = await getDownloadURL(storageRef);
 
-      await addNewProduct(name, price, subcategory, imageUrl, category)
+      await addNewProduct(name, price, subcategory, imageUrl, category, user.uid)
       toast.success('Successfully added new product.')
     } catch (error) {
       console.error(error.message);
@@ -75,7 +78,7 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
         subcategory: subcategory
       }
 
-      await updateProduct(product, IDs)
+      await updateProduct(product, IDs, user.uid)
       toast.success('Successfully updated product.')
     } catch (error) {
       console.error(error.message)

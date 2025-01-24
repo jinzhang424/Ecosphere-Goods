@@ -18,33 +18,32 @@ export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost =
     }
 }
 
-export const addNewProduct = async (name, price, subcategory, image, category) => {
-    const newProduct = {
-        name: name,
-        price: price,
-        subcategory: subcategory,
-        image: image,
-        category: category
-    }
-
+export const addNewProduct = async (name, price, subcategory, image, category, userID) => {
     try {
-        const response = await axios.post('http://localhost:5000/products/add-new-product', newProduct)
-    } catch (error) {
-        throw new Error(error.message || 'Error while adding new product')
-    }
-}
-
-export const deleteProduct = async(productId) => {
-    try {
-        const response = await axios.delete('http://localhost:5000/products/delete-product', { 
-            data: { productId }
+        const response = await axios.post('http://localhost:5000/products/add-new-product', {
+            name,
+            price,
+            subcategory,
+            image,
+            category,
+            userID
         })
     } catch (error) {
         throw new Error(error.message || 'Error while adding new product')
     }
 }
 
-export const updateProduct = async(product, IDs) => {
+export const deleteProduct = async(productId, userID) => {
+    try {
+        const response = await axios.delete('http://localhost:5000/products/delete-product', { 
+            data: { productId, userID }
+        })
+    } catch (error) {
+        throw new Error(error.message || 'Error while adding new product')
+    }
+}
+
+export const updateProduct = async(product, IDs, userID) => {
 
     try {
         const response = await axios.put('http://localhost:5000/products/update-product', {
@@ -54,7 +53,8 @@ export const updateProduct = async(product, IDs) => {
             imgUrl: product.imgUrl,
             price: product.price,
             category: product.category,
-            subcategory: product.subcategory
+            subcategory: product.subcategory,
+            userID
         })
     } catch (error) {
         throw new Error(error.message || 'Error while updating product')

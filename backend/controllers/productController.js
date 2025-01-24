@@ -1,6 +1,7 @@
 const { db } = require('../config/firebase.js')
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Ensure you have your Stripe secret key in your environment variables
+const { isAdmin } = require('./authController.js')
 
 // Gets the snapshot while filtering and ordering products
 const getSnapshot = async (filters = [], order) => {
@@ -86,10 +87,14 @@ const fetchProducts = async (req, res) => {
 }
 
 const addNewProduct = async (req, res) => {
-    const { name, price, subcategory, category, image } = req.body;
+    const { name, price, subcategory, category, image, userID } = req.body;
 
-    if (!name || !price || !subcategory || !image) {
+    if (!name || !price || !subcategory || !image || !category || !userID) {
         res.status(400).json({ success: false, message: 'All fields are required.'})
+    }
+
+    if (!isAdmin(userID)) {
+        res.status(400).json({ success: false, message: 'Insufficient Permission'})
     }
 
     try {
@@ -119,6 +124,7 @@ const addNewProduct = async (req, res) => {
 }
 
 const deletePrices = async (productId) => {
+
     try {
         const prices = await stripe.prices.list({ product: productId })
 
@@ -131,10 +137,14 @@ const deletePrices = async (productId) => {
 }
 
 const deleteProduct = async (req, res) => {
-    const { productId } = req.body
+    const { productId, userID } = req.body
 
-    if (!productId) {
+    if (!productId || !userID) {
         return res.status(400).json({ success: false, message: 'A product ID is required'})
+    }
+
+    if (!isAdmin(userID)) {
+        res.status(400).json({ success: false, message: 'Insufficient Permission'})
     }
 
     try {
@@ -150,7 +160,11 @@ const deleteProduct = async (req, res) => {
 } 
 
 const updateProduct = async (req, res) => {
-    const { name, imgUrl, price, category, subcategory, productId, priceId } = req.body 
+    const { name, imgUrl, price, category, subcategory, productId, priceId, userID } = req.body 
+
+    if (!isAdmin(userID)) {
+        res.status(400).json({ success: false, message: 'Insufficient Permission'})
+    }
 
     if (!name || !imgUrl || !price || !category || !subcategory) {
         console.error('There were missing parameters in the input')
