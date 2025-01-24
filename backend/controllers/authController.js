@@ -98,4 +98,4 @@ const signInUser = async(req, res) => {
     }
 }
 
-module.exports = { registerUser, signInUser, fetchUserRole, checkAdminPermission }
+module.exports = { registerUser, signInUser, fetchUserRole, isAdmin }
