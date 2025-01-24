@@ -1,7 +1,7 @@
 import axios from "axios"
 
-export const fetchOrders = (userID) => {
-    const response = axios.get('http://localhost:5000/order/fetch-orders', {
+export const fetchOrders = async (userID) => {
+    const response = await axios.get('http://localhost:5000/order/fetch-orders', {
         params: {
             userID
         }
