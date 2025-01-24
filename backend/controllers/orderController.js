@@ -15,8 +15,10 @@ const getAllOrders = async () => {
                 orderData: order.data()
             }))
 
-            customerData.orders = orders
-            customerAndOrderData.push({id: doc.id, ...customerData})
+            if (orders.length != 0) {
+                customerData.orders = orders
+                customerAndOrderData.push({id: doc.id, ...customerData})
+            }
         })
 
         await Promise.all(orderPromise)
@@ -38,9 +40,13 @@ const getUserOrders = async (userID) => {
             orderData: order.data()
         }))
 
-        customerData.orders = orders
+        if (orders.length == 0) {
+            return []
+        } else {
+            customerData.orders = orders
+            return [{id: customerDoc.id, ...customerData}]
+        }
         
-        return [{id: customerDoc.id, ...customerData}]
     } catch (error) {
         throw new Error(error.message)
     }
