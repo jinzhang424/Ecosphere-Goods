@@ -3,31 +3,19 @@ import db, { getDocs, collection, query, where } from '../firebase'
 import { useLoaderData } from 'react-router-dom'
 import SimilarProductsDisplay from '../components/SimilarProductsDisplay'
 import LowLevelProductView from '../components/LowLevelProductView'
+import { fetchProductByName } from '../utilityFunctions/productHandling'
 
 const productLoader = async ({ params }) => {
     const { productName } = params;
-    const productCollection = collection(db, 'products');
-    const productQuery = query(productCollection, where('name', '==', productName));
-    const productSnap = await getDocs(productQuery);
 
     let product
+    try {
+        product = await fetchProductByName(productName);
+    } catch(error) {
+        console.log(error.message)
+    }
 
-    const productPromise = productSnap.docs.map(async (doc) => { 
-        const productData = doc.data()
-        const priceSnapShot = await getDocs(collection(doc.ref, 'prices'))
-        
-        const price = priceSnapShot.docs.map((price) => ({
-            priceId: price.id,
-            priceData: price.data()
-        }))
-
-        productData.prices = price;
-        product = ({ id: doc.id, ...productData});
-    });
-
-    await Promise.all(productPromise);
-
-    return product;
+    return product
 };
 
 const fetchSimilarProducts = async (category, curProductId) => {
