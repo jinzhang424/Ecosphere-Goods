@@ -81,4 +81,33 @@ const fetchOrders = async (req, res) => {
     }
 }
 
-module.exports = { fetchOrders }
+const fetchOrderByID = async (req, res) => {
+    console.log('Fetching Order By ID')
+    const { customerID, orderID } = req.query
+    
+    if (!orderID) {
+        console.log('Order ID is undefined')
+        return res.status(400).json({ success: false, message: 'Order ID is undefined'})
+    }
+
+    try {
+        const customerSnap = await db.collection('customers').doc(customerID).get()
+        const orderSnap = await customerSnap.ref.collection('checkout_sessions').doc(orderID).get()
+
+        const customerData = customerSnap.data()
+
+        const orderInfo = {
+            customer_id: customerData.id,
+            customer_email: customerData.email,
+            orderID: orderSnap.id,
+            order: orderSnap.data()
+        }
+
+        return res.status(201).json({ success: true, message: orderInfo})
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({ success: false, message: error.messaage})
+    }
+}
+
+module.exports = { fetchOrders, fetchOrderByID }
