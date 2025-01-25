@@ -29,15 +29,19 @@ const Orders = () => {
   }, [user.uid])
 
   return (
-    <div className='bg-off-white rounded-3xl w-full h-full p-8'>
+    <div className='bg-off-white rounded-3xl w-full h-fit p-8'>
+
       <h1 className='font-header text-header text-dark-brown'>Orders</h1>
-      <div className='h-full overflow-hidden'>
+
+      <div className='h-fit overflow-hidden mt-4'>
         {isLoading ? (
           <div>Is Loading</div>
         ) : (
-          orders.map((order, orderID) => (
-            <OrderDisplay key={orderID} order={order}/>
-          ))
+          <div className='flex flex-col space-y-8'>
+            {orders.map((order, orderID) => (
+              <OrderDisplay key={orderID} order={order}/>
+            ))}
+          </div>
         )}
       </div>
     </div>
