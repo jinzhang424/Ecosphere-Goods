@@ -36,7 +36,8 @@ const FinalPricingInformation = () => {
                 line_items: lineItems,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
-                order_status: 'Pending'
+                order_status: 'Pending',
+                total_price: subTotal + 500,
             })
 
             onSnapshot(
