@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import OrderItems from './OrderItems'
 import { fetchOrders } from '../../../utilityFunctions/orderHandling'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../../features/userSlice'
 import { toast } from 'react-toastify'
+import { OrderContext } from './OrderContext'
 
 const Orders = () => {
-  const [orders, setOrders] = useState([])
+  const { orders, setOrders } = useContext(OrderContext)
   const user = useSelector(selectUser)
 
   useEffect(() => {
@@ -27,9 +28,11 @@ const Orders = () => {
   console.log(orders)
 
   return (
-    <div className='bg-off-white rounded-3xl w-full h-full p-8  '>
+    <div className='bg-off-white rounded-3xl w-full h-full p-8'>
       <h1 className='font-header text-header text-dark-brown'>Orders</h1>
-      <OrderItems/>
+      <div className='h-full overflow-hidden'>
+        
+      </div>
     </div>
   )
 }

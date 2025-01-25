@@ -4,25 +4,26 @@ const { isAdmin } = require('./authController.js')
 const getAllOrders = async () => {
     try {
         const snapshot = await db.collection('customers').get()
-        const customerAndOrderData = []
+        const orderData = []
 
         const orderPromise = snapshot.docs.map(async (doc) => {
             const customerData = doc.data()
             const ordersSnap = await doc.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
 
             const orders = ordersSnap.docs.map((order) => ({
+                customer_id: customerData.id, 
+                customer_email: customerData.email, 
                 orderID: order.id,
                 orderData: order.data()
             }))
 
             if (orders.length != 0) {
-                customerData.orders = orders
-                customerAndOrderData.push({id: doc.id, ...customerData})
+                orderData.push(...orders)
             }
         })
 
         await Promise.all(orderPromise)
-        return customerAndOrderData
+        return orderData
 
     } catch (error) {
         throw new Error(error.message)
@@ -36,6 +37,8 @@ const getUserOrders = async (userID) => {
         
         const orderSnap = customerDoc.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
         const orders = orderSnap.docs.map((order) => ({
+            customer_id: customerData.id, 
+            customer_email: customerData.email, 
             orderID: order.id,
             orderData: order.data()
         }))
@@ -43,8 +46,7 @@ const getUserOrders = async (userID) => {
         if (orders.length == 0) {
             return []
         } else {
-            customerData.orders = orders
-            return [{id: customerDoc.id, ...customerData}]
+            return [...orders]
         }
         
     } catch (error) {
