@@ -29,7 +29,7 @@ const Orders = () => {
   }, [user.uid])
 
   return (
-    <div className='bg-off-white rounded-3xl w-full h-fit p-8'>
+    <div className='bg-off-white rounded-3xl w-full h-fit p-8 min-h-full'>
 
       <h1 className='font-header text-header text-dark-brown'>Orders</h1>
 
