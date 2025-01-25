@@ -2,13 +2,14 @@ import React from 'react'
 import OrderItem from './OrderItem'
 import { HiShoppingBag } from "react-icons/hi2";
 import { FaCircle } from "react-icons/fa";
+import unitToDollarString from '../../../utilityFunctions/unitToDollarString';
 
 const OrderDisplay = ({ order }) => {
 
-  console.log(order.id)
+  console.log(order)
   return (
-    <div className='bg-light-brown bg-opacity-10 h-fit rounded-3xl p-6'>
-      <span className='flex items-center justify-between pb-3 border-b-2 border-dark-brown border-opacity-10'>
+    <div className='bg-light-brown bg-opacity-15 h-fit rounded-3xl p-6'>
+      <span className='flex items-center justify-between pb-4 border-b-2 border-dark-brown border-opacity-10'>
         <div className='flex items-center text-lg font-header text-dark-brown'>
           <HiShoppingBag className='w-8 h-8'/>
           <p className='ml-3'>{order.orderID}</p>
@@ -20,11 +21,16 @@ const OrderDisplay = ({ order }) => {
         </div>
       </span>
 
-      <div className='flex flex-col space-y-3 mt-3'>
+      <span className='flex flex-col space-y-3 mt-4'>
         {order.orderData.products.map((product, index) => (
           <OrderItem key={index} product={ product }/>
         ))}
-      </div>
+      </span>
+      
+      <span className='flex mt-6 justify-between items-center pt-4 border-t-2 border-dark-brown border-opacity-10'>
+        <p className='font-header text-dark-brown'>Total: {unitToDollarString(order.orderData.total_price)}</p>
+        <button className='font-header p-2 pl-5 pr-5 bg-dark-brown text-off-white rounded-full border-2 border-light-brown hover:bg-opacity-20 hover:text-dark-brown transition-all ease-in-out duration-300'>View Order</button>
+      </span>
     </div>
   )
 }
