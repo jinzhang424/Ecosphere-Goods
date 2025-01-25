@@ -32,22 +32,24 @@ const getAllOrders = async () => {
 
 const getUserOrders = async (userID) => {
     try {
-        const customerDoc = await db.collection('customers').get().doc(userID)
+        const customerSnap = await db.collection('customers').doc(userID).get()
         const customerData = customerSnap.data()
         
-        const orderSnap = customerDoc.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
-        const orders = orderSnap.docs.map((order) => ({
+        const orderSnap = customerSnap.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
+        const ordersDocs = orderSnap.docs
+
+        if (!ordersDocs) {
+            return []
+        }
+        
+        ordersDocs.map((order) => ({
             customer_id: customerData.id, 
             customer_email: customerData.email, 
             orderID: order.id,
             orderData: order.data()
         }))
 
-        if (orders.length == 0) {
-            return []
-        } else {
-            return [...orders]
-        }
+        return [...orders]
         
     } catch (error) {
         throw new Error(error.message)
@@ -64,11 +66,11 @@ const fetchOrders = async (req, res) => {
     let orders
     
     try {
-        if (isAdmin(userID)) {
+        if (await isAdmin(userID)) {
             console.log('Getting admin orders')
             orders = await getAllOrders()
         } else {
-            console.log('Getting admin orders')
+            console.log('Getting user orders')
             orders = await getUserOrders(userID)
         }
 
