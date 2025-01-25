@@ -63,7 +63,7 @@ const DashBoardNav = () => {
                 </NavLink>
             </div>
             
-            <div className='flex pt-5 mt-48 border-t-2 border-light-brown items-center justify-center'>
+            <div className='flex pt-5 border-t-2 border-light-brown items-center justify-center'>
                 <NavLink className={`${inactiveNavLinkStyle} pt-2 pl-2`} to='/'>
                     <ImExit className={ iconSize }/>
                 </NavLink>
