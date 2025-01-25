@@ -44,7 +44,7 @@ const DashBoardNav = () => {
     return (
         <div className='flex flex-col items-center justify-between h-full p-5 bg-off-white rounded-3xl pt-10 pb-10'>
             <div className='flex flex-col space-y-8'>
-                <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to='dashboard/home'>
+                <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to='home'>
                     <IoIosHome className={ iconSize }/>
                 </NavLink>
 
@@ -63,7 +63,7 @@ const DashBoardNav = () => {
                 </NavLink>
             </div>
             
-            <div className='flex pt-5 border-t-2 border-light-brown items-center justify-center'>
+            <div className='flex pt-5 mt-48 border-t-2 border-light-brown items-center justify-center'>
                 <NavLink className={`${inactiveNavLinkStyle} pt-2 pl-2`} to='/'>
                     <ImExit className={ iconSize }/>
                 </NavLink>

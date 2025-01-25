@@ -8,7 +8,7 @@ const DashBoardLayout = () => {
 
   return (
     <OrderProvider>
-      <div className='flex space-x-8 h-screen p-8 bg-light-brown'>
+      <div className='flex space-x-8 h-fit min-h-screen p-8 bg-light-brown'>
         <DashBoardNav/>
         <main className='w-full'><Outlet/></main>
         <ToastContainer/>
