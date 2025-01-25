@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import OrderItems from './OrderItems'
+import OrderDisplay from './OrderDisplay'
 import { fetchOrders } from '../../../utilityFunctions/orderHandling'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../../features/userSlice'
