@@ -2,9 +2,9 @@ const { db } = require('../config/firebase.js')
 
 const fetchCheckoutSessionID = async (req, res) => {
     console.log('*** Fetching session ID for checkout ***')
-    const { userID, cartItems } = req.query
+    const { userID, cartItems, successUrl, cancelUrl, subtotal } = req.query
 
-    if (!userID || !cartItems) {
+    if (!userID || !cartItems || !successUrl || !cancelUrl || !subtotal) {
         console.log('Missing user id or cart items')
         res.status(400).json({ success: false, message: 'Missing user id or cart items'})
     }
@@ -22,10 +22,10 @@ const fetchCheckoutSessionID = async (req, res) => {
             mode: 'payment',
             products: cartItems,
             line_items: lineItems,
-            success_url: window.location.origin,
-            cancel_url: window.location.origin,
+            success_url: successUrl,
+            cancel_url: cancelUrl,
             order_status: 'Pending',
-            total_price: subTotal + 500,
+            total_price: subtotal + 500,
         })
 
         docRef.onSnapshot(async (snap) => {
