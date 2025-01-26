@@ -8,6 +8,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes')
 const orderRoutes = require('./routes/orderRoutes')
+const checkoutRoutes = require('./routes/checkoutRoutes')
 
 // Create an Express app
 const app = express();
@@ -32,3 +33,4 @@ app.listen(PORT, () => {
 app.use('/auth', authRoutes)
 app.use('/products', productRoutes)
 app.use('/order', orderRoutes)
+app.use('/checkout', checkoutRoutes)
