@@ -102,7 +102,7 @@ const fetchOrderByID = async (req, res) => {
             customer_id: customerDoc.id,
             customer_email: customerData.email,
             orderID: orderSnap.id,
-            order: orderSnap.data()
+            orderData: orderSnap.data()
         }
 
         return res.status(201).json({ success: true, data: orderInfo})
