@@ -11,7 +11,7 @@ const getAllOrders = async () => {
             const ordersSnap = await doc.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
 
             const orders = ordersSnap.docs.map((order) => ({
-                customer_id: customerData.id, 
+                customer_id: doc.id, 
                 customer_email: customerData.email, 
                 orderID: order.id,
                 orderData: order.data()
@@ -43,7 +43,7 @@ const getUserOrders = async (userID) => {
         }
         
         ordersDocs.map((order) => ({
-            customer_id: customerData.id, 
+            customer_id: customerSnap.doc().id, 
             customer_email: customerData.email, 
             orderID: order.id,
             orderData: order.data()
