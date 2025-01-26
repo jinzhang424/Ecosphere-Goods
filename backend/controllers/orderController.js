@@ -105,9 +105,7 @@ const fetchOrderByID = async (req, res) => {
             order: orderSnap.data()
         }
 
-        console.log(orderInfo)
-
-        return res.status(201).json({ success: true, message: orderInfo})
+        return res.status(201).json({ success: true, data: orderInfo})
     } catch (error) {
         console.log(error.message)
         return res.status(500).json({ success: false, message: error.messaage})
