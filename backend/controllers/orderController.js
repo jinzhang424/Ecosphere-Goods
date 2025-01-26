@@ -32,7 +32,8 @@ const getAllOrders = async () => {
 
 const getUserOrders = async (userID) => {
     try {
-        const customerSnap = await db.collection('customers').doc(userID).get()
+        const customerDoc = db.collection('customers').doc(userID)
+        const customerSnap = await customerDoc.get()
         const customerData = customerSnap.data()
         
         const orderSnap = customerSnap.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
@@ -43,7 +44,7 @@ const getUserOrders = async (userID) => {
         }
         
         ordersDocs.map((order) => ({
-            customer_id: customerSnap.doc().id, 
+            customer_id: customerDoc.id, 
             customer_email: customerData.email, 
             orderID: order.id,
             orderData: order.data()
@@ -91,17 +92,20 @@ const fetchOrderByID = async (req, res) => {
     }
 
     try {
-        const customerSnap = await db.collection('customers').doc(userID).get()
+        const customerDoc = db.collection('customers').doc(userID)
+        const customerSnap = await customerDoc.get()
         const orderSnap = await customerSnap.ref.collection('checkout_sessions').doc(orderID).get()
 
         const customerData = customerSnap.data()
 
         const orderInfo = {
-            customer_id: customerData.id,
+            customer_id: customerDoc.id,
             customer_email: customerData.email,
             orderID: orderSnap.id,
             order: orderSnap.data()
         }
+
+        console.log(orderInfo)
 
         return res.status(201).json({ success: true, message: orderInfo})
     } catch (error) {
