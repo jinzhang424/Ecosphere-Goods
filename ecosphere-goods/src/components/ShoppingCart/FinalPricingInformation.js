@@ -7,6 +7,7 @@ import db from '../../firebase'
 import { ToastContainer, toast } from 'react-toastify'
 import { doc, collection, addDoc, onSnapshot } from '../../firebase'
 import { loadStripe } from '@stripe/stripe-js';
+import { fetchCheckoutSessionID } from '../../utilityFunctions/checkoutHandling'
 
 const FinalPricingInformation = () => {
     const subTotal = useSelector(selectCartSubtotal);
@@ -15,50 +16,14 @@ const FinalPricingInformation = () => {
 
     const loadCheckout = async () => {
         try {
-            let customerDocRef;
-            if (user) {
-                customerDocRef = doc(db, 'customers', user.uid);
-            } else {
-                toast.error('You must be signed in before checking out')
-                return
-            }
-
-            const orderRef = collection(customerDocRef, 'checkout_sessions');
-
-            const lineItems = cartItems.map(item => ({
-                price: item.product.prices[0].priceId,
-                quantity: item.quantity,
-            }));
-
-            const docRef = await addDoc(orderRef, {
-                mode: 'payment',
-                products: cartItems,
-                line_items: lineItems,
-                success_url: window.location.origin,
-                cancel_url: window.location.origin,
-                order_status: 'Pending',
-                total_price: subTotal + 500,
-            })
-
-            onSnapshot(
-                doc(db, 'customers', user.uid, 'checkout_sessions', docRef.id), async(snap) => {
-                    const { error, sessionId } = snap.data();
-
-                    console.log(snap.data())
-                    
-                    if (error) {
-                        console.log(error)
-                        toast.error('An unexpected error has occurred.')
-                    }
-
-                    if (sessionId) {
-                        const stripe = await loadStripe("pk_test_51QbDQdE7piTFR3g09Nfa4RMahLOWE8dvS8WOJh3aJ4bfTXm2ybKtoWlC9FPu5QFcbF9ki7v0iSI9ndHZb38XDLSU00lVgKJ8hI")
-                        stripe.redirectToCheckout({ sessionId })
-                    }
-                }
-            )
+            const successUrl = 'http://localhost:3000/'
+            const cancelUrl = 'http://localhost:3000/shopping-cart'
+            const sessionID = await  fetchCheckoutSessionID(user.uid, cartItems, successUrl, cancelUrl, subTotal)
+            
+            const stripe = await loadStripe("pk_test_51QbDQdE7piTFR3g09Nfa4RMahLOWE8dvS8WOJh3aJ4bfTXm2ybKtoWlC9FPu5QFcbF9ki7v0iSI9ndHZb38XDLSU00lVgKJ8hI")
+            stripe.redirectToCheckout({ sessionId: sessionID })
         } catch (error) {
-            toast.error('An unexpected error has occurred')
+            toast.error('Error occurred while redirecting you to checkout')
             console.error(error.message)
         }
     }
