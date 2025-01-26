@@ -83,7 +83,7 @@ const fetchOrders = async (req, res) => {
 
 const fetchOrderByID = async (req, res) => {
     console.log('Fetching Order By ID')
-    const { customerID, orderID } = req.query
+    const { userID, orderID } = req.query
     
     if (!orderID) {
         console.log('Order ID is undefined')
@@ -91,7 +91,7 @@ const fetchOrderByID = async (req, res) => {
     }
 
     try {
-        const customerSnap = await db.collection('customers').doc(customerID).get()
+        const customerSnap = await db.collection('customers').doc(userID).get()
         const orderSnap = await customerSnap.ref.collection('checkout_sessions').doc(orderID).get()
 
         const customerData = customerSnap.data()
