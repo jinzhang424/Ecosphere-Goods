@@ -1,8 +1,8 @@
 const express = require('express')
-const { fetchSessionID } = require('../controllers/checkoutController')
+const { fetchCheckoutSessionID } = require('../controllers/checkoutController')
 
 const router = express.Router()
 
-router.get('/fetch-session-id', fetchSessionID)
+router.get('/fetch-session-id', fetchCheckoutSessionID)
 
 module.exports = router

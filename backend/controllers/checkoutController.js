@@ -1,6 +1,6 @@
 const { db } = require('../config/firebase.js')
 
-const fetchSessionID = async (req, res) => {
+const fetchCheckoutSessionID = async (req, res) => {
     console.log('*** Fetching session ID for checkout ***')
     const { userID, cartItems } = req.query
 
@@ -51,4 +51,4 @@ const fetchSessionID = async (req, res) => {
     }
 }
 
-module.exports = { fetchSessionID }
+module.exports = { fetchCheckoutSessionID }
