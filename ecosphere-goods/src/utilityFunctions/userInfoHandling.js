@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const updateDeliveryInfo = async (userID, address, country, zipCode, phoneNumber) => {
     try {
-        const response = await axios.post('http://localhost:5000/user-info/set-delivery-info', {
+        const response = await axios.post('/user-info/set-delivery-info', {
             userID, address, country, zipCode, phoneNumber
         })
     } catch (error) {
@@ -12,7 +12,7 @@ export const updateDeliveryInfo = async (userID, address, country, zipCode, phon
 
 export const fetchDeliveryInfo = async (userID) => {
     try {
-        const response = await axios.get('http://localhost:5000/user-info/fetch-user-info', {
+        const response = await axios.get('/user-info/fetch-user-info', {
             params: {
                 userID
             }

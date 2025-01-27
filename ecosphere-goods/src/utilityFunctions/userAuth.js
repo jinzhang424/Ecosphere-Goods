@@ -26,7 +26,7 @@ export const registerUser = async (email, password, passwordMatch) => {
     }
 
     try {
-        const response = await axios.post('http://localhost:5000/auth/register', { email, password });
+        const response = await axios.post('/auth/register', { email, password });
     } catch (error) {
         throw new Error('Error occured while registering.');
     }
@@ -34,7 +34,7 @@ export const registerUser = async (email, password, passwordMatch) => {
 
 export const fetchRole = async (uid) => {
     try {
-        const response = await axios.get('http://localhost:5000/auth/fetch-user-role', {
+        const response = await axios.get('/auth/fetch-user-role', {
             params: { uid }
         })
 
@@ -42,4 +42,4 @@ export const fetchRole = async (uid) => {
     } catch (error) {
         throw new Error('Error occurred while fetching role')
     }
-}
+}   
