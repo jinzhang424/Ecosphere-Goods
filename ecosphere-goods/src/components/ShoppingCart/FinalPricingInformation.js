@@ -14,6 +14,10 @@ const FinalPricingInformation = () => {
     const user = useSelector(selectUser)
     const [openDialog, setOpenDialog] = useState(false)
 
+    const closeDialog = () => {
+        setOpenDialog(false)
+    }
+
     const loadCheckout = async () => {
         if (!user.deliveryAddress) {
             setOpenDialog(true)
@@ -66,7 +70,7 @@ const FinalPricingInformation = () => {
                 </div>
             </div>
 
-            <DeliveryAddressDialog open={openDialog}/>
+            <DeliveryAddressDialog open={openDialog} closeDialog={closeDialog}/>
             <ToastContainer/>
         </div>
     )
