@@ -19,6 +19,7 @@ import InsufficientPermissionsPage from './pages/InsufficientPermissionsPage';
 import Orders from './components/Dashboard/Order/Orders';
 import LowLevelOrderView from './components/Dashboard/Order/LowLevelOrderView';
 import { orderLoader } from './components/Dashboard/Order/LowLevelOrderView';
+import { fetchDeliveryInfo } from './utilityFunctions/userInfoHandling';
 
 const router = createBrowserRouter([
   {
@@ -54,9 +55,12 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged( async (userAuth) => {
       if (userAuth) {
         let role
+        let deliveryInfo
 
         try {
           role = await fetchRole(userAuth.uid)
+          deliveryInfo = await fetchDeliveryInfo(userAuth.uid)
+          console.log('DWDWADWD', deliveryInfo)
         } catch (error) {
           console.error('Error fetching UID')
         }
@@ -64,7 +68,8 @@ function App() {
         dispatch(login({
           uid: userAuth.uid,
           email: userAuth.email,
-          role: role
+          role: role,
+          deliveryInfo: deliveryInfo
         }))
       } else {
         dispatch(logout())
