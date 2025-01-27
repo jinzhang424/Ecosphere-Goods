@@ -13,8 +13,9 @@ const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const user = useSelector(selectUser)
 
-    const handleSubmit = async () => {
-        
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+
         try {
             await updateDeliveryAddress(user.uid, address, country, zipCode, phoneNumber)
             closeDialog()
