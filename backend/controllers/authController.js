@@ -98,7 +98,7 @@ const signInUser = async(req, res) => {
     }
 }
 
-const setDeliveryAddress = async (req, res) => {
+const setDeliveryInfo = async (req, res) => {
     const { userID, address, country, zipCode, phoneNumber } = req.body
 
     if (!userID || !address) {
@@ -107,7 +107,7 @@ const setDeliveryAddress = async (req, res) => {
     }
 
     try {
-        await db.collection(customers).doc(userID).update({
+        await db.collection('customers').doc(userID).update({
             deliveryInfo: {
                 address: address,
                 zipCode: zipCode,
@@ -118,9 +118,9 @@ const setDeliveryAddress = async (req, res) => {
 
         return res.status(201).json({ success: true })
     } catch (error) {
-        console.log('Error updating or adding deliveryAddress')
+        console.log(error.message)
         return res.status(500).json({ success: false, message: 'Error updating or adding delivery address' })
     }
 }
 
-module.exports = { registerUser, signInUser, fetchUserRole, isAdmin, setDeliveryAddress }
+module.exports = { registerUser, signInUser, fetchUserRole, isAdmin, setDeliveryInfo }
