@@ -24,10 +24,11 @@ const getUserRole = async (uid) => {
 }
 
 const setDeliveryInfo = async (req, res) => {
+    console.log('*** Updating Delivery Info ***')
     const { userID, address, country, zipCode, phoneNumber } = req.body
 
     if (!userID || !address) {
-        console.log('Missing user id or delivery address')
+        console.error('Missing user id or delivery address')
         return res.status(400).json({ success: false, message: 'Missing user id or delivery address'})
     }
 
@@ -48,4 +49,25 @@ const setDeliveryInfo = async (req, res) => {
     }
 }
 
-module.exports = { setDeliveryInfo, isAdmin }
+const fetchDeliveryInfo = async (req, res) => {
+    console.log('*** Fetching Delivery Info ***')
+    const { userID } = req.query
+
+    if (!userID) {
+        console.error('Missing user id')
+        return res.status(400).json({ success: false, message: 'Missing user id'})
+    }
+
+    try {
+        const userSnap = await db.collection('customers').doc(userID).get()
+        const userData = userSnap.data()
+        const deliveryInfo = userData.deliveryInfo
+
+        return res.status(201).json({ success: false, data: deliveryInfo})
+    } catch (error) {
+        console.error('Error while fetching delivery info', error.message)
+        return res.status(500).json({ success: false, messsage: 'Error while fetching delivery info' })
+    }
+}
+
+module.exports = { setDeliveryInfo, fetchDeliveryInfo, isAdmin }
