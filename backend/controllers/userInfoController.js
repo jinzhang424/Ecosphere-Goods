@@ -1,3 +1,5 @@
+const { db } = require("../config/firebase")
+
 const isAdmin = async (userID) => {
     const userRole = await getUserRole(userID)
     return userRole == 'admin'
@@ -70,4 +72,4 @@ const fetchDeliveryInfo = async (req, res) => {
     }
 }
 
-module.exports = { setDeliveryInfo, fetchDeliveryInfo, isAdmin }
+module.exports = { setDeliveryInfo, fetchDeliveryInfo, isAdmin, getUserRole }
