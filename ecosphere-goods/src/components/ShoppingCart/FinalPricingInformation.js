@@ -24,6 +24,9 @@ const FinalPricingInformation = () => {
     }
 
     const loadCheckout = async () => {
+        if (!user) {
+            toast.error('Please login before proceeding to checkout.')
+        }
 
         if (isDeliveryInfoValid()) {
             setOpenDialog(true)
