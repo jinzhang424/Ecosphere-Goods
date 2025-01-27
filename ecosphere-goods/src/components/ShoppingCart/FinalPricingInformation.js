@@ -1,20 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCartSubtotal, selectCart } from '../../features/shoppingCartSlice'
 import unitToDollarString from '../../utilityFunctions/unitToDollarString'
 import { selectUser } from '../../features/userSlice'
-import db from '../../firebase'
 import { ToastContainer, toast } from 'react-toastify'
-import { doc, collection, addDoc, onSnapshot } from '../../firebase'
 import { loadStripe } from '@stripe/stripe-js';
 import { fetchCheckoutSessionID } from '../../utilityFunctions/checkoutHandling'
+import DeliveryAddressDialog from './DeliveryAddressDialog'
 
 const FinalPricingInformation = () => {
     const subTotal = useSelector(selectCartSubtotal);
     const cartItems = useSelector(selectCart);
     const user = useSelector(selectUser)
+    const [openDialog, setOpenDialog] = useState(false)
 
     const loadCheckout = async () => {
+        if (!user.deliveryAddress) {
+            setOpenDialog(true)
+            return
+        }
+
         try {
             const successUrl = 'http://localhost:3000/'
             const cancelUrl = 'http://localhost:3000/shopping-cart'
@@ -27,8 +32,6 @@ const FinalPricingInformation = () => {
             console.error(error.message)
         }
     }
-
-    
 
     return (
         <div className='h-full'>
@@ -63,6 +66,7 @@ const FinalPricingInformation = () => {
                 </div>
             </div>
 
+            <DeliveryAddressDialog open={openDialog}/>
             <ToastContainer/>
         </div>
     )
