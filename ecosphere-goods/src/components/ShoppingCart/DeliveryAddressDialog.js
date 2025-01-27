@@ -3,7 +3,7 @@ import { TextField } from '@mui/material'
 import TransitionContainedButton from '../utility/TransitionContainedButton'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../features/userSlice'
-import { updateDeliveryInfo } from '../../utilityFunctions/userAuth'
+import { updateDeliveryInfo } from '../../utilityFunctions/userInfoHandling'
 import { toast } from 'react-toastify'
 
 const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
@@ -33,7 +33,7 @@ const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
                     <div className='fixed inset-0 bg-black opacity-30'/>
 
                     <dialog open className='fixed inset-0 z-40 w-4/12 p-12 rounded-3xl text-dark-brown space-y-10'>
-                        <h1 className='text-header font-header'>Delivery Address</h1>
+                        <h1 className='text-header font-header'>Delivery Info</h1>
                         <form action="submit" className='flex flex-col space-y-12' onSubmit={handleSubmit}>
                             <TextField 
                                 label={'Address'} 
