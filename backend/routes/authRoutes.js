@@ -14,6 +14,6 @@ router.get('/profile', verifyFirebaseToken, (req, res) => {
     res.json({ message: 'Welcome to your profile!', user: req.user });
 });
 
-router.post('set-delivery-address', setDeliveryAddress)
+router.post('/set-delivery-address', setDeliveryAddress)
 
 module.exports = router
