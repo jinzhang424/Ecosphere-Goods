@@ -74,4 +74,4 @@ const signInUser = async(req, res) => {
     }
 }
 
-module.exports = { registerUser, signInUser, fetchUserRole, setDeliveryInfo }
+module.exports = { registerUser, signInUser, fetchUserRole }
