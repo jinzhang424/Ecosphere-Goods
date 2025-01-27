@@ -44,7 +44,7 @@ export const fetchRole = async (uid) => {
     }
 }
 
-export const updateDeliveryAddress = async (userID, address, country, zipCode, phoneNumber) => {
+export const updateDeliveryInfo = async (userID, address, country, zipCode, phoneNumber) => {
     try {
         const response = await axios.post('http://localhost:5000/auth/set-delivery-address', {
             userID, address, country, zipCode, phoneNumber

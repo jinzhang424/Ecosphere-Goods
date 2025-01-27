@@ -3,7 +3,7 @@ import { TextField } from '@mui/material'
 import TransitionContainedButton from '../utility/TransitionContainedButton'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../features/userSlice'
-import { updateDeliveryAddress } from '../../utilityFunctions/userAuth'
+import { updateDeliveryInfo } from '../../utilityFunctions/userAuth'
 import { toast } from 'react-toastify'
 
 const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
@@ -17,7 +17,7 @@ const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
         event.preventDefault()
 
         try {
-            await updateDeliveryAddress(user.uid, address, country, zipCode, phoneNumber)
+            await updateDeliveryInfo(user.uid, address, country, zipCode, phoneNumber)
             closeDialog()
             toast.success('Delivery address has been updated')
         } catch (error) {
