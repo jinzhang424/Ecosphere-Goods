@@ -4,6 +4,7 @@ import { useLoaderData } from 'react-router-dom'
 import OrderItem from './OrderItem'
 import OrderHeading from './OrderHeading';
 import OrderStatus from './OrderStatus';
+import BasicInfoDisplay from '../../utility/BasicInfoDisplay';
 
 export const orderLoader = async ({ params }) => {
     const { userID, orderID } = params
@@ -23,14 +24,17 @@ const LowLevelOrderView = () => {
     console.log('ORDERINFO: ', orderInfo)
     const products = orderInfo.orderData.products
 
+    const orderDate = new Date(orderInfo.orderData.created._seconds * 1000 + orderInfo.orderData.created._nanoseconds / 1000000)
+    const dateString = orderDate.toLocaleDateString();
+
     return (
         <div className='w-full h-full bg-off-white rounded-3xl p-8'>
-            <h1 className='flex items-center space-x-4 justify-between'>
+            <span className='flex items-center space-x-4 justify-between border-b-2 pb-4 border-dark-brown border-opacity-15'>
                 <OrderHeading orderID={orderInfo.orderID}/>
                 <OrderStatus orderStatus={orderInfo.orderData.order_status}/>
-            </h1>
+            </span>
 
-            <div className='flex space-x-4 mt-8 '>
+            <div className='flex space-x-4 mt-6 '>
                 <div className='flex flex-col flex-grow space-y-4 overflow-auto'>
                     {products.map((product, index) => (
                         <OrderItem product={ product } key={ index }/>
@@ -41,10 +45,9 @@ const LowLevelOrderView = () => {
                     <h2 className='text-subtitle'>Order Details</h2>
                     
                     <body className='flex flex-col font-header space-y-2 ml-2 opacity-90'>
-                        <span>Date Ordered: </span>
-                        <span>Address: </span>
-                        <span>Item Qty: </span>
-                        <span>Total Price: </span>
+                        <BasicInfoDisplay infoLabel='Date Ordered' infoData={dateString}/>
+                        <BasicInfoDisplay infoLabel='Delivery Address' />
+                        <BasicInfoDisplay infoLabel='Total Price' />
                     </body>
                 </article>
             </div>

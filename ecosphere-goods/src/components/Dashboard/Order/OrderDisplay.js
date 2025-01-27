@@ -7,17 +7,17 @@ import OrderStatus from './OrderStatus';
 
 const OrderDisplay = ({ order }) => {
 
-  console.log('RODER', order)
+  const products = order.orderData.products.slice(0, 2)
 
   return (
-    <div className='bg-light-brown bg-opacity-15 h-fit rounded-3xl p-6'>
+    <div className='bg-light-brown bg-opacity-10 h-fit rounded-3xl p-6'>
       <span className='flex items-center justify-between pb-4 border-b-2 border-dark-brown border-opacity-10'>
         <OrderHeading orderID={order.orderID}/>
         <OrderStatus orderStatus={order.orderData.order_status}/>
       </span>
 
       <span className='flex flex-col space-y-3 mt-4'>
-        {order.orderData.products.map((product, index) => (
+        {products.map((product, index) => (
           <OrderItem key={index} product={ product }/>
         ))}
       </span>
