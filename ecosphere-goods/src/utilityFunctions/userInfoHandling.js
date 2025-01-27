@@ -12,7 +12,7 @@ export const updateDeliveryInfo = async (userID, address, country, zipCode, phon
 
 export const fetchDeliveryInfo = async (userID) => {
     try {
-        const response = await axios.get('http://localhost:5000/user-info/set-delivery-info', {
+        const response = await axios.get('http://localhost:5000/user-info/fetch-user-info', {
             params: {
                 userID
             }
