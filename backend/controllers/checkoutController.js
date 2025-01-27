@@ -31,7 +31,7 @@ const fetchCheckoutSessionID = async (req, res) => {
             })
 
             productData.priceData = price.data()
-            products.push({id: item.productId, ...productData})
+            products.push({id: item.productId, quantity: parseInt(item.quantity), ...productData})
         }
 
         const docRef = await orderRef.add({

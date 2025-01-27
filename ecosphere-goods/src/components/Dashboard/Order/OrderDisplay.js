@@ -7,6 +7,8 @@ import OrderStatus from './OrderStatus';
 
 const OrderDisplay = ({ order }) => {
 
+  console.log('RODER', order)
+
   return (
     <div className='bg-light-brown bg-opacity-15 h-fit rounded-3xl p-6'>
       <span className='flex items-center justify-between pb-4 border-b-2 border-dark-brown border-opacity-10'>
