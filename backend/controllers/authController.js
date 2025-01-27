@@ -98,4 +98,24 @@ const signInUser = async(req, res) => {
     }
 }
 
-module.exports = { registerUser, signInUser, fetchUserRole, isAdmin }
+const setDeliveryAddress = async (req, res) => {
+    const { userID, deliveryAddress } = req.body
+
+    if (!userID || !deliveryAddress) {
+        console.log('Missing user id or delivery address')
+        return res.status(400).json({ success: false, message: 'Missing user id or delivery address'})
+    }
+
+    try {
+        db.collection(customers).doc(userID).update({
+            deliveryAddress: deliveryAddress
+        })
+
+        return res.status(201).json({ success: true })
+    } catch (error) {
+        console.log('Error updating or adding deliveryAddress')
+        return res.status(500).json({ success: false, message: 'Error updating or adding delivery address' })
+    }
+}
+
+module.exports = { registerUser, signInUser, fetchUserRole, isAdmin, setDeliveryAddress }
