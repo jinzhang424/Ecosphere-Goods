@@ -37,20 +37,26 @@ const DashBoardNav = () => {
         fetchUserRole()
     }, [user])
 
-    if (currentLocation.pathname.includes('admin') && userRole != 'admin') {
+    if (currentLocation.pathname.includes('admin') && userRole !== 'admin') {
         navigate('/insufficient-permissions')
     }
 
     return (
         <div className='flex flex-col items-center justify-between h-full p-5 bg-off-white rounded-3xl pt-10 pb-10'>
             <div className='flex flex-col space-y-8'>
-                <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to='/dashboard/home'>
+                <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to='home'>
                     <IoIosHome className={ iconSize }/>
                 </NavLink>
 
-                <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to={`/dashboard/${ userRole == 'admin' ? 'admin/product-catalog' : 'past-orders'}`}>
-                    { userRole == 'admin' ? <BsBoxes className={iconSize} /> : <GoChecklist className={ iconSize }/>}
+                <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to='orders'>
+                    <GoChecklist className={ iconSize }/>
                 </NavLink>
+
+                { userRole === 'admin' && 
+                    <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to={ userRole === 'admin' ? '/dashboard/admin/product-catalog' : 'insufficient-permissions' }>
+                        <BsBoxes className={iconSize} />
+                    </NavLink>
+                }
 
                 <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to='/dashboard/settings'>
                     <FaCog className={ iconSize }/>

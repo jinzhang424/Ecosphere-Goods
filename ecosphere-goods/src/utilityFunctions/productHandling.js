@@ -60,3 +60,17 @@ export const updateProduct = async(product, IDs, userID) => {
         throw new Error(error.message || 'Error while updating product')
     }
 }
+
+export const fetchProductByName = async(productName) => {
+    try {
+        const response = await axios.get('http://localhost:5000/products/fetch-product-by-name', { 
+            params: {
+                productName
+            }
+        })
+
+        return response.data.data[0]
+    } catch (error) {
+        throw new Error(error.message || 'Error while fetching product by name')
+    }
+}

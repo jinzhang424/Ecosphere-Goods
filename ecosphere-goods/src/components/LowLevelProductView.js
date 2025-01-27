@@ -25,11 +25,7 @@ const LowLevelProductView = ({ product }) => {
     const handleAddToCart = (e) => {
         setLoading(true)
         try {
-            const serializableProduct = {
-                ...product,
-                date_created: product.date_created.toDate().toISOString(), // Convert Timestamp to ISO string
-            };
-            dispatch(addItemBulk({ product: serializableProduct, quantity: quantity }));
+            dispatch(addItemBulk({ product: product, quantity: quantity }));
             toast.success('Successfully Added to Cart');
         } catch (error) {
             toast.error('Error, something has gone wrong.');

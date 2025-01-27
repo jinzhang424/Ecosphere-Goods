@@ -207,4 +207,27 @@ const updateProduct = async (req, res) => {
     }
 }
 
-module.exports = { fetchProducts, addNewProduct, deleteProduct, updateProduct }
+const fetchProductByName = async (req, res) => {
+    const { productName } = req.query
+
+    if (!productName) {
+        return res.status(400).json({ sucess: false, message: 'Product name is undefined'})
+    }
+
+    try {
+        const productRef = db.collection('products').where('name', '==', productName)
+        const productSnap = await productRef.get()
+
+        const product = await getProducts(productSnap)
+
+        console.log(product)
+
+        return res.status(201).json({ success: true, data: product})
+
+    } catch (error) {
+        console.log(error.message)
+        return res.status(400).json({ success: false, message: 'Error occurred while fetching product'})
+    }
+}
+
+module.exports = { fetchProducts, fetchProductByName, addNewProduct, deleteProduct, updateProduct }

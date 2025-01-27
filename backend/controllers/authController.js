@@ -2,7 +2,7 @@ const { admin } = require('../config/firebase') // Import admin
 const { db } = require('../config/firebase.js')
 
 const isAdmin = async (userID) => {
-    const userRole = getUserRole(userID)
+    const userRole = await getUserRole(userID)
     return userRole == 'admin'
 }
 
