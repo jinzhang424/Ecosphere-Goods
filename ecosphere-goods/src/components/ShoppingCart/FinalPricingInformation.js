@@ -17,9 +17,15 @@ const FinalPricingInformation = () => {
     const closeDialog = () => {
         setOpenDialog(false)
     }
+    
+    const isDeliveryInfoValid = () => {
+        const deliveryInfo = user?.deliveryInfo
+        return deliveryInfo?.address && !deliveryInfo?.phoneNumber && !deliveryInfo?.zipCode && !deliveryInfo?.country
+    }
 
     const loadCheckout = async () => {
-        if (!user.deliveryAddress) {
+
+        if (isDeliveryInfoValid()) {
             setOpenDialog(true)
             return
         }
