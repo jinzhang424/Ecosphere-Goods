@@ -1,6 +1,6 @@
 export const updateDeliveryInfo = async (userID, address, country, zipCode, phoneNumber) => {
     try {
-        const response = await axios.post('http://localhost:5000/auth/set-delivery-address', {
+        const response = await axios.post('http://localhost:5000/user-info/set-delivery-address', {
             userID, address, country, zipCode, phoneNumber
         })
     } catch (error) {
