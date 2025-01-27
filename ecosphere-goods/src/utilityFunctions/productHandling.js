@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost = Infinity, order = 'Newest') => {
     try {
-        const response = await axios.get('http://localhost:5000/products/fetch-products', {
+        const response = await axios.get('/products/fetch-products', {
             params: {
                 minUnitCost,
                 maxUnitCost,
@@ -20,7 +20,7 @@ export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost =
 
 export const addNewProduct = async (name, price, subcategory, image, category, userID) => {
     try {
-        const response = await axios.post('http://localhost:5000/products/add-new-product', {
+        const response = await axios.post('/products/add-new-product', {
             name,
             price,
             subcategory,
@@ -35,7 +35,7 @@ export const addNewProduct = async (name, price, subcategory, image, category, u
 
 export const deleteProduct = async(productId, userID) => {
     try {
-        const response = await axios.delete('http://localhost:5000/products/delete-product', { 
+        const response = await axios.delete('/products/delete-product', { 
             data: { productId, userID }
         })
     } catch (error) {
@@ -46,7 +46,7 @@ export const deleteProduct = async(productId, userID) => {
 export const updateProduct = async(product, IDs, userID) => {
 
     try {
-        const response = await axios.put('http://localhost:5000/products/update-product', {
+        const response = await axios.put('/products/update-product', {
             productId: IDs.productId,
             priceId: IDs.priceId,
             name: product.name,
@@ -63,7 +63,7 @@ export const updateProduct = async(product, IDs, userID) => {
 
 export const fetchProductByName = async(productName) => {
     try {
-        const response = await axios.get('http://localhost:5000/products/fetch-product-by-name', { 
+        const response = await axios.get('/products/fetch-product-by-name', { 
             params: {
                 productName
             }

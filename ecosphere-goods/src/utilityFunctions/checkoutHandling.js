@@ -7,7 +7,7 @@ export const fetchCheckoutSessionID = async (userID, cartItems, successUrl, canc
             quantity: item.quantity
         }))
     
-    const response = await axios.get('http://localhost:5000/checkout/fetch-session-id', {
+    const response = await axios.get('/checkout/fetch-session-id', {
         params: {
             userID,
             cartItemsIDs,

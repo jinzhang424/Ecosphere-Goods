@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const fetchOrders = async (userID) => {
-    const response = await axios.get('http://localhost:5000/order/fetch-orders', {
+    const response = await axios.get('/order/fetch-orders', {
         params: {
             userID
         }
@@ -11,7 +11,7 @@ export const fetchOrders = async (userID) => {
 }
 
 export const fetchOrderByID = async (orderID, userID) => {
-    const response = await axios.get('http://localhost:5000/order/fetch-order-by-id', {
+    const response = await axios.get('/order/fetch-order-by-id', {
         params: {
             userID,
             orderID
