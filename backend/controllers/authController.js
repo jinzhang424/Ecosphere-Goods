@@ -99,16 +99,21 @@ const signInUser = async(req, res) => {
 }
 
 const setDeliveryAddress = async (req, res) => {
-    const { userID, deliveryAddress } = req.body
+    const { userID, address, country, zipCode, phoneNumber } = req.body
 
-    if (!userID || !deliveryAddress) {
+    if (!userID || !address) {
         console.log('Missing user id or delivery address')
         return res.status(400).json({ success: false, message: 'Missing user id or delivery address'})
     }
 
     try {
-        db.collection(customers).doc(userID).update({
-            deliveryAddress: deliveryAddress
+        await db.collection(customers).doc(userID).update({
+            deliveryInfo: {
+                address: address,
+                zipCode: zipCode,
+                country: country,
+                phoneNumber: phoneNumber
+            }
         })
 
         return res.status(201).json({ success: true })
