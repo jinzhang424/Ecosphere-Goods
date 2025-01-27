@@ -1,20 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCartSubtotal, selectCart } from '../../features/shoppingCartSlice'
 import unitToDollarString from '../../utilityFunctions/unitToDollarString'
 import { selectUser } from '../../features/userSlice'
-import db from '../../firebase'
 import { ToastContainer, toast } from 'react-toastify'
-import { doc, collection, addDoc, onSnapshot } from '../../firebase'
 import { loadStripe } from '@stripe/stripe-js';
 import { fetchCheckoutSessionID } from '../../utilityFunctions/checkoutHandling'
+import DeliveryAddressDialog from './DeliveryAddressDialog'
 
 const FinalPricingInformation = () => {
     const subTotal = useSelector(selectCartSubtotal);
     const cartItems = useSelector(selectCart);
     const user = useSelector(selectUser)
+    const [openDialog, setOpenDialog] = useState(false)
+
+    const closeDialog = () => {
+        setOpenDialog(false)
+    }
+    
+    const isDeliveryInfoValid = () => {
+        const deliveryInfo = user?.deliveryInfo
+        return deliveryInfo?.address && !deliveryInfo?.phoneNumber && !deliveryInfo?.zipCode && !deliveryInfo?.country
+    }
 
     const loadCheckout = async () => {
+        if (!user) {
+            toast.error('Please login before proceeding to checkout.')
+        }
+
+        if (isDeliveryInfoValid()) {
+            setOpenDialog(true)
+            return
+        }
+
         try {
             const successUrl = 'http://localhost:3000/'
             const cancelUrl = 'http://localhost:3000/shopping-cart'
@@ -27,8 +45,6 @@ const FinalPricingInformation = () => {
             console.error(error.message)
         }
     }
-
-    
 
     return (
         <div className='h-full'>
@@ -63,6 +79,7 @@ const FinalPricingInformation = () => {
                 </div>
             </div>
 
+            <DeliveryAddressDialog open={openDialog} closeDialog={closeDialog}/>
             <ToastContainer/>
         </div>
     )

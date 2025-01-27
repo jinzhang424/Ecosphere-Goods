@@ -1,30 +1,6 @@
 const { admin } = require('../config/firebase') // Import admin
 const { db } = require('../config/firebase.js')
-
-const isAdmin = async (userID) => {
-    const userRole = await getUserRole(userID)
-    return userRole == 'admin'
-}
-
-const getUserRole = async (uid) => {
-    if (!uid) {
-        throw new Error('UID is requried')
-    }
-
-    const userDoc = await db.collection('customers').doc(uid).get()
-    if (!userDoc.exists) {
-        throw new Error('User not found')
-    }
-    const userData = userDoc.data()
-    
-    if (!userData.role) {
-        // Set default role if not present
-        userData.role = 'customer';
-        await db.collection('customers').doc(uid).update({ role: 'customer' });
-    }
-
-    return userData.role
-}
+const { getUserRole } = require('./userInfoController.js')
 
 const registerUser = async (req, res) => {
     const { email, password } = req.body;
@@ -98,4 +74,4 @@ const signInUser = async(req, res) => {
     }
 }
 
-module.exports = { registerUser, signInUser, fetchUserRole, isAdmin }
+module.exports = { registerUser, signInUser, fetchUserRole }

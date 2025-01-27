@@ -1,5 +1,5 @@
 const express = require('express')
-const { registerUser, signInUser, fetchUserRole } = require('../controllers/authController')
+const { registerUser, signInUser, fetchUserRole, setDeliveryInfo } = require('../controllers/authController')
 const verifyFirebaseToken = require('../middleware/verifyFirebaseToken')
 
 const router = express.Router()
