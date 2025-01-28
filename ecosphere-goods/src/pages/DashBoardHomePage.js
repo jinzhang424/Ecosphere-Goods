@@ -1,6 +1,6 @@
 import React from 'react'
-import UserDashBoard from '../components/Dashboard/UserDashBoard'
-import AdminDashBoard from '../components/Dashboard/AdminDashBoard'
+import UserDashBoard from '../components/Dashboard/DashboardHome/UserDashBoard'
+import AdminDashBoard from '../components/Dashboard/DashboardHome/AdminDashBoard'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../features/userSlice'
 
