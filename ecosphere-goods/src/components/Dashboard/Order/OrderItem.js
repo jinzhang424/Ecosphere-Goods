@@ -8,8 +8,8 @@ const OrderItem = ({ product }) => {
     const pStyle = 'text-center text-dark-brown font-header w-36'
 
     return (
-        <div className='flex rounded-xl overflow-hidden items-center space-x-4 border-2 border-dark-brown border-opacity-10'>
-            <img src={product.images[0]} className='w-24 aspect-square object-cover object-center'/>
+        <div className='h-full w-full flex rounded-xl overflow-hidden items-center border-2 border-dark-brown border-opacity-10'>
+            <img src={product.images[0]} className='h-full aspect-square object-cover object-center'/>
 
             <p className={pStyle}>{name}</p>
             <p className={pStyle}>{price}</p>
