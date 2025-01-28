@@ -16,7 +16,7 @@ const OrderDisplay = ({ order }) => {
         <OrderStatus orderStatus={order.orderData.order_status}/>
       </span>
 
-      <span className='flex flex-col space-y-3 mt-4'>
+      <span className='flex h-24 flex-col space-y-3 mt-4'>
         {products.map((product, index) => (
           <OrderItem key={index} product={ product }/>
         ))}
