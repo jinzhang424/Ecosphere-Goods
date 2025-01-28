@@ -21,7 +21,6 @@ export const orderLoader = async ({ params }) => {
 
 const LowLevelOrderView = () => {
     const orderInfo = useLoaderData()
-    console.log('ORDERINFO: ', orderInfo)
     const products = orderInfo.orderData.products
 
     const orderDate = new Date(orderInfo.orderData.created._seconds * 1000 + orderInfo.orderData.created._nanoseconds / 1000000)
@@ -35,13 +34,15 @@ const LowLevelOrderView = () => {
             </span>
 
             <div className='flex space-x-4 mt-6 '>
-                <div className='flex flex-col flex-grow space-y-4 overflow-auto'>
+                <div className='h-full flex flex-col flex-grow space-y-4 overflow-auto'>
                     {products.map((product, index) => (
-                        <OrderItem product={ product } key={ index }/>
+                        <div className='h-24 flex flex-col'>
+                            <OrderItem product={ product } key={ index }/>
+                        </div>
                     ))}
                 </div>
 
-                <article className='text-dark-brown border-2 rounded-xl font-header w-4/12 border-dark-brown border-opacity-10 p-4 space-y-3'>
+                <article className='text-dark-brown border-2 rounded-xl font-header h-fit w-4/12 border-dark-brown border-opacity-10 p-4 space-y-3'>
                     <h2 className='text-subtitle'>Order Details</h2>
                     
                     <body className='flex flex-col font-header space-y-2 ml-2 opacity-90'>
