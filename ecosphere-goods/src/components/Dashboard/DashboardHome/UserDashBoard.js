@@ -1,11 +1,12 @@
 import React from 'react'
 import { CgProfile } from "react-icons/cg";
+import OrderTracker from './OrderTracker';
 
 const UserDashBoard = () => {
 
     return (
         <div className='w-full h-full'>
-            <div className='flex space-x-8 h-1/2 pb-4'>
+            <div className='flex space-x-8 h-1/2 pb-4 w-full'>
                 <section className='bg-off-white w-5/12 flex flex-col rounded-3xl p-8 text-dark-brown space-y-2'>
                     
                     <div className='flex space-x-8'>
@@ -18,8 +19,8 @@ const UserDashBoard = () => {
                     <span>Your pts</span>
                 </section>
 
-                <section className='bg-off-white w-7/12 h-full rounded-3xl p-8 flex-grow'>
-                    Order Tracker (TBC)
+                <section className='bg-off-white w-7/12 h-full rounded-3xl p-8'>
+                    <OrderTracker/>
                 </section>
             </div>
 
