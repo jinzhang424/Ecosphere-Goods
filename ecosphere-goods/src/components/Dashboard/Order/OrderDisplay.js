@@ -16,11 +16,11 @@ const OrderDisplay = ({ order }) => {
         <OrderStatus orderStatus={order.orderData.order_status}/>
       </span>
 
-      <span className='flex h-24 flex-col space-y-3 mt-4'>
         {products.map((product, index) => (
-          <OrderItem key={index} product={ product }/>
+          <span className='flex h-24 flex-col space-y-3 mt-4'>
+            <OrderItem key={index} product={ product }/>
+          </span>
         ))}
-      </span>
       
       <span className='flex mt-6 justify-between items-center pt-4 border-t-2 border-dark-brown border-opacity-10'>
         <p className='font-header text-dark-brown'>Total: {unitToDollarString(order.orderData.total_price)}</p>
