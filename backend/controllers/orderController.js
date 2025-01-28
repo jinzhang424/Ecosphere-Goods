@@ -36,14 +36,15 @@ const getUserOrders = async (userID) => {
         const customerSnap = await customerDoc.get()
         const customerData = customerSnap.data()
         
-        const orderSnap = customerSnap.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
+        const orderSnap = await customerSnap.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
         const ordersDocs = orderSnap.docs
 
         if (!ordersDocs) {
+            console.log('There were no orders docs for this user')
             return []
         }
         
-        ordersDocs.map((order) => ({
+        const orders = ordersDocs.map((order) => ({
             customer_id: customerDoc.id, 
             customer_email: customerData.email, 
             orderID: order.id,
