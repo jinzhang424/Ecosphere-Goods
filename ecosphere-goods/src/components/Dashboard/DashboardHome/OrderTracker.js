@@ -24,10 +24,10 @@ const OrderTracker = () => {
     console.log('Orders here:', orders)
 
     return (
-        <div className='flex flex-col w-full h-full overflow-hidden'>
+        <div className='flex flex-col w-full h-full overflow-hidden space-y-6'>
             <h1 className='font-header text-dark-brown text-header'>Pending Orders</h1>
 
-            <div className='flex overflow-hidden w-full'>
+            <div className='flex flex-col overflow-hidden w-full space-y-8'>
                 {orders.map((order, index) => (
                     <OrderTrackerItem key={index} order={order}/>
                 ))}
