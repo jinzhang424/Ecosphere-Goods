@@ -10,7 +10,7 @@ const getSnapshot = async (filters = [], order) => {
         let productsQuery = productsRef.where('active', '==', true)
 
         if (filters.length > 0) {
-            productsQuery = productsQuery.where('metadata.itemCategory', 'in', filters)
+            productsQuery = productsQuery.where('metadata.itemSubcategory', 'in', filters)
         }
         productsQuery = orderByDateCreated(productsQuery, order)
         const snapshot = await productsQuery.get();
