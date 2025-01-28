@@ -2,6 +2,7 @@ import React from 'react'
 import { FaAngleRight } from "react-icons/fa6";
 import OrderHeading from '../Order/OrderHeading'
 import OrderStatus from '../Order/OrderStatus'
+import { Link } from 'react-router-dom';
 
 const RecentOrderItem = ({ order }) => {
     
@@ -31,9 +32,9 @@ const RecentOrderItem = ({ order }) => {
                     <p>{dateString}</p>
                 </div>
 
-                <button className='group flex justify-end w-1/6 opacity-90'>
+                <Link to={`/dashboard/orders/${order.customer_id}/${order.orderID}`} className='group flex justify-end w-1/6 opacity-90'>
                     <FaAngleRight className='w-full h-6 group-hover:translate-x-2 transition-transform ease-in-out duration-300'/>
-                </button>
+                </Link>
             </span>
         </div>
     )
