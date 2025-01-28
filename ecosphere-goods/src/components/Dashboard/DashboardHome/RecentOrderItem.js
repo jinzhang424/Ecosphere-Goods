@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FaAngleRight } from "react-icons/fa6";
 import OrderHeading from '../Order/OrderHeading'
 import OrderStatus from '../Order/OrderStatus'
 
-const OrderTrackerItem = ({ order }) => {
+const RecentOrderItem = ({ order }) => {
     
     const orderData = order.orderData
     const products = orderData.products.slice(0, 5)
@@ -39,4 +39,4 @@ const OrderTrackerItem = ({ order }) => {
     )
 }
 
-export default OrderTrackerItem
+export default RecentOrderItem

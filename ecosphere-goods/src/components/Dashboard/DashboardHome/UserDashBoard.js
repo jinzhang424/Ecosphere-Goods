@@ -1,6 +1,6 @@
 import React from 'react'
 import { CgProfile } from "react-icons/cg";
-import OrderTracker from './OrderTracker';
+import RecentOrders from './RecentOrders';
 
 const UserDashBoard = () => {
 
@@ -28,16 +28,11 @@ const UserDashBoard = () => {
                         dwad
                     </section>
                 </div>
-
-
-
             </div>
 
-            <div className='flex w-5/12 space-x-8'>
-                <section className='bg-off-white w-full h-full rounded-3xl p-8'>
-                    <OrderTracker/>
-                </section>
-            </div>
+            <section className='flex w-5/12 bg-off-white w h-full rounded-3xl p-8'>
+                <RecentOrders/>
+            </section>
         </div>
     )
 }

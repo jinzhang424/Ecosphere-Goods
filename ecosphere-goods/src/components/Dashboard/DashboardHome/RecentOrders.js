@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { fetchOrderByID, fetchOrders } from '../../../utilityFunctions/orderHandling'
+import { fetchOrders } from '../../../utilityFunctions/orderHandling'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../../features/userSlice'
-import OrderTrackerItem from './OrderTrackerItem'
+import RecentOrderItem from './RecentOrderItem'
 
-const OrderTracker = () => {
+const RecentOrders = () => {
     const user = useSelector(selectUser)
     const [orders, setOrders] = useState([])
 
@@ -12,7 +12,8 @@ const OrderTracker = () => {
         const fetchOrder = async () => {
             try {
                 const orders = await fetchOrders(user.uid)
-                setOrders(orders)
+                const slicedOrders = orders.slice(0, 2)
+                setOrders(slicedOrders)
             } catch (error) {
                 console.log(error.message)
             }
@@ -25,15 +26,15 @@ const OrderTracker = () => {
 
     return (
         <div className='flex flex-col w-full h-full overflow-hidden space-y-6'>
-            <h1 className='font-header text-dark-brown text-header'>Pending Orders</h1>
+            <h1 className='font-header text-dark-brown text-header'>Recent Orders</h1>
 
             <div className='flex flex-col overflow-hidden w-full space-y-8'>
                 {orders.map((order, index) => (
-                    <OrderTrackerItem key={index} order={order}/>
+                    <RecentOrderItem key={index} order={order}/>
                 ))}
             </div>
         </div>
     )
 }
 
-export default OrderTracker
+export default RecentOrders
