@@ -1,6 +1,6 @@
 import React from 'react'
-import { CgProfile } from "react-icons/cg";
 import RecentOrders from './RecentOrders';
+import UserProfileCard from './UserProfileCard'
 
 const UserDashBoard = () => {
 
@@ -9,15 +9,7 @@ const UserDashBoard = () => {
 
             <div className='flex flex-col h-full w-7/12'>
                 <section className='bg-off-white w-full h-1/2 flex flex-col rounded-3xl p-8 text-dark-brown'>
-                    
-                    <div className='flex space-x-8'>
-                        <CgProfile className='h-24 w-24'/>
-                        <div className='flex flex-col'>
-                            <span className='font-header text-header'>Jimbob Joe</span>
-                            <span className='font-header text-subtitle opacity-80'>7 Jimbob St</span>
-                        </div>
-                    </div>
-                    <span>Your pts</span>
+                    <UserProfileCard/>
                 </section>
 
                 <div className='flex space-x-8 h-1/2 mt-8'>
