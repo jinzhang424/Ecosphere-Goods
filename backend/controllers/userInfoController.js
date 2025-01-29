@@ -78,6 +78,7 @@ const setProfileImage = async (req, res) => {
     const { profileImage, userID } = req.body
 
     if (!profileImage || !userID) {
+        console.error('Profile image or user id was undefined')
         return res.status(400).json({ success: false, message: 'Profile image or user id is undefined'})
     }
 
@@ -89,7 +90,7 @@ const setProfileImage = async (req, res) => {
         console.log('*** Successfully set profile image ***')
         return res.status(201).json({ success: true, message: 'Successfully set profile image'})
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         return res.status(500).json({ success: false, message: 'Error while setting profile image'})
     }
 }

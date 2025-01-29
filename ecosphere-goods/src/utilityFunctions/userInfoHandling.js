@@ -25,10 +25,10 @@ export const fetchDeliveryInfo = async (userID) => {
     }
 }
 
-export const setProfileImage = async (userID, image) => {
+export const setProfileImage = async (userID, profileImage) => {
     try {
         const response = await axios.post('/user-info/set-profile-image', {
-            userID, image
+            userID, profileImage
         })
     } catch (error) {
         console.log(error.message)

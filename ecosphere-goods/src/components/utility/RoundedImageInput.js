@@ -3,27 +3,36 @@ import { CgProfile } from "react-icons/cg";
 import { setProfileImage } from '../../utilityFunctions/userInfoHandling';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
+import { storage } from '../../firebase';
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
-import { storage } from "../../firebase";
 
 const RoundedImageInput = () => {
     const [image, setImage] = useState('')
     const user = useSelector(selectUser)
 
-    const handleImageChange = (event) => {
+    const handleImageChange = async (event) => {
         const file = event.target.files[0]
         console.log('FILE: ', file)
         if (file) {
             const reader = new FileReader();
             reader.onloadend = async () => {
-                try {
-                    setImage(reader.result)
-                    await setProfileImage(user.uid, imageUrl)
-                } catch (error) {
-                    console.error(error.message)
-                }
+                setImage(reader.result)
             }
             reader.readAsDataURL(file)
+        }
+
+        await updateProfileImage()
+    }
+
+    const updateProfileImage = async () => {
+        try {
+            const storageRef = ref(storage, `images/${Date.now()}`);
+            await uploadString(storageRef, image, 'data_url');
+            const imageUrl = await getDownloadURL(storageRef);
+
+            await setProfileImage(user.uid, imageUrl)
+        } catch (error) {
+            console.error(error.message)
         }
     }
 
