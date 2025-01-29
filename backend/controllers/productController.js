@@ -116,7 +116,7 @@ const addNewProduct = async (req, res) => {
         const newProductId = stripeProduct.id
         await db.collection('products').doc(newProductId).update({ date_created: new Date() })
 
-        return res.status(201).json({ success: true, message: 'Product added successfully', stripeProduct, price: stripePrice})
+        return res.status(201).json({ success: true, message: 'Product added successfully', newProductId })
     } catch (error) {
         console.error('Error adding product:', error);
         return res.status(500).json({ success: false, message: 'Error adding product' });
