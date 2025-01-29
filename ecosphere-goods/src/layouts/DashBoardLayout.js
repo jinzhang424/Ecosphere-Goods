@@ -9,9 +9,9 @@ const DashBoardLayout = () => {
 
   return (
     <OrderProvider>
-      <div className={`flex space-x-8 ${location.pathname == '/orders' ? 'h-fit' : 'h-screen'} p-8 bg-light-brown min-h-screen w-screen`}>
-        <DashBoardNav/>
-        <main className='w-11/12'><Outlet/></main>
+      <div className={`flex ${location.pathname.includes('orders') ? 'h-fit' : 'h-screen'} bg-light-brown min-h-screen w-full`}>
+        <div className='h-screen p-8'><DashBoardNav/></div>
+        <main className='w-11/12 pb-8 pr-8 pt-8'><Outlet/></main>
         <ToastContainer/>
       </div>
     </OrderProvider>

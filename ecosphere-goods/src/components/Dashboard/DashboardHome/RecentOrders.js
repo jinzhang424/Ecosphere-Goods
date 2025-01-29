@@ -25,10 +25,10 @@ const RecentOrders = () => {
     console.log('Orders here:', orders)
 
     return (
-        <div className='flex flex-col w-full h-full overflow-hidden space-y-6'>
+        <div className='flex flex-col w-full h-full overflow-hidden'>
             <h1 className='font-header text-dark-brown text-header'>Recent Orders</h1>
 
-            <div className='flex flex-col overflow-hidden w-full space-y-8'>
+            <div className='flex flex-col w-full space-y-8 mt-8'>
                 {orders.map((order, index) => (
                     <RecentOrderItem key={index} order={order}/>
                 ))}

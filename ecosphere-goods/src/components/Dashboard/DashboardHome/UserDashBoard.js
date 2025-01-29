@@ -6,8 +6,9 @@ const UserDashBoard = () => {
 
     return (
         <div className='flex w-full h-full space-x-8'>
-            <div className='flex flex-col h-full w-7/12 space-y-8'>
-                <section className='bg-off-white w-full h-1/2 flex flex-col rounded-3xl p-8 text-dark-brown space-y-2'>
+
+            <div className='flex flex-col h-full w-7/12'>
+                <section className='bg-off-white w-full h-1/2 flex flex-col rounded-3xl p-8 text-dark-brown'>
                     
                     <div className='flex space-x-8'>
                         <CgProfile className='h-24 w-24'/>
@@ -19,7 +20,7 @@ const UserDashBoard = () => {
                     <span>Your pts</span>
                 </section>
 
-                <div className='flex space-x-8 h-1/2'>
+                <div className='flex space-x-8 h-1/2 mt-8'>
                     <section className='bg-off-white w-1/2 h-full rounded-3xl p-8'>
                         dwad
                     </section>
@@ -30,7 +31,7 @@ const UserDashBoard = () => {
                 </div>
             </div>
 
-            <section className='flex w-5/12 bg-off-white w h-full rounded-3xl p-8'>
+            <section className='flex w-5/12 bg-off-white h-full rounded-3xl p-8'>
                 <RecentOrders/>
             </section>
         </div>
