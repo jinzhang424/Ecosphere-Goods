@@ -5,18 +5,11 @@ import SelectCategory from "./SelectCategory";
 import SelectSubcategory from "./SelectSubcategory";
 import { ProductCatalogContext } from "./ProductCatalogContext";
 import ImageInput from "../utility/ImageInput";
-import { ref, uploadString, getDownloadURL } from "firebase/storage";
-import { storage } from "../../firebase";
-import { addNewProduct, updateProduct } from "../../utilityFunctions/productHandling";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
 
 export default function ProductDialog({ children, isEditing = false, IDs }) {
   const [open, setOpen] = useState(false);
-  const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(ProductCatalogContext)
+  const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice, handleAddProduct, handleUpdateProduct } = useContext(ProductCatalogContext)
   const [fieldsNotFilled, setFieldsNotFilled] = useState(false)
-  const user = useSelector(selectUser)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,45 +39,13 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
 
     setFieldsNotFilled(false)
     if (isEditing) {
-      await handleUpdateProduct()
+      await handleUpdateProduct(IDs)
     } else {
       await handleAddProduct()
     }
     
     handleCancel()
   };
-
-  const handleAddProduct = async () => {
-    try {
-      const storageRef = ref(storage, `images/${Date.now()}`);
-      await uploadString(storageRef, image, 'data_url');
-      const imageUrl = await getDownloadURL(storageRef);
-
-      await addNewProduct(name, price, subcategory, imageUrl, category, user.uid)
-      toast.success('Successfully added new product.')
-    } catch (error) {
-      console.error(error.message);
-      toast.error('Error adding new product.')
-    }
-  }
-
-  const handleUpdateProduct = async () => {
-    try {
-      const product = {
-        name: name,
-        imgUrl: image,
-        price: price,
-        category: category,
-        subcategory: subcategory
-      }
-
-      await updateProduct(product, IDs, user.uid)
-      toast.success('Successfully updated product.')
-    } catch (error) {
-      console.error(error.message)
-      toast.error('Error updating product.')
-    }
-  }
 
   return (
     <div>

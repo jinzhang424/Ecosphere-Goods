@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
+import { ProductCatalogContext } from "./ProductCatalogContext";
+import React, { useContext, useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import { deleteProduct } from "../../utilityFunctions/productHandling";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
 
 export default function ConfirmDeleteDialog({ productId, productName }) {
     const [open, setOpen] = useState(false);
     const buttonStyle = 'text-xl text-off-white p-1 pl-4 pr-4 rounded-lg bg-opacity-85 hover:bg-opacity-100'
-    const user = useSelector(selectUser)
+    const { handleConfirmDelete } = useContext(ProductCatalogContext)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -18,19 +15,10 @@ export default function ConfirmDeleteDialog({ productId, productName }) {
         setOpen(false);
     };
 
-    const handleConfirmDelete = async (event) => {
-        event.preventDefault();
-
-        try {
-            await deleteProduct(productId, user.uid)
-
-            handleClose()
-            toast.success('Successfully deleted product.')
-        } catch (error) {
-            console.error(error.message);
-            toast.error('Failed to delete product.')
-        }
-    };
+    const handleDelete = async (event) => {
+        await handleConfirmDelete(event, productId)
+        handleClose()
+    }
 
     return (
         <div className='flex items-center'>
@@ -52,7 +40,7 @@ export default function ConfirmDeleteDialog({ productId, productName }) {
                         </span>
                         
                         <div className='space-x-6 flex items-center'>
-                            <button className={`${buttonStyle} bg-green-600`} onClick={handleConfirmDelete}>Yes</button>
+                            <button className={`${buttonStyle} bg-green-600`} onClick={handleDelete}>Yes</button>
                             <button className={`${buttonStyle} bg-red-600`} onClick={handleClose}>No</button>
                         </div>
                     </div>
