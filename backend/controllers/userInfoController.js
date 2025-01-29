@@ -72,4 +72,26 @@ const fetchDeliveryInfo = async (req, res) => {
     }
 }
 
-module.exports = { setDeliveryInfo, fetchDeliveryInfo, isAdmin, getUserRole }
+const setProfileImage = async (req, res) => {
+    console.log('*** Setting profile image ***')
+
+    const { profileImage, userID } = req.body
+
+    if (!profileImage || !userID) {
+        return res.status(400).json({ success: false, message: 'Profile image or user id is undefined'})
+    }
+
+    try {
+        await db.collection('customers').doc(userID).update({
+            profile_image: profileImage
+        })
+
+        console.log('*** Successfully set profile image ***')
+        return res.status(201).json({ success: true, message: 'Successfully set profile image'})
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({ success: false, message: 'Error while setting profile image'})
+    }
+}
+
+module.exports = { setDeliveryInfo, fetchDeliveryInfo, isAdmin, getUserRole, setProfileImage }
