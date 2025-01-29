@@ -16,6 +16,15 @@ const ProductCatalogProvider = ({ children }) => {
     const [image, setImage] = useState(null)
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
+    const [products, setProducts] = useState([])
+
+    const removeProductFromProducts = () => {
+
+    }
+
+    const addProductToProducts = () => {
+
+    }
 
     const handleAddProduct = async () => {
         try {
@@ -23,7 +32,7 @@ const ProductCatalogProvider = ({ children }) => {
           await uploadString(storageRef, image, 'data_url');
           const imageUrl = await getDownloadURL(storageRef);
     
-          await addNewProduct(name, price, subcategory, imageUrl, category, user.uid)
+          const productId = await addNewProduct(name, price, subcategory, imageUrl, category, user.uid)
           toast.success('Successfully added new product.')
         } catch (error) {
           console.error(error.message);
@@ -70,6 +79,7 @@ const ProductCatalogProvider = ({ children }) => {
                 image, setImage, 
                 name, setName, 
                 price, setPrice,
+                products, setProducts,
                 
                 handleAddProduct,
                 handleUpdateProduct,

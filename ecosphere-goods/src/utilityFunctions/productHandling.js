@@ -28,6 +28,8 @@ export const addNewProduct = async (name, price, subcategory, image, category, u
             category,
             userID
         })
+
+        return response.data.newProductId
     } catch (error) {
         throw new Error(error.message || 'Error while adding new product')
     }
@@ -61,16 +63,16 @@ export const updateProduct = async(product, IDs, userID) => {
     }
 }
 
-export const fetchProductByName = async(productName) => {
+export const fetchProductById = async(productId) => {
     try {
-        const response = await axios.get('/products/fetch-product-by-name', { 
+        const response = await axios.get('/products/fetch-product-by-id', { 
             params: {
-                productName
+                productId
             }
         })
 
         return response.data.data[0]
     } catch (error) {
-        throw new Error(error.message || 'Error while fetching product by name')
+        throw new Error(error.message || 'Error while fetching product by id')
     }
 }

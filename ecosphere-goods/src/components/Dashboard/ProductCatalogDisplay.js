@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import ProductCatalogItem from './ProductCatalogItem'
 import { fetchProducts } from '../../utilityFunctions/productHandling'
+import { ProductCatalogContext } from './ProductCatalogContext'
 
 const ProductCatalogDisplay = () => {
-    const [products, setProducts] = useState([])
+    const { products, setProducts } = useContext(ProductCatalogContext)
     
     useEffect(() => {
         const getProducts = async () => {

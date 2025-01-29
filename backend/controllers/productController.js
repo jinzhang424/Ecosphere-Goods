@@ -206,15 +206,16 @@ const updateProduct = async (req, res) => {
     }
 }
 
-const fetchProductByName = async (req, res) => {
-    const { productName } = req.query
+const fetchProductById = async (req, res) => {
+    console.log('*** Fetching product by Id ***')
+    const { productId } = req.query
 
-    if (!productName) {
+    if (!productId) {
         return res.status(400).json({ sucess: false, message: 'Product name is undefined'})
     }
 
     try {
-        const productRef = db.collection('products').where('name', '==', productName)
+        const productRef = db.collection('products').doc(productId)
         const productSnap = await productRef.get()
 
         const product = await getProducts(productSnap)
@@ -229,4 +230,4 @@ const fetchProductByName = async (req, res) => {
     }
 }
 
-module.exports = { fetchProducts, fetchProductByName, addNewProduct, deleteProduct, updateProduct }
+module.exports = { fetchProducts, fetchProductById, addNewProduct, deleteProduct, updateProduct }
