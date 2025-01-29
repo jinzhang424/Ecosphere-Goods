@@ -5,6 +5,9 @@ import OrderItem from './OrderItem'
 import OrderHeading from './OrderHeading';
 import OrderStatus from './OrderStatus';
 import BasicInfoDisplay from '../../utility/BasicInfoDisplay';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../../features/userSlice';
+import unitToDollarString from '../../../utilityFunctions/unitToDollarString';
 
 export const orderLoader = async ({ params }) => {
     const { userID, orderID } = params
@@ -20,11 +23,15 @@ export const orderLoader = async ({ params }) => {
 }
 
 const LowLevelOrderView = () => {
+    const user = useSelector(selectUser)
     const orderInfo = useLoaderData()
     const products = orderInfo.orderData.products
 
     const orderDate = new Date(orderInfo.orderData.created._seconds * 1000 + orderInfo.orderData.created._nanoseconds / 1000000)
     const dateString = orderDate.toLocaleDateString();
+    const totalPrice = unitToDollarString(orderInfo?.orderData?.total_price)
+
+    console.log(orderInfo)
 
     return (
         <div className='w-full h-full bg-off-white rounded-3xl p-8'>
@@ -45,11 +52,11 @@ const LowLevelOrderView = () => {
                 <article className='text-dark-brown border-2 rounded-xl font-header h-fit w-4/12 border-dark-brown border-opacity-10 p-4 space-y-3'>
                     <h2 className='text-subtitle'>Order Details</h2>
                     
-                    <body className='flex flex-col font-header space-y-2 ml-2 opacity-90'>
+                    <div className='flex flex-col font-header space-y-2 ml-2'>
                         <BasicInfoDisplay infoLabel='Date Ordered' infoData={dateString}/>
-                        <BasicInfoDisplay infoLabel='Delivery Address' />
-                        <BasicInfoDisplay infoLabel='Total Price' />
-                    </body>
+                        <BasicInfoDisplay infoLabel='Delivery Address' infoData={user?.deliveryInfo?.address}/>
+                        <BasicInfoDisplay infoLabel='Total Price' infoData={totalPrice}/>
+                    </div>
                 </article>
             </div>
         </div>

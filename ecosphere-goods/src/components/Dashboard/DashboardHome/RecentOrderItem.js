@@ -20,7 +20,7 @@ const RecentOrderItem = ({ order }) => {
             
             <div className='flex space-x-2'>
                 {products.map((product, index) => (
-                    <img src={product.images[0]} className='h-16 w-16 aspect-square object-center object-cover rounded-xl' />
+                    <img key={index} src={product.images[0]} className='h-16 w-16 aspect-square object-center object-cover rounded-xl' />
                 ))}
 
                 {(products.length > 5) && <div>...</div>}
