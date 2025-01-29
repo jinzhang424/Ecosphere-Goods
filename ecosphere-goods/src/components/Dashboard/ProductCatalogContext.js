@@ -1,8 +1,8 @@
 import React, { createContext, useState } from 'react';
 
-const NewItemContext = createContext();
+const ProductCatalogContext = createContext();
 
-const NewItemProvider = ({ children }) => {
+const ProductCatalogProvider = ({ children }) => {
     const [category, setCategory] = useState('');
     const [subcategory, setSubcategory] = useState('');
     const [image, setImage] = useState(null)
@@ -10,7 +10,7 @@ const NewItemProvider = ({ children }) => {
     const [price, setPrice] = useState('')
 
     return (
-        <NewItemContext.Provider 
+        <ProductCatalogContext.Provider 
             value={{ 
                 category, setCategory, 
                 subcategory, setSubcategory, 
@@ -20,8 +20,8 @@ const NewItemProvider = ({ children }) => {
             }}
         >
             {children}
-        </NewItemContext.Provider>
+        </ProductCatalogContext.Provider>
     );
 };
 
-export { NewItemContext, NewItemProvider };
+export { ProductCatalogContext, ProductCatalogProvider };

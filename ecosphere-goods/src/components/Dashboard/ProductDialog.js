@@ -3,7 +3,7 @@ import DialogButton from "./DialogButton";
 import TextField from '@mui/material/TextField';
 import SelectCategory from "./SelectCategory";
 import SelectSubcategory from "./SelectSubcategory";
-import { NewItemContext } from "./NewItemContext";
+import { ProductCatalogContext } from "./ProductCatalogContext";
 import ImageInput from "../utility/ImageInput";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
@@ -14,7 +14,7 @@ import { selectUser } from "../../features/userSlice";
 
 export default function ProductDialog({ children, isEditing = false, IDs }) {
   const [open, setOpen] = useState(false);
-  const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(NewItemContext)
+  const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice } = useContext(ProductCatalogContext)
   const [fieldsNotFilled, setFieldsNotFilled] = useState(false)
   const user = useSelector(selectUser)
 

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import { NewItemContext } from '../Dashboard/NewItemContext'
+import { ProductCatalogContext } from '../Dashboard/ProductCatalogContext'
 import { MdCloudUpload } from "react-icons/md";
 
 const ImageInput = () => {
-    const { image, setImage } = useContext(NewItemContext)
+    const { image, setImage } = useContext(ProductCatalogContext)
 
     const handleImageChange = (event) => {
         const file = event.target.files[0]
