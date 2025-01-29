@@ -20,7 +20,7 @@ const FinalPricingInformation = () => {
     
     const isDeliveryInfoValid = () => {
         const deliveryInfo = user?.deliveryInfo
-        return deliveryInfo?.address && !deliveryInfo?.phoneNumber && !deliveryInfo?.zipCode && !deliveryInfo?.country
+        return !deliveryInfo?.address || !deliveryInfo?.phoneNumber || !deliveryInfo?.zipCode || !deliveryInfo?.country
     }
 
     const loadCheckout = async () => {

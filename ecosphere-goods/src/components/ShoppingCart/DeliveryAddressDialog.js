@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { TextField } from '@mui/material'
 import TransitionContainedButton from '../utility/TransitionContainedButton'
-import { useSelector } from 'react-redux'
-import { selectUser } from '../../features/userSlice'
-import { updateDeliveryInfo } from '../../utilityFunctions/userInfoHandling'
+import { useDispatch, useSelector } from 'react-redux'
+import { login, selectUser } from '../../features/userSlice'
+import { fetchDeliveryInfo, updateDeliveryInfo } from '../../utilityFunctions/userInfoHandling'
 import { toast } from 'react-toastify'
 
 const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
@@ -12,12 +12,21 @@ const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
     const [zipCode, setZipCode] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const user = useSelector(selectUser)
+    const dispatch = useDispatch()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
 
         try {
             await updateDeliveryInfo(user.uid, address, country, zipCode, phoneNumber)
+            const deliveryInfo = await fetchDeliveryInfo(user.uid)
+            
+            dispatch(login({
+                uid: user.uid,
+                email: user.email,
+                role: user.role,
+                deliveryInfo: deliveryInfo
+            }))
             closeDialog()
             toast.success('Delivery address has been updated')
         } catch (error) {
