@@ -148,7 +148,6 @@ const deleteProduct = async (req, res) => {
     }
 
     try {
-        await deletePrices(productId)
         await stripe.products.update(productId, { active: false });
         await db.collection('products').doc(productId).delete()
 
