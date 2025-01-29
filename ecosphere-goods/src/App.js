@@ -60,16 +60,17 @@ function App() {
         try {
           role = await fetchRole(userAuth.uid)
           deliveryInfo = await fetchDeliveryInfo(userAuth.uid)
-          console.log('DWDWADWD', deliveryInfo)
         } catch (error) {
           console.error('Error fetching UID')
         }
 
+        console.log('userauth', userAuth)
         dispatch(login({
           uid: userAuth.uid,
           email: userAuth.email,
           role: role,
-          deliveryInfo: deliveryInfo
+          deliveryInfo: deliveryInfo,
+          profile_image: userAuth.profile_image,
         }))
       } else {
         dispatch(logout())
