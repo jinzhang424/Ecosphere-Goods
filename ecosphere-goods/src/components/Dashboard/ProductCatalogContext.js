@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { addNewProduct, updateProduct } from '../../utilityFunctions/productHandling';
+import { addNewProduct, fetchProductById, updateProduct } from '../../utilityFunctions/productHandling';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
 import { toast } from "react-toastify";
@@ -22,8 +22,10 @@ const ProductCatalogProvider = ({ children }) => {
 
     }
 
-    const addProductToProducts = () => {
-
+    const addProductToProducts = async (productId) => {
+        const newProduct = await fetchProductById(productId)
+        products.push(newProduct)
+        console.log('Updating the products array:', products)
     }
 
     const handleAddProduct = async () => {
@@ -33,6 +35,8 @@ const ProductCatalogProvider = ({ children }) => {
           const imageUrl = await getDownloadURL(storageRef);
     
           const productId = await addNewProduct(name, price, subcategory, imageUrl, category, user.uid)
+          addProductToProducts(productId)
+
           toast.success('Successfully added new product.')
         } catch (error) {
           console.error(error.message);

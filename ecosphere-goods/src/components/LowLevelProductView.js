@@ -50,7 +50,7 @@ const LowLevelProductView = ({ product }) => {
                     </article>
                     
                     <div className='flex justify-between items-center'>
-                        <h2 className='font-LHeader text-sHeader text-dark-brown'>{ unitToDollarString(product.prices[0].priceData.unit_amount) }</h2>
+                        <h2 className='font-LHeader text-sHeader text-dark-brown'>{ unitToDollarString(product.prices.priceData.unit_amount) }</h2>
                         <QuantityAdjuster 
                             increment={ handleIncrement } 
                             decrement={ handleDecrement } 
