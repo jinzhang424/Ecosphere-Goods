@@ -24,3 +24,14 @@ export const fetchDeliveryInfo = async (userID) => {
         throw new Error('Error while fetching delivery address')
     }
 }
+
+export const setProfileImage = async (userID, image) => {
+    try {
+        const response = await axios.post('/user-info/set-profile-image', {
+            userID, image
+        })
+    } catch (error) {
+        console.log(error.message)
+        throw new Error('Error while setting profile image')
+    }
+}
