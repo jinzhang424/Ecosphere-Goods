@@ -211,16 +211,24 @@ const fetchProductById = async (req, res) => {
     const { productId } = req.query
 
     if (!productId) {
+        console.log('Product id was undefined')
         return res.status(400).json({ sucess: false, message: 'Product name is undefined'})
     }
 
     try {
         const productRef = db.collection('products').doc(productId)
         const productSnap = await productRef.get()
+        const productData = productSnap.data()
 
-        const product = await getProducts(productSnap)
-
-        console.log(product)
+        const priceSnap = await productSnap.ref.collection('prices').where('active', '==', true).get()
+        const priceDoc = priceSnap.docs[0]
+        const price = {
+            priceId: priceDoc.id,
+            priceData: priceDoc.data()
+        }
+        
+        productData.prices = price
+        const product = {id: productId, ...productData}
 
         return res.status(201).json({ success: true, data: product})
 

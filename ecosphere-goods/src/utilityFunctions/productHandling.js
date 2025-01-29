@@ -64,6 +64,7 @@ export const updateProduct = async(product, IDs, userID) => {
 }
 
 export const fetchProductById = async(productId) => {
+    
     try {
         const response = await axios.get('/products/fetch-product-by-id', { 
             params: {
@@ -71,7 +72,7 @@ export const fetchProductById = async(productId) => {
             }
         })
 
-        return response.data.data[0]
+        return response.data.data
     } catch (error) {
         throw new Error(error.message || 'Error while fetching product by id')
     }
