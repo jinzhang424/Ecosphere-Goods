@@ -72,4 +72,47 @@ const fetchDeliveryInfo = async (req, res) => {
     }
 }
 
-module.exports = { setDeliveryInfo, fetchDeliveryInfo, isAdmin, getUserRole }
+const setProfileImage = async (req, res) => {
+    console.log('*** Setting profile image ***')
+
+    const { profileImage, userID } = req.body
+
+    if (!profileImage || !userID) {
+        console.error('Profile image or user id was undefined')
+        return res.status(400).json({ success: false, message: 'Profile image or user id is undefined'})
+    }
+
+    try {
+        await db.collection('customers').doc(userID).update({
+            profile_image: profileImage
+        })
+
+        console.log('*** Successfully set profile image ***')
+        return res.status(201).json({ success: true, message: 'Successfully set profile image'})
+    } catch (error) {
+        console.error(error.message)
+        return res.status(500).json({ success: false, message: 'Error while setting profile image'})
+    }
+}
+
+const fetchProfileImage = async (req, res) => {
+    console.log('*** Fetching user profile image ***')
+    const { userID } = req.query
+
+    if (!userID) {
+        console.error('Missing user id')
+        return res.status(400).json({ success: false, message: 'User id was undefined'})
+    }
+
+    try {
+        const userSnap = await db.collection('customers').doc(userID).get()
+        const userData = userSnap.data()
+
+        return res.status(201).json({ success: true, data: userData.profile_image})
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({ success: false, message: 'Error fetching user profile image'})
+    }
+}
+
+module.exports = { setDeliveryInfo, fetchDeliveryInfo, isAdmin, getUserRole, setProfileImage, fetchProfileImage }
