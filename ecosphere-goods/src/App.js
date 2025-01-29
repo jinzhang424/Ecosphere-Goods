@@ -19,7 +19,7 @@ import InsufficientPermissionsPage from './pages/InsufficientPermissionsPage';
 import Orders from './components/Dashboard/Order/Orders';
 import LowLevelOrderView from './components/Dashboard/Order/LowLevelOrderView';
 import { orderLoader } from './components/Dashboard/Order/LowLevelOrderView';
-import { fetchDeliveryInfo } from './utilityFunctions/userInfoHandling';
+import { fetchDeliveryInfo, fetchProfileImage } from './utilityFunctions/userInfoHandling';
 
 const router = createBrowserRouter([
   {
@@ -56,10 +56,12 @@ function App() {
       if (userAuth) {
         let role
         let deliveryInfo
+        let profileImage
 
         try {
           role = await fetchRole(userAuth.uid)
           deliveryInfo = await fetchDeliveryInfo(userAuth.uid)
+          profileImage = await fetchProfileImage(userAuth.uid)
         } catch (error) {
           console.error('Error fetching UID')
         }
@@ -70,7 +72,7 @@ function App() {
           email: userAuth.email,
           role: role,
           deliveryInfo: deliveryInfo,
-          profile_image: userAuth.profile_image,
+          profile_image: profileImage,
         }))
       } else {
         dispatch(logout())

@@ -35,3 +35,18 @@ export const setProfileImage = async (userID, profileImage) => {
         throw new Error('Error while setting profile image')
     }
 }
+
+export const fetchProfileImage = async (userID) => {
+    try {
+        const response = await axios.get('/user-info/fetch-profile-image', {
+            params: {
+                userID
+            }
+        })
+
+        return response.data.data
+    } catch (error) {
+        console.log(error.message)
+        throw new Error('Error while setting profile image')
+    }
+} 
