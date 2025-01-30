@@ -19,13 +19,12 @@ const ProductCatalogProvider = ({ children }) => {
     const [products, setProducts] = useState([])
 
     const removeProductFromProducts = (productId) => {
-        setProducts(products.filter(product => product.id !== productId))
+        setProducts(prevProducts => prevProducts.filter(product => product.id !== productId))
     }
 
     const addProductToProducts = async (productId) => {
         const newProduct = await fetchProductById(productId)
-        setProducts([...products, newProduct])
-        console.log('Updating the products array:', products)
+        setProducts(prevProducts => [...prevProducts, newProduct])
     }
 
     const handleAddProduct = async () => {
@@ -35,7 +34,7 @@ const ProductCatalogProvider = ({ children }) => {
           const imageUrl = await getDownloadURL(storageRef);
     
           const productId = await addNewProduct(name, price, subcategory, imageUrl, category, user.uid)
-          addProductToProducts(productId)
+          await addProductToProducts(productId)
 
           toast.success('Successfully added new product.')
         } catch (error) {
@@ -46,19 +45,24 @@ const ProductCatalogProvider = ({ children }) => {
 
     const handleUpdateProduct = async (IDs) => {
         try {
-          const product = {
-            name: name,
-            imgUrl: image,
-            price: price,
-            category: category,
-            subcategory: subcategory
-          }
-    
-          await updateProduct(product, IDs, user.uid)
-          toast.success('Successfully updated product.')
+            const product = {
+                name: name,
+                imgUrl: image,
+                price: price,
+                category: category,
+                subcategory: subcategory
+            }
+        
+            await updateProduct(product, IDs, user.uid)
+            
+            removeProductFromProducts(IDs.productId)
+            await addProductToProducts(IDs.productId)
+
+
+            toast.success('Successfully updated product.')
         } catch (error) {
-          console.error(error.message)
-          toast.error('Error updating product.')
+            console.error(error.message)
+            toast.error('Error updating product.')
         }
     }
 
