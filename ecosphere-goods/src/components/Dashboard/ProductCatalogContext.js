@@ -18,8 +18,8 @@ const ProductCatalogProvider = ({ children }) => {
     const [price, setPrice] = useState('')
     const [products, setProducts] = useState([])
 
-    const removeProductFromProducts = () => {
-
+    const removeProductFromProducts = (productId) => {
+        setProducts(products.filter(product => product.id !== productId))
     }
 
     const addProductToProducts = async (productId) => {
@@ -67,6 +67,7 @@ const ProductCatalogProvider = ({ children }) => {
 
         try {
             await deleteProduct(productId, user.uid)
+            removeProductFromProducts(productId)
 
             toast.success('Successfully deleted product.')
         } catch (error) {
