@@ -12,7 +12,7 @@ const ProductDisplay = ({ products }) => {
                         imageUrl={ productData.images[0] } 
                         price={ productData.prices[0].priceData.unit_amount } 
                         name={ productData.name }
-                        productId={ productId }
+                        productId={ productData.id }
                     />
                 </div>
             ))}
