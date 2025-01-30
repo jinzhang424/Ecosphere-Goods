@@ -116,7 +116,7 @@ const addNewProduct = async (req, res) => {
         const newProductId = stripeProduct.id
         await db.collection('products').doc(newProductId).update({ date_created: new Date() })
 
-        return res.status(201).json({ success: true, message: 'Product added successfully', stripeProduct, price: stripePrice})
+        return res.status(201).json({ success: true, message: 'Product added successfully', newProductId })
     } catch (error) {
         console.error('Error adding product:', error);
         return res.status(500).json({ success: false, message: 'Error adding product' });
@@ -148,7 +148,6 @@ const deleteProduct = async (req, res) => {
     }
 
     try {
-        await deletePrices(productId)
         await stripe.products.update(productId, { active: false });
         await db.collection('products').doc(productId).delete()
 
@@ -207,20 +206,29 @@ const updateProduct = async (req, res) => {
     }
 }
 
-const fetchProductByName = async (req, res) => {
-    const { productName } = req.query
+const fetchProductById = async (req, res) => {
+    console.log('*** Fetching product by Id ***')
+    const { productId } = req.query
 
-    if (!productName) {
+    if (!productId) {
+        console.log('Product id was undefined')
         return res.status(400).json({ sucess: false, message: 'Product name is undefined'})
     }
 
     try {
-        const productRef = db.collection('products').where('name', '==', productName)
+        const productRef = db.collection('products').doc(productId)
         const productSnap = await productRef.get()
+        const productData = productSnap.data()
 
-        const product = await getProducts(productSnap)
-
-        console.log(product)
+        const priceSnap = await productSnap.ref.collection('prices').where('active', '==', true).get()
+        const priceDoc = priceSnap.docs[0]
+        const price = {
+            priceId: priceDoc.id,
+            priceData: priceDoc.data()
+        }
+        
+        productData.prices = [price]
+        const product = {id: productId, ...productData}
 
         return res.status(201).json({ success: true, data: product})
 
@@ -230,4 +238,4 @@ const fetchProductByName = async (req, res) => {
     }
 }
 
-module.exports = { fetchProducts, fetchProductByName, addNewProduct, deleteProduct, updateProduct }
+module.exports = { fetchProducts, fetchProductById, addNewProduct, deleteProduct, updateProduct }

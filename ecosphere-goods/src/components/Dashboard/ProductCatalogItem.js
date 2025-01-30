@@ -3,10 +3,10 @@ import unitToDollarString from '../../utilityFunctions/unitToDollarString'
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import ProductDialog from './ProductDialog';
 import { FaEdit } from "react-icons/fa";
-import { NewItemContext } from './NewItemContext';
+import { ProductCatalogContext } from './ProductCatalogContext';
 
 const ProductCatalogItem = (productData) => {
-    const { setCategory, setSubcategory, setImage, setName, setPrice } = useContext(NewItemContext)
+    const { setCategory, setSubcategory, setImage, setName, setPrice } = useContext(ProductCatalogContext)
     
     const product = {
         imgUrl: productData.productData.images[0],

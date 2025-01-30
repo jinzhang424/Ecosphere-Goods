@@ -4,12 +4,12 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { NewItemContext } from './NewItemContext';
+import { ProductCatalogContext } from './ProductCatalogContext';
 import db, { collection, getDocs } from '../../firebase'
 
 const SelectSubcategory = ({ className }) => {
     const [subcategories, setSubcategories] = useState([])
-    const { category, subcategory, setSubcategory } = useContext(NewItemContext)
+    const { category, subcategory, setSubcategory } = useContext(ProductCatalogContext)
     const [error, setError] = useState(false)
     const [isFocused, setIsFocused] = useState(false);
 

@@ -2,11 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import unitToDollarString from '../utilityFunctions/unitToDollarString';
 
-const Item = ({imageUrl, price, name}) => {
+const Item = ({imageUrl, price, name, productId}) => {
 
   return (
     <div className="p-6 w-full justify-between bg-dark-brown aspect-itemCard cursor-pointer hover:scale-110 transition-transform ease-in-out duration-300">
-      <Link to={`/${name}`}>
+      <Link to={`/${productId}`}>
         <div className="h-4/6">
           <img src={imageUrl} alt="" className="object-cover w-full h-full"/>
         </div>

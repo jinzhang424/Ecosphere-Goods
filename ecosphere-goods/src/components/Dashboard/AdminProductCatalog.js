@@ -1,12 +1,12 @@
 import React from 'react'
 import ProductCatalogDisplay from './ProductCatalogDisplay'
 import ProductDialog from './ProductDialog'
-import { NewItemProvider } from './NewItemContext'
+import { ProductCatalogProvider } from './ProductCatalogContext'
 
 const AdminProductCatalog = () => {
 
   return (
-    <NewItemProvider>
+    <ProductCatalogProvider>
       <div className='space-y-8 bg-off-white w-full h-full rounded-3xl text-dark-brown p-8 pr-12 pl-12'>
         <div className='flex w-full justify-between items-center'>
           <h1 className='text-header font-header'>Product Catalog</h1>
@@ -28,7 +28,7 @@ const AdminProductCatalog = () => {
           <ProductCatalogDisplay />
         </div>
       </div>
-    </NewItemProvider>  
+    </ProductCatalogProvider>  
   )
 }
 

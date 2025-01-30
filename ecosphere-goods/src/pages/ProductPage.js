@@ -3,14 +3,14 @@ import db, { getDocs, collection, query, where } from '../firebase'
 import { useLoaderData } from 'react-router-dom'
 import SimilarProductsDisplay from '../components/SimilarProductsDisplay'
 import LowLevelProductView from '../components/LowLevelProductView'
-import { fetchProductByName } from '../utilityFunctions/productHandling'
+import { fetchProductById } from '../utilityFunctions/productHandling'
 
 const productLoader = async ({ params }) => {
-    const { productName } = params;
+    const { productId } = params;
 
     let product
     try {
-        product = await fetchProductByName(productName);
+        product = await fetchProductById(productId);
     } catch(error) {
         console.log(error.message)
     }
