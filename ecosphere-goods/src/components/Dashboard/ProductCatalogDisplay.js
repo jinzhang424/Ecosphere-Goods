@@ -4,16 +4,7 @@ import { fetchProducts } from '../../utilityFunctions/productHandling'
 import { ProductCatalogContext } from './ProductCatalogContext'
 
 const ProductCatalogDisplay = () => {
-    const { products, setProducts } = useContext(ProductCatalogContext)
-    
-    useEffect(() => {
-        const getProducts = async () => {
-            const products = await fetchProducts(undefined, undefined, undefined, 'Newest')
-            setProducts(products)
-        }
-
-        getProducts()
-    }, [])
+    const { products } = useContext(ProductCatalogContext)
 
     console.log(products)
 

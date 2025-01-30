@@ -227,7 +227,7 @@ const fetchProductById = async (req, res) => {
             priceData: priceDoc.data()
         }
         
-        productData.prices = price
+        productData.prices = [price]
         const product = {id: productId, ...productData}
 
         return res.status(201).json({ success: true, data: product})

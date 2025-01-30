@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
-import { addNewProduct, fetchProductById, updateProduct } from '../../utilityFunctions/productHandling';
+import React, { createContext, useEffect, useState } from 'react';
+import { addNewProduct, fetchProductById, fetchProducts, updateProduct } from '../../utilityFunctions/productHandling';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
 import { toast } from "react-toastify";
@@ -24,7 +24,7 @@ const ProductCatalogProvider = ({ children }) => {
 
     const addProductToProducts = async (productId) => {
         const newProduct = await fetchProductById(productId)
-        products.push(newProduct)
+        setProducts([...products, newProduct])
         console.log('Updating the products array:', products)
     }
 
@@ -74,6 +74,15 @@ const ProductCatalogProvider = ({ children }) => {
             toast.error('Failed to delete product.')
         }
     };
+
+    useEffect(() => {
+        const getProducts = async () => {
+            const products = await fetchProducts(undefined, undefined, undefined, 'Newest')
+            setProducts(products)
+        }
+
+        getProducts()
+    }, [])
 
     return (
         <ProductCatalogContext.Provider 
