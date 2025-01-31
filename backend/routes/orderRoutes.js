@@ -4,6 +4,6 @@ const { fetchOrders, fetchOrderByID } = require('../controllers/orderController'
 const router = express.Router()
 
 router.get('/fetch-orders', fetchOrders)
-router.get('/fetch-order-by-id', fetchOrderByID)
+router.get('/:userID/:orderID', fetchOrderByID)
 
 module.exports = router

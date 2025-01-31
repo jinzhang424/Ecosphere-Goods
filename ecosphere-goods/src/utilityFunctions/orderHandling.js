@@ -11,12 +11,8 @@ export const fetchOrders = async (userID) => {
 }
 
 export const fetchOrderByID = async (orderID, userID) => {
-    const response = await axios.get('/order/fetch-order-by-id', {
-        params: {
-            userID,
-            orderID
-        }
-    })
+
+    const response = await axios.get(`/order/${userID}/${orderID}`)
 
     return response.data.data
 }

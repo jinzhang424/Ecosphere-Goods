@@ -53,7 +53,7 @@ const setDeliveryInfo = async (req, res) => {
 
 const fetchDeliveryInfo = async (req, res) => {
     console.log('*** Fetching Delivery Info ***')
-    const { userID } = req.query
+    const { userID } = req.params
 
     if (!userID) {
         console.error('Missing user id')
@@ -97,7 +97,7 @@ const setProfileImage = async (req, res) => {
 
 const fetchProfileImage = async (req, res) => {
     console.log('*** Fetching user profile image ***')
-    const { userID } = req.query
+    const { userID } = req.params
 
     if (!userID) {
         console.error('Missing user id')

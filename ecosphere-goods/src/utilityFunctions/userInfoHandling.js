@@ -12,11 +12,7 @@ export const updateDeliveryInfo = async (userID, address, country, zipCode, phon
 
 export const fetchDeliveryInfo = async (userID) => {
     try {
-        const response = await axios.get('/user-info/fetch-user-info', {
-            params: {
-                userID
-            }
-        })
+        const response = await axios.get(`/user-info/delivery-info/${userID}`)
 
         return response.data.data
     } catch (error) {
@@ -38,11 +34,7 @@ export const setProfileImage = async (userID, profileImage) => {
 
 export const fetchProfileImage = async (userID) => {
     try {
-        const response = await axios.get('/user-info/fetch-profile-image', {
-            params: {
-                userID
-            }
-        })
+        const response = await axios.get(`/user-info/profile-image/${userID}`)
 
         return response.data.data
     } catch (error) {

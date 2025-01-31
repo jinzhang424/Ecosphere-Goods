@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.post('/set-profile-image', setProfileImage)
 router.post('/set-delivery-info', setDeliveryInfo)
-router.get('/fetch-user-info', fetchDeliveryInfo)
-router.get('/fetch-profile-image', fetchProfileImage)
+router.get('/delivery-info/:userID', fetchDeliveryInfo)
+router.get('/profile-image/:userID', fetchProfileImage)
 
 module.exports = router
