@@ -20,6 +20,7 @@ import Orders from './components/Dashboard/Order/Orders';
 import LowLevelOrderView from './components/Dashboard/Order/LowLevelOrderView';
 import { orderLoader } from './components/Dashboard/Order/LowLevelOrderView';
 import { fetchDeliveryInfo, fetchProfileImage } from './utilityFunctions/userInfoHandling';
+import TruckLoader from './components/animations/TruckLoader';
 
 const router = createBrowserRouter([
   {
@@ -86,12 +87,11 @@ function App() {
 
   console.log('Current user:', user)
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
   return (
-    <RouterProvider router={router} />
+    <div>
+      <TruckLoader isLoading={isLoading}/>
+      {!isLoading && <RouterProvider router={router} />}
+    </div>
   );
 }
 

@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import PasswordTextField from './PasswordTextField';
 import { registerUser } from '../../utilityFunctions/userAuth';
 import { toast } from 'react-toastify';
+import UncontainedButton from '../utility/UncontainedButton';
 
 const RegisterEmail = ({ backToSignIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordMatch, setPasswordMatch] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handlePasswordChange = (newPassword) => {
     setPassword(newPassword);
@@ -23,6 +24,7 @@ const RegisterEmail = ({ backToSignIn }) => {
   };
 
   const onRegister = async () => {
+    setLoading(true)
     try {
       await registerUser(email, password, passwordMatch);
 
@@ -34,6 +36,7 @@ const RegisterEmail = ({ backToSignIn }) => {
     } catch (error) {
       toast.error(error.message);
     }
+    setLoading(false)
   }
 
   return (
@@ -68,18 +71,7 @@ const RegisterEmail = ({ backToSignIn }) => {
           <p className={`${(!passwordMatch && confirmPassword !== '') ? 'opacity-100' : 'opacity-0'} text-error`}>* Password does not match!</p>
         </div>
       </Box>
-      <Button 
-          variant="contained" 
-          fullWidth
-          onClick={ onRegister }
-          sx={{
-              backgroundColor: '#362D2D',
-              height: '3rem',
-              width: '60%',
-          }}
-      >
-        Sign Up
-      </Button>
+      <div className='flex justify-center w-4/6'><UncontainedButton label='Sign Up' onClick={ onRegister } loading={loading}/></div>
     </div>
   )
 }

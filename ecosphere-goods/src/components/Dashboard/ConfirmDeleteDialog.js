@@ -1,11 +1,12 @@
 import { ProductCatalogContext } from "./ProductCatalogContext";
 import React, { useContext, useState } from "react";
 import { FaTrash } from "react-icons/fa";
+import OpacityButton from "../utility/OpacityButton";
 
 export default function ConfirmDeleteDialog({ productId, productName }) {
     const [open, setOpen] = useState(false);
-    const buttonStyle = 'text-xl text-off-white p-1 pl-4 pr-4 rounded-lg bg-opacity-85 hover:bg-opacity-100'
     const { handleConfirmDelete } = useContext(ProductCatalogContext)
+    const [loading, setLoading] = useState(false)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -16,7 +17,9 @@ export default function ConfirmDeleteDialog({ productId, productName }) {
     };
 
     const handleDelete = async (event) => {
+        setLoading(true)
         await handleConfirmDelete(event, productId)
+        setLoading(false)
         handleClose()
     }
 
@@ -40,8 +43,8 @@ export default function ConfirmDeleteDialog({ productId, productName }) {
                         </span>
                         
                         <div className='space-x-6 flex items-center'>
-                            <button className={`${buttonStyle} bg-green-600`} onClick={handleDelete}>Yes</button>
-                            <button className={`${buttonStyle} bg-red-600`} onClick={handleClose}>No</button>
+                            <OpacityButton bgColor="bg-green-600" onClick={handleDelete} label='Yes' loading={loading}/>
+                            <OpacityButton bgColor="bg-red-600" onClick={handleClose} label='No'/>
                         </div>
                     </div>
                 </dialog>

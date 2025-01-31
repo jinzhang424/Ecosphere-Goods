@@ -5,9 +5,11 @@ import SelectCategory from "./SelectCategory";
 import SelectSubcategory from "./SelectSubcategory";
 import { ProductCatalogContext } from "./ProductCatalogContext";
 import ImageInput from "../utility/ImageInput";
+import OpacityButton from "../utility/OpacityButton";
 
 export default function ProductDialog({ children, isEditing = false, IDs }) {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false)
   const { category, setCategory, subcategory, setSubcategory, image, setImage, name, setName, price, setPrice, handleAddProduct, handleUpdateProduct } = useContext(ProductCatalogContext)
   const [fieldsNotFilled, setFieldsNotFilled] = useState(false)
 
@@ -37,12 +39,14 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
       return
     }
 
+    setLoading(true)
     setFieldsNotFilled(false)
     if (isEditing) {
       await handleUpdateProduct(IDs)
     } else {
       await handleAddProduct()
     }
+    setLoading(false)
     
     handleCancel()
   };
@@ -59,7 +63,7 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
             <dialog open className='flex flex-col fixed inset-0 z-40 w-7/12 p-10 pr-12 pl-12 bg-off-white rounded-3xl h-fit'>
               <h1 className='font-header text-dark-brown text-sHeader'>{isEditing ? 'Update Product' : 'Add New Product'}</h1>
               
-              <form onSubmit={ handleSubmit } className='flex flex-col flex-grow justify-between mt-8' noValidate >
+              <form onSubmit={handleSubmit} className='flex flex-col flex-grow justify-between mt-8' noValidate >
                 <div className='flex justify-between'>
                   <ImageInput/>
                   
@@ -92,10 +96,12 @@ export default function ProductDialog({ children, isEditing = false, IDs }) {
                 </div>
 
                 <div className='flex w-full justify-between mt-10'>
-                  <DialogButton label={ 'Cancel' } onClick={ handleCancel } />
+                  <OpacityButton label={ 'Cancel' } onClick={ handleCancel } />
                   <div className='flex items-center justify-center space-x-4'>
                     <p className={`${fieldsNotFilled ? 'text-red-700' : 'hidden'}`}>* Please fill out all fields</p>
-                    <div className={`${fieldsNotFilled ? 'animate-shake' : ''}`}><DialogButton label={ isEditing ? 'Update' : 'Add' } type="submit" /></div>
+                    <div className={`${fieldsNotFilled ? 'animate-shake' : ''}`}>
+                      <OpacityButton label={ isEditing ? 'Update' : 'Add' } type="submit" loading={loading}/>
+                    </div>
                   </div>
                 </div>
               </form>
