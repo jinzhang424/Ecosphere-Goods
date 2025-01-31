@@ -63,14 +63,10 @@ export const updateProduct = async(product, IDs, userID) => {
     }
 }
 
-export const fetchProductById = async(productId) => {
+export const fetchProductById = async(productID) => {
     
     try {
-        const response = await axios.get('/products/fetch-product-by-id', { 
-            params: {
-                productId
-            }
-        })
+        const response = await axios.get(`/products/${productID}`)
 
         return response.data.data
     } catch (error) {
