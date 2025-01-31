@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
-import Button from '@mui/material/Button';
 import PasswordTextField from './PasswordTextField';
 import BackToBrowsingButton from '../utility/BackToBrowsingButton';
 import { useNavigate } from 'react-router-dom';
 import { handleSignIn } from '../../utilityFunctions/userAuth';
 import { toast } from 'react-toastify';
+import UncontainedButton from '../utility/UncontainedButton';
 
 const SignInPanel = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState('')
     
-    const onSignIn = async () => {
+    const onSignIn = async (event) => {
+        event.preventDefault()
+        setLoading(true)
         try {
             await handleSignIn(email, password)
             toast.success('Sign-in successful!');
@@ -21,6 +24,7 @@ const SignInPanel = () => {
         } catch (error) {
             toast.error(error.message)
         }
+        setLoading(false)
     }
     
     return (
@@ -44,18 +48,7 @@ const SignInPanel = () => {
                     <p>Remember Me</p>
                     <p className='font-header cursor-pointer hover:underline'>Forgot Password?</p>
                 </div>
-                <Button 
-                    variant="contained" 
-                    fullWidth
-                    onClick={ onSignIn }
-                    sx={{
-                        backgroundColor: '#362D2D',
-                        height: '3rem',
-                        width: '60%',
-                    }}
-                >
-                    Login
-                </Button>
+                <div className='w-4/6'><UncontainedButton onClick={ onSignIn } label='Login' loading={loading}/></div>
             </Box>
         </div>
     )
