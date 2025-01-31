@@ -25,9 +25,9 @@ export const orderLoader = async ({ params }) => {
 const LowLevelOrderView = () => {
     const user = useSelector(selectUser)
     const orderInfo = useLoaderData()
-    const products = orderInfo.orderData.products
+    const products = orderInfo?.orderData?.products
 
-    const orderDate = new Date(orderInfo.orderData.created._seconds * 1000 + orderInfo.orderData.created._nanoseconds / 1000000)
+    const orderDate = new Date(orderInfo?.orderData?.created._seconds * 1000 + orderInfo?.orderData?.created._nanoseconds / 1000000)
     const dateString = orderDate.toLocaleDateString();
     const totalPrice = unitToDollarString(orderInfo?.orderData?.total_price)
 
@@ -36,13 +36,13 @@ const LowLevelOrderView = () => {
     return (
         <div className='w-full h-full bg-off-white rounded-3xl p-8'>
             <span className='flex items-center space-x-4 justify-between border-b-2 pb-4 border-dark-brown border-opacity-15'>
-                <OrderHeading orderID={orderInfo.orderID}/>
-                <OrderStatus orderStatus={orderInfo.orderData.order_status}/>
+                <OrderHeading orderID={orderInfo?.orderID}/>
+                <OrderStatus orderStatus={orderInfo?.orderData.order_status}/>
             </span>
 
             <div className='flex space-x-4 mt-6 '>
                 <div className='h-full flex flex-col flex-grow space-y-4 overflow-auto'>
-                    {products.map((product, index) => (
+                    {products?.map((product, index) => (
                         <div className='h-24 flex flex-col'>
                             <OrderItem product={ product } key={ index }/>
                         </div>
