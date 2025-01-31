@@ -7,12 +7,14 @@ import { ToastContainer, toast } from 'react-toastify'
 import { loadStripe } from '@stripe/stripe-js';
 import { fetchCheckoutSessionID } from '../../utilityFunctions/checkoutHandling'
 import DeliveryAddressDialog from './DeliveryAddressDialog'
+import CheckoutButton from '../utility/CheckoutButton'
 
 const FinalPricingInformation = () => {
     const subTotal = useSelector(selectCartSubtotal);
     const cartItems = useSelector(selectCart);
     const user = useSelector(selectUser)
     const [openDialog, setOpenDialog] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const closeDialog = () => {
         setOpenDialog(false)
@@ -33,6 +35,7 @@ const FinalPricingInformation = () => {
             return
         }
 
+        setLoading(true)
         try {
             const successUrl = 'http://localhost:3000/'
             const cancelUrl = 'http://localhost:3000/shopping-cart'
@@ -43,6 +46,8 @@ const FinalPricingInformation = () => {
         } catch (error) {
             toast.error('Error occurred while redirecting you to checkout')
             console.error(error.message)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -70,12 +75,12 @@ const FinalPricingInformation = () => {
                         <p className='text-header'>{unitToDollarString(subTotal + 500)}</p>
                     </div>
 
-                    <button 
+                    <CheckoutButton  
+                        label={'CHECKOUT'}
                         className='p-3 pl-6 pr-6 rounded-full bg-dark-brown text-off-white tracking-3px hover:scale-105 transition-transform ease-in-out duration-300'
-                        onClick={loadCheckout}
-                    >
-                        CHECKOUT
-                    </button>
+                        loadCheckout={loadCheckout}
+                        loading={loading}
+                    />
                 </div>
             </div>
 
