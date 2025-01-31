@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { TextField } from '@mui/material'
-import TransitionContainedButton from '../utility/TransitionContainedButton'
+import DialogButton from '../utility/DialogButton'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, selectUser } from '../../features/userSlice'
 import { fetchDeliveryInfo, updateDeliveryInfo } from '../../utilityFunctions/userInfoHandling'
@@ -11,12 +11,13 @@ const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
     const [country, setCountry] = useState('')
     const [zipCode, setZipCode] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
+    const [loading, setLoading] = useState(false)
     const user = useSelector(selectUser)
     const dispatch = useDispatch()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-
+        setLoading(true)
         try {
             await updateDeliveryInfo(user.uid, address, country, zipCode, phoneNumber)
             const deliveryInfo = await fetchDeliveryInfo(user.uid)
@@ -33,6 +34,7 @@ const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
             toast.error('Error occurred while trying to update your delivery address')
             console.error(error.message)
         }
+        setLoading(false)
     }
 
     return (
@@ -84,8 +86,8 @@ const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
                             </div>
 
                             <div className='flex font-header justify-between'>
-                                <TransitionContainedButton label={'Cancel'} onClick={closeDialog}/>
-                                <TransitionContainedButton label={'Submit'} type='submit'/>
+                                <DialogButton label={'Cancel'} onClick={closeDialog}/>
+                                <DialogButton label={'Submit'} type='submit' loading={loading}/>
                             </div>
                         </form>
                     </dialog>
