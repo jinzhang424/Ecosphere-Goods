@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'products', element: <ProductsPage /> },
-      { path: ':productId', element: <ProductPage />, loader: productLoader },
+      { path: 'products/:productId', element: <ProductPage />, loader: productLoader },
       { path: '/insufficient-permissions', element: <InsufficientPermissionsPage/> },
       { path: '*', element: <NotFoundPage/>}
     ],
