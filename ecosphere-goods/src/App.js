@@ -21,6 +21,7 @@ import LowLevelOrderView from './components/Dashboard/Order/LowLevelOrderView';
 import { orderLoader } from './components/Dashboard/Order/LowLevelOrderView';
 import { fetchDeliveryInfo, fetchProfileImage } from './utilityFunctions/userInfoHandling';
 import TruckLoader from './components/animations/TruckLoader';
+import NotFoundPage from './pages/NotFoundPage';
 
 const router = createBrowserRouter([
   {
@@ -29,8 +30,9 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'products', element: <ProductsPage /> },
-      { path: ':productId', element: <ProductPage />, loader: productLoader },
-      { path: '/insufficient-permissions', element: <InsufficientPermissionsPage/> }
+      { path: 'products/:productId', element: <ProductPage />, loader: productLoader },
+      { path: '/insufficient-permissions', element: <InsufficientPermissionsPage/> },
+      { path: '*', element: <NotFoundPage/>}
     ],
   },
   {
