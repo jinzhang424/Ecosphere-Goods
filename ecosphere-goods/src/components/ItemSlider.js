@@ -17,7 +17,7 @@ const ItemSlider = ({ nextButtonClass, prevButtonClass, sortBy }) => {
     const fetchProductsAndOrder = async () => {
       try {
         const products = await fetchProducts(undefined, undefined, undefined, sortBy)
-        setProducts(products)
+        setProducts(products.slice(0, 6))
       } catch (error) {
         console.log(error)
       }
