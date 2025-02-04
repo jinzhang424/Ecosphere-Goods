@@ -21,6 +21,7 @@ import LowLevelOrderView from './components/Dashboard/Order/LowLevelOrderView';
 import { orderLoader } from './components/Dashboard/Order/LowLevelOrderView';
 import { fetchDeliveryInfo, fetchProfileImage } from './utilityFunctions/userInfoHandling';
 import TruckLoader from './components/animations/TruckLoader';
+import NotFoundPage from './pages/NotFoundPage';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
   },
   { path: '/user-portal', element: <UserPortalPage /> },
   { path: 'shopping-cart', element: <ShoppingCartPage /> },
+  { path: '*', element: <NotFoundPage/>}
 ]);
 
 function App() {
