@@ -31,7 +31,8 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'products', element: <ProductsPage /> },
       { path: ':productId', element: <ProductPage />, loader: productLoader },
-      { path: '/insufficient-permissions', element: <InsufficientPermissionsPage/> }
+      { path: '/insufficient-permissions', element: <InsufficientPermissionsPage/> },
+      { path: '*', element: <NotFoundPage/>}
     ],
   },
   {
@@ -46,7 +47,6 @@ const router = createBrowserRouter([
   },
   { path: '/user-portal', element: <UserPortalPage /> },
   { path: 'shopping-cart', element: <ShoppingCartPage /> },
-  { path: '*', element: <NotFoundPage/>}
 ]);
 
 function App() {
