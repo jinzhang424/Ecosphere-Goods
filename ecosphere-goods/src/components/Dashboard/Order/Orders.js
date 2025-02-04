@@ -37,7 +37,7 @@ const Orders = () => {
       <div className='relative h-fit overflow-hidden mt-4'>
         <TruckComponentLoader loading={loading}/>
 
-        <div className='flex flex-col space-y-8'>
+        <div className='flex flex-col space-y-8 h-screen overflow-y-scroll scrollbar-hide [&::-webkit-scrollbar]:hidden rounded-2xl'>
           {orders.map((order, orderID) => (
             <OrderDisplay key={orderID} order={order}/>
           ))}
