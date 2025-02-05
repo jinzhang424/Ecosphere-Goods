@@ -40,7 +40,7 @@ const ShoppingProductDialog = ({ productData }) => {
 
     return (
         <div>
-            <button onClick={handleOpen}>
+            <button onClick={handleOpen} className='w-full'>
                 <Item productData={productData}/>
             </button>
 
