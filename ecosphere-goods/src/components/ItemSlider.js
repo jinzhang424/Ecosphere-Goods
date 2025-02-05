@@ -48,9 +48,7 @@ const ItemSlider = ({ nextButtonClass, prevButtonClass, sortBy }) => {
             {Object.entries(products).map(([productId, productData]) => (
               <SwiperSlide key={productId} className="flex-shrink-0 w-72 p-6">
                 <Item 
-                  imageUrl={ productData.images[0] } 
-                  price={ productData.prices[0].priceData.unit_amount } 
-                  name={ productData.name }
+                  productData={productData}
                 />
               </SwiperSlide>
             ))}
