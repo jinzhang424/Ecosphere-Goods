@@ -44,35 +44,45 @@ const ShoppingProductDialog = ({ productData }) => {
             </button>
 
             <div className={`opacity-0 ${open ? 'opacity-100' : 'pointer-events-none'} transition-opacity ease-in-out duration-300`}>
+                {/** Black tint */}
                 <div className='fixed inset-0 bg-black bg-opacity-50 z-10' onClick={handleClose}/>
-                <dialog open className='fixed inset-0 w-2/3 flex p-20 space-x-48 bg-off-white rounded-3xl z-10'>
-                    <img 
-                        className='w-5/12 object-cover object-center h-5/6 rounded-3xl aspect-1/1 border-4 border-dark-brown border-opacity-50'
-                        src={ productData.images[0] } 
-                        alt="" 
-                    />
-                    <div className='flex flex-col space-y-12'>
-                        <article className='flex flex-col space-y-4'>
-                            <h1 className='font-LHeader text-header text-dark-brown underline underline-offset-4'>{ productData.name }</h1>
-                            <p>{ productData.description != null ? productData.description : fillerText }</p>
-                        </article>
-                        
-                        <div className='flex justify-between items-center'>
-                            <h2 className='font-LHeader text-sHeader text-dark-brown'>{ unitToDollarString(productData.prices[0].priceData.unit_amount) }</h2>
-                            <QuantityAdjuster 
-                                increment={ handleIncrement } 
-                                decrement={ handleDecrement } 
-                                quantity={ quantity } 
-                                className='rounded-md bg-dark-brown overflow-hidden bg-opacity-30 h-fit'
-                            />
-                            <AddToCartButton onClick={handleAddToCart}>
-                                Add To Cart
-                            </AddToCartButton>
-                        </div>
+
+                {/** Dialog body */}
+                <dialog open className='fixed inset-0 w-2/3 p-16 bg-off-white rounded-2xl z-10'>
+                    <div className='w-full flex justify-between'>
+                        <img 
+                            className='w-5/12 object-cover object-center h-full rounded-2xl aspect-square border-4 border-dark-brown border-opacity-50'
+                            src={ productData.images[0] } 
+                            alt="" 
+                        /> 
+
+                        {/** Product Info */}
+                        <section className='flex flex-col justify-between w-1/2 mr-0'>
+                            <article className='flex flex-col space-y-4'>
+                                <h1 className='font-LHeader text-header text-dark-brown underline underline-offset-4'>{ productData.name }</h1>
+                                <p>{ productData.description != null ? productData.description : fillerText }</p>
+                            </article>
+                            
+                            <span className='flex justify-between items-center'>
+                                <h2 className='font-LHeader text-sHeader text-dark-brown'>{ unitToDollarString(productData.prices[0].priceData.unit_amount) }</h2>
+                                
+                                <QuantityAdjuster 
+                                    increment={ handleIncrement } 
+                                    decrement={ handleDecrement } 
+                                    quantity={ quantity } 
+                                    className='rounded-md bg-dark-brown overflow-hidden bg-opacity-30 h-fit'
+                                />
+
+                                <AddToCartButton onClick={handleAddToCart}>
+                                    Add To Cart
+                                </AddToCartButton>
+                            </span>
+                        </section>
                     </div>
-                    <ToastContainer/>
                 </dialog>
             </div>
+
+            <ToastContainer/>
         </div>
     )
 }
