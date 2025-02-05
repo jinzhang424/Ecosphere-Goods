@@ -9,7 +9,7 @@ const Item = ({ productData }) => {
   return (
     <div className="p-6 w-full justify-between bg-dark-brown aspect-itemCard cursor-pointer hover:scale-110 transition-transform ease-in-out duration-300 rounded-xl">
       <div className="h-4/6">
-        <img src={productData.images[0]} alt="" className="object-cover w-full h-full object-center rounded-t-xl"/>
+        <img src={productData.images[0]} alt="" className="object-cover w-full h-full object-center rounded-xl"/>
       </div>
       
       <span className="flex flex-col text-left justify-between h-2/6 text-off-white">
