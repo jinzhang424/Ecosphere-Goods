@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import QuantityAdjuster from './utility/QuantityAdjuster';
 import AddToCartButton from './utility/AddToCartButton';
 import Item from './Item';
+import { IoClose } from "react-icons/io5";
 
 const ShoppingProductDialog = ({ productData }) => {
     const dispatch = useDispatch()
@@ -49,6 +50,15 @@ const ShoppingProductDialog = ({ productData }) => {
 
                 {/** Dialog body */}
                 <dialog open className='fixed inset-0 w-2/3 p-16 bg-off-white rounded-2xl z-10'>
+
+                    {/** Close button */}
+                    <button 
+                        className='absolute top-8 right-8 hover:scale-110 transition-transform ease-in-out duration-300'
+                        onClick={handleClose}
+                    >
+                            <IoClose size={36} className='text-dark-brown'/>
+                    </button>
+
                     <div className='w-full flex justify-between'>
                         <img 
                             className='w-5/12 object-cover object-center h-full rounded-2xl aspect-square border-4 border-dark-brown border-opacity-50'
