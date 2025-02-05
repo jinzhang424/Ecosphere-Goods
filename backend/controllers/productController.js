@@ -18,7 +18,7 @@ const updateNewProductWithDate = async (productId) => {
 
             if (!productDoc) {
                 attempt++;
-                setTimeout(updateDate, 2000)
+                setTimeout(updateDate, 1000)
             } else {
                 await productDoc.update({ date_created: new Date()})
                 console.log('Successfully update new product with date')
