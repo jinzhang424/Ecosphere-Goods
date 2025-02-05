@@ -1,6 +1,5 @@
 import React from 'react'
 import unitToDollarString from '../utilityFunctions/unitToDollarString';
-import { FaCartPlus } from "react-icons/fa";
 
 const Item = ({ productData }) => {
 
