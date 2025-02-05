@@ -3,13 +3,12 @@ import unitToDollarString from '../utilityFunctions/unitToDollarString'
 import { addItemBulk } from '../features/shoppingCartSlice'
 import { useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
-import CircularProgress from '@mui/material/CircularProgress';
 import QuantityAdjuster from './utility/QuantityAdjuster';
+import AddToCartButton from './utility/AddToCartButton';
 
 const LowLevelProductView = ({ product }) => {
     const dispatch = useDispatch()
     const [quantity, setQuantity] = useState(1)
-    const [loading, setLoading] = useState(false);
     const fillerText = 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum '
 
     const handleIncrement = () => {
@@ -22,8 +21,7 @@ const LowLevelProductView = ({ product }) => {
         }
     }
 
-    const handleAddToCart = (e) => {
-        setLoading(true)
+    const handleAddToCart = () => {
         try {
             dispatch(addItemBulk({ product: product, quantity: quantity }));
             toast.success('Successfully Added to Cart');
@@ -31,7 +29,6 @@ const LowLevelProductView = ({ product }) => {
             toast.error('Error, something has gone wrong.');
             console.log(error)
         } finally {
-            setLoading(false);
         }
     }
 
@@ -57,16 +54,9 @@ const LowLevelProductView = ({ product }) => {
                             quantity={ quantity } 
                             className='rounded-md bg-dark-brown overflow-hidden bg-opacity-30 h-fit'
                         />
-                        <button 
-                            className='relative bg-light-brown p-2 pl-4 pr-4 rounded-xl font-header text-dark-brown bg-opacity-50 flex items-center justify-center hover:scale-105 transition-transform ease-in-out duration-300'
-                            onClick={ handleAddToCart }
-                            disabled={loading}
-                        >
-                            {loading && (
-                                <CircularProgress size={20} className="absolute" color='#E9E1DE'/>
-                            )}
-                            <span className={`${loading ? 'opacity-0' : 'opacity-100'}`}>Add to Cart</span>
-                        </button>
+                        <AddToCartButton onClick={handleAddToCart}>
+                            Add To Cart
+                        </AddToCartButton>
                     </div>
                 </div>
             </div>
