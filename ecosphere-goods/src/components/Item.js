@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import unitToDollarString from '../utilityFunctions/unitToDollarString';
 
 const Item = ({ productData }) => {
