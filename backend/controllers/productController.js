@@ -3,6 +3,34 @@ const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Ensure you have your Stripe secret key in your environment variables
 const { isAdmin } = require('./userInfoController.js')
 
+// Update new product with date
+const updateNewProductWithDate = async (productId) => {
+    console.log('Updating new product with date')
+
+    let attempt = 0
+
+    const updateDate = async () => {
+        try {
+            const productDoc = db.collection('products').doc(productId)
+            if (attempt == 3) {
+                throw new Error('Doc was not found after 3 seconds')
+            }
+
+            if (!productDoc) {
+                attempt++;
+                setTimeout(updateDate, 2000)
+            } else {
+                await productDoc.update({ date_created: new Date()})
+                console.log('Successfully update new product with date')
+            }
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    await updateDate()
+}
+
 // Gets the snapshot while filtering and ordering products
 const getSnapshot = async (filters = [], order) => {
     try {
@@ -114,7 +142,7 @@ const addNewProduct = async (req, res) => {
         })
 
         const newProductId = stripeProduct.id
-        await db.collection('products').doc(newProductId).update({ date_created: new Date() })
+        await updateNewProductWithDate(newProductId)
 
         return res.status(201).json({ success: true, message: 'Product added successfully', newProductId })
     } catch (error) {

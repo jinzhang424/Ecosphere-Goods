@@ -29,17 +29,17 @@ const ProductCatalogProvider = ({ children }) => {
 
     const handleAddProduct = async () => {
         try {
-          const storageRef = ref(storage, `images/${Date.now()}`);
-          await uploadString(storageRef, image, 'data_url');
-          const imageUrl = await getDownloadURL(storageRef);
-    
-          const productId = await addNewProduct(name, price, subcategory, imageUrl, category, user.uid)
-          await addProductToProducts(productId)
+            const storageRef = ref(storage, `images/${Date.now()}`);
+            await uploadString(storageRef, image, 'data_url');
+            const imageUrl = await getDownloadURL(storageRef);
+        
+            const productId = await addNewProduct(name, price, subcategory, imageUrl, category, user.uid)
+            await addProductToProducts(productId)
 
-          toast.success('Successfully added new product.')
+            toast.success('Successfully added new product.')
         } catch (error) {
-          console.error(error.message);
-          toast.error('Error adding new product.')
+            console.error(error.message);
+            toast.error('Error adding new product.')
         }
     }
 
