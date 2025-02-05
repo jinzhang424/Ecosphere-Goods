@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import QuantityAdjuster from './utility/QuantityAdjuster';
 import AddToCartButton from './utility/AddToCartButton';
 
-const LowLevelProductView = ({ product }) => {
+const ShoppingProductDialog = ({ product }) => {
     const dispatch = useDispatch()
     const [quantity, setQuantity] = useState(1)
     const fillerText = 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum '
@@ -65,4 +65,4 @@ const LowLevelProductView = ({ product }) => {
     )
 }
 
-export default LowLevelProductView
+export default ShoppingProductDialog
