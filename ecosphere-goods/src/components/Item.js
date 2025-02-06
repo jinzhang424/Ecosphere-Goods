@@ -7,12 +7,12 @@ const Item = ({ productData }) => {
 
   return (
     <div className="p-6 w-full justify-between bg-dark-brown aspect-itemCard cursor-pointer hover:scale-110 transition-transform ease-in-out duration-300 rounded-xl">
-      <div className="h-4/6">
+      <div className="h-1/2">
         <img src={productData.images[0]} alt="" className="object-cover w-full h-full object-center rounded-xl"/>
       </div>
       
-      <span className="flex flex-col text-left justify-between h-2/6 text-off-white">
-        <h1 className='font-header text-subtitle mt-2'>{productData.name}</h1>
+      <span className="flex flex-col text-left justify-between h-1/2 text-off-white">
+        <h1 className='font-header text-lg mt-2'>{productData.name}</h1>
 
         <h2 className='font-header '>{price}</h2>
       </span>

@@ -10,7 +10,7 @@ const ProductDisplay = ({ products }) => {
     const [totalPages, setTotalPages] = useState(1)
     const [productsOnPage, setProductsOnPage] = useState([])
     const [loading, setLoading] = useState(true)
-    const productsPerPage = 6;
+    const productsPerPage = 8;
 
     useEffect(() => {
         const setProductsOnEachPage = () => {
@@ -36,7 +36,7 @@ const ProductDisplay = ({ products }) => {
             {productsOnPage.length !== 0 ? (
                 <div className='flex flex-wrap'>
                     {Object.entries(productsOnPage[page - 1]).map(([productId, productData]) => (
-                        <div className='w-80 mb-8 pr-8' key={ productId } >
+                        <div className='w-60 mb-8 pr-8' key={ productId } >
                             <ShoppingProductDialog productData={productData}/>
                         </div>
                     ))}
