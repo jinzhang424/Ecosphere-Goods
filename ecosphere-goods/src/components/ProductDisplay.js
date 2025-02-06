@@ -3,6 +3,7 @@ import ShoppingProductDialog from './ShoppingProductDialog'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import TruckComponentLoader from './animations/TruckComponentLoader';
 import PaginationArrowButton from './utility/PaginationArrowButton';
+import PaginationNumberButtons from './utility/PaginationNumberButtons';
 
 const ProductDisplay = ({ products }) => {
     const [page, setPage] = useState(1)
@@ -31,6 +32,7 @@ const ProductDisplay = ({ products }) => {
 
     return (
         <div className='flex flex-col flex-wrap pt-6 pl-6'>
+            {/** Product Display or Loading */}
             {productsOnPage.length !== 0 ? (
                 <div className='flex flex-wrap'>
                     {Object.entries(productsOnPage[page - 1]).map(([productId, productData]) => (
@@ -45,7 +47,9 @@ const ProductDisplay = ({ products }) => {
                 </div>
             )}
 
+            {/** Pagination Buttons */}
             <span className={`flex w-full justify-end gap-3 max-h-8 text-dark-brown ${productsOnPage.length === 0 && 'opacity-0'}`}>
+                {/** Previous Page button */}
                 <PaginationArrowButton  
                     onClick={() => setPage(page - 1)}
                     disabled={page === 1} 
@@ -53,16 +57,17 @@ const ProductDisplay = ({ products }) => {
                     <FaChevronLeft className='max-h-8 max-w-8 w-full h-full'/>
                 </PaginationArrowButton>
 
-                {Array.from({ length: totalPages}).map((_, index) => (
-                    <button
-                        key={index}
-                        className={`bg-dark-brown bg-opacity-30 rounded-md aspect-square font-header text-subtitle text-center max-h-8 max-w-8 w-full h-full ${page === index + 1 ? 'scale-110' : 'hover:scale-110 transition-transform ease-in-out duration-300'}`}
+                {/** Number buttons */}
+                {Array.from({ length: totalPages }).map((_, index) => (
+                    <PaginationNumberButtons 
+                        totalPages={totalPages} 
                         onClick={() => setPage(index + 1)}
-                    >
-                        {index + 1}
-                    </button>
+                        page={page}
+                        index={index}
+                    />
                 ))}
 
+                {/** Next Page button */}
                 <PaginationArrowButton 
                     onClick={() => setPage(page + 1)} 
                     disabled={page === totalPages}
