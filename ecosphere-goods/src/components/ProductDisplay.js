@@ -34,9 +34,9 @@ const ProductDisplay = ({ products }) => {
         <div className='flex flex-col flex-wrap pt-6 pl-6'>
             {/** Product Display or Loading */}
             {productsOnPage.length !== 0 ? (
-                <div className='flex flex-wrap'>
+                <div className='flex flex-wrap h-lvh'>
                     {Object.entries(productsOnPage[page - 1]).map(([productId, productData]) => (
-                        <div className='w-60 mb-8 pr-8' key={ productId } >
+                        <div className='w-60 pr-8 h-fit mt-6' key={ productId } >
                             <ShoppingProductDialog productData={productData}/>
                         </div>
                     ))}
