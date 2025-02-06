@@ -3,26 +3,23 @@ const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Ensure you have your Stripe secret key in your environment variables
 const { isAdmin } = require('./userInfoController.js')
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 // Update new product with date
 const updateNewProductWithDate = async (productId) => {
     console.log('Updating new product with date')
 
-    let attempt = 0
-
     const updateDate = async () => {
         try {
-            const productDoc = db.collection('products').doc(productId)
-            if (attempt == 3) {
-                throw new Error('Doc was not found after 3 seconds')
-            }
+            const productDocRef = db.collection('products').doc(productId)
+            const productDoc = await productDocRef.get()
 
-            if (!productDoc) {
-                attempt++;
+            if (productDoc.exists) {
+                await productDocRef.update({ date_created: new Date()})
+                console.log('Successfully update new product with date')
+            } else {
                 await delay(1000)
                 await updateDate()
-            } else {
-                await productDoc.update({ date_created: new Date()})
-                console.log('Successfully update new product with date')
             }
         } catch (error) {
             console.log(error.message)
