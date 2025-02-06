@@ -1,34 +1,52 @@
 import React, { useEffect, useState } from 'react'
 import ShoppingProductDialog from './ShoppingProductDialog'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import TruckComponentLoader from './animations/TruckComponentLoader';
 
 const ProductDisplay = ({ products }) => {
-    console.log('prodcut display products:', products)
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
-    const [productsOnpage, setProductsOnPage] = useState(products.slice(0, 6))
+    const [productsOnPage, setProductsOnPage] = useState([])
+    const [loading, setLoading] = useState(true)
+    const productsPerPage = 6;
 
     useEffect(() => {
-        const pages = Math.ceil(products.length / 6);
-        setTotalPages(pages);
-        setProductsOnPage(products.slice((page - 1) * 6, page * 6))
-    }, [page, products])
+        const setProductsOnEachPage = () => {
+            setLoading(true)
+            const pages = Math.ceil(products.length / productsPerPage);
+            setTotalPages(pages);
+            
+            const productsOnPage = []
+            for (let i = 0; i < totalPages; i++) {
+                productsOnPage.push(products.slice(i * productsPerPage, (i + 1) * productsPerPage))
+            }
 
-    console.log('Max pages', totalPages)
+            setProductsOnPage(productsOnPage)
+            setLoading(false)
+        } 
+
+        setProductsOnEachPage()
+    }, [totalPages, products])
 
     return (
         <div className='flex flex-col flex-wrap pt-6 pl-6'>
-            <div className='flex flex-wrap'>
-                {Object.entries(productsOnpage).map(([productId, productData]) => (
-                    <div className='w-80 mb-8 pr-8' key={ productId } >
-                        <ShoppingProductDialog productData={productData}/>
-                    </div>
-                ))}
-            </div>
+            {productsOnPage.length !== 0 ? (
+                <div className='flex flex-wrap'>
+                    {Object.entries(productsOnPage[page - 1]).map(([productId, productData]) => (
+                        <div className='w-80 mb-8 pr-8' key={ productId } >
+                            <ShoppingProductDialog productData={productData}/>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div className='relative'>
+                    <TruckComponentLoader loading={loading}/>
+                </div>
+            )}
 
-            <span className='flex w-full justify-end gap-3 max-h-8 text-dark-brown'>
+            <span className={`flex w-full justify-end gap-3 max-h-8 text-dark-brown ${productsOnPage.length === 0 && 'opacity-0'}`}>
                 <button 
-                    className={`bg-dark-brown bg-opacity-30 p-2 rounded-md ${page === 1 ? 'bg-gray-500 text-gray-700' : 'hover:scale-110 transition-transform ease-in-out duration-200'}`} 
+                    className={`bg-dark-brown bg-opacity-30 p-2 rounded-md ${page === 1 ? 'bg-gray-500 text-gray-700' : 'hover:scale-110 transition-all ease-in-out duration-300'}`} 
                     onClick={() => setPage(page - 1)} 
                     disabled={page === 1} 
                 >
@@ -38,7 +56,7 @@ const ProductDisplay = ({ products }) => {
                 {Array.from({ length: totalPages}).map((_, index) => (
                     <button
                         key={index}
-                        className={`bg-dark-brown bg-opacity-30 rounded-md aspect-square font-header text-subtitle text-center max-h-8 max-w-8 w-full h-full ${page === index + 1 ? 'scale-110' : 'hover:scale-110 transition-transform ease-in-out duration-200'}`}
+                        className={`bg-dark-brown bg-opacity-30 rounded-md aspect-square font-header text-subtitle text-center max-h-8 max-w-8 w-full h-full ${page === index + 1 ? 'scale-110' : 'hover:scale-110 transition-transform ease-in-out duration-300'}`}
                         onClick={() => setPage(index + 1)}
                     >
                         {index + 1}
@@ -46,7 +64,7 @@ const ProductDisplay = ({ products }) => {
                 ))}
 
                 <button 
-                    className={`bg-dark-brown bg-opacity-30 p-2 rounded-md ${page === totalPages && 'bg-gray-500 text-gray-700'} hover:scale-110 transition-transform ease-in-out duration-200`} 
+                    className={`bg-dark-brown bg-opacity-30 p-2 rounded-md ${page === totalPages && 'bg-gray-500 text-gray-700'} hover:scale-110 transition-all ease-in-out duration-300`} 
                     onClick={() => setPage(page + 1)} 
                     disabled={page === totalPages}
                 >
