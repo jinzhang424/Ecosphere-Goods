@@ -58,14 +58,11 @@ const ProductDisplay = ({ products }) => {
                 </PaginationArrowButton>
 
                 {/** Number buttons */}
-                {Array.from({ length: totalPages }).map((_, index) => (
-                    <PaginationNumberButtons 
-                        totalPages={totalPages} 
-                        onClick={() => setPage(index + 1)}
-                        page={page}
-                        index={index}
-                    />
-                ))}
+                <PaginationNumberButtons 
+                    totalPages={totalPages} 
+                    setPage={setPage}
+                    page={page}
+                />
 
                 {/** Next Page button */}
                 <PaginationArrowButton 
