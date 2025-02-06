@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ShoppingProductDialog from './ShoppingProductDialog'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import TruckComponentLoader from './animations/TruckComponentLoader';
+import PaginationArrowButton from './utility/PaginationArrowButton';
 
 const ProductDisplay = ({ products }) => {
     const [page, setPage] = useState(1)
@@ -45,13 +46,12 @@ const ProductDisplay = ({ products }) => {
             )}
 
             <span className={`flex w-full justify-end gap-3 max-h-8 text-dark-brown ${productsOnPage.length === 0 && 'opacity-0'}`}>
-                <button 
-                    className={`bg-dark-brown bg-opacity-30 p-2 rounded-md ${page === 1 ? 'bg-gray-500 text-gray-700' : 'hover:scale-110 transition-all ease-in-out duration-300'}`} 
-                    onClick={() => setPage(page - 1)} 
+                <PaginationArrowButton  
+                    onClick={() => setPage(page - 1)}
                     disabled={page === 1} 
                 >
                     <FaChevronLeft className='max-h-8 max-w-8 w-full h-full'/>
-                </button>
+                </PaginationArrowButton>
 
                 {Array.from({ length: totalPages}).map((_, index) => (
                     <button
@@ -63,13 +63,12 @@ const ProductDisplay = ({ products }) => {
                     </button>
                 ))}
 
-                <button 
-                    className={`bg-dark-brown bg-opacity-30 p-2 rounded-md ${page === totalPages && 'bg-gray-500 text-gray-700'} hover:scale-110 transition-all ease-in-out duration-300`} 
+                <PaginationArrowButton 
                     onClick={() => setPage(page + 1)} 
                     disabled={page === totalPages}
                 >
                     <FaChevronRight className='max-h-8 max-w-8 w-full h-full'/>
-                </button>
+                </PaginationArrowButton>
             </span>
         </div>
     )
