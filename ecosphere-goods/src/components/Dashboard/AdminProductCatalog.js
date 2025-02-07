@@ -2,6 +2,7 @@ import React from 'react'
 import ProductCatalogDisplay from './ProductCatalogDisplay'
 import ProductDialog from './ProductDialog'
 import { ProductCatalogProvider } from './ProductCatalogContext'
+import ProductCatalogItemHeadings from '../ProductCatalogItemHeadings'
 
 const AdminProductCatalog = () => {
 
@@ -15,16 +16,9 @@ const AdminProductCatalog = () => {
           </ProductDialog>
         </div>
 
-        <span className='flex font-header opacity-80 w-full justify-between pr-4 border-b-2 border-dark-brown border-opacity-70 pb-4'>
-          <p className='text-center w-16'>Image</p>
-          <p className='text-center w-48'>Name</p>
-          <p className='text-center w-24'>Date Added</p>
-          <p className='text-center w-24'>Category</p>
-          <p className='text-center w-24'>Price</p>
-          <span className='w-5'/>
-        </span>
-
+        <ProductCatalogItemHeadings/>
         <ProductCatalogDisplay />
+
       </div>
     </ProductCatalogProvider>  
   )
