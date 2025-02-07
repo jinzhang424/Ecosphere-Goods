@@ -19,10 +19,8 @@ const ProductDisplay = ({ products }) => {
             setLoading(true)
             const pages = Math.ceil(products.length / productsPerPage);
             setTotalPages(pages);
-            
-            seperateToPages(productsPerPage, products, pages)
 
-            setProductsOnPage(productsOnPage)
+            setProductsOnPage(seperateToPages(productsPerPage, products, pages))
             setLoading(false)
         } 
 

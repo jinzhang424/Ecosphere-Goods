@@ -7,7 +7,7 @@ const AdminProductCatalog = () => {
 
   return (
     <ProductCatalogProvider>
-      <div className='space-y-8 bg-off-white w-full h-full rounded-3xl text-dark-brown p-8 pr-12 pl-12'>
+      <div className='space-y-8 bg-off-white w-full h-fit rounded-3xl text-dark-brown p-8 pr-12 pl-12'>
         <div className='flex w-full justify-between items-center'>
           <h1 className='text-header font-header'>Product Catalog</h1>
           <ProductDialog>
@@ -24,7 +24,7 @@ const AdminProductCatalog = () => {
           <span className='w-5'/>
         </span>
 
-        <div className='h-4/6'>
+        <div className='h-fit'>
           <ProductCatalogDisplay />
         </div>
       </div>
