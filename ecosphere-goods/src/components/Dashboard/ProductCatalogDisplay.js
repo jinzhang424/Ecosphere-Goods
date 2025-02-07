@@ -17,8 +17,6 @@ const ProductCatalogDisplay = () => {
     const [loading, setLoading] = useState(true)
     const productsPerPage = 7;
 
-    console.log(products)
-
     useEffect(() => {
         if (products.length !== 0) {
             const pages = Math.ceil(products.length / productsPerPage)
@@ -29,12 +27,10 @@ const ProductCatalogDisplay = () => {
         }
     }, [products])
 
-    console.log('LOOK HERE', productsOnPage)
-
     return (
         <>
             { loadingProducts || loading ? (
-                <div className='relative'><TruckComponentLoader loading={loading}/></div>
+                <div className='relative top-12'><TruckComponentLoader loading={loading}/></div>
             ) : (
                 <>
                     <ProductInfoHeadings/>
@@ -47,6 +43,7 @@ const ProductCatalogDisplay = () => {
                         ))}
                     </div>
 
+                    {/** Pagination Buttons */}
                     <span className='flex justify-end gap-3'>
                         {/** First Page button */}
                         <PaginationArrowButton
