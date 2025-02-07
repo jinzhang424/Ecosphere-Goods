@@ -32,7 +32,7 @@ const ProductDisplay = ({ products }) => {
     }, [totalPages, products])
 
     return (
-        <div className='flex flex-col flex-wrap pt-6 pl-6'>
+        <div className='flex flex-col flex-wrap'>
             {/** Product Display or Loading */}
             {productsOnPage.length !== 0 ? (
                 <div className='flex flex-wrap h-lvh'>

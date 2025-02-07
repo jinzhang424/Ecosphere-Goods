@@ -36,7 +36,7 @@ const FilterAndDisplay = () => {
             
             <div className='pl-8 w-3/4'>
                 <SortByAndAppliedFilters filters={ filters } setSortByVal={ setSortByVal }/>
-                <div className='pt-8'>
+                <div>
                   <ProductDisplay products={ products }/>
                 </div>
             </div>
