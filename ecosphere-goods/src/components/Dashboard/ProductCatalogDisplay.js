@@ -7,9 +7,10 @@ import PaginationNumberButtons from '../utility/PaginationNumberButtons'
 import PaginationArrowButton from '../utility/PaginationArrowButton'
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import ProductInfoHeadings from './ProductInfoHeadings'
 
 const ProductCatalogDisplay = () => {
-    const { products } = useContext(ProductCatalogContext)
+    const { products, loadingProducts } = useContext(ProductCatalogContext)
     const [totalPages, setTotalPages] = useState(1)
     const [productsOnPage, setProductsOnPage] = useState([])
     const [curPage, setCurPage] = useState(1)
@@ -32,10 +33,12 @@ const ProductCatalogDisplay = () => {
 
     return (
         <>
-            { products.length === 0 || loading ? (
+            { loadingProducts || loading ? (
                 <div className='relative'><TruckComponentLoader loading={loading}/></div>
             ) : (
                 <>
+                    <ProductInfoHeadings/>
+
                     <div className={`grid-rows-${productsPerPage} grid-rows-7 space-y-4`}>
                         {Object.entries(productsOnPage[curPage - 1])?.map(([productId, productData]) => (
                             <div key={ productId }>
