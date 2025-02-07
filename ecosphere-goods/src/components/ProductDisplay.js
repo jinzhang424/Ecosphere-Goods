@@ -4,6 +4,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import TruckComponentLoader from './animations/TruckComponentLoader';
 import PaginationArrowButton from './utility/PaginationArrowButton';
 import PaginationNumberButtons from './utility/PaginationNumberButtons';
+import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 
 const ProductDisplay = ({ products }) => {
     const [page, setPage] = useState(1)
@@ -49,12 +50,20 @@ const ProductDisplay = ({ products }) => {
 
             {/** Pagination Buttons */}
             <span className={`flex w-full justify-end gap-3 h-8 text-dark-brown ${productsOnPage.length === 0 && 'opacity-0'}`}>
+                {/** First Page button */}
+                <PaginationArrowButton
+                    onClick={() => setPage(1)} 
+                    disabled={page === 1}
+                >
+                    <FiChevronsLeft size={24}/>
+                </PaginationArrowButton>
+
                 {/** Previous Page button */}
                 <PaginationArrowButton  
                     onClick={() => setPage(page - 1)}
                     disabled={page === 1} 
                 >
-                    <FaChevronLeft className='max-h-8 max-w-8 w-full h-full'/>
+                    <FaChevronLeft size={16}/>
                 </PaginationArrowButton>
 
                 {/** Number buttons */}
@@ -69,7 +78,15 @@ const ProductDisplay = ({ products }) => {
                     onClick={() => setPage(page + 1)} 
                     disabled={page === totalPages}
                 >
-                    <FaChevronRight className='max-h-8 max-w-8 w-full h-full'/>
+                    <FaChevronRight size={16}/>
+                </PaginationArrowButton>
+
+                {/** Last Page button */}
+                <PaginationArrowButton
+                    onClick={() => setPage(totalPages)} 
+                    disabled={page === totalPages}
+                >
+                    <FiChevronsRight size={24}/>
                 </PaginationArrowButton>
             </span>
         </div>
