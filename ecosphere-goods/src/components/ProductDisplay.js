@@ -48,7 +48,7 @@ const ProductDisplay = ({ products }) => {
             )}
 
             {/** Pagination Buttons */}
-            <span className={`flex w-full justify-end gap-3 max-h-8 text-dark-brown ${productsOnPage.length === 0 && 'opacity-0'}`}>
+            <span className={`flex w-full justify-end gap-3 h-8 text-dark-brown ${productsOnPage.length === 0 && 'opacity-0'}`}>
                 {/** Previous Page button */}
                 <PaginationArrowButton  
                     onClick={() => setPage(page - 1)}
