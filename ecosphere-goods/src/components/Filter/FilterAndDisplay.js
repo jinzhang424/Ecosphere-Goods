@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import db, { collection, query, where, getDocs, orderBy } from '../../firebase';
 import SortByAndAppliedFilters from './SortByAndAppliedFilters'
 import ProductDisplay from '../ProductDisplay'
 import ProductFilter from './ProductFilter'

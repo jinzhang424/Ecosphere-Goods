@@ -5,6 +5,7 @@ import TruckComponentLoader from './animations/TruckComponentLoader';
 import PaginationArrowButton from './utility/PaginationArrowButton';
 import PaginationNumberButtons from './utility/PaginationNumberButtons';
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
+import { seperateToPages } from '../utilityFunctions/seperateToPages';
 
 const ProductDisplay = ({ products }) => {
     const [page, setPage] = useState(1)
@@ -19,10 +20,7 @@ const ProductDisplay = ({ products }) => {
             const pages = Math.ceil(products.length / productsPerPage);
             setTotalPages(pages);
             
-            const productsOnPage = []
-            for (let i = 0; i < totalPages; i++) {
-                productsOnPage.push(products.slice(i * productsPerPage, (i + 1) * productsPerPage))
-            }
+            seperateToPages(productsPerPage, products, pages)
 
             setProductsOnPage(productsOnPage)
             setLoading(false)
