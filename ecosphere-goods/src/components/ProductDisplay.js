@@ -32,12 +32,12 @@ const ProductDisplay = ({ products }) => {
     }, [totalPages, products])
 
     return (
-        <div className='flex flex-col flex-wrap'>
+        <div className='flex flex-col flex-wrap w-full'>
             {/** Product Display or Loading */}
             {productsOnPage.length !== 0 ? (
-                <div className='flex flex-wrap h-lvh'>
+                <div className='grid grid-cols-4 grid-rows-2 h-lvh gap-8'>
                     {Object.entries(productsOnPage[page - 1]).map(([productId, productData]) => (
-                        <div className='w-60 pr-8 h-fit mt-6' key={ productId } >
+                        <div className='max-w-64 flex-grow h-fit mt-6' key={ productId } >
                             <ShoppingProductDialog productData={productData}/>
                         </div>
                     ))}
@@ -49,7 +49,7 @@ const ProductDisplay = ({ products }) => {
             )}
 
             {/** Pagination Buttons */}
-            <span className={`flex w-full justify-end gap-3 h-8 text-dark-brown ${productsOnPage.length === 0 && 'opacity-0'}`}>
+            <span className={`flex w-full justify-end gap-3 mt-16 h-8 text-dark-brown ${productsOnPage.length === 0 && 'opacity-0'}`}>
                 {/** First Page button */}
                 <PaginationArrowButton
                     onClick={() => setPage(1)} 
