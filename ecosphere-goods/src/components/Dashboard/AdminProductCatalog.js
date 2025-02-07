@@ -2,7 +2,7 @@ import React from 'react'
 import ProductCatalogDisplay from './ProductCatalogDisplay'
 import ProductDialog from './ProductDialog'
 import { ProductCatalogProvider } from './ProductCatalogContext'
-import ProductCatalogItemHeadings from '../ProductCatalogItemHeadings'
+import ProductInfoHeadings from '../ProductInfoHeadings'
 
 const AdminProductCatalog = () => {
 
@@ -16,7 +16,7 @@ const AdminProductCatalog = () => {
           </ProductDialog>
         </div>
 
-        <ProductCatalogItemHeadings/>
+        <ProductInfoHeadings/>
         <ProductCatalogDisplay />
 
       </div>

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ProductCatalogContext } from './Dashboard/ProductCatalogContext'
 
-const ProductCatalogItemHeadings = () => {
+const ProductInfoHeadings = () => {
 
     const { loadingProducts } = useContext(ProductCatalogContext)
 
@@ -17,4 +17,4 @@ const ProductCatalogItemHeadings = () => {
   )
 }
 
-export default ProductCatalogItemHeadings
+export default ProductInfoHeadings
