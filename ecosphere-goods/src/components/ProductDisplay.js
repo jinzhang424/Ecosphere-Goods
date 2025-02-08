@@ -15,7 +15,7 @@ const ProductDisplay = ({ products }) => {
     return (
         <div className='flex flex-col flex-wrap w-full'>
             {/** Product Display or Loading */}
-            {loadingItemsOnPage ? (
+            {loadingItemsOnPage || products.length === 0 ? (
                 <div className='relative'>
                     <TruckComponentLoader loading={loadingItemsOnPage}/>
                 </div>
