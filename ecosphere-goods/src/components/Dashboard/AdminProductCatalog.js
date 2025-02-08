@@ -2,6 +2,7 @@ import React from 'react'
 import ProductCatalogDisplay from './ProductCatalogDisplay'
 import ProductDialog from './ProductDialog'
 import { ProductCatalogProvider } from './ProductCatalogContext'
+import PaginationProvider from '../PaginationContext'
 
 const AdminProductCatalog = () => {
 
@@ -15,7 +16,9 @@ const AdminProductCatalog = () => {
           </ProductDialog>
         </div>
 
-        <ProductCatalogDisplay />
+        <PaginationProvider>
+          <ProductCatalogDisplay />
+        </PaginationProvider>
       </div>
     </ProductCatalogProvider>
   )

@@ -1,88 +1,41 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import ProductCatalogItem from './ProductCatalogItem'
 import { ProductCatalogContext } from './ProductCatalogContext'
-import { seperateToPages } from '../../utilityFunctions/seperateToPages'
 import TruckComponentLoader from '../animations/TruckComponentLoader'
-import PaginationNumberButtons from '../utility/PaginationNumberButtons'
-import PaginationArrowButton from '../utility/PaginationArrowButton'
-import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import ProductInfoHeadings from './ProductInfoHeadings'
+import { PaginationContext } from '../PaginationContext'
+import PaginationButtons from '../utility/PaginationButtons'
 
 const ProductCatalogDisplay = () => {
     const { products, loadingProducts } = useContext(ProductCatalogContext)
-    const [totalPages, setTotalPages] = useState(1)
-    const [productsOnPage, setProductsOnPage] = useState([])
-    const [curPage, setCurPage] = useState(1)
-    const [loading, setLoading] = useState(true)
-    const productsPerPage = 7;
+    const { setItems, itemsOnPage, curPage, itemsPerPage, setItemsPerPage, loadingItemsOnPage } = useContext(PaginationContext)
 
     useEffect(() => {
+        setItemsPerPage(7)
+
         if (products.length !== 0) {
-            const pages = Math.ceil(products.length / productsPerPage)
-            setTotalPages(pages)
-            
-            setProductsOnPage(seperateToPages(productsPerPage, products, pages))
-            setLoading(false)
+            console.log("Setting Items")
+            setItems(products)
         }
-    }, [products])
+    }, [products, setItems, setItemsPerPage])
 
     return (
         <>
-            { loadingProducts || loading ? (
-                <div className='relative top-12'><TruckComponentLoader loading={loading}/></div>
+            { loadingProducts || loadingItemsOnPage ? (
+                <div className='relative top-12'><TruckComponentLoader loading={ loadingItemsOnPage }/></div>
             ) : (
                 <>
                     <ProductInfoHeadings/>
 
-                    <div className={`grid grid-rows-${productsPerPage} gap-4`}>
-                        {Object.entries(productsOnPage[curPage - 1])?.map(([productId, productData]) => (
+                    <div className={`grid grid-rows-${itemsPerPage} gap-4`}>
+                        {Object.entries(itemsOnPage[curPage - 1])?.map(([productId, productData]) => (
                             <div key={ productId }>
                                 <ProductCatalogItem key={ productId } productData={ productData }/>
                             </div>
                         ))}
                     </div>
 
-                    {/** Pagination Buttons */}
-                    <span className='flex justify-end gap-3'>
-                        {/** First Page button */}
-                        <PaginationArrowButton
-                            onClick={() => setCurPage(1)} 
-                            disabled={curPage === 1}
-                        >
-                            <FiChevronsLeft size={24}/>
-                        </PaginationArrowButton>
-
-                        {/** Previous Page button */}
-                        <PaginationArrowButton  
-                            onClick={() => setCurPage(curPage - 1)}
-                            disabled={curPage === 1} 
-                        >
-                            <FaChevronLeft size={16}/>
-                        </PaginationArrowButton>
-
-                        <PaginationNumberButtons 
-                            totalPages={totalPages} 
-                            page={curPage} 
-                            setPage={setCurPage}
-                        />
-
-                        {/** Next Page button */}
-                        <PaginationArrowButton 
-                            onClick={() => setCurPage(curPage + 1)} 
-                            disabled={curPage === totalPages}
-                        >
-                            <FaChevronRight size={16}/>
-                        </PaginationArrowButton>
-
-                        {/** Last Page button */}
-                        <PaginationArrowButton
-                            onClick={() => setCurPage(totalPages)} 
-                            disabled={curPage === totalPages}
-                        >
-                            <FiChevronsRight size={24}/>
-                        </PaginationArrowButton>
-                    </span>
+                    <PaginationButtons/>
                 </>
             )}
 
