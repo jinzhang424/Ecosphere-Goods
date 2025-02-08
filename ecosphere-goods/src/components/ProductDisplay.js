@@ -5,9 +5,10 @@ import PaginationButtons from './utility/PaginationButtons';
 import { PaginationContext } from './PaginationContext';
 
 const ProductDisplay = ({ products }) => {
-    const { setItems, setItemsPerPage, itemsOnPage, curPage, loadingItemsOnPage } = useContext(PaginationContext)
+    const { setItems, setItemsPerPage, itemsOnPage, curPage, loadingItemsOnPage, setLoadingItemsOnPage } = useContext(PaginationContext)
 
     useEffect(() => {
+        setLoadingItemsOnPage(true)
         setItems(products)
         setItemsPerPage(8)
     }, [products, setItems, setItemsPerPage])
@@ -17,7 +18,7 @@ const ProductDisplay = ({ products }) => {
             {/** Product Display or Loading */}
             {loadingItemsOnPage || products.length === 0 ? (
                 <div className='relative'>
-                    <TruckComponentLoader loading={loadingItemsOnPage}/>
+                    <TruckComponentLoader loading={loadingItemsOnPage || products.length === 0}/>
                 </div>
             ) : (
                 <div className='grid grid-cols-4 grid-rows-2 h-lvh gap-8'>
