@@ -35,7 +35,7 @@ const ProductCatalogDisplay = () => {
                 <>
                     <ProductInfoHeadings/>
 
-                    <div className={`grid-rows-${productsPerPage} grid-rows-7 space-y-4`}>
+                    <div className={`grid grid-rows-${productsPerPage} gap-4`}>
                         {Object.entries(productsOnPage[curPage - 1])?.map(([productId, productData]) => (
                             <div key={ productId }>
                                 <ProductCatalogItem key={ productId } productData={ productData }/>
