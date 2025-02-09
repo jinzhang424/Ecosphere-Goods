@@ -1,12 +1,14 @@
 import React from 'react'
 
 const PaginationNumberButtons = ({ totalPages = 1, page = 1, setPage = () => {} }) => {
-
     const buttonWidth = 32;
     const buttonSpacing = 12;
+    const visibleButtons = totalPages < 7 ? totalPages : 7;
+
+    const containerWidth = visibleButtons * buttonWidth + visibleButtons * buttonSpacing;
 
     return (
-        <div className='flex items-center w-1/3 overflow-x-hidden overflow-y-visible pl-1 pr-1'>
+        <div className='flex items-center pl-1 pr-1 overflow-hidden' style={{ width: `${containerWidth}px`}}>
             <div 
                 className='flex gap-3 transition-transform ease-in-out duration-300'
                 style={{ transform: `translateX(-${(page - 1) * (buttonWidth + buttonSpacing)}px)`}}
