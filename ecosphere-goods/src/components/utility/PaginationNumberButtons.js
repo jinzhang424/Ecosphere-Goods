@@ -7,11 +7,18 @@ const PaginationNumberButtons = ({ totalPages = 1, page = 1, setPage = () => {} 
 
     const containerWidth = visibleButtons * buttonWidth + visibleButtons * buttonSpacing;
 
+    let translateX = 0
+    if (page > totalPages - 7) {
+        translateX = (totalPages - 7) * (buttonWidth + buttonSpacing)
+    } else {
+        translateX = (page - 1) * (buttonWidth + buttonSpacing)
+    }
+
     return (
-        <div className='flex items-center pl-1 pr-1 overflow-hidden' style={{ width: `${containerWidth}px`}}>
+        <div className='flex items-center pl-2 overflow-hidden' style={{ width: `${containerWidth}px`}}>
             <div 
                 className='flex gap-3 transition-transform ease-in-out duration-300'
-                style={{ transform: `translateX(-${(page - 1) * (buttonWidth + buttonSpacing)}px)`}}
+                style={{ transform: `translateX(-${translateX}px)`}}
             >
                 {Array.from({ length: totalPages }).map((_, index) => (
                     <button
