@@ -5,7 +5,7 @@ import SelectCategory from "./SelectCategory";
 import SelectSubcategory from "./SelectSubcategory";
 import { ProductCatalogContext } from "./ProductCatalogContext";
 import ImageInput from "../utility/ImageInput";
-import OpacityButton from "../utility/OpacityButton";
+import OpacityButton from "../utility/GeneralButtons/OpacityButton";
 
 export default function ProductDialog({ children, isEditing = false, IDs }) {
   const [open, setOpen] = useState(false);
