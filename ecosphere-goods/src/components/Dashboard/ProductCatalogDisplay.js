@@ -1,21 +1,46 @@
 import React, { useContext, useEffect } from 'react'
 import ProductCatalogItem from './ProductCatalogItem'
-import { fetchProducts } from '../../utilityFunctions/productHandling'
 import { ProductCatalogContext } from './ProductCatalogContext'
+import TruckComponentLoader from '../animations/TruckComponentLoader'
+import ProductInfoHeadings from './ProductInfoHeadings'
+import { PaginationContext } from '../PaginationContext'
+import PaginationButtons from '../utility/PaginationButtons'
 
 const ProductCatalogDisplay = () => {
-    const { products } = useContext(ProductCatalogContext)
+    const { products, loadingProducts } = useContext(ProductCatalogContext)
+    const { setItems, itemsOnPage, curPage, itemsPerPage, setItemsPerPage, loadingItemsOnPage } = useContext(PaginationContext)
 
-    console.log(products)
+    useEffect(() => {
+        setItemsPerPage(7)
+
+        if (products.length !== 0) {
+            console.log("Setting Items")
+            setItems(products)
+        }
+    }, [products, setItems, setItemsPerPage])
 
     return (
-        <div className='overflow-y-scroll h-full space-y-4'>
-            {Object.entries(products).map(([productId, productData]) => (
-                <div key={ productId }>
-                    <ProductCatalogItem key={ productId } productData={ productData }/>
-                </div>
-            ))}
-        </div>
+        <>
+            { loadingProducts || loadingItemsOnPage ? (
+                <div className='relative top-12'><TruckComponentLoader loading={ loadingItemsOnPage }/></div>
+            ) : (
+                <>
+                    <ProductInfoHeadings/>
+
+                    <div className={`grid grid-rows-${itemsPerPage} gap-4`}>
+                        {Object.entries(itemsOnPage[curPage - 1])?.map(([productId, productData]) => (
+                            <div key={ productId }>
+                                <ProductCatalogItem key={ productId } productData={ productData }/>
+                            </div>
+                        ))}
+                    </div>
+
+                    <PaginationButtons/>
+                </>
+            )}
+
+            
+        </>
     )
 }
 

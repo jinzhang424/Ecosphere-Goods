@@ -17,6 +17,7 @@ const ProductCatalogProvider = ({ children }) => {
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [products, setProducts] = useState([])
+    const [loadingProducts, setLoadingProducts] = useState(true)
 
     const removeProductFromProducts = (productId) => {
         setProducts(prevProducts => prevProducts.filter(product => product.id !== productId))
@@ -84,6 +85,8 @@ const ProductCatalogProvider = ({ children }) => {
         const getProducts = async () => {
             const products = await fetchProducts(undefined, undefined, undefined, 'Newest')
             setProducts(products)
+
+            setLoadingProducts(false)
         }
 
         getProducts()
@@ -98,6 +101,7 @@ const ProductCatalogProvider = ({ children }) => {
                 name, setName, 
                 price, setPrice,
                 products, setProducts,
+                loadingProducts,
                 
                 handleAddProduct,
                 handleUpdateProduct,

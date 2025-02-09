@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import db, { collection, query, where, getDocs, orderBy } from '../../firebase';
 import SortByAndAppliedFilters from './SortByAndAppliedFilters'
 import ProductDisplay from '../ProductDisplay'
 import ProductFilter from './ProductFilter'
 import PriceFilter from './PriceFilter'
 import { fetchProducts } from '../../utilityFunctions/productHandling';
+import PaginationProvider from '../PaginationContext'
 
 const FilterAndDisplay = () => {
     const [products, setProducts] = useState([])
@@ -36,7 +36,9 @@ const FilterAndDisplay = () => {
             
             <div className='ml-8 w-3/4'>
                 <SortByAndAppliedFilters filters={ filters } setSortByVal={ setSortByVal }/>
-                <ProductDisplay products={ products }/>
+                <PaginationProvider>
+                  <ProductDisplay products={ products }/>
+                </PaginationProvider>
             </div>
         </div>
     )
