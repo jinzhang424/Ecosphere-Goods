@@ -10,17 +10,19 @@ const OrderDisplay = ({ order }) => {
   const products = order.orderData.products.slice(0, 2)
 
   return (
-    <div className='bg-light-brown bg-opacity-10 h-fit rounded-3xl p-6'>
+    <div className='bg-light-brown bg-opacity-10 h-full rounded-3xl p-6'>
       <span className='flex items-center justify-between pb-4 border-b-2 border-dark-brown border-opacity-10'>
         <OrderHeading orderID={order.orderID}/>
         <OrderStatus orderStatus={order.orderData.order_status}/>
       </span>
 
+      <div className='grid grid-rows-2'>
         {products.map((product, index) => (
-          <span className='flex h-24 flex-col space-y-3 mt-4'>
+          <span className='h-24 flex-col gap-3 mt-4'>
             <OrderItem key={index} product={ product }/>
           </span>
         ))}
+      </div>
       
       <span className='flex mt-6 justify-between items-center pt-4 border-t-2 border-dark-brown border-opacity-10'>
         <p className='font-header text-dark-brown'>Total: {unitToDollarString(order.orderData.total_price)}</p>

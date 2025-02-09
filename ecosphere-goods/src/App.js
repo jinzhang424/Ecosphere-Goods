@@ -20,6 +20,7 @@ import { orderLoader } from './components/Dashboard/Order/LowLevelOrderView';
 import { fetchDeliveryInfo, fetchProfileImage } from './utilityFunctions/userInfoHandling';
 import TruckLoader from './components/animations/TruckLoader';
 import NotFoundPage from './pages/NotFoundPage';
+import PaginationProvider from './components/PaginationContext';
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
     children: [
       { path: 'home', element: <DashBoardHomePage />},
       { path: 'admin/product-catalog', element: <AdminProductCatalog />},
-      { path: 'orders', element: <Orders/>},
+      { path: 'orders', element: <PaginationProvider><Orders/></PaginationProvider>},
       { path: 'orders/:userID/:orderID', element: <LowLevelOrderView/>, loader: orderLoader }
     ]
   },
