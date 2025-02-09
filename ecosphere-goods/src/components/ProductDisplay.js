@@ -14,7 +14,7 @@ const ProductDisplay = ({ products }) => {
     }, [products, setItems, setItemsPerPage])
 
     return (
-        <div className='flex flex-col flex-wrap w-full'>
+        <div className='flex flex-col w-full h-full justify-between pb-8'>
             {/** Product Display or Loading */}
             {loadingItemsOnPage || products.length === 0 ? (
                 <div className='relative'>
@@ -30,9 +30,7 @@ const ProductDisplay = ({ products }) => {
                 </div>
             )}
 
-            <div className='mt-16'>
-                <PaginationButtons/>
-            </div>
+            <PaginationButtons/>
         </div>
     )
 }
