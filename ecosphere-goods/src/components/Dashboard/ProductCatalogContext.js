@@ -1,11 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { addNewProduct, fetchProductById, fetchProducts, updateProduct } from '../../utilityFunctions/productHandling';
+import { addNewProduct, fetchProductById, fetchProducts, updateProduct } from '../../utility-functions/productHandling';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
 import { toast } from "react-toastify";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
-import { deleteProduct } from '../../utilityFunctions/productHandling';
+import { deleteProduct } from '../../utility-functions/productHandling';
 
 const ProductCatalogContext = createContext();
 

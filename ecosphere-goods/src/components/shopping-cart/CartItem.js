@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import unitToDollarString from '../../utilityFunctions/unitToDollarString'
+import unitToDollarString from '../../utility-functions/unitToDollarString'
 import QuantityAdjuster from '../utility/QuantityAdjuster'
 import { addItem, removeItem } from '../../features/shoppingCartSlice'
 import { useDispatch } from 'react-redux'

@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import PasswordTextField from './PasswordTextField';
 import BackToBrowsingButton from '../utility/BackToBrowsingButton';
 import { useNavigate } from 'react-router-dom';
-import { handleSignIn } from '../../utilityFunctions/userAuth';
+import { handleSignIn } from '../../utility-functions/userAuth';
 import { toast } from 'react-toastify';
 import UncontainedButton from '../utility/UncontainedButton';
 

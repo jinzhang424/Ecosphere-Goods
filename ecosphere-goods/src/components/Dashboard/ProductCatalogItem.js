@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import unitToDollarString from '../../utilityFunctions/unitToDollarString'
+import unitToDollarString from '../../utility-functions/unitToDollarString'
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import ProductDialog from './ProductDialog';
 import { FaEdit } from "react-icons/fa";
