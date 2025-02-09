@@ -18,8 +18,8 @@ const OrderDisplay = ({ order }) => {
 
       <div className='grid grid-rows-2'>
         {products.map((product, index) => (
-          <span className='h-24 flex-col gap-3 mt-4'>
-            <OrderItem key={index} product={ product }/>
+          <span key={index} className='h-24 flex-col gap-3 mt-4'>
+            <OrderItem product={ product }/>
           </span>
         ))}
       </div>

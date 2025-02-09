@@ -51,7 +51,7 @@ const Orders = () => {
 
         {!(loading || loadingItemsOnPage) && 
           <div className='grid grid-rows-2 gap-8 rounded-2xl'>
-            {itemsOnPage[curPage]?.map((order, orderID) => (
+            {itemsOnPage[curPage - 1]?.map((order, orderID) => (
               <OrderDisplay key={orderID} order={order}/>
             ))}
           </div>
