@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { seperateToPages } from "../utilityFunctions/seperateToPages";
+import { seperateToPages } from "../../../utilityFunctions/seperateToPages";
 import React from 'react'
 
 export const PaginationContext = createContext()

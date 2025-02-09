@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import PaginationNumberButtons from '../utility/PaginationNumberButtons'
-import PaginationArrowButton from '../utility/PaginationArrowButton'
+import PaginationNumberButtons from './PaginationNumberButtons'
+import PaginationArrowButton from './PaginationArrowButton'
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import { PaginationContext } from '../PaginationContext';
+import { PaginationContext } from './PaginationContext';
 
 // This component renders the all the pagination buttons. The PaginationProvider MUST be used for this component to function properly.
 const PaginationButtons = () => {

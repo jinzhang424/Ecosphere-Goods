@@ -3,8 +3,8 @@ import ProductCatalogItem from './ProductCatalogItem'
 import { ProductCatalogContext } from './ProductCatalogContext'
 import TruckComponentLoader from '../animations/TruckComponentLoader'
 import ProductInfoHeadings from './ProductInfoHeadings'
-import { PaginationContext } from '../PaginationContext'
-import PaginationButtons from '../utility/PaginationButtons'
+import { PaginationContext } from '../utility/Pagination/PaginationContext'
+import PaginationButtons from '../utility/Pagination/PaginationButtons'
 
 const ProductCatalogDisplay = () => {
     const { products, loadingProducts } = useContext(ProductCatalogContext)
