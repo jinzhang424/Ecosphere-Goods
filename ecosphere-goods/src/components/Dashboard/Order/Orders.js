@@ -46,9 +46,9 @@ const Orders = () => {
 
       <h1 className='font-header text-header text-dark-brown'>Orders</h1>
 
-      <div className='relative h-fit overflow-hidden mt-4'>
-        <TruckComponentLoader loading={loading || loadingItemsOnPage}/>
+      <div className='relative top-16'><TruckComponentLoader loading={loading || loadingItemsOnPage}/></div>
 
+      <div className={`h-fit overflow-hidden mt-4 ${(loading || loadingItemsOnPage) && 'opacity-0'} transition-opacity ease-in-out duration-300`}>
         {!(loading || loadingItemsOnPage) && 
           <div className='grid grid-rows-2 gap-8 rounded-2xl'>
             {itemsOnPage[curPage - 1]?.map((order, orderID) => (
