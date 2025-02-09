@@ -1,7 +1,7 @@
 import React from 'react'
 import unitToDollarString from '../utilityFunctions/unitToDollarString';
 
-const Item = ({ productData }) => {
+const ProductCard = ({ productData }) => {
 
   const price = unitToDollarString(productData.prices[0]?.priceData?.unit_amount)
 
@@ -20,4 +20,4 @@ const Item = ({ productData }) => {
   )
 }
 
-export default Item
+export default ProductCard

@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const FactCard = ({ img="", header="", bodyText="", border="" }) => {
+const InfoCard = ({ img="", header="", bodyText="", border="" }) => {
   return (
     <div className={`p-8 pb-1 ${border} aspect-climateFactCard flex flex-col justify-between`}>
       <div>
@@ -18,4 +18,4 @@ const FactCard = ({ img="", header="", bodyText="", border="" }) => {
   )
 }
 
-export default FactCard
+export default InfoCard
