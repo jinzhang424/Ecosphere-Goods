@@ -46,10 +46,12 @@ const ItemSlider = ({ nextButtonClass, prevButtonClass, sortBy }) => {
             className="mySwiper"
           >
             {Object.entries(products).map(([productId, productData]) => (
-              <SwiperSlide key={productId} className="flex-shrink-0 w-72 p-6">
-                <Item 
-                  productData={productData}
-                />
+              <SwiperSlide key={productId} className="flex-shrink-0 p-6">
+                <div className='w-72'>
+                  <Item 
+                    productData={productData}
+                  />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>

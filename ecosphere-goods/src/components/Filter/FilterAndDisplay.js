@@ -34,11 +34,9 @@ const FilterAndDisplay = () => {
                 <PriceFilter setMinCost={ setMinUnitCost } setMaxCost={ setMaxUnitCost }/>
             </div>
             
-            <div className='pl-8 w-3/4'>
+            <div className='ml-8 w-3/4'>
                 <SortByAndAppliedFilters filters={ filters } setSortByVal={ setSortByVal }/>
-                <div className='pt-8'>
-                  <ProductDisplay products={ products }/>
-                </div>
+                <ProductDisplay products={ products }/>
             </div>
         </div>
     )
