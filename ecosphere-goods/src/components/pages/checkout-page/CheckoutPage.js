@@ -4,7 +4,7 @@ import CartItemDisplay from '../components/ShoppingCart/CartItemDisplay'
 import { FaArrowLeftLong } from "react-icons/fa6";
 import FinalPricingInformation from '../components/ShoppingCart/FinalPricingInformation';
 
-const ShoppingCartPage = () => {
+const CheckoutPage = () => {
     return (
         <div className='flex h-screen w-screen'>
             <Link 
@@ -25,4 +25,4 @@ const ShoppingCartPage = () => {
     )
 }
 
-export default ShoppingCartPage
+export default CheckoutPage

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import heroSliderData from '../data/heroSliderData.json';
+import heroSliderData from '../../../data/heroSliderData.json';
 import { FaCircle } from "react-icons/fa";
 import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
 

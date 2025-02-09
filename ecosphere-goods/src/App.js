@@ -1,25 +1,25 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import HomePage from './pages/HomePage'
+import HomePage from './components/pages/homepage/HomePage'
 import MainLayout from './layouts/MainLayout';
-import ProductsPage from './pages/ProductsPage';
-import UserPortalPage from './pages/UserPortalPage'
-import ShoppingCartPage from './pages/ShoppingCartPage';
+import ProductsPage from './components/pages/products-page/ProductsPage';
+import UserPortalPage from './components/pages/UserPortalPage'
+import ShoppingCartPage from './components/pages/ShoppingCartPage';
 import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
 import DashBoardLayout from './layouts/DashBoardLayout';
-import DashBoardHomePage from './pages/DashBoardHomePage';
+import DashBoardHomePage from './components/pages/DashBoardHomePage';
 import AdminProductCatalog from './components/Dashboard/AdminProductCatalog';
 import { fetchRole } from './utilityFunctions/userAuth';
-import InsufficientPermissionsPage from './pages/InsufficientPermissionsPage';
+import InsufficientPermissionsPage from './components/pages/error-pages/InsufficientPermissionsPage';
 import Orders from './components/Dashboard/Order/Orders';
 import LowLevelOrderView from './components/Dashboard/Order/LowLevelOrderView';
 import { orderLoader } from './components/Dashboard/Order/LowLevelOrderView';
 import { fetchDeliveryInfo, fetchProfileImage } from './utilityFunctions/userInfoHandling';
 import TruckLoader from './components/animations/TruckLoader';
-import NotFoundPage from './pages/NotFoundPage';
+import NotFoundPage from './components/pages/error-pages/NotFoundPage';
 import PaginationProvider from './components/PaginationContext';
 
 const router = createBrowserRouter([

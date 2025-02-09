@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import unitToDollarString from '../utilityFunctions/unitToDollarString'
-import { addItemBulk } from '../features/shoppingCartSlice'
+import { addItemBulk } from '../../../features/shoppingCartSlice'
 import { useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
-import QuantityAdjuster from './utility/QuantityAdjuster';
+import QuantityAdjuster from '../../utility/QuantityAdjuster';
 import AddToCartButton from './utility/AddToCartButton';
 import Item from './Item';
 import { IoClose } from "react-icons/io5";

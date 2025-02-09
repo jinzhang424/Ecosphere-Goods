@@ -1,5 +1,5 @@
 import React from 'react'
-import ItemSlider from './ItemSlider'
+import ItemSlider from '../../ItemSlider'
 
 const SpecialItems = () => {
     return (
