@@ -3,7 +3,7 @@ import SortByAndAppliedFilters from './SortByAndAppliedFilters'
 import ProductDisplay from '../pages/products-page/ProductDisplay'
 import ProductFilter from './ProductFilter'
 import PriceFilter from './PriceFilter'
-import { fetchProducts } from '../../utility-functions/productHandling';
+import { fetchProducts } from '../../api/productHandling';
 import PaginationProvider from '../utility/pagination/PaginationContext'
 
 const FilterAndDisplay = () => {

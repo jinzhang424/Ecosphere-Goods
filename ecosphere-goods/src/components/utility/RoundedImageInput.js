@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CgProfile } from "react-icons/cg";
-import { setProfileImage } from '../../utility-functions/userInfoHandling';
+import { setProfileImage } from '../../api/userInfoHandling';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
 import { storage } from '../../firebase';

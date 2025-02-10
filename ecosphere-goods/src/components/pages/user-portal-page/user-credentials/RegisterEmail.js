@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import PasswordTextField from './PasswordTextField';
-import { registerUser } from '../../../../utility-functions/userAuth';
+import { registerUser } from '../../../../api/userAuth';
 import { toast } from 'react-toastify';
 import UncontainedButton from '../../../utility/general-buttons/UncontainedButton';
 

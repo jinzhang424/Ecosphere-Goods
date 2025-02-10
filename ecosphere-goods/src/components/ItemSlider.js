@@ -7,7 +7,7 @@ import { Pagination, Navigation } from 'swiper/modules';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ProductCard from './cards/ProductCard';
 import CircularProgress from '@mui/material/CircularProgress';
-import { fetchProducts } from '../utility-functions/productHandling';
+import { fetchProducts } from '../api/productHandling';
 
 const ItemSlider = ({ nextButtonClass, prevButtonClass, sortBy }) => {
   const [products, setProducts] = useState([])

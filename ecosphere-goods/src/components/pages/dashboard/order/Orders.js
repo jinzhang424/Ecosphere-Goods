@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import OrderDisplay from './OrderDisplay'
-import { fetchOrders } from '../../../../utility-functions/orderHandling'
+import { fetchOrders } from '../../../../api/orderHandling'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../../../features/userSlice'
 import { toast } from 'react-toastify'

@@ -7,7 +7,7 @@ import { BsBoxes } from "react-icons/bs";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../features/userSlice';
-import { fetchRole } from '../../../utility-functions/userAuth'
+import { fetchRole } from '../../../api/userAuth'
 import { toast } from 'react-toastify';
 
 const DashBoardNav = () => {

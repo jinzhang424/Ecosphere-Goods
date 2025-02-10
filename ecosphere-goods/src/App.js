@@ -26,8 +26,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
 
 // Backend functions
-import { fetchDeliveryInfo, fetchProfileImage } from './utility-functions/userInfoHandling';
-import { fetchRole } from './utility-functions/userAuth';
+import { fetchDeliveryInfo, fetchProfileImage } from './api/userInfoHandling';
+import { fetchRole } from './api/userAuth';
 
 
 import TruckLoader from './components/animations/TruckLoader';

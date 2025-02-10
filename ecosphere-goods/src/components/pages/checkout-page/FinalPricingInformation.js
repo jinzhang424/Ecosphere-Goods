@@ -5,7 +5,7 @@ import unitToDollarString from '../../../utility-functions/unitToDollarString'
 import { selectUser } from '../../../features/userSlice'
 import { ToastContainer, toast } from 'react-toastify'
 import { loadStripe } from '@stripe/stripe-js';
-import { fetchCheckoutSessionID } from '../../../utility-functions/checkoutHandling'
+import { fetchCheckoutSessionID } from '../../../api/checkoutHandling'
 import DeliveryAddressDialog from './DeliveryAddressDialog'
 import CheckoutButton from '../../utility/general-buttons/CheckoutButton'
 

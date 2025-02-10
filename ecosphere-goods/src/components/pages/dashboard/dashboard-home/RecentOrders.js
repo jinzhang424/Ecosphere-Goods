@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchOrders } from '../../../../utility-functions/orderHandling'
+import { fetchOrders } from '../../../../api/orderHandling'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../../../features/userSlice'
 import RecentOrderItem from './RecentOrderItem'

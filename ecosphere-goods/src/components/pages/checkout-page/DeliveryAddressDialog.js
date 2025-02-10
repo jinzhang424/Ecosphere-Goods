@@ -3,7 +3,7 @@ import { TextField } from '@mui/material';
 import DialogButton from '../../utility/general-buttons/DialogButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, selectUser } from '../../../features/userSlice';
-import { fetchDeliveryInfo, updateDeliveryInfo } from '../../../utility-functions/userInfoHandling';
+import { fetchDeliveryInfo, updateDeliveryInfo } from '../../../api/userInfoHandling';
 import { toast } from 'react-toastify';
 
 const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
