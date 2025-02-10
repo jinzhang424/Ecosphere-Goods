@@ -1,26 +1,37 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import HomePage from './pages/HomePage'
-import MainLayout from './layouts/MainLayout';
-import ProductsPage from './pages/ProductsPage';
-import UserPortalPage from './pages/UserPortalPage'
-import ShoppingCartPage from './pages/ShoppingCartPage';
+
+// Pages
+import HomePage from './components/pages/homepage/HomePage'
+import ProductsPage from './components/pages/products-page/ProductsPage';
+import UserPortalPage from './components/pages/user-portal-page/UserPortalPage'
+import ShoppingCartPage from './components/pages/checkout-page/CheckoutPage';
+import NotFoundPage from './components/pages/error-pages/NotFoundPage';
+import InsufficientPermissionsPage from './components/pages/error-pages/InsufficientPermissionsPage';
+
+// Dashboard
+import DashBoardOrdersPage from './components/pages/dashboard/orders-page/DashBoardOrdersPage'
+import DashBoardHomePage from './components/pages/dashboard/homepage/DashBoardHomePage';
+import ProductCatalogPage from './components/pages/dashboard/product-catalog-page/ProductCatalogPage';
+
+// Layouts
+import MainLayout from './components/page-layouts/MainLayout';
+import DashBoardLayout from './components/page-layouts/DashBoardLayout';
+
 import { auth } from './firebase';
+
+// Redux store
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
-import DashBoardLayout from './layouts/DashBoardLayout';
-import DashBoardHomePage from './pages/DashBoardHomePage';
-import AdminProductCatalog from './components/Dashboard/AdminProductCatalog';
-import { fetchRole } from './utilityFunctions/userAuth';
-import InsufficientPermissionsPage from './pages/InsufficientPermissionsPage';
-import Orders from './components/Dashboard/Order/Orders';
-import LowLevelOrderView from './components/Dashboard/Order/LowLevelOrderView';
-import { orderLoader } from './components/Dashboard/Order/LowLevelOrderView';
-import { fetchDeliveryInfo, fetchProfileImage } from './utilityFunctions/userInfoHandling';
+
+// Backend functions
+import { fetchDeliveryInfo, fetchProfileImage } from './api/userInfoHandling';
+import { fetchRole } from './api/userAuth';
+
+
 import TruckLoader from './components/animations/TruckLoader';
-import NotFoundPage from './pages/NotFoundPage';
-import PaginationProvider from './components/PaginationContext';
+import PaginationProvider from './components/utility/pagination/PaginationContext';
 
 const router = createBrowserRouter([
   {
@@ -38,9 +49,8 @@ const router = createBrowserRouter([
     element: <DashBoardLayout />,
     children: [
       { path: 'home', element: <DashBoardHomePage />},
-      { path: 'admin/product-catalog', element: <AdminProductCatalog />},
-      { path: 'orders', element: <PaginationProvider><Orders/></PaginationProvider>},
-      { path: 'orders/:userID/:orderID', element: <LowLevelOrderView/>, loader: orderLoader }
+      { path: 'admin/product-catalog', element: <ProductCatalogPage />},
+      { path: 'orders', element: <PaginationProvider><DashBoardOrdersPage/></PaginationProvider>},
     ]
   },
   { path: '/user-portal', element: <UserPortalPage /> },

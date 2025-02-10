@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import SortByAndAppliedFilters from './SortByAndAppliedFilters'
-import ProductDisplay from '../ProductDisplay'
+import ProductDisplay from '../pages/products-page/ProductDisplay'
 import ProductFilter from './ProductFilter'
 import PriceFilter from './PriceFilter'
-import { fetchProducts } from '../../utilityFunctions/productHandling';
-import PaginationProvider from '../PaginationContext'
+import { fetchProducts } from '../../api/productHandling';
+import PaginationProvider from '../utility/pagination/PaginationContext'
 
 const FilterAndDisplay = () => {
     const [products, setProducts] = useState([])

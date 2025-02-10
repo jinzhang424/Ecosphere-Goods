@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import './ItemSlider.css'
 import { Pagination, Navigation } from 'swiper/modules';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import Item from './Item';
-import './ItemSlider.css'
+import ProductCard from './cards/ProductCard';
 import CircularProgress from '@mui/material/CircularProgress';
-import { fetchProducts } from '../utilityFunctions/productHandling';
+import { fetchProducts } from '../api/productHandling';
 
 const ItemSlider = ({ nextButtonClass, prevButtonClass, sortBy }) => {
   const [products, setProducts] = useState([])
@@ -48,7 +48,7 @@ const ItemSlider = ({ nextButtonClass, prevButtonClass, sortBy }) => {
             {Object.entries(products).map(([productId, productData]) => (
               <SwiperSlide key={productId} className="flex-shrink-0 p-6">
                 <div className='w-72'>
-                  <Item 
+                  <ProductCard 
                     productData={productData}
                   />
                 </div>
