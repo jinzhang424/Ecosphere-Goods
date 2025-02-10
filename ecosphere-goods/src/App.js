@@ -11,9 +11,9 @@ import NotFoundPage from './components/pages/error-pages/NotFoundPage';
 import InsufficientPermissionsPage from './components/pages/error-pages/InsufficientPermissionsPage';
 
 // Dashboard
-import Orders from './components/pages/dashboard/order/Orders'
-import DashBoardHomePage from './components/pages/dashboard/dashboard-home/DashBoardHomePage';
-import ProductCatalog from './components/pages/dashboard/product-catalog/ProductCatalog';
+import DashBoardOrdersPage from './components/pages/dashboard/orders-page/DashBoardOrdersPage'
+import DashBoardHomePage from './components/pages/dashboard/homepage/DashBoardHomePage';
+import ProductCatalogPage from './components/pages/dashboard/product-catalog-page/ProductCatalogPage';
 
 // Layouts
 import MainLayout from './components/page-layouts/MainLayout';
@@ -49,8 +49,8 @@ const router = createBrowserRouter([
     element: <DashBoardLayout />,
     children: [
       { path: 'home', element: <DashBoardHomePage />},
-      { path: 'admin/product-catalog', element: <ProductCatalog />},
-      { path: 'orders', element: <PaginationProvider><Orders/></PaginationProvider>},
+      { path: 'admin/product-catalog', element: <ProductCatalogPage />},
+      { path: 'orders', element: <PaginationProvider><DashBoardOrdersPage/></PaginationProvider>},
     ]
   },
   { path: '/user-portal', element: <UserPortalPage /> },

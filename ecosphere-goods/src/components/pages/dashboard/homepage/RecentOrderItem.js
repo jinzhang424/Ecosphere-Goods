@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaAngleRight } from "react-icons/fa6";
-import OrderHeading from '../order/OrderHeading'
-import OrderStatus from '../order/OrderStatus'
+import OrderHeading from '../orders-page/OrderHeading'
+import OrderStatus from '../orders-page/OrderStatus'
 import { Link } from 'react-router-dom';
 
 const RecentOrderItem = ({ order }) => {

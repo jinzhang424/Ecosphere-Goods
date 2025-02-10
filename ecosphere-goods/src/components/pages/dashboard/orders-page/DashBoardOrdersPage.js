@@ -9,7 +9,7 @@ import TruckComponentLoader from '../../../animations/TruckComponentLoader'
 import PaginationButtons from '../../../utility/pagination/PaginationButtons'
 import { PaginationContext } from '../../../utility/pagination/PaginationContext'
 
-const Orders = () => {
+const DashBoardOrdersPage = () => {
   const { orders, setOrders } = useContext(OrderContext)
   const [ loading, setLoading ] = useState(false)
   const user = useSelector(selectUser)
@@ -65,4 +65,4 @@ const Orders = () => {
   )
 }
 
-export default Orders
+export default DashBoardOrdersPage

@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import db, { collection, getDocs } from '../../../../../firebase';
-import { ProductCatalogContext } from '../../product-catalog/ProductCatalogContext';
+import { ProductCatalogContext } from '../../product-catalog-page/ProductCatalogContext';
 
 const SelectCategory = ({ className = ''}) => {
     const { category, setCategory, setSubcategory } = useContext(ProductCatalogContext);

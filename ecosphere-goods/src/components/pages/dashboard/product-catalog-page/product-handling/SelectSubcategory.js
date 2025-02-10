@@ -4,7 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { ProductCatalogContext } from '../../product-catalog/ProductCatalogContext';
+import { ProductCatalogContext } from '../../product-catalog-page/ProductCatalogContext';
 import db, { collection, getDocs } from '../../../../../firebase'
 
 const SelectSubcategory = ({ className }) => {
