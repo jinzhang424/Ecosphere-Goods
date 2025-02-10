@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const updateDeliveryInfo = async (userID, address, country, zipCode, phoneNumber) => {
     try {
-        const response = await axios.post('/user-info/set-delivery-info', {
+        await axios.post('/user-info/set-delivery-info', {
             userID, address, country, zipCode, phoneNumber
         })
     } catch (error) {
@@ -23,7 +23,7 @@ export const fetchDeliveryInfo = async (userID) => {
 
 export const setProfileImage = async (userID, profileImage) => {
     try {
-        const response = await axios.post('/user-info/set-profile-image', {
+        await axios.post('/user-info/set-profile-image', {
             userID, profileImage
         })
     } catch (error) {

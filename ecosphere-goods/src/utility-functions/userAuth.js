@@ -10,7 +10,7 @@ export const handleSignIn = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const idToken = await userCredential.user.getIdToken();
-        const response = await axios.post('http://localhost:5000/auth/sign-in', { idToken });
+        await axios.post('http://localhost:5000/auth/sign-in', { idToken });
     } catch (error) {
         throw new Error('Error signing in. Please check your email and password.')
     }
@@ -26,7 +26,7 @@ export const registerUser = async (email, password, passwordMatch) => {
     }
 
     try {
-        const response = await axios.post('/auth/register', { email, password });
+        await axios.post('/auth/register', { email, password });
     } catch (error) {
         throw new Error('Error occured while registering.');
     }

@@ -37,7 +37,7 @@ export const addNewProduct = async (name, price, subcategory, image, category, u
 
 export const deleteProduct = async(productId, userID) => {
     try {
-        const response = await axios.delete('/products/delete-product', { 
+        await axios.delete('/products/delete-product', { 
             data: { productId, userID }
         })
     } catch (error) {
@@ -48,7 +48,7 @@ export const deleteProduct = async(productId, userID) => {
 export const updateProduct = async(product, IDs, userID) => {
 
     try {
-        const response = await axios.put('/products/update-product', {
+        await axios.put('/products/update-product', {
             productId: IDs.productId,
             priceId: IDs.priceId,
             name: product.name,

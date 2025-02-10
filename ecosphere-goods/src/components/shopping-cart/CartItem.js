@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import unitToDollarString from '../../utility-functions/unitToDollarString'
 import QuantityAdjuster from '../utility/QuantityAdjuster'
 import { addItem, removeItem } from '../../features/shoppingCartSlice'
