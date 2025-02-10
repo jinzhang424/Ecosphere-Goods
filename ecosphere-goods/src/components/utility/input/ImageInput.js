@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { ProductCatalogContext } from '../pages/dashboard/product-catalog-page/ProductCatalogContext'
+import { ProductCatalogContext } from '../../pages/dashboard/product-catalog-page/ProductCatalogContext'
 import { MdCloudUpload } from "react-icons/md";
 
 const ImageInput = () => {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { CgProfile } from "react-icons/cg";
-import { setProfileImage } from '../../api/userInfoHandling';
+import { setProfileImage } from '../../../api/userInfoHandling';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../features/userSlice';
-import { storage } from '../../firebase';
+import { selectUser } from '../../../features/userSlice';
+import { storage } from '../../../firebase';
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { useDispatch } from 'react-redux';
-import { login } from '../../features/userSlice';
+import { login } from '../../../features/userSlice';
 
 const RoundedImageInput = () => {
     const user = useSelector(selectUser)

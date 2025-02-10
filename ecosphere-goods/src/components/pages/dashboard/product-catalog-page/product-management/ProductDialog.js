@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import SelectCategory from "./SelectCategory";
 import SelectSubcategory from "./SelectSubcategory";
 import { ProductCatalogContext } from "../ProductCatalogContext";
-import ImageInput from "../../../../utility/ImageInput";
+import ImageInput from "../../../../utility/input/ImageInput";
 import OpacityButton from "../../../../utility/general-buttons/OpacityButton";
 
 export default function ProductDialog({ children, isEditing = false, IDs }) {
