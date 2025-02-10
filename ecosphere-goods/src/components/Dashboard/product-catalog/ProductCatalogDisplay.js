@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import ProductCatalogItem from './ProductCatalogItem'
 import { ProductCatalogContext } from './ProductCatalogContext'
-import TruckComponentLoader from '../animations/TruckComponentLoader'
-import ProductInfoHeadings from './ProductInfoHeadings'
-import { PaginationContext } from '../utility/pagination/PaginationContext'
-import PaginationButtons from '../utility/pagination/PaginationButtons'
+import TruckComponentLoader from '../../animations/TruckComponentLoader'
+import ProductInfoHeadings from '../ProductInfoHeadings'
+import { PaginationContext } from '../../utility/pagination/PaginationContext'
+import PaginationButtons from '../../utility/pagination/PaginationButtons'
 
 const ProductCatalogDisplay = () => {
     const { products, loadingProducts } = useContext(ProductCatalogContext)

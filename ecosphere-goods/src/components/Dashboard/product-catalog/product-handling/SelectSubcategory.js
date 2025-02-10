@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { ProductCatalogContext } from './ProductCatalogContext';
-import db, { collection, getDocs } from '../../firebase'
+import db, { collection, getDocs } from '../../../../firebase'
 
 const SelectSubcategory = ({ className }) => {
     const [subcategories, setSubcategories] = useState([])

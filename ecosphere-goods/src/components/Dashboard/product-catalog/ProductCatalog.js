@@ -1,10 +1,10 @@
 import React from 'react'
 import ProductCatalogDisplay from './ProductCatalogDisplay'
-import ProductDialog from './ProductDialog'
-import { ProductCatalogProvider } from './ProductCatalogContext'
+import ProductDialog from './product-handling/ProductDialog'
+import { ProductCatalogProvider } from '../ProductCatalogContext'
 import PaginationProvider from '../PaginationContext'
 
-const AdminProductCatalog = () => {
+const ProductCatalog = () => {
 
   return (
     <ProductCatalogProvider>
@@ -24,4 +24,4 @@ const AdminProductCatalog = () => {
   )
 }
 
-export default AdminProductCatalog
+export default ProductCatalog

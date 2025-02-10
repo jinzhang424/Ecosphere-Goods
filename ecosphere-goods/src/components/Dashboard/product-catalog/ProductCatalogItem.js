@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import unitToDollarString from '../../utility-functions/unitToDollarString'
-import ConfirmDeleteDialog from './ConfirmDeleteDialog';
-import ProductDialog from './ProductDialog';
+import unitToDollarString from '../../../utility-functions/unitToDollarString'
+import ConfirmDeleteDialog from './product-handling/ConfirmDeleteDialog';
+import ProductDialog from './product-handling/ProductDialog';
 import { FaEdit } from "react-icons/fa";
 import { ProductCatalogContext } from './ProductCatalogContext';
 
