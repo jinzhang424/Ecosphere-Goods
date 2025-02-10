@@ -1,6 +1,6 @@
 import React from 'react'
 import ProductCatalogDisplay from './ProductCatalogDisplay'
-import ProductDialog from './product-handling/ProductDialog'
+import ProductDialog from './product-management/ProductDialog'
 import { ProductCatalogProvider } from './ProductCatalogContext'
 import PaginationProvider from '../../../utility/pagination/PaginationContext'
 
