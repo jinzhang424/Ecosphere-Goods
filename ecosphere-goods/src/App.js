@@ -7,12 +7,13 @@ import HomePage from './components/pages/homepage/HomePage'
 import ProductsPage from './components/pages/products-page/ProductsPage';
 import UserPortalPage from './components/pages/user-portal-page/UserPortalPage'
 import ShoppingCartPage from './components/pages/checkout-page/CheckoutPage';
-import DashBoardHomePage from './components/pages/DashBoardHomePage';
 import AdminProductCatalog from './components/dashboard/product-catalog/ProductCatalog';
 import NotFoundPage from './components/pages/error-pages/NotFoundPage';
 import InsufficientPermissionsPage from './components/pages/error-pages/InsufficientPermissionsPage';
-import Orders from './components/Dashboard/Order/Orders';
-import LowLevelOrderView from './components/Dashboard/Order/LowLevelOrderView';
+
+// Dashboard
+import Orders from './components/dashboard/order/Orders'
+import DashBoardHomePage from './components/pages/DashBoardHomePage';
 
 import MainLayout from './components/page-layouts/MainLayout';
 import DashBoardLayout from './layouts/DashBoardLayout';
@@ -22,8 +23,6 @@ import { auth } from './firebase';
 // Redux store
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
-
-import { orderLoader } from './components/Dashboard/Order/LowLevelOrderView';
 
 // Backend functions
 import { fetchDeliveryInfo, fetchProfileImage } from './utilityFunctions/userInfoHandling';
@@ -51,7 +50,6 @@ const router = createBrowserRouter([
       { path: 'home', element: <DashBoardHomePage />},
       { path: 'admin/product-catalog', element: <AdminProductCatalog />},
       { path: 'orders', element: <PaginationProvider><Orders/></PaginationProvider>},
-      { path: 'orders/:userID/:orderID', element: <LowLevelOrderView/>, loader: orderLoader }
     ]
   },
   { path: '/user-portal', element: <UserPortalPage /> },
