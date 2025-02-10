@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import unitToDollarString from '../utilityFunctions/unitToDollarString'
+import unitToDollarString from '../../../utility-functions/unitToDollarString'
 import { addItemBulk } from '../../../features/shoppingCartSlice'
 import { useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import QuantityAdjuster from '../../utility/QuantityAdjuster';
-import AddToCartButton from './utility/AddToCartButton';
-import Item from './Item';
+import AddToCartButton from '../../utility/general-buttons/AddToCartButton';
+import ProductCard from '../../cards/ProductCard';
 import { IoClose } from "react-icons/io5";
 
 const ShoppingProductDialog = ({ productData }) => {
@@ -41,7 +41,7 @@ const ShoppingProductDialog = ({ productData }) => {
     return (
         <div>
             <button onClick={handleOpen} className='w-full'>
-                <Item productData={productData}/>
+                <ProductCard productData={productData}/>
             </button>
 
             <div className={`opacity-0 ${open ? 'opacity-100' : 'pointer-events-none'} transition-opacity ease-in-out duration-300`}>

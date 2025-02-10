@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import PasswordTextField from './PasswordTextField';
-import { registerUser } from '../../utilityFunctions/userAuth';
+import { registerUser } from '../../../../utility-functions/userAuth';
 import { toast } from 'react-toastify';
-import UncontainedButton from '../utility/UncontainedButton';
+import UncontainedButton from '../../../utility/general-buttons/UncontainedButton';
 
 const RegisterEmail = ({ backToSignIn }) => {
   const [email, setEmail] = useState('');

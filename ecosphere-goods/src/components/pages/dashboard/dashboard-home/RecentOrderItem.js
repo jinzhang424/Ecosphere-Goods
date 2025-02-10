@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaAngleRight } from "react-icons/fa6";
-import OrderHeading from '../Order/OrderHeading'
-import OrderStatus from '../Order/OrderStatus'
+import OrderHeading from '../order/OrderHeading'
+import OrderStatus from '../order/OrderStatus'
 import { Link } from 'react-router-dom';
 
 const RecentOrderItem = ({ order }) => {
@@ -20,7 +20,7 @@ const RecentOrderItem = ({ order }) => {
             
             <div className='flex space-x-2'>
                 {products.map((product, index) => (
-                    <img key={index} src={product.images[0]} className='h-16 w-16 aspect-square object-center object-cover rounded-xl' />
+                    <img key={index} alt='' src={product.images[0]} className='h-16 w-16 aspect-square object-center object-cover rounded-xl' />
                 ))}
 
                 {(products.length > 5) && <div>...</div>}

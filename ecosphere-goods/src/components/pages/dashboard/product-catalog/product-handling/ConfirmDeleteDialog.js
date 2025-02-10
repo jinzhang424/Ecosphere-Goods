@@ -1,7 +1,7 @@
-import { ProductCatalogContext } from "./ProductCatalogContext";
+import { ProductCatalogContext } from "../ProductCatalogContext";
 import React, { useContext, useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import OpacityButton from "../../../utility/general-buttons/OpacityButton";
+import OpacityButton from "../../../../utility/general-buttons/OpacityButton";
 
 export default function ConfirmDeleteDialog({ productId, productName }) {
     const [open, setOpen] = useState(false);

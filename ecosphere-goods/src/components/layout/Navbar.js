@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoMdSearch } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
-import { NavLink, Link, useNavigate } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import Logo from '../utility/Logo';
 import { useState, useEffect } from 'react';
 import ProfileIconAndMenu from './ProfileIconAndMenu';

@@ -1,20 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
 import OrderDisplay from './OrderDisplay'
-import { fetchOrders } from '../../../utilityFunctions/orderHandling'
+import { fetchOrders } from '../../../../utility-functions/orderHandling'
 import { useSelector } from 'react-redux'
-import { selectUser } from '../../../features/userSlice'
+import { selectUser } from '../../../../features/userSlice'
 import { toast } from 'react-toastify'
 import { OrderContext } from './OrderContext'
-import TruckComponentLoader from '../../animations/TruckComponentLoader'
-import PaginationButtons from '../../utility/PaginationButtons'
-import { PaginationContext } from '../../PaginationContext'
+import TruckComponentLoader from '../../../animations/TruckComponentLoader'
+import PaginationButtons from '../../../utility/pagination/PaginationButtons'
+import { PaginationContext } from '../../../utility/pagination/PaginationContext'
 
 const Orders = () => {
   const { orders, setOrders } = useContext(OrderContext)
   const [ loading, setLoading ] = useState(false)
   const user = useSelector(selectUser)
 
-  const { setItems, itemsOnPage, curPage, loadingItemsOnPage, itemsPerPage, setItemsPerPage } = useContext(PaginationContext)
+  const { setItems, itemsOnPage, curPage, loadingItemsOnPage, setItemsPerPage } = useContext(PaginationContext)
 
   useEffect(() => {
     const getOrders = async () => {
@@ -31,7 +31,7 @@ const Orders = () => {
 
     getOrders()
 
-  }, [user.uid])
+  }, [user.uid, setOrders])
 
   useEffect(() => {
     setItemsPerPage(2)
@@ -39,7 +39,7 @@ const Orders = () => {
     if (orders.length !== 0) {
       setItems(orders)
     }
-  }, [orders, setItemsPerPage])
+  }, [orders, setItemsPerPage, setItems])
 
   return (
     <div className='bg-off-white rounded-3xl w-full h-fit p-8 min-h-full'>

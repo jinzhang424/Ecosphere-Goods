@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
 import PasswordTextField from './PasswordTextField';
-import BackToBrowsingButton from '../utility/BackToBrowsingButton';
+import BackToBrowsingButton from '../../../utility/general-buttons/BackToBrowsingButton';
 import { useNavigate } from 'react-router-dom';
-import { handleSignIn } from '../../utility-functions/userAuth';
+import { handleSignIn } from '../../../../utility-functions/userAuth';
 import { toast } from 'react-toastify';
-import UncontainedButton from '../utility/UncontainedButton';
+import UncontainedButton from '../../../utility/general-buttons/UncontainedButton';
 
 const SignInPanel = () => {
     const navigate = useNavigate()

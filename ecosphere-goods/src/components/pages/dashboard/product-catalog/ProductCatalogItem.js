@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import unitToDollarString from '../../../utility-functions/unitToDollarString'
+import unitToDollarString from '../../../../utility-functions/unitToDollarString'
 import ConfirmDeleteDialog from './product-handling/ConfirmDeleteDialog';
 import ProductDialog from './product-handling/ProductDialog';
 import { FaEdit } from "react-icons/fa";
@@ -38,6 +38,7 @@ const ProductCatalogItem = (productData) => {
             <div className='flex justify-between items-center text-dark-brown font-header h-16 pr-12 w-11/12'>
                 <img 
                     src={ product.imgUrl } 
+                    alt=''
                     className='aspect-square object-cover h-16 w-16' 
                 />
                 

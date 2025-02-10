@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { selectUser } from '../../../features/userSlice'
-import { CgProfile } from "react-icons/cg";
-import RoundedImageInput from '../../utility/RoundedImageInput';
+import { selectUser } from '../../../../features/userSlice'
+import RoundedImageInput from '../../../utility/RoundedImageInput';
 
 const UserProfileCard = () => {
     const user = useSelector(selectUser)

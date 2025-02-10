@@ -1,8 +1,8 @@
 import React from 'react'
-import UserDashBoard from '../components/Dashboard/DashboardHome/UserDashBoard'
-import AdminDashBoard from '../components/Dashboard/DashboardHome/AdminDashBoard'
+import UserDashBoard from './UserDashBoard'
+import AdminDashBoard from './AdminDashBoard'
 import { useSelector } from 'react-redux'
-import { selectUser } from '../features/userSlice'
+import { selectUser } from '../../../../features/userSlice'
 
 const DashBoardHomePage = () => {
   const user = useSelector(selectUser)

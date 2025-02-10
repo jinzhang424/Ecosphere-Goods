@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import ShoppingProductDialog from './ShoppingProductDialog'
-import TruckComponentLoader from './animations/TruckComponentLoader';
-import PaginationButtons from './utility/PaginationButtons';
-import { PaginationContext } from './PaginationContext';
+import TruckComponentLoader from '../../animations/TruckComponentLoader';
+import PaginationButtons from '../../utility/pagination/PaginationButtons';
+import { PaginationContext } from '../../utility/pagination/PaginationContext';
 
 const ProductDisplay = ({ products }) => {
     const { setItems, setItemsPerPage, itemsOnPage, curPage, loadingItemsOnPage, setLoadingItemsOnPage } = useContext(PaginationContext)
@@ -11,7 +11,7 @@ const ProductDisplay = ({ products }) => {
         setLoadingItemsOnPage(true)
         setItems(products)
         setItemsPerPage(8)
-    }, [products, setItems, setItemsPerPage])
+    }, [products, setItems, setItemsPerPage, setLoadingItemsOnPage])
 
     return (
         <div className='flex flex-col w-full h-full justify-between pb-8'>

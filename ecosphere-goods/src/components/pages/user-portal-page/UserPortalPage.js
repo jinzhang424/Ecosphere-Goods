@@ -1,5 +1,5 @@
 import React from 'react'
-import LogInRegisterSlider from '../components/utility/LogInRegisterSlider'
+import LogInRegisterSlider from './LogInRegisterSlider'
 
 const UserPortalPage = () => {
   return (

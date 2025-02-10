@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { fetchOrders } from '../../../utility-functions/orderHandling'
+import { fetchOrders } from '../../../../utility-functions/orderHandling'
 import { useSelector } from 'react-redux'
-import { selectUser } from '../../../features/userSlice'
+import { selectUser } from '../../../../features/userSlice'
 import RecentOrderItem from './RecentOrderItem'
-import TruckComponentLoader from '../../animations/TruckComponentLoader'
+import TruckComponentLoader from '../../../animations/TruckComponentLoader'
 
 const RecentOrders = () => {
     const user = useSelector(selectUser)
@@ -25,7 +25,7 @@ const RecentOrders = () => {
         }
 
         fetchOrder()
-    }, [])
+    }, [user.uid])
 
     console.log('Orders here:', orders)
 

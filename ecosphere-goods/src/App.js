@@ -7,16 +7,17 @@ import HomePage from './components/pages/homepage/HomePage'
 import ProductsPage from './components/pages/products-page/ProductsPage';
 import UserPortalPage from './components/pages/user-portal-page/UserPortalPage'
 import ShoppingCartPage from './components/pages/checkout-page/CheckoutPage';
-import AdminProductCatalog from './components/dashboard/product-catalog/ProductCatalog';
 import NotFoundPage from './components/pages/error-pages/NotFoundPage';
 import InsufficientPermissionsPage from './components/pages/error-pages/InsufficientPermissionsPage';
 
 // Dashboard
-import Orders from './components/dashboard/order/Orders'
-import DashBoardHomePage from './components/pages/DashBoardHomePage';
+import Orders from './components/pages/dashboard/order/Orders'
+import DashBoardHomePage from './components/pages/dashboard/dashboard-home/DashBoardHomePage';
+import ProductCatalog from './components/pages/dashboard/product-catalog/ProductCatalog';
 
+// Layouts
 import MainLayout from './components/page-layouts/MainLayout';
-import DashBoardLayout from './layouts/DashBoardLayout';
+import DashBoardLayout from './components/page-layouts/DashBoardLayout';
 
 import { auth } from './firebase';
 
@@ -25,12 +26,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
 
 // Backend functions
-import { fetchDeliveryInfo, fetchProfileImage } from './utilityFunctions/userInfoHandling';
-import { fetchRole } from './utilityFunctions/userAuth';
+import { fetchDeliveryInfo, fetchProfileImage } from './utility-functions/userInfoHandling';
+import { fetchRole } from './utility-functions/userAuth';
 
 
 import TruckLoader from './components/animations/TruckLoader';
-import PaginationProvider from './components/PaginationContext';
+import PaginationProvider from './components/utility/pagination/PaginationContext';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
     element: <DashBoardLayout />,
     children: [
       { path: 'home', element: <DashBoardHomePage />},
-      { path: 'admin/product-catalog', element: <AdminProductCatalog />},
+      { path: 'admin/product-catalog', element: <ProductCatalog />},
       { path: 'orders', element: <PaginationProvider><Orders/></PaginationProvider>},
     ]
   },

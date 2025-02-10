@@ -6,8 +6,8 @@ import { FaCog } from "react-icons/fa";
 import { BsBoxes } from "react-icons/bs";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../features/userSlice';
-import { fetchRole } from '../../utilityFunctions/userAuth'
+import { selectUser } from '../../../features/userSlice';
+import { fetchRole } from '../../../utility-functions/userAuth'
 import { toast } from 'react-toastify';
 
 const DashBoardNav = () => {
@@ -35,7 +35,7 @@ const DashBoardNav = () => {
         }
 
         fetchUserRole()
-    }, [user])
+    }, [user, navigate])
 
     if (currentLocation.pathname.includes('admin') && userRole !== 'admin') {
         navigate('/insufficient-permissions')

@@ -1,8 +1,8 @@
 import React from 'react'
-import FactCard from './FactCard'
-import Grocery from '../data/images/Grocery.gif'
-import Plant from '../data/images/Plant.gif'
-import SolarPanel from '../data/images/SolarPanel.gif'
+import FactCard from '../../cards/InfoCard'
+import Grocery from '../../../data/images/Grocery.gif'
+import Plant from '../../../data/images/Plant.gif'
+import SolarPanel from '../../../data/images/SolarPanel.gif'
 
 const ClimateFacts = () => {
   return (

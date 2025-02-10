@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import RegisterPanel from '../UserCredentials/RegisterPanel'
-import SignInPanel from '../UserCredentials/SignInPanel'
+import RegisterPanel from './user-credentials/RegisterPanel'
+import SignInPanel from './user-credentials/SignInPanel'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 

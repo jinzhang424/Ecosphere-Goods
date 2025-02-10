@@ -1,6 +1,6 @@
 import React from 'react'
 import SaleBanner from './SaleBanner'
-import FilterAndDisplay from '../../Filter/FilterAndDisplay'
+import FilterAndDisplay from '../../filter/FilterAndDisplay'
 
 const ProductsPage = () => {
   return (

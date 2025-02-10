@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react";
-import DialogButton from "../../DialogButton";
 import TextField from '@mui/material/TextField';
 import SelectCategory from "./SelectCategory";
 import SelectSubcategory from "./SelectSubcategory";
-import { ProductCatalogContext } from "./ProductCatalogContext";
-import ImageInput from "../../../utility/ImageInput";
-import OpacityButton from "../../../utility/general-buttons/OpacityButton";
+import { ProductCatalogContext } from "../ProductCatalogContext";
+import ImageInput from "../../../../utility/ImageInput";
+import OpacityButton from "../../../../utility/general-buttons/OpacityButton";
 
 export default function ProductDialog({ children, isEditing = false, IDs }) {
   const [open, setOpen] = useState(false);

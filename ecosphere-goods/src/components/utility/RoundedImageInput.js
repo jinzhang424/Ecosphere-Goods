@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CgProfile } from "react-icons/cg";
-import { setProfileImage } from '../../utilityFunctions/userInfoHandling';
+import { setProfileImage } from '../../utility-functions/userInfoHandling';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
 import { storage } from '../../firebase';
@@ -60,7 +60,7 @@ const RoundedImageInput = () => {
             { image === undefined ? (
                 <CgProfile className='w-full h-full'/>
             ) : (
-                <img src={image} className='w-full h-full object-cover object-center' />
+                <img src={image} className='w-full h-full object-cover object-center' alt=''/>
             )}
         </div>
     )

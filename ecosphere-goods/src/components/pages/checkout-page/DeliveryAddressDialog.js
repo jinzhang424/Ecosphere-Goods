@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { TextField } from '@mui/material'
-import DialogButton from '../utility/DialogButton'
-import { useDispatch, useSelector } from 'react-redux'
-import { login, selectUser } from '../../features/userSlice'
-import { fetchDeliveryInfo, updateDeliveryInfo } from '../../utilityFunctions/userInfoHandling'
-import { toast } from 'react-toastify'
+import React, { useState } from 'react';
+import { TextField } from '@mui/material';
+import DialogButton from '../../utility/general-buttons/DialogButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, selectUser } from '../../../features/userSlice';
+import { fetchDeliveryInfo, updateDeliveryInfo } from '../../../utility-functions/userInfoHandling';
+import { toast } from 'react-toastify';
 
 const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
     const [address, setAddress] = useState('')

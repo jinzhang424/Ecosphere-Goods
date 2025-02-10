@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { selectCartSubtotal, selectCart } from '../../features/shoppingCartSlice'
-import unitToDollarString from '../../utilityFunctions/unitToDollarString'
-import { selectUser } from '../../features/userSlice'
+import { selectCartSubtotal, selectCart } from '../../../features/shoppingCartSlice'
+import unitToDollarString from '../../../utility-functions/unitToDollarString'
+import { selectUser } from '../../../features/userSlice'
 import { ToastContainer, toast } from 'react-toastify'
 import { loadStripe } from '@stripe/stripe-js';
-import { fetchCheckoutSessionID } from '../../utilityFunctions/checkoutHandling'
+import { fetchCheckoutSessionID } from '../../../utility-functions/checkoutHandling'
 import DeliveryAddressDialog from './DeliveryAddressDialog'
-import CheckoutButton from '../utility/CheckoutButton'
+import CheckoutButton from '../../utility/general-buttons/CheckoutButton'
 
 const FinalPricingInformation = () => {
     const subTotal = useSelector(selectCartSubtotal);

@@ -1,7 +1,7 @@
 import React from 'react'
-import Hero from '../components/page-components/homepage/Hero'
-import SpecialItems from '../components/page-components/homepage/SpecialItems'
-import ClimateFacts from '../components/page-components/homepage/ClimateFacts'
+import Hero from './Hero'
+import SpecialItems from './SpecialItems'
+import ClimateFacts from './ClimateFacts'
 
 function HomePage() {
   return (

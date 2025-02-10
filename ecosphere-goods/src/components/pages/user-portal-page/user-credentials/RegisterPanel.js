@@ -1,6 +1,6 @@
 import React from 'react'
 import RegisterEmail from './RegisterEmail'
-import BackToBrowsingButton from '../utility/BackToBrowsingButton'
+import BackToBrowsingButton from '../../../utility/general-buttons/BackToBrowsingButton'
 
 const RegisterPanel = ({ backToSignIn }) => {
     return (

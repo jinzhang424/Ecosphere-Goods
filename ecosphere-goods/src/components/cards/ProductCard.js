@@ -1,5 +1,5 @@
 import React from 'react'
-import unitToDollarString from '../utilityFunctions/unitToDollarString';
+import unitToDollarString from '../../utility-functions/unitToDollarString';
 
 const ProductCard = ({ productData }) => {
 

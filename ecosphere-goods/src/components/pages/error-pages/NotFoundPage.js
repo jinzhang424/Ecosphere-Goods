@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import UncontainedButton from '../components/utility/UncontainedButton'
+import UncontainedButton from '../../utility/general-buttons/UncontainedButton'
 
 const NotFoundPage = () => {
     const navigate = useNavigate()

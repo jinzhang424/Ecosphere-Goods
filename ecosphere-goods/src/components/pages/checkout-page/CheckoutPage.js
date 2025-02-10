@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import CartItemDisplay from '../components/ShoppingCart/CartItemDisplay'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaArrowLeftLong } from "react-icons/fa6";
-import FinalPricingInformation from '../components/ShoppingCart/FinalPricingInformation';
+import FinalPricingInformation from './FinalPricingInformation';
+import CartItemDisplay from '../../shopping-cart/CartItemDisplay';
 
 const CheckoutPage = () => {
     return (

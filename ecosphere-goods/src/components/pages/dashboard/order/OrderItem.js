@@ -1,5 +1,5 @@
 import React from 'react'
-import unitToDollarString from '../../../utilityFunctions/unitToDollarString'
+import unitToDollarString from '../../../../utility-functions/unitToDollarString'
 
 const OrderItem = ({ product }) => {
     const name = product.name
@@ -9,7 +9,11 @@ const OrderItem = ({ product }) => {
 
     return (
         <div className='h-full w-full flex rounded-xl overflow-hidden items-center border-2 border-dark-brown border-opacity-10'>
-            <img src={product.images[0]} className='h-full aspect-square object-cover object-center'/>
+            <img 
+                src={product.images[0]} 
+                alt={name}
+                className='h-full aspect-square object-cover object-center'
+            />
 
             <p className={pStyle}>{name}</p>
             <p className={pStyle}>{price}</p>

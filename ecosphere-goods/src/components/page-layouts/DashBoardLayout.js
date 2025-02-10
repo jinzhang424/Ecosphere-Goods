@@ -1,8 +1,8 @@
 import React from 'react'
-import DashBoardNav from '../components/Dashboard/DashBoardNav'
+import DashBoardNav from '../pages/dashboard/DashBoardNav'
 import { Outlet } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { OrderProvider } from '../components/Dashboard/Order/OrderContext'
+import { OrderProvider } from '../pages/dashboard/order/OrderContext'
 
 const DashBoardLayout = () => {
 

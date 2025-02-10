@@ -1,6 +1,6 @@
 import React from 'react'
 import OrderItem from './OrderItem'
-import unitToDollarString from '../../../utilityFunctions/unitToDollarString';
+import unitToDollarString from '../../../../utility-functions/unitToDollarString';
 import { Link } from 'react-router-dom';
 import OrderHeading from './OrderHeading';
 import OrderStatus from './OrderStatus';

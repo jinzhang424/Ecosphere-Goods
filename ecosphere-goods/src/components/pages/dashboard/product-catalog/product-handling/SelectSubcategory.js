@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { ProductCatalogContext } from './ProductCatalogContext';
-import db, { collection, getDocs } from '../../../../firebase'
+import { ProductCatalogContext } from '../../product-catalog/ProductCatalogContext';
+import db, { collection, getDocs } from '../../../../../firebase'
 
 const SelectSubcategory = ({ className }) => {
     const [subcategories, setSubcategories] = useState([])
@@ -24,9 +24,10 @@ const SelectSubcategory = ({ className }) => {
                 const categoriesRef = collection(db, 'product_categories')
                 const subcategoriesSnapShot = await getDocs(categoriesRef)
 
-                subcategoriesSnapShot.docs.map(doc => {
+                subcategoriesSnapShot.docs.forEach(doc => {
                     if (doc.id === category) {
                         setSubcategories(doc.data().subcategories)
+                        return;
                     }
                 })
             } catch (error) {
