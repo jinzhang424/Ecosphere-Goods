@@ -35,10 +35,10 @@ const Footer = () => {
             <div className="flex flex-col items-end w-1/2 text-subtitle font-header space-y-4">
             <Logo />
             <div className="flex flex-col space-y-2 items-end">
-                <Link href="/products">Products</Link>
-                <Link href="/about-us">About Us</Link>
-                <Link href="/contact-us">Contact Us</Link>
-                <Link href="/faq">FAQ</Link>
+                <Link to="/products">Products</Link>
+                <Link to="/about-us">About Us</Link>
+                <Link to="/contact-us">Contact Us</Link>
+                <Link to="/faq">FAQ</Link>
             </div>
             </div>
         </div>
@@ -46,8 +46,8 @@ const Footer = () => {
         <div className="flex justify-between pt-2 pb-2">
             <p className="font-header">© Ecosphere Goods Co 2024. All Rights Reserved</p>
             <div className='flex space-x-2'>
-                <Link to="https://lordicon.com/" className="border-r-2 pr-2">Icons by Lordicon.com</Link>
-                <Link to="/privacy-policy" className="border-r-2 pr-2">Privacy Policy</Link>
+                <Link to="https://lordicon.com/" className="border-r-2 pr-2 border-dark-brown">Icons by Lordicon.com</Link>
+                <Link to="/privacy-policy" className="border-r-2 pr-2 border-dark-brown">Privacy Policy</Link>
                 <Link to="/terms-of-service">Terms of Service</Link>
             </div>
         </div>
