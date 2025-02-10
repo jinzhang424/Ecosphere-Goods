@@ -1,5 +1,5 @@
 import React from 'react'
-import BasicSelector from '../utility/BasicSelector'
+import OrderBySelector from './OrderBySelector'
 
 const SortByAndAppliedFilters = ({ filters, setSortByVal }) => {
     return (
@@ -15,7 +15,7 @@ const SortByAndAppliedFilters = ({ filters, setSortByVal }) => {
 
             <div className='flex items-center space-x-4 h-4'>
                 <p className='font-header text-light-brown'>Sort By:</p>
-                <BasicSelector setSortByVal={ setSortByVal }/>
+                <OrderBySelector setSortByVal={ setSortByVal }/>
             </div>
         </div>
     )
