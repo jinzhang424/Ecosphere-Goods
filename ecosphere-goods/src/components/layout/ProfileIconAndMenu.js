@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../features/userSlice';
 import { auth } from '../../firebase';
+import { sendEmailVerification } from 'firebase/auth';
 
 const ProfileIconAndMenu = () => {
     const dispatch = useDispatch()
