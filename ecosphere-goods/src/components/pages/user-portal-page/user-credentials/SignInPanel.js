@@ -27,7 +27,7 @@ const SignInPanel = () => {
                 navigate('/')
             } else {
                 await sendEmailVerification(auth.currentUser)
-                navigate('verification')
+                navigate('/verification')
             }
         } catch (error) {
             toast.error(error.message)
