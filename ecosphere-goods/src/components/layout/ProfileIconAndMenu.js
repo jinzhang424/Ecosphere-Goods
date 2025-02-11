@@ -5,19 +5,17 @@ import { MdAccountCircle } from "react-icons/md";
 import ProfileMenuItem from './ProfileMenuItem';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { selectUser } from '../../features/userSlice';
-import { useSelector } from 'react-redux';
 import { logout } from '../../features/userSlice';
+import { auth } from '../../firebase';
 
 const ProfileIconAndMenu = () => {
-    const user = useSelector(selectUser)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
-        if (user) {
+        if (auth.currentUser?.emailVerified) {
             setAnchorEl(event.currentTarget);
         } else {
             navigate('/user-portal')
