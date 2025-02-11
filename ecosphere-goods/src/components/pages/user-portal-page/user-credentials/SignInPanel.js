@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { handleSignIn } from '../../../../api/userAuth';
 import { toast } from 'react-toastify';
 import UncontainedButton from '../../../utility/general-buttons/UncontainedButton';
+import { auth } from '../../../../firebase';
+import { sendEmailVerification } from 'firebase/auth';
 
 const SignInPanel = () => {
     const navigate = useNavigate()
@@ -20,7 +22,13 @@ const SignInPanel = () => {
         try {
             await handleSignIn(email, password)
             toast.success('Sign-in successful!');
-            navigate('/');
+            
+            if (auth.currentUser.emailVerified) {
+                navigate('/')
+            } else {
+                await sendEmailVerification(auth.currentUser)
+                navigate('verification')
+            }
         } catch (error) {
             toast.error(error.message)
         }
