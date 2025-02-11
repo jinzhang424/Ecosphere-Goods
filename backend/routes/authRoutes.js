@@ -9,8 +9,6 @@ router.post('/sign-in', signInUser);
 
 router.get('/fetch-user-role', fetchUserRole)
 
-router.post('/set-custom-user-claims', handleSetCustomUserClaims);
-
 router.get('/generate-custom-token', generateCustomToken) 
 
 module.exports = router
