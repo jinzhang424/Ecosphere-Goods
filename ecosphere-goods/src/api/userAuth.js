@@ -51,22 +51,5 @@ export const handleSetCustomUserClaims = async (uid) => {
         })
     } catch (error) {
         console.log(error.message)
-        throw new Error('Error occurred while setting customer user claims')
-    }
-}
-
-export const generateCustomToken = async (uid) => {
-    try {
-        const response = await axios.get('/auth/generate-custom-token', {
-            params: {
-                uid
-            }
-        })
-
-        console.log('HEHHEHE', response)
-        return response.data.customToken
-    } catch (error) {
-        console.log(error.message)
-        throw new Error('Error occurred while generating custom token')
     }
 }
