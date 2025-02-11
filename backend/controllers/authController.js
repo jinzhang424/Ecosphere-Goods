@@ -14,21 +14,6 @@ const isAdmin = async (uid) => {
         const userRecord = await admin.auth().getUser(uid)
         return userRecord.customClaims?.admin == true
     } catch (error) {
-        console.log(error.message)
-    }
-}
-
-const setCustomUserClaims = async (uid) => {
-    try {
-        const userDoc = await db.collection('admins').doc(uid).get()
-        const auth = admin.auth();
-
-        if (userDoc.exists) {
-            await auth.setCustomUserClaims(uid, { admin: true})
-        } else {
-            await auth.setCustomUserClaims(uid, { admin: false})
-        }
-    } catch (error) {
         throw new Error(error.message)
     }
 }
@@ -97,8 +82,17 @@ const handleSetCustomUserClaims = async (req, res) => {
     }
 
     try {
-        setCustomUserClaims(uid)
+        const userDoc = await db.collection('admins').doc(uid).get()
+        const auth = admin.auth();
+
+        if (userDoc.exists) {
+            await auth.setCustomUserClaims(uid, { admin: true})
+        } else {
+            await auth.setCustomUserClaims(uid, { admin: false})
+        }
+        
         console.log('Successfully set customer user claims')
+        return res.status(201).json({ success: true, message: 'Successfully set customer user claims'})
     } catch (error) {
         console.log(error.message)
         return res.status(500).json({ success: false, message: 'Error occurred while setting custom user claims'})

@@ -27,12 +27,11 @@ import { login, logout, selectUser } from './features/userSlice';
 
 // Api functions
 import { fetchDeliveryInfo, fetchProfileImage } from './api/userInfoHandling';
-import { fetchRole, handleSetCustomUserClaims } from './api/userAuth';
+import { handleSetCustomUserClaims } from './api/userAuth';
 
 
 import TruckLoader from './components/animations/TruckLoader';
 import PaginationProvider from './components/utility/pagination/PaginationContext';
-import { getIdTokenResult } from 'firebase/auth';
 
 const router = createBrowserRouter([
   {
@@ -73,8 +72,9 @@ function App() {
         try {
           deliveryInfo = await fetchDeliveryInfo(userAuth.uid)
           profileImage = await fetchProfileImage(userAuth.uid)
+          await handleSetCustomUserClaims(userAuth.uid)
 
-          auth.currentUser.getIdTokenResult()
+          await auth.currentUser.getIdTokenResult()
             .then((idTokenResult) => {
               if (!!idTokenResult.claims.admin) {
                 role = 'admin'
@@ -82,10 +82,8 @@ function App() {
                 role = 'customer'
               }
             })
-
-          handleSetCustomUserClaims(userAuth.uid)
         } catch (error) {
-          console.error('Error fetching UID')
+          console.error(error.message)
         }
 
         dispatch(login({
