@@ -8,16 +8,26 @@ const { admin } = require('../config/firebase')
  */
 export const checkUserVerification = async (req, res) => {
     console.log('*** Checking if user is verified ***')
+    const idToken = idToken = req.headers.authorization?.split('Bearer ')[1];
 
-    admin.auth().getUser(uid)
-        .then((userRecord) => {
-            const isVerified = userRecord.emailVerified;
-            
-            if (isVerified) {
-                next()
-            } else {
-                console.error('User is not verified.')
-                return res.status(400).json({ success: false, message: 'User is not verified'})
-            }
-        })
+    if (!idToken) {
+        return res.status(403).json({ success: false, message: 'No Token provided'});
+    }
+
+    try {
+        decodedToken = await admin.auth().verifyIdToken(idToken)
+        const uid = decodedToken.uid;
+
+        const userRecord = await admin.auth().getUser(uid);
+
+        if (!userRecord.emailVerified) {
+            return res.status(403).json({ success: false, message: 'Email not verified' });
+        }
+
+        req.user = userRecord;
+        next();
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ success: false, message: 'Error occurred while checking user verification'});
+    }
 }
