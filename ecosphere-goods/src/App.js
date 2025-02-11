@@ -25,9 +25,9 @@ import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
 
-// Backend functions
+// Api functions
 import { fetchDeliveryInfo, fetchProfileImage } from './api/userInfoHandling';
-import { fetchRole } from './api/userAuth';
+import { fetchRole, handleSetCustomUserClaims } from './api/userAuth';
 
 
 import TruckLoader from './components/animations/TruckLoader';
@@ -73,11 +73,11 @@ function App() {
           role = await fetchRole(userAuth.uid)
           deliveryInfo = await fetchDeliveryInfo(userAuth.uid)
           profileImage = await fetchProfileImage(userAuth.uid)
+          handleSetCustomUserClaims(userAuth.uid)
         } catch (error) {
           console.error('Error fetching UID')
         }
 
-        console.log('userauth', userAuth)
         dispatch(login({
           uid: userAuth.uid,
           email: userAuth.email,

@@ -2,6 +2,21 @@ const { admin } = require('../config/firebase') // Import admin
 const { db } = require('../config/firebase.js')
 const { getUserRole } = require('./userInfoController.js')
 
+const setCustomUserClaims = async (uid) => {
+    try {
+        const userDoc = await db.collection('admins').doc(uid).get()
+        const auth = admin.auth();
+
+        if (userDoc.exists) {
+            await auth.setCustomUserClaims(uid, { admin: true})
+        } else {
+            await auth.setCustomUserClaims(uid, { admin: false})
+        }
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
 const registerUser = async (req, res) => {
     const { email, password } = req.body;
 
@@ -74,4 +89,21 @@ const signInUser = async(req, res) => {
     }
 }
 
-module.exports = { registerUser, signInUser, fetchUserRole }
+const handleSetCustomUserClaims = async (req, res) => {
+    const { uid } = req.body
+
+    if (!uid) {
+        console.error('UID is undefined')
+        return res.status(400).json({ success: false, message:'UID is undefined'})
+    }
+
+    try {
+        setCustomUserClaims(uid)
+        console.log('Successfully set customer user claims')
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({ success: false, message: 'Error occurred while setting custom user claims'})
+    }
+}
+
+module.exports = { registerUser, signInUser, fetchUserRole, handleSetCustomUserClaims }

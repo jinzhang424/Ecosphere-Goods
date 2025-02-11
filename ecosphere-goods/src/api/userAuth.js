@@ -43,3 +43,13 @@ export const fetchRole = async (uid) => {
         throw new Error('Error occurred while fetching role')
     }
 }   
+
+export const handleSetCustomUserClaims = async (uid) => {
+    try {
+        await axios.post('/auth/set-custom-user-claims', {
+            uid
+        })
+    } catch (error) {
+        console.log(error.message)
+    }
+}
