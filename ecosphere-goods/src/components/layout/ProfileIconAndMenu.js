@@ -14,11 +14,12 @@ const ProfileIconAndMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
         if (auth.currentUser?.emailVerified) {
             setAnchorEl(event.currentTarget);
         } else {
-            navigate('/user-portal')
+            await sendEmailVerification(auth.currentUser)
+            navigate('/verification')
         }
     };
 
