@@ -1,6 +1,23 @@
 const { admin } = require('../config/firebase') // Import admin
 const { db } = require('../config/firebase.js')
 
+/**
+ * 
+ * Uses custom claims to check whether the user is an admin
+ * 
+ * @param {} uid The user id of the user 
+ * @returns A boolean value that of whether the user is an admin or not
+ */
+const isAdmin = async (uid) => {
+    console.log('*** Checking whether user is admin ***')
+    try {
+        const userRecord = await admin.auth().getUser(uid)
+        return userRecord.customClaims?.admin == true
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 const setCustomUserClaims = async (uid) => {
     try {
         const userDoc = await db.collection('admins').doc(uid).get()
@@ -88,4 +105,4 @@ const handleSetCustomUserClaims = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, signInUser, handleSetCustomUserClaims }
+module.exports = { registerUser, signInUser, handleSetCustomUserClaims, isAdmin }

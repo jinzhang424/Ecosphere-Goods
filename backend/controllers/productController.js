@@ -1,7 +1,7 @@
 const { db } = require('../config/firebase.js')
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Ensure you have your Stripe secret key in your environment variables
-const { isAdmin } = require('./userInfoController.js')
+const { isAdmin } = require('./authController.js')
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

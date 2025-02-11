@@ -1,15 +1,4 @@
-const { db, admin } = require("../config/firebase")
-
-const isAdmin = async (uid) => {
-    console.log('*** Checking whether user is admin ***')
-    try {
-        const userRecord = await admin.auth().getUser(uid)
-        
-        return userRecord.customClaims?.admin == true
-    } catch (error) {
-        console.log(error.message)
-    }
-}
+const { db } = require("../config/firebase")
 
 const setDeliveryInfo = async (req, res) => {
     console.log('*** Updating Delivery Info ***')
@@ -101,4 +90,4 @@ const fetchProfileImage = async (req, res) => {
     }
 }
 
-module.exports = { setDeliveryInfo, fetchDeliveryInfo, isAdmin, setProfileImage, fetchProfileImage }
+module.exports = { setDeliveryInfo, fetchDeliveryInfo, setProfileImage, fetchProfileImage }
