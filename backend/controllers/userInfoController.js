@@ -1,28 +1,14 @@
-const { db } = require("../config/firebase")
+const { db, admin } = require("../config/firebase")
 
-const isAdmin = async (userID) => {
-    const userRole = await getUserRole(userID)
-    return userRole == 'admin'
-}
-
-const getUserRole = async (uid) => {
-    if (!uid) {
-        throw new Error('UID is requried')
+const isAdmin = async (uid) => {
+    console.log('*** Checking whether user is admin ***')
+    try {
+        const userRecord = await admin.auth().getUser(uid)
+        
+        return userRecord.customClaims?.admin == true
+    } catch (error) {
+        console.log(error.message)
     }
-
-    const userDoc = await db.collection('customers').doc(uid).get()
-    if (!userDoc.exists) {
-        throw new Error('User not found')
-    }
-    const userData = userDoc.data()
-    
-    if (!userData.role) {
-        // Set default role if not present
-        userData.role = 'customer';
-        await db.collection('customers').doc(uid).update({ role: 'customer' });
-    }
-
-    return userData.role
 }
 
 const setDeliveryInfo = async (req, res) => {
@@ -115,4 +101,4 @@ const fetchProfileImage = async (req, res) => {
     }
 }
 
-module.exports = { setDeliveryInfo, fetchDeliveryInfo, isAdmin, getUserRole, setProfileImage, fetchProfileImage }
+module.exports = { setDeliveryInfo, fetchDeliveryInfo, isAdmin, setProfileImage, fetchProfileImage }

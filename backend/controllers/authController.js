@@ -1,6 +1,5 @@
 const { admin } = require('../config/firebase') // Import admin
 const { db } = require('../config/firebase.js')
-const { getUserRole } = require('./userInfoController.js')
 
 const setCustomUserClaims = async (uid) => {
     try {
@@ -53,22 +52,6 @@ const registerUser = async (req, res) => {
     }
 }
 
-const fetchUserRole = async (req, res) => {
-    const { uid } = req.query;
-
-    if (!uid) {
-        return res.status(400).json({ success: false, message: 'Missing UID'})
-    }
-
-    try  {
-        const role = await getUserRole(uid)
-        return res.status(200).json({ success: true, role: role })
-    } catch (error) {
-        console.error( error.message || 'Error fetching user role')
-        return res.status(500).json({ success: false, message: 'Error fetching user role'})
-    }
-}
-
 const signInUser = async(req, res) => {
     const { idToken } = req.body
 
@@ -80,10 +63,9 @@ const signInUser = async(req, res) => {
         const decodedToken = await admin.auth().verifyIdToken(idToken);
         const uid = decodedToken.uid
 
-        const role = getUserRole(uid)
         const customToken = await admin.auth().createCustomToken(uid)
 
-        return res.status(200).json({ success: true, token: customToken, role: role });
+        return res.status(200).json({ success: true, token: customToken });
     } catch (error) {
         console.error('Error signing in user:', error)
     }
@@ -106,4 +88,4 @@ const handleSetCustomUserClaims = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, signInUser, fetchUserRole, handleSetCustomUserClaims }
+module.exports = { registerUser, signInUser, handleSetCustomUserClaims }

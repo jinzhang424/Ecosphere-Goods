@@ -32,6 +32,7 @@ import { fetchRole, handleSetCustomUserClaims } from './api/userAuth';
 
 import TruckLoader from './components/animations/TruckLoader';
 import PaginationProvider from './components/utility/pagination/PaginationContext';
+import { getIdTokenResult } from 'firebase/auth';
 
 const router = createBrowserRouter([
   {
@@ -70,9 +71,18 @@ function App() {
         let profileImage
 
         try {
-          role = await fetchRole(userAuth.uid)
           deliveryInfo = await fetchDeliveryInfo(userAuth.uid)
           profileImage = await fetchProfileImage(userAuth.uid)
+
+          auth.currentUser.getIdTokenResult()
+            .then((idTokenResult) => {
+              if (!!idTokenResult.claims.admin) {
+                role = 'admin'
+              } else {
+                role = 'customer'
+              }
+            })
+
           handleSetCustomUserClaims(userAuth.uid)
         } catch (error) {
           console.error('Error fetching UID')
@@ -81,8 +91,8 @@ function App() {
         dispatch(login({
           uid: userAuth.uid,
           email: userAuth.email,
-          role: role,
           deliveryInfo: deliveryInfo,
+          role: role,
           profile_image: profileImage,
         }))
       } else {
