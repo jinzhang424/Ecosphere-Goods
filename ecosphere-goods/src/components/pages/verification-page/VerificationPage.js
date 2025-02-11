@@ -26,9 +26,9 @@ const VerificationPage = () => {
                     Check your inbox please!
                 </h1>
 
-                <body className='text-center text-dark-brown'>
+                <h2 className='text-center text-dark-brown'>
                     An email verification link has been sent to your email. Please click on it to verify your email before continuation.                
-                </body>
+                </h2>
 
                 <div className='w-2/3 mt-auto'>
                     <UncontainedButton label='Resend Verification Email' onClick={ handleResendVerification }/>
