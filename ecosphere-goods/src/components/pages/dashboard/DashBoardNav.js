@@ -7,6 +7,7 @@ import { BsBoxes } from "react-icons/bs";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../features/userSlice';
+import { auth } from '../../../firebase';
 
 const DashBoardNav = () => {
     const user = useSelector(selectUser)
@@ -17,7 +18,7 @@ const DashBoardNav = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) {
+        if (!user || !auth.currentUser.emailVerified) {
             navigate('/insufficient-permissions')
         }
     }, [user, navigate])
