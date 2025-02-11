@@ -32,14 +32,12 @@ export const registerUser = async (email, password, passwordMatch) => {
     }
 };
 
-export const fetchRole = async (uid) => {
+export const handleSetCustomUserClaims = async (uid) => {
     try {
-        const response = await axios.get('/auth/fetch-user-role', {
-            params: { uid }
+        await axios.post('/auth/set-custom-user-claims', {
+            uid
         })
-
-        return response.data.role
     } catch (error) {
-        throw new Error('Error occurred while fetching role')
+        console.log(error.message)
     }
-}   
+}

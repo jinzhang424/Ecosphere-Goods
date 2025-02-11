@@ -7,12 +7,9 @@ import { BsBoxes } from "react-icons/bs";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../features/userSlice';
-import { fetchRole } from '../../../api/userAuth'
-import { toast } from 'react-toastify';
 
 const DashBoardNav = () => {
     const user = useSelector(selectUser)
-    const [userRole, setUserRole] = useState('')
     const iconSize = 'w-10 h-10'
     const activeNavLinkStyle = 'bg-light-brown text-off-white rounded-lg p-1'
     const inactiveNavLinkStyle = 'hover:bg-light-brown hover:text-off-white rounded-lg transition-colors ease-in-out duration-500 p-1 text-dark-brown'
@@ -20,24 +17,12 @@ const DashBoardNav = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const fetchUserRole = async () => {
-            try {
-                if (!user) {
-                    navigate('/insufficient-permissions')
-                }
-    
-                const role = await fetchRole(user.uid)
-                setUserRole(role)
-            } catch(error) {
-                console.log(error.message)
-                toast.error('An error has occurred.')
-            }
+        if (!user) {
+            navigate('/insufficient-permissions')
         }
-
-        fetchUserRole()
     }, [user, navigate])
 
-    if (currentLocation.pathname.includes('admin') && userRole !== 'admin') {
+    if (currentLocation.pathname.includes('admin') && user.role !== 'admin') {
         navigate('/insufficient-permissions')
     }
 
@@ -52,8 +37,8 @@ const DashBoardNav = () => {
                     <GoChecklist className={ iconSize }/>
                 </NavLink>
 
-                { userRole === 'admin' && 
-                    <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to={ userRole === 'admin' ? '/dashboard/admin/product-catalog' : 'insufficient-permissions' }>
+                { user.role === 'admin' && 
+                    <NavLink className={({ isActive }) => isActive ? activeNavLinkStyle : inactiveNavLinkStyle } to={ user.role === 'admin' ? '/dashboard/admin/product-catalog' : 'insufficient-permissions' }>
                         <BsBoxes className={iconSize} />
                     </NavLink>
                 }

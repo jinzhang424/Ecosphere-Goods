@@ -1,5 +1,5 @@
 const { db } = require('../config/firebase.js')
-const { isAdmin } = require('./userInfoController.js')
+const { isAdmin } = require('./authController.js')
 
 const getAllOrders = async () => {
     try {
