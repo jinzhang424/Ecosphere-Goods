@@ -27,7 +27,7 @@ import { login, logout, selectUser } from './features/userSlice';
 
 // Api functions
 import { fetchDeliveryInfo, fetchProfileImage } from './api/userInfoHandling';
-import { fetchRole, handleSetCustomUserClaims } from './api/userAuth';
+import { fetchRole, generateCustomToken, handleSetCustomUserClaims } from './api/userAuth';
 
 
 import TruckLoader from './components/animations/TruckLoader';
@@ -68,19 +68,24 @@ function App() {
         let role
         let deliveryInfo
         let profileImage
+        let customToken
 
         try {
           role = await fetchRole(userAuth.uid)
           deliveryInfo = await fetchDeliveryInfo(userAuth.uid)
           profileImage = await fetchProfileImage(userAuth.uid)
+          customToken = await generateCustomToken(userAuth.uid)
           handleSetCustomUserClaims(userAuth.uid)
         } catch (error) {
           console.error('Error fetching UID')
         }
 
+        console.log('User auth EHREHREHHERHRHEH', )
+
         dispatch(login({
           uid: userAuth.uid,
           email: userAuth.email,
+          customToken: customToken,
           role: role,
           deliveryInfo: deliveryInfo,
           profile_image: profileImage,

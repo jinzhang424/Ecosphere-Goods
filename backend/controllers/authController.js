@@ -106,4 +106,23 @@ const handleSetCustomUserClaims = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, signInUser, fetchUserRole, handleSetCustomUserClaims }
+const generateCustomToken = async (req, res) => {
+    console.log('*** Generating custom token ***')
+    const { uid } = req.query
+
+    if (!uid) {
+        console.error('User id not found/undefined')
+        return res.status(400).json({ success: false, message: 'A user id is necessary' })
+    }
+
+    try {
+        await admin.auth().createCustomToken(uid).then((customToken) => {
+            return res.status(201).json({ success: true, customToken: customToken})
+        })
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({ success: false, message: 'Error occurred while getting custom token'})
+    }
+}
+
+module.exports = { registerUser, signInUser, fetchUserRole, handleSetCustomUserClaims, generateCustomToken }
