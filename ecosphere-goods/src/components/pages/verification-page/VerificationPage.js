@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 import UncontainedButton from '../../utility/general-buttons/UncontainedButton';
 import { toast, ToastContainer } from 'react-toastify';
@@ -6,10 +6,14 @@ import { sendEmailVerification } from 'firebase/auth';
 import { auth } from '../../../firebase';
 
 const VerificationPage = () => {
+    const [loading, setLoading] = useState(false)
+
     const handleResendVerification = async () => {
+        setLoading(true)
         await sendEmailVerification(auth.currentUser)
             .then(() => {
                 toast.success('A new email verification link has been sent!')
+                setLoading(false)
             })
             .catch((error) => {
                 console.error(error.message)
@@ -31,7 +35,7 @@ const VerificationPage = () => {
                 </h2>
 
                 <div className='w-2/3 mt-auto'>
-                    <UncontainedButton label='Resend Verification Email' onClick={ handleResendVerification }/>
+                    <UncontainedButton label='Resend Verification Email' onClick={ handleResendVerification } loading={loading}/>
                 </div>
             </section>
 
