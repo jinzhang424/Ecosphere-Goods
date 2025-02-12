@@ -76,14 +76,10 @@ function App() {
           profileImage = await fetchProfileImage(userAuth.uid)
           await handleSetCustomUserClaims(userAuth.uid)
 
-          await auth.currentUser.getIdTokenResult()
-            .then((idTokenResult) => {
-              if (!!idTokenResult.claims.admin) {
-                role = 'admin'
-              } else {
-                role = 'customer'
-              }
-            })
+          await auth.currentUser.getIdToken(true); 
+          const idTokenResult = await auth.currentUser.getIdTokenResult();
+          
+          role = idTokenResult.claims.admin ? 'admin' : 'customer';
         } catch (error) {
           console.error(error.message)
         }
