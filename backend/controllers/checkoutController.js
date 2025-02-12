@@ -1,17 +1,17 @@
 const { db } = require('../config/firebase.js')
-const { unsubscribe } = require('../routes/authRoutes.js')
 
 const fetchCheckoutSessionID = async (req, res) => {
     console.log('*** Fetching session ID for checkout ***')
-    const { userID, cartItemsIDs, successUrl, cancelUrl, subtotal } = req.query
+    const { cartItemsIDs, successUrl, cancelUrl, subtotal } = req.query
+    const uid = req.user?.uid
 
-    if (!userID || !cartItemsIDs || !successUrl || !cancelUrl || !subtotal) {
-        console.log('Missing user id or cart items')
-        res.status(400).json({ success: false, message: 'Missing parameters'})
+    if (!uid || !cartItemsIDs || !successUrl || !cancelUrl || !subtotal) {
+        console.log('Missing parameters')
+        return res.status(400).json({ success: false, message: 'Missing parameters'})
     }
 
     try {
-        const customerRef = db.collection('customers').doc(userID)
+        const customerRef = db.collection('customers').doc(uid)
         const orderRef = customerRef.collection('checkout_sessions')
         
         const lineItems = []
