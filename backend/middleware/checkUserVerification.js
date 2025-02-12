@@ -6,7 +6,7 @@ const { admin } = require('../config/firebase')
  * 
  * @param {*} uid 
  */
-export const checkUserVerification = async (req, res) => {
+const checkUserVerification = async (req, res) => {
     console.log('*** Checking if user is verified ***')
     const idToken = idToken = req.headers.authorization?.split('Bearer ')[1];
 
@@ -31,3 +31,5 @@ export const checkUserVerification = async (req, res) => {
         return res.status(500).json({ success: false, message: 'Error occurred while checking user verification'});
     }
 }
+
+module.exports = checkUserVerification 
