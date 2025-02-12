@@ -30,9 +30,9 @@ const getAllOrders = async () => {
     }
 }
 
-const getUserOrders = async (userID) => {
+const getUserOrders = async (uid) => {
     try {
-        const customerDoc = db.collection('customers').doc(userID)
+        const customerDoc = db.collection('customers').doc(uid)
         const customerSnap = await customerDoc.get()
         const customerData = customerSnap.data()
         
@@ -59,21 +59,21 @@ const getUserOrders = async (userID) => {
 }
 
 const fetchOrders = async (req, res) => {
-    const { userID } = req.query
+    const uid = req.user?.uid
 
-    if (!userID) {
+    if (!uid) {
         res.status(400).json({ success: false, message: 'Fetching Orders. User ID was missing.'})
     }
 
     let orders
     
     try {
-        if (await isAdmin(userID)) {
+        if (await isAdmin(uid)) {
             console.log('Getting admin orders')
             orders = await getAllOrders()
         } else {
             console.log('Getting user orders')
-            orders = await getUserOrders(userID)
+            orders = await getUserOrders(uid)
         }
 
         return res.status(201).json({ success: false, data: orders})
@@ -85,7 +85,8 @@ const fetchOrders = async (req, res) => {
 
 const fetchOrderByID = async (req, res) => {
     console.log('Fetching Order By ID')
-    const { userID, orderID } = req.params
+    const { orderID } = req.params
+    const uid = req.user?.uid
     
     if (!orderID) {
         console.log('Order ID is undefined')
@@ -93,7 +94,7 @@ const fetchOrderByID = async (req, res) => {
     }
 
     try {
-        const customerDoc = db.collection('customers').doc(userID)
+        const customerDoc = db.collection('customers').doc(uid)
         const customerSnap = await customerDoc.get()
         const orderSnap = await customerSnap.ref.collection('checkout_sessions').doc(orderID).get()
 

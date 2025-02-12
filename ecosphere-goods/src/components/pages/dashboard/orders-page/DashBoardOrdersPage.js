@@ -8,6 +8,7 @@ import { OrderContext } from './OrderContext'
 import TruckComponentLoader from '../../../animations/TruckComponentLoader'
 import PaginationButtons from '../../../utility/pagination/PaginationButtons'
 import { PaginationContext } from '../../../utility/pagination/PaginationContext'
+import { auth } from '../../../../firebase'
 
 const DashBoardOrdersPage = () => {
   const { orders, setOrders } = useContext(OrderContext)
@@ -20,9 +21,12 @@ const DashBoardOrdersPage = () => {
     const getOrders = async () => {
       setLoading(true)
       try {
-        const orders = await fetchOrders(user.uid)
+        const idToken = await auth.currentUser.getIdToken()
+        const orders = await fetchOrders(idToken)
+
         setOrders(orders)
         setLoading(false)
+        
       } catch (error) {
         console.log(error.message)
         toast.error('Error occurred while fetching products.')

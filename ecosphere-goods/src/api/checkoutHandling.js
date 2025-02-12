@@ -15,7 +15,7 @@ export const fetchCheckoutSessionID = async (idToken, cartItems, successUrl, can
             subtotal
         },
         headers: {
-            authorization: `Bearer ${idToken}`,
+            Authorization: `Bearer ${idToken}`,
         },
     })
 
