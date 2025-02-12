@@ -12,6 +12,7 @@ const checkUserVerification = async (req, res, next) => {
     const idToken = req.headers.authorization?.split('Bearer ')[1];
 
     if (!idToken) {
+        console.error('No Token provided')
         return res.status(403).json({ success: false, message: 'No Token provided'});
     }
 
