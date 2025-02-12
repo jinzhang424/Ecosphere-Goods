@@ -1,4 +1,5 @@
 const { admin } = require('../config/firebase')
+const express = require('express');
 
 /**
  * 
@@ -6,9 +7,9 @@ const { admin } = require('../config/firebase')
  * 
  * @param {*} uid 
  */
-const checkUserVerification = async (req, res) => {
+const checkUserVerification = async (req, res, next) => {
     console.log('*** Checking if user is verified ***')
-    const idToken = idToken = req.headers.authorization?.split('Bearer ')[1];
+    const idToken = req.headers.authorization?.split('Bearer ')[1];
 
     if (!idToken) {
         return res.status(403).json({ success: false, message: 'No Token provided'});
