@@ -36,7 +36,7 @@ const ProfileIconAndMenu = () => {
         if (user) {
             setAnchorEl(event.currentTarget);
         } else {
-            sendToVerification()
+            navigate('/user-portal')
         }
     };
 
