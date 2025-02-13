@@ -4,32 +4,58 @@ import Menu from '@mui/material/Menu';
 import { MdAccountCircle } from "react-icons/md";
 import ProfileMenuItem from './ProfileMenuItem';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, selectUser } from '../../features/userSlice';
 import { auth } from '../../firebase';
 import { sendEmailVerification } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
 const ProfileIconAndMenu = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const user = useSelector(selectUser)
 
+    /**
+     * Sends users a verification email and to the verification page 
+     */
+    const sendToVerification = async () => {
+        await sendEmailVerification(auth.currentUser)
+        .then(() => navigate('/verification'))
+        .catch((error) => {
+            toast.error(error.message)
+        })
+    }
+    
+    /**
+     * Opens up the drop down menu when click or sends user to the verification page depending on whether they're logged in or not
+     * @param {*} event 
+     */
     const handleClick = async (event) => {
-        if (auth.currentUser?.emailVerified) {
+        if (user) {
             setAnchorEl(event.currentTarget);
         } else {
-            await sendEmailVerification(auth.currentUser)
-            navigate('/verification')
+            sendToVerification()
         }
     };
 
+    /**
+     * Closes the dropdown menu selector
+     */
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-    const navigateToDashboard = () => {
-        navigate('/dashboard/home')
+    /**
+     * Sends the user to their dashboard or the verification page depending on whether they're verified or not
+     */
+    const navigateToDashboard = async () => {
+        if (auth.currentUser?.emailVerified) {
+            navigate('/dashboard/home')
+        } else {
+            sendToVerification()
+        }
     }
 
     const logoutClick = () => {
@@ -37,6 +63,7 @@ const ProfileIconAndMenu = () => {
         navigate('/user-portal')
     }
 
+    /** Listens for scrolling and closes the drop down menu upon scrolling */
     useEffect(() => {
         const handleScroll = () => {
             handleClose()
