@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 
-const ContainedBrownButton = ({ clickAction, label }) => {
+const ContainedBrownButton = ({ clickAction, children }) => {
   return (
     <Button 
         onClick={clickAction}
@@ -10,7 +10,7 @@ const ContainedBrownButton = ({ clickAction, label }) => {
             backgroundColor: '#362D2D'
         }}
     >
-        {label}
+        {children}
     </Button>
   )
 }

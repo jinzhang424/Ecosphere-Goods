@@ -86,8 +86,8 @@ const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
                             </div>
 
                             <div className='flex font-header justify-between'>
-                                <DialogButton label={'Cancel'} onClick={closeDialog}/>
-                                <DialogButton label={'Submit'} type='submit' loading={loading}/>
+                                <DialogButton onClick={closeDialog}>Cancel</DialogButton>
+                                <DialogButton type='submit' loading={loading}>Submit</DialogButton>
                             </div>
                         </form>
                     </dialog>

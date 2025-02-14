@@ -71,7 +71,11 @@ const RegisterEmail = ({ backToSignIn }) => {
           <p className={`${(!passwordMatch && confirmPassword !== '') ? 'opacity-100' : 'opacity-0'} text-error`}>* Password does not match!</p>
         </div>
       </Box>
-      <div className='flex justify-center w-4/6'><UncontainedButton label='Sign Up' onClick={ onRegister } loading={loading}/></div>
+      <div className='flex justify-center w-4/6'>
+        <UncontainedButton onClick={ onRegister } loading={loading}>
+          Sign Up
+        </UncontainedButton>
+      </div>
     </div>
   )
 }

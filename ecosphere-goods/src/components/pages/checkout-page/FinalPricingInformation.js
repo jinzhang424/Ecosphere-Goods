@@ -79,11 +79,12 @@ const FinalPricingInformation = () => {
                     </div>
 
                     <CheckoutButton  
-                        label={'CHECKOUT'}
                         className='p-3 pl-6 pr-6 rounded-full bg-dark-brown text-off-white tracking-3px hover:scale-105 transition-transform ease-in-out duration-300'
                         loadCheckout={loadCheckout}
                         loading={loading}
-                    />
+                    >
+                        CHECKOUT
+                    </CheckoutButton>
                 </div>
             </div>
 
