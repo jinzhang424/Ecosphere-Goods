@@ -6,7 +6,7 @@ const BackToBrowsingButton = () => {
     const navigate = useNavigate()
 
     const handleBackClick = () => {
-        navigate(-1)
+        navigate('/products')
     }
 
     return (
