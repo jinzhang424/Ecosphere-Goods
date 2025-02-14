@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../../../../features/userSlice';
 import { toast } from "react-toastify";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
-import { storage } from "../../../../firebase";
+import { auth, storage } from "../../../../firebase";
 
 const ProductCatalogContext = createContext();
 
@@ -32,9 +32,11 @@ const ProductCatalogProvider = ({ children }) => {
         try {
             const storageRef = ref(storage, `images/${Date.now()}`);
             await uploadString(storageRef, image, 'data_url');
+            
             const imageUrl = await getDownloadURL(storageRef);
+            const idToken = await auth.currentUser.getIdToken();
         
-            const productId = await addNewProduct(name, price, subcategory, imageUrl, category, user.uid)
+            const productId = await addNewProduct(name, price, subcategory, imageUrl, category, idToken)
             await addProductToProducts(productId)
 
             toast.success('Successfully added new product.')
@@ -53,8 +55,10 @@ const ProductCatalogProvider = ({ children }) => {
                 category: category,
                 subcategory: subcategory
             }
+
+            const idToken = await auth.currentUser.getIdToken();
         
-            await updateProduct(product, IDs, user.uid)
+            await updateProduct(product, IDs, idToken)
             
             removeProductFromProducts(IDs.productId)
             await addProductToProducts(IDs.productId)
@@ -71,7 +75,8 @@ const ProductCatalogProvider = ({ children }) => {
         event.preventDefault();
 
         try {
-            await deleteProduct(productId, user.uid)
+            const idToken = await auth.currentUser.getIdToken()
+            await deleteProduct(productId, idToken)
             removeProductFromProducts(productId)
 
             toast.success('Successfully deleted product.')

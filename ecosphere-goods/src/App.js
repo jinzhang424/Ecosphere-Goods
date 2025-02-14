@@ -9,6 +9,7 @@ import UserPortalPage from './components/pages/user-portal-page/UserPortalPage'
 import ShoppingCartPage from './components/pages/checkout-page/CheckoutPage';
 import NotFoundPage from './components/pages/error-pages/NotFoundPage';
 import InsufficientPermissionsPage from './components/pages/error-pages/InsufficientPermissionsPage';
+import VerificationPage from './components/pages/verification-page/VerificationPage';
 
 // Dashboard
 import DashBoardOrdersPage from './components/pages/dashboard/orders-page/DashBoardOrdersPage'
@@ -55,6 +56,7 @@ const router = createBrowserRouter([
   },
   { path: '/user-portal', element: <UserPortalPage /> },
   { path: 'shopping-cart', element: <ShoppingCartPage /> },
+  { path: 'verification', element: <VerificationPage/>}
 ]);
 
 function App() {
@@ -74,14 +76,10 @@ function App() {
           profileImage = await fetchProfileImage(userAuth.uid)
           await handleSetCustomUserClaims(userAuth.uid)
 
-          await auth.currentUser.getIdTokenResult()
-            .then((idTokenResult) => {
-              if (!!idTokenResult.claims.admin) {
-                role = 'admin'
-              } else {
-                role = 'customer'
-              }
-            })
+          await auth.currentUser.getIdToken(true); 
+          const idTokenResult = await auth.currentUser.getIdTokenResult();
+          
+          role = idTokenResult.claims.admin ? 'admin' : 'customer';
         } catch (error) {
           console.error(error.message)
         }

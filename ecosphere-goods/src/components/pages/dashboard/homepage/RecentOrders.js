@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { selectUser } from '../../../../features/userSlice'
 import RecentOrderItem from './RecentOrderItem'
 import TruckComponentLoader from '../../../animations/TruckComponentLoader'
+import { auth } from '../../../../firebase'
 
 const RecentOrders = () => {
     const user = useSelector(selectUser)
@@ -14,7 +15,9 @@ const RecentOrders = () => {
         const fetchOrder = async () => {
             setLoading(true)
             try {
-                const orders = await fetchOrders(user.uid)
+                const idToken = await auth.currentUser.getIdToken()
+
+                const orders = await fetchOrders(idToken)
                 const slicedOrders = orders.slice(0, 2)
                 setOrders(slicedOrders)
             } catch (error) {

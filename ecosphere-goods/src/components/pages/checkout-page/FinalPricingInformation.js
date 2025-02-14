@@ -8,6 +8,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { fetchCheckoutSessionID } from '../../../api/checkoutHandling'
 import DeliveryAddressDialog from './DeliveryAddressDialog'
 import CheckoutButton from '../../utility/general-buttons/CheckoutButton'
+import { auth } from '../../../firebase'
 
 const FinalPricingInformation = () => {
     const subTotal = useSelector(selectCartSubtotal);
@@ -39,7 +40,9 @@ const FinalPricingInformation = () => {
         try {
             const successUrl = 'http://localhost:3000/'
             const cancelUrl = 'http://localhost:3000/shopping-cart'
-            const sessionID = await  fetchCheckoutSessionID(user.uid, cartItems, successUrl, cancelUrl, subTotal)
+            const idToken = await auth.currentUser?.getIdToken();
+
+            const sessionID = await  fetchCheckoutSessionID(idToken, cartItems, successUrl, cancelUrl, subTotal)
             
             const stripe = await loadStripe("pk_test_51QbDQdE7piTFR3g09Nfa4RMahLOWE8dvS8WOJh3aJ4bfTXm2ybKtoWlC9FPu5QFcbF9ki7v0iSI9ndHZb38XDLSU00lVgKJ8hI")
             stripe.redirectToCheckout({ sessionId: sessionID })

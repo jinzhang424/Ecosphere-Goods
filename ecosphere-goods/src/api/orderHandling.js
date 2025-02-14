@@ -1,18 +1,34 @@
 import axios from "axios"
 
-export const fetchOrders = async (userID) => {
-    const response = await axios.get('/order/fetch-orders', {
-        params: {
-            userID
-        }
-    })
+export const fetchOrders = async (idToken) => {
+    try {
+        const response = await axios.get('/order/fetch-orders', {
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            }
+        })
 
-    return response.data.data
+        return response.data.data
+
+    } catch (error) {
+        console.error(error.message)
+        throw new Error('Error while fetching orders')
+    }
 }
 
-export const fetchOrderByID = async (orderID, userID) => {
+export const fetchOrderByID = async (orderID, idToken) => {
 
-    const response = await axios.get(`/order/${userID}/${orderID}`)
+    try {
+        const response = await axios.get(`/order/${orderID}`, {
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            }
+        })
 
-    return response.data.data
+        return response.data.data
+
+    } catch (error) {
+        console.error(error.message)
+        throw new Error('Error while fetching order id')
+    }
 }

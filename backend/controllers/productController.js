@@ -113,13 +113,14 @@ const fetchProducts = async (req, res) => {
 }
 
 const addNewProduct = async (req, res) => {
-    const { name, price, subcategory, category, image, userID } = req.body;
+    const { name, price, subcategory, category, image } = req.body;
+    const uid = req.user?.uid
 
-    if (!name || !price || !subcategory || !image || !category || !userID) {
+    if (!name || !price || !subcategory || !image || !category || !uid) {
         res.status(400).json({ success: false, message: 'All fields are required.'})
     }
 
-    if (!isAdmin(userID)) {
+    if (!isAdmin(uid)) {
         res.status(400).json({ success: false, message: 'Insufficient Permission'})
     }
 
@@ -163,13 +164,14 @@ const deletePrices = async (productId) => {
 }
 
 const deleteProduct = async (req, res) => {
-    const { productId, userID } = req.body
+    const { productId } = req.body
+    const uid = req.user?.uid
 
-    if (!productId || !userID) {
+    if (!productId || !uid) {
         return res.status(400).json({ success: false, message: 'A product ID is required'})
     }
 
-    if (!isAdmin(userID)) {
+    if (!isAdmin(uid)) {
         res.status(400).json({ success: false, message: 'Insufficient Permission'})
     }
 
@@ -185,9 +187,10 @@ const deleteProduct = async (req, res) => {
 } 
 
 const updateProduct = async (req, res) => {
-    const { name, imgUrl, price, category, subcategory, productId, priceId, userID } = req.body 
+    const { name, imgUrl, price, category, subcategory, productId, priceId } = req.body 
+    const uid = req.user?.uid
 
-    if (!isAdmin(userID)) {
+    if (!isAdmin(uid)) {
         res.status(400).json({ success: false, message: 'Insufficient Permission'})
     }
 

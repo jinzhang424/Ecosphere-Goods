@@ -18,7 +18,7 @@ export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost =
     }
 }
 
-export const addNewProduct = async (name, price, subcategory, image, category, userID) => {
+export const addNewProduct = async (name, price, subcategory, image, category, idToken) => {
     try {
         const response = await axios.post('/products/add-new-product', {
             name,
@@ -26,7 +26,11 @@ export const addNewProduct = async (name, price, subcategory, image, category, u
             subcategory,
             image,
             category,
-            userID
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            }
         })
 
         return response.data.newProductId
@@ -35,17 +39,20 @@ export const addNewProduct = async (name, price, subcategory, image, category, u
     }
 }
 
-export const deleteProduct = async(productId, userID) => {
+export const deleteProduct = async(productId, idToken) => {
     try {
         await axios.delete('/products/delete-product', { 
-            data: { productId, userID }
+            data: { productId },
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            }
         })
     } catch (error) {
         throw new Error(error.message || 'Error while adding new product')
     }
 }
 
-export const updateProduct = async(product, IDs, userID) => {
+export const updateProduct = async(product, IDs, idToken) => {
 
     try {
         await axios.put('/products/update-product', {
@@ -56,7 +63,11 @@ export const updateProduct = async(product, IDs, userID) => {
             price: product.price,
             category: product.category,
             subcategory: product.subcategory,
-            userID
+        }, 
+        {
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            }
         })
     } catch (error) {
         throw new Error(error.message || 'Error while updating product')
