@@ -1,12 +1,16 @@
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
+const { isAdmin } = require('./authController')
 
 /**
  * This controller controls the general store data such as revenue, user traffic etc.
  */
 
 const fetchMonthlyRevenueData = async (req, res) => {
-    console.log('*** Fetching monthly revenue data ***')
+    if (!isAdmin(req.user?.uid)) {
+        return res.status(400).json({ successs: false, message: 'Insufficient permissions.'})
+    }
+    
     try {
         const today = new Date();
         const past30Days = new Date();

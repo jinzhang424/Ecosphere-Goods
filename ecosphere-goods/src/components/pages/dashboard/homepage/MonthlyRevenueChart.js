@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { fetchMonthlyRevenueData } from '../../../../api/storeDataHandling'
 import { Line } from 'react-chartjs-2'
 import { Chart as ChartJS } from "chart.js/auto";
+import { auth } from '../../../../firebase';
 
 const MonthlyRevenueChart = () => {
     const [loading, setLoading] = useState(true)
@@ -13,7 +14,9 @@ const MonthlyRevenueChart = () => {
     useEffect(() => {
         const getMonhtlyRevenue = async () => {
             try {
-                const data = await fetchMonthlyRevenueData()
+                const idToken = await auth.currentUser.getIdToken()
+                console.log(idToken)
+                const data = await fetchMonthlyRevenueData(idToken)
                 
                 const dateLabels = data.map((entry) => entry.date)
                 const revenueData = data.map((entry) => entry.revenue)
