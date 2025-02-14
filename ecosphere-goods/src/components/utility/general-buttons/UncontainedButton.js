@@ -1,7 +1,7 @@
 import React from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 
-const UncontainedButton = ({ label = '', onClick = () => {}, loading = false, bgColor='dark-brown', color='dark-brown', transitionColor='off-white' }) => {
+const UncontainedButton = ({ children, onClick = () => {}, loading = false, bgColor='dark-brown', color='dark-brown', transitionColor='off-white' }) => {
 
     return (
         <button 
@@ -10,7 +10,7 @@ const UncontainedButton = ({ label = '', onClick = () => {}, loading = false, bg
 
         >
             <div className='flex justify-center h-full items-center'>
-                <span className={`${loading ? 'opacity-0' : ''}`}>{label}</span>
+                <span className={`${loading ? 'opacity-0' : ''}`}>{children}</span>
                 <CircularProgress color='#362D2D' size={24} className={`absolute ${loading ? '' : 'opacity-0'}`} thickness={4}/>
             </div>
         </button>

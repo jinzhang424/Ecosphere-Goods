@@ -62,7 +62,7 @@ const SignInPanel = () => {
     
     return (
         <div className='w-full space-y-8 flex-shrink-0 p-32'>
-            <BackToBrowsingButton/>
+            <BackToBrowsingButton>Back To Browsing</BackToBrowsingButton>
             <h1 className='text-header font-LHeader'>Sign In</h1>
             <Box
                 component="form"
@@ -81,7 +81,13 @@ const SignInPanel = () => {
                     <p>Remember Me</p>
                     <p className='font-header cursor-pointer hover:underline'>Forgot Password?</p>
                 </div>
-                <div className='w-4/6'><UncontainedButton onClick={ onSignIn } label='Login' loading={loading}/></div>
+
+                {/** Login Button */}
+                <div className='w-4/6'>
+                    <UncontainedButton onClick={ onSignIn } loading={loading}>
+                        Login
+                    </UncontainedButton>
+                </div>
             </Box>
 
             <div className='flex items-center opacity-40'>
@@ -91,12 +97,14 @@ const SignInPanel = () => {
             </div>
 
             <div className='flex justify-center w-full'>
-                <button 
-                    className='bg-dark-brown bg-opacity-0 border-3 border-dark-brown text-dark-brown p-3 pl-6 pr-6 rounded-full hover:text-off-white hover:bg-opacity-100 transition-all ease-in-out duration-300'
-                    onClick={signInWithGoogle}
-                >
-                        <FaGoogle/>
-                </button>
+                <div className='w-1/6'>
+                    <UncontainedButton 
+                        className='bg-dark-brown bg-opacity-0 border-3 border-dark-brown text-dark-brown p-3 pl-6 pr-6 rounded-full hover:text-off-white hover:bg-opacity-100 transition-all ease-in-out duration-300'
+                        onClick={signInWithGoogle}
+                    >
+                            <FaGoogle/>
+                    </UncontainedButton>
+                </div>
             </div>
         </div>
     )
