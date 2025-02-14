@@ -1,11 +1,12 @@
 import React from 'react'
+import MonthlyRevenueChart from './MonthlyRevenueChart'
 
 const AdminDashBoard = () => {
   return (
     <div className='w-full h-full'>
         <div className='flex space-x-8 h-1/2 pb-4'>
             <section className='bg-off-white w-1/2 h-full rounded-3xl p-8 flex-grow'>
-                Profit (TBC)
+                <MonthlyRevenueChart/>
             </section>
 
             <section className='bg-off-white w-1/2 h-full rounded-3xl p-8 flex-grow'>
