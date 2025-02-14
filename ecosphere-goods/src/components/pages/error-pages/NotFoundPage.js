@@ -16,7 +16,7 @@ const NotFoundPage = () => {
             <p className='text-xl w-1/2 text-center'>We can't seem to find the page you're looking for. Try going back to the previous page or contacting us for more information</p>
             
             <div className='w-1/6'>
-                <UncontainedButton onClick={handleGoBack} label='Go Back'/>
+                <UncontainedButton onClick={handleGoBack}>Go Back</UncontainedButton>
             </div>
         </div>
     )

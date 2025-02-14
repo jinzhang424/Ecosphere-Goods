@@ -35,7 +35,7 @@ const VerificationPage = () => {
                 </h2>
 
                 <div className='w-2/3 mt-auto'>
-                    <UncontainedButton label='Resend Verification Email' onClick={ handleResendVerification } loading={loading}/>
+                    <UncontainedButton onClick={ handleResendVerification } loading={loading}>Resend Verification Email</UncontainedButton>
                 </div>
             </section>
 
