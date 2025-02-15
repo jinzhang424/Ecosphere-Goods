@@ -1,5 +1,6 @@
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
+const { db, admin } = require('../config/firebase.js')
 const { isAdmin } = require('./authController')
 
 /**
@@ -8,9 +9,10 @@ const { isAdmin } = require('./authController')
 
 const fetchMonthlyRevenueData = async (req, res) => {
     if (!isAdmin(req.user?.uid)) {
+        console.log('Insufficient permissions.')
         return res.status(400).json({ successs: false, message: 'Insufficient permissions.'})
     }
-    
+
     try {
         const today = new Date();
         const past30Days = new Date();
@@ -57,4 +59,41 @@ const fetchMonthlyRevenueData = async (req, res) => {
     }
 }
 
-module.exports = { fetchMonthlyRevenueData }
+/**
+ * 
+ * Fetches data for the sales of each category in the past 12 months
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+const fetchCategoricalSalesData = async (req, res) => {
+    if (!isAdmin(req.user?.uid)) {
+        console.log('Insufficient permissions.')
+        return res.status(400).json({ successs: false, message: 'Insufficient permissions.'})
+    }
+
+    console.log('*** Fetching categorical sales data ***')
+    try {
+        const categoricalSalesDataRef = db.collection('categorical_sales_data')
+        const categoricalSalesDocs = await categoricalSalesDataRef.orderBy(admin.firestore.FieldPath.documentId(), "desc").limit(12).get()
+        const categoryDocs = await db.collection('product_categories').get()
+
+        const categoricalSalesDocsReversed = categoricalSalesDocs.docs.reverse()
+        
+
+        const categories = categoryDocs.docs.map((doc) => doc.id)
+        const dates = categoricalSalesDocsReversed.map((doc) => doc.id)
+
+        const categorySales = categories.map((category) => ({
+            category: category,
+            sales: categoricalSalesDocsReversed.map((doc) => doc.categoryToSales?.get(category) || 0)
+        }))
+
+        return res.status(201).json({ success: true, data: {categorySalesData: categorySales, dates: dates} })
+    } catch (error) {
+        console.error(error.message)
+        return res.status(500).json({ success: false, message: 'Error occurred while fetching categorical sales data'})
+    }
+}
+
+module.exports = { fetchMonthlyRevenueData, fetchCategoricalSalesData }
