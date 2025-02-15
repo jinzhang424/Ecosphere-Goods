@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { fetchMonthlyRevenueData } from '../../../../../api/storeDataHandling'
-import { Line } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 import { Chart as ChartJS } from "chart.js/auto";
 import { auth } from '../../../../../firebase';
 
@@ -41,7 +41,7 @@ const MonthlyRevenueChart = () => {
     return (
         <div className='flex flex-col gap-3 h-full'>
             <h1 className='text-dark-brown font-header text-lg'>Revenue of the past 30 Days</h1>
-            {!loading && <Line data={chartData}/>}
+            {!loading && <Bar data={chartData}/>}
         </div>
     )
 }
