@@ -13,3 +13,17 @@ export const fetchMonthlyRevenueData = async (idToken) => {
         throw new Error(error.message)
     }
 }
+
+export const fetchCategoricalSalesData = async (idToken) => {
+    try {
+        const response = await axios.get('/store-data/categorical-sales', {
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            }
+        })
+        return response.data.data
+    } catch (error) {
+        console.error(error.message)
+        throw new Error(error.message)
+    }
+}

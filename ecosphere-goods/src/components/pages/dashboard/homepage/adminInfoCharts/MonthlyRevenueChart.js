@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { fetchMonthlyRevenueData } from '../../../../api/storeDataHandling'
+import { fetchMonthlyRevenueData } from '../../../../../api/storeDataHandling'
 import { Line } from 'react-chartjs-2'
 import { Chart as ChartJS } from "chart.js/auto";
-import { auth } from '../../../../firebase';
+import { auth } from '../../../../../firebase';
 
 const MonthlyRevenueChart = () => {
     const [loading, setLoading] = useState(true)
@@ -15,7 +15,6 @@ const MonthlyRevenueChart = () => {
         const getMonhtlyRevenue = async () => {
             try {
                 const idToken = await auth.currentUser.getIdToken()
-                console.log(idToken)
                 const data = await fetchMonthlyRevenueData(idToken)
                 
                 const dateLabels = data.map((entry) => entry.date)
@@ -38,8 +37,6 @@ const MonthlyRevenueChart = () => {
 
         getMonhtlyRevenue()
     }, [])
-
-    console.log('Final data', chartData)
 
     return (
         <div className='flex flex-col gap-3 h-full'>

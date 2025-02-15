@@ -1,5 +1,6 @@
 import React from 'react'
-import MonthlyRevenueChart from './MonthlyRevenueChart'
+import MonthlyRevenueChart from './adminInfoCharts/MonthlyRevenueChart'
+import CategoricalSalesChart from './adminInfoCharts/CategoricalSalesChart'
 
 const AdminDashBoard = () => {
   return (
@@ -10,7 +11,7 @@ const AdminDashBoard = () => {
             </section>
 
             <section className='bg-off-white w-1/2 h-full rounded-3xl p-8 flex-grow'>
-                Product Category Sales Past 12 months (Doughnut)
+                <CategoricalSalesChart/>
             </section>
         </div>
 
