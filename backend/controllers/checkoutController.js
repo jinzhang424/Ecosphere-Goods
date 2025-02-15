@@ -1,4 +1,6 @@
 const { db } = require('../config/firebase.js')
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const fetchCheckoutSessionID = async (req, res) => {
     console.log('*** Fetching session ID for checkout ***')
@@ -34,6 +36,18 @@ const fetchCheckoutSessionID = async (req, res) => {
             products.push({id: item.productId, quantity: parseInt(item.quantity), ...productData})
         }
 
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: lineItems,
+            mode: 'payment',
+            success_url: successUrl,
+            cancel_url: cancelUrl,
+            metadata: {
+                uid: uid,
+                products: JSON.stringify(products.map((product) => ({ id: product.id, quantity: product.quantity}))),
+            } 
+        })
+
         const docRef = await orderRef.add({
             mode: 'payment',
             products: products,
@@ -42,24 +56,10 @@ const fetchCheckoutSessionID = async (req, res) => {
             cancel_url: cancelUrl,
             order_status: 'Cancelled',
             total_price: parseInt(subtotal) + 500,
+            sessionId: session.id
         })
 
-        const unsubscribe = docRef.onSnapshot(async (snap) => {
-            const { error, sessionId } = snap.data()
-
-            if (error) {
-                console.error('Error occurred while generating session id:', error.message)
-                return res.status(500).json({ success: false, message:'Encountered error while generating session id'})
-            }
-
-            if (sessionId) {
-                await docRef.update({
-                    order_status: 'Pending'  
-                })
-                unsubscribe()
-                return res.status(201).json({ success: true, data: sessionId})
-            }
-        })
+        return res.status(201).json({ success: true, data: session.id})
 
     } catch (error) {
         console.log(error.message)
