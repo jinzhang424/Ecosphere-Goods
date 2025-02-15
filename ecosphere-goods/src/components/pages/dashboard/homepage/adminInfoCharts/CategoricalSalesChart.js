@@ -30,8 +30,11 @@ const CategoricalSalesChart = () => {
     }, [])
 
     return (
-        <div className='w-full h-full'>
-            <Line data={formattedCategoricalSalesData}/>
+        <div className='flex flex-col gap-3'>
+            <h1 className='text-dark-brown font-header text-lg'>
+                Categorical Sales data of path 12 months
+            </h1>
+            <Line data={formattedCategoricalSalesData} />
         </div>
     )
 }
