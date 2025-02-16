@@ -44,11 +44,15 @@ const fetchCheckoutSessionID = async (req, res) => {
             cancel_url: cancelUrl,
             metadata: {
                 uid: uid,
-                products: JSON.stringify(products.map((product) => ({ id: product.id, quantity: product.quantity}))),
+                products: JSON.stringify(products.map((product) => ({ 
+                    id: product.id, 
+                    quantity: product.quantity, 
+                    category: product.metadata.itemCategory 
+                }))),
             } 
         })
 
-        const docRef = await orderRef.add({
+        await orderRef.add({
             mode: 'payment',
             products: products,
             line_items: lineItems,
