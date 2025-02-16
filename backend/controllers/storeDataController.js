@@ -80,13 +80,19 @@ const fetchCategoricalSalesData = async (req, res) => {
 
         const categoricalSalesDocsReversed = categoricalSalesDocs.docs.reverse()
         
-
         const categories = categoryDocs.docs.map((doc) => doc.id)
         const dates = categoricalSalesDocsReversed.map((doc) => doc.id)
 
         const categorySales = categories.map((category) => ({
             category: category,
-            sales: categoricalSalesDocsReversed.map((doc) => doc.categoryToSales?.get(category) || 0)
+            sales: categoricalSalesDocsReversed.map((doc) => {
+                const categoryToSales = doc.data().categoryToSales
+                if (categoryToSales) {
+                    return categoryToSales[category] === undefined ? 0 : categoryToSales[category]
+                } else {
+                    return 0
+                }
+            })
         }))
 
         return res.status(201).json({ success: true, data: {categorySalesData: categorySales, dates: dates} })
