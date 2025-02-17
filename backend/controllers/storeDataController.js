@@ -7,6 +7,24 @@ const { isAdmin } = require('./authController')
  * This controller controls the general store data such as revenue, user traffic etc.
  */
 
+/**
+ * Gets the product to sales map of the current month
+ * 
+ * @returns product to sales map of the current month
+ */
+const getProductsToSalesMap = async () => {
+    const date = new Date()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0') 
+    const yearAndMonth = `${date.getFullYear()}-${month}`
+
+    // Getting the product to sales map
+    const curMonthSalesSnap = await db.collection('monthly_sales_data').doc(yearAndMonth).get()
+    const productSalesData = curMonthSalesSnap.data()
+    const productToSales = productSalesData?.productsToSales
+
+    return productToSales;
+}
+
 const fetchMonthlyRevenueData = async (req, res) => {
     if (!isAdmin(req.user?.uid)) {
         console.log('Insufficient permissions.')
@@ -111,14 +129,9 @@ const fetchProductSalesData = async (req, res) => {
     }
 
     try {
-        const date = new Date()
-        const month = (date.getMonth() + 1).toString().padStart(2, '0') 
-        const yearAndMonth = `${date.getFullYear()}-${month}`
+        const productToSales = getProductsToSalesMap()
 
-        const curMonthSalesSnap = await db.collection('monthly_sales_data').doc(yearAndMonth).get()
-        const productSalesData = curMonthSalesSnap.data()
-        const productToSales = productSalesData?.productsToSales
-
+        // Creating an array of all the product's name
         const productNamesPromises = Object.keys(productToSales).map(async (productId) => {
             const productSnap = await db.collection('products').doc(productId).get()
             const productData = productSnap?.data()
