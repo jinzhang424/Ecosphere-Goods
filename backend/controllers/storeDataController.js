@@ -13,16 +13,20 @@ const { isAdmin } = require('./authController')
  * @returns product to sales map of the current month
  */
 const getProductsToSalesMap = async () => {
-    const date = new Date()
-    const month = (date.getMonth() + 1).toString().padStart(2, '0') 
-    const yearAndMonth = `${date.getFullYear()}-${month}`
+    try {
+        const date = new Date()
+        const month = (date.getMonth() + 1).toString().padStart(2, '0') 
+        const yearAndMonth = `${date.getFullYear()}-${month}`
 
-    // Getting the product to sales map
-    const curMonthSalesSnap = await db.collection('monthly_sales_data').doc(yearAndMonth).get()
-    const productSalesData = curMonthSalesSnap.data()
-    const productToSales = productSalesData?.productsToSales
+        // Getting the product to sales map
+        const curMonthSalesSnap = await db.collection('monthly_sales_data').doc(yearAndMonth).get()
+        const productSalesData = curMonthSalesSnap.data()
+        const productToSales = productSalesData?.productsToSales
 
-    return productToSales;
+        return productToSales
+    } catch (error) {
+        throw new Error(error.message)
+    }
 }
 
 const fetchMonthlyRevenueData = async (req, res) => {
@@ -149,4 +153,48 @@ const fetchProductSalesData = async (req, res) => {
     }
 }
 
-module.exports = { fetchMonthlyRevenueData, fetchCategoricalSalesData, fetchProductSalesData }
+const fetchProductRevenueData = async (req, res) => {
+    console.log('*** Fetching product revenue data ***')
+
+    if (!isAdmin(req.user?.uid)) {
+        console.log('Insufficient permissions.')
+        return res.status(400).json({ successs: false, message: 'Insufficient permissions.'})
+    }
+
+    try {
+        const productToSales = await getProductsToSalesMap()
+
+        const productRevenuePromises = Object.entries(productToSales).map(async ([productId, quantity]) => {
+            // Getting product data
+            const productRef = db.collection('products').doc(productId)
+            const productSnap = await db.collection('products').doc(productId).get()
+            const productData = productSnap?.data()
+
+            // Getting price data
+            const priceSnap = await productRef.collection('prices').where('active', '==', true).get()
+            const priceData = priceSnap.docs[0].data()
+
+            return {
+                productName: productData.name,
+                productRevenue: priceData.unit_amount * quantity / 100
+            }
+        })
+
+        const productRevenueAndNames = await Promise.all(productRevenuePromises)
+
+        const productNames = productRevenueAndNames.map(({productName}) => productName)
+        const productRevenue = productRevenueAndNames.map(({productRevenue}) => productRevenue)
+
+        return res.status(201).json({ success: true, data: { productNames, productRevenue }})
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ success: false, message: error.message })
+    }
+} 
+
+module.exports = { 
+    fetchMonthlyRevenueData, 
+    fetchCategoricalSalesData, 
+    fetchProductSalesData, 
+    fetchProductRevenueData 
+}
