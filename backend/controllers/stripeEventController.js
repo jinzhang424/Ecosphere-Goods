@@ -2,6 +2,32 @@ const { db } = require('../config/firebase')
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
+const updateCategoricalSales = async (monthlySalesData) => {
+    let categoryToSales = {}
+
+    if (monthlySalesData.categoryToSales !== undefined) {
+        categoryToSales = monthlySalesData.categoryToSales
+
+        products.forEach((product) => {
+            const category = product.category
+            if (categoryToSales[category]) {
+                categoryToSales[category] += product.quantity
+            } else {
+                categoryToSales[category] = product.quantity
+            }
+        })
+    } else {
+        products.forEach((product) => {
+            const category = product.category
+            categoryToSales[category] = product.quantity
+        })
+    }
+
+    await categoricalSalesDataDoc.update({
+        categoryToSales: categoryToSales
+    });
+}
+
 const updateMonthlySalesData = async (req, res) => {
     console.log('Updating monehtly sales data')
 
@@ -22,35 +48,11 @@ const updateMonthlySalesData = async (req, res) => {
 
         console.log("YYYY/MM: ", yearAndMonth)
 
-        const MonthlySalesDoc = db.collection('monthly_sales_data').doc(yearAndMonth)
-        const MonhtlySalesSnap = await MonthlySalesDoc.get()
-        const MonthlySalesData = MonhtlySalesSnap.data()
+        const monthlySalesDoc = db.collection('monthly_sales_data').doc(yearAndMonth)
+        const monhtlySalesSnap = await monthlySalesDoc.get()
+        const monthlySalesData = monhtlySalesSnap.data()
 
-        let categoryToSales = {}
-
-        if (MonthlySalesData.categoryToSales !== undefined) {
-            categoryToSales = MonthlySalesData.categoryToSales
-
-            products.forEach((product) => {
-                const category = product.category
-                if (categoryToSales[category]) {
-                    categoryToSales[category] += product.quantity
-                } else {
-                    categoryToSales[category] = product.quantity
-                }
-            })
-        } else {
-            products.forEach((product) => {
-                const category = product.category
-                categoryToSales[category] = product.quantity
-            })
-        }
-
-        console.log('Categorical sales: ', categoryToSales)
-
-        await categoricalSalesDataDoc.update({
-            categoryToSales: categoryToSales
-        });
+        updateCategoricalSales(monthlySalesData)
 
         return res.status(201).json({ success: true, message: 'Successfully updated monthly sales data'})
     } catch (error) {
