@@ -22,14 +22,14 @@ const updateMonthlySalesData = async (req, res) => {
 
         console.log("YYYY/MM: ", yearAndMonth)
 
-        const categoricalSalesDataDoc = db.collection('categorical_sales_data').doc(yearAndMonth)
-        const categoricalSalesDataSnap = await categoricalSalesDataDoc.get()
-        const categoricalSalesDataData = categoricalSalesDataSnap.data()
+        const MonthlySalesDoc = db.collection('monthly_sales_data').doc(yearAndMonth)
+        const MonhtlySalesSnap = await MonthlySalesDoc.get()
+        const MonthlySalesData = MonhtlySalesSnap.data()
 
         let categoryToSales = {}
 
-        if (categoricalSalesDataData.categoryToSales !== undefined) {
-            categoryToSales = categoricalSalesDataData.categoryToSales
+        if (MonthlySalesData.categoryToSales !== undefined) {
+            categoryToSales = MonthlySalesData.categoryToSales
 
             products.forEach((product) => {
                 const category = product.category
@@ -40,8 +40,6 @@ const updateMonthlySalesData = async (req, res) => {
                 }
             })
         } else {
-            console.log('Whth sigma.')
-
             products.forEach((product) => {
                 const category = product.category
                 categoryToSales[category] = product.quantity

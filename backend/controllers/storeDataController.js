@@ -74,13 +74,13 @@ const fetchCategoricalSalesData = async (req, res) => {
 
     console.log('*** Fetching categorical sales data ***')
     try {
-        const categoricalSalesDataRef = db.collection('categorical_sales_data')
-        const categoricalSalesDocs = await categoricalSalesDataRef.orderBy(admin.firestore.FieldPath.documentId(), "desc").limit(12).get()
-        const categoryDocs = await db.collection('product_categories').get()
+        const monthlySalesRef = db.collection('monthly_sales_data')
+        const monthlySalesSnap = await monthlySalesRef.orderBy(admin.firestore.FieldPath.documentId(), "desc").limit(12).get()
+        const categorySnap = await db.collection('product_categories').get()
 
-        const categoricalSalesDocsReversed = categoricalSalesDocs.docs.reverse()
+        const categoricalSalesDocsReversed = monthlySalesSnap.docs.reverse()
         
-        const categories = categoryDocs.docs.map((doc) => doc.id)
+        const categories = categorySnap.docs.map((doc) => doc.id)
         const dates = categoricalSalesDocsReversed.map((doc) => doc.id)
 
         const categorySales = categories.map((category) => ({
