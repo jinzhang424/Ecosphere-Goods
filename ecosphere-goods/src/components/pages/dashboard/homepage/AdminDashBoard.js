@@ -1,11 +1,12 @@
 import React from 'react'
 import MonthlyRevenueChart from './adminInfoCharts/MonthlyRevenueChart'
 import CategoricalSalesChart from './adminInfoCharts/CategoricalSalesChart'
+import ProductSalesChart from './adminInfoCharts/ProductSalesChart'
 
 const AdminDashBoard = () => {
   return (
     <div className='w-full h-full'>
-        <div className='flex space-x-8 h-1/2 pb-4'>
+        <div className='flex gap-8 h-1/2 pb-4'>
             <section className='bg-off-white w-1/2 h-full rounded-3xl p-8 flex-grow'>
                 <MonthlyRevenueChart/>
             </section>
@@ -15,13 +16,13 @@ const AdminDashBoard = () => {
             </section>
         </div>
 
-        <div className='flex h-1/2 space-x-8 pt-4'>
+        <div className='grid grid-cols-3 h-1/2 gap-8 pt-4 w-full'>
             <section className='aspect-square h-full bg-off-white rounded-3xl p-8 flex-grow'>
-                Most Sales (Bar chart top 10)
+                <ProductSalesChart/>
             </section>
 
             <section className='aspect-square h-full bg-off-white rounded-3xl p-8 flex-grow'>
-                Most Sold (Bar chart top 10)
+                Most Revenue (Bar chart top 10)
             </section>
 
             <section className='aspect-square h-full bg-off-white rounded-3xl p-8 flex-grow'>
