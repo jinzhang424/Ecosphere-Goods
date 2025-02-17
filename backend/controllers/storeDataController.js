@@ -102,4 +102,38 @@ const fetchCategoricalSalesData = async (req, res) => {
     }
 }
 
-module.exports = { fetchMonthlyRevenueData, fetchCategoricalSalesData }
+const fetchProductSalesData = async (req, res) => {
+    console.log('*** Fetching monthly product sales data ***')
+
+    if (!isAdmin(req.user?.uid)) {
+        console.log('Insufficient permissions.')
+        return res.status(400).json({ successs: false, message: 'Insufficient permissions.'})
+    }
+
+    try {
+        const date = new Date()
+        const month = (date.getMonth() + 1).toString().padStart(2, '0') 
+        const yearAndMonth = `${date.getFullYear()}-${month}`
+
+        const curMonthSalesSnap = await db.collection('monthly_sales_data').doc(yearAndMonth).get()
+        const productSalesData = curMonthSalesSnap.data()
+        const productToSales = productSalesData?.productsToSales
+
+        const productNamesPromises = Object.keys(productToSales).map(async (productId) => {
+            const productSnap = await db.collection('products').doc(productId).get()
+            const productData = productSnap?.data()
+            return productData.name
+        })
+        
+        const productNames = await Promise.all(productNamesPromises)
+        const productSales = productToSales ? Object.values(productToSales).map((sales) => sales) : []
+
+        return res.status(201).json({ success: true, data: { productNames, productSales } })
+
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({ success: false, message: 'Error while fetching product sales data' })
+    }
+}
+
+module.exports = { fetchMonthlyRevenueData, fetchCategoricalSalesData, fetchProductSalesData }
