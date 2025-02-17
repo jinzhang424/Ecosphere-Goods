@@ -2,7 +2,9 @@ const { db } = require('../config/firebase')
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-const updateCategoricalSales = async (monthlySalesData) => {
+const updateCategoricalSales = async (monthlySalesData, products, monthlySalesDoc) => {
+    console.log('*** Updating monthly categorical sales ***')
+
     let categoryToSales = {}
 
     if (monthlySalesData.categoryToSales !== undefined) {
@@ -23,13 +25,41 @@ const updateCategoricalSales = async (monthlySalesData) => {
         })
     }
 
-    await categoricalSalesDataDoc.update({
+    await monthlySalesDoc.update({
         categoryToSales: categoryToSales
     });
 }
 
+const updateProductSales = async (monthlySalesData, products, monthlySalesDoc) => {
+    console.log('*** Updating monthly product sales ***')
+
+    let productsToSales = {}
+
+    if (monthlySalesData.productsToSales !== undefined) {
+        productsToSales = monthlySalesData.productsToSales;
+
+        products.forEach((product) => {
+            const productId = product.id;
+            if (productsToSales[productId]) {
+                productsToSales[productId] += product.quantity 
+            } else {
+                productsToSales[productId] = product.quantity
+            }
+        })
+    } else {
+        products.forEach((product) => {
+            const productId = product.id
+            productsToSales[productId] = product.quantity
+        })
+    }
+
+    await monthlySalesDoc.update({
+        productsToSales: productsToSales
+    })
+}
+
 const updateMonthlySalesData = async (req, res) => {
-    console.log('Updating monehtly sales data')
+    console.log('*** Updating monthly sales data ***')
 
     try {
         const event = req.body
@@ -52,7 +82,8 @@ const updateMonthlySalesData = async (req, res) => {
         const monhtlySalesSnap = await monthlySalesDoc.get()
         const monthlySalesData = monhtlySalesSnap.data()
 
-        updateCategoricalSales(monthlySalesData)
+        await updateCategoricalSales(monthlySalesData, products, monthlySalesDoc)
+        await updateProductSales(monthlySalesData, products, monthlySalesDoc)
 
         return res.status(201).json({ success: true, message: 'Successfully updated monthly sales data'})
     } catch (error) {
