@@ -40,9 +40,22 @@ const ProductRevenueChart = () => {
     
     return (
         <div className='flex flex-col gap-3'>
-            <h1 className='text-dark-brown font-header text-lg'>Revenue of products in current month</h1>
             <div className='flex w-full justify-center items-center'>
-                {!loading && <Pie data={chartData}/>}
+                {!loading && <Pie 
+                    data={chartData}
+                    options={{ 
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Product revenue of current month',
+                                font: {
+                                    size: 18,
+                                },
+                                color: "#362D2D"
+                            }
+                        }}
+                    }
+                />}
             </div>
         </div>
     )

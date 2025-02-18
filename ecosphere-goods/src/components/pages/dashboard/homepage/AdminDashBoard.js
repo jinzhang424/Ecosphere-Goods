@@ -17,7 +17,7 @@ const AdminDashBoard = () => {
             </section>
         </div>
 
-        <div className='grid grid-cols-3 h-1/2 gap-8 pt-4 w-full'>
+        <div className='grid grid-cols-3 h-1/2 gap-8 mt-4 w-full'>
             <section className='aspect-square h-full bg-off-white rounded-3xl p-8 flex-grow'>
                 <ProductSalesChart/>
             </section>
