@@ -5,7 +5,8 @@ const {
     fetchCategoricalSalesData, 
     fetchProductSalesData, 
     fetchProductRevenueData, 
-    updateMonthlyUserTraffic
+    updateMonthlyUserTraffic,
+    fetchMonthlyUserTraffic
 } = require('../controllers/storeDataController')
 
 const router = express.Router()
@@ -14,6 +15,7 @@ router.get('/monthly-revenue', checkUserVerification, fetchMonthlyRevenueData)
 router.get('/categorical-sales', checkUserVerification, fetchCategoricalSalesData)
 router.get('/product-sales', checkUserVerification, fetchProductSalesData)
 router.get('/product-revenue', checkUserVerification, fetchProductRevenueData)
+router.get('/get-user-traffic', fetchMonthlyUserTraffic)
 
 router.post('/update-user-traffic', updateMonthlyUserTraffic)
 

@@ -218,7 +218,21 @@ const updateMonthlyUserTraffic = async (req, res) => {
         return res.status(201).json({ success: true, data: userTraffic })
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({ success: false, message: error.message})
+        return res.status(500).json({ success: false, message: error.message})
+    }
+}
+
+const fetchMonthlyUserTraffic = async (req, res) => {
+    try {
+        const yearAndMonth = getCurrentMonth()
+        const curMontRef =  db.collection('monthly_store_data').doc(yearAndMonth)
+        const curMonthSnap = await curMontRef.get()
+        const curMonthData = curMonthSnap.data()
+
+        return res.status(201).json({ success: true, userTraffic: curMonthData.user_traffic })
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({ success: false, message: error.message})
     }
 }
 
@@ -227,5 +241,6 @@ module.exports = {
     fetchCategoricalSalesData, 
     fetchProductSalesData, 
     fetchProductRevenueData,
-    updateMonthlyUserTraffic
+    updateMonthlyUserTraffic,
+    fetchMonthlyUserTraffic
 }
