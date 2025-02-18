@@ -133,7 +133,7 @@ const fetchProductSalesData = async (req, res) => {
     }
 
     try {
-        const productToSales = getProductsToSalesMap()
+        const productToSales = await getProductsToSalesMap()
 
         // Creating an array of all the product's name
         const productNamesPromises = Object.keys(productToSales).map(async (productId) => {
