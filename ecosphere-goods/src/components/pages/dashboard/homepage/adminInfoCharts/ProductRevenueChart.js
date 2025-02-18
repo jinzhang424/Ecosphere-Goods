@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { fetchProductSalesData } from '../../../../../api/storeDataHandling'
+import { fetchProductRevenueData } from '../../../../../api/storeDataHandling'
 import { Pie } from 'react-chartjs-2'
 import { Chart as ChartJS } from "chart.js/auto";
 import { auth } from '../../../../../firebase';
 
-const ProductSalesChart = () => {
+const ProductRevenueChart = () => {
     const [loading, setLoading] = useState(true)
     const [chartData, setChartData] = useState({
         labels: [],
@@ -15,16 +15,16 @@ const ProductSalesChart = () => {
         const getProductSales = async () => {
             try {
                 const idToken = await auth.currentUser.getIdToken()
-                const data = await fetchProductSalesData(idToken)
+                const data = await fetchProductRevenueData(idToken)
                 
                 const dateLabels = data.productNames
-                const productSalesData = data.productSales
+                const productRevenueData = data.productSales
 
                 setChartData({
                     labels: dateLabels,
                     datasets: [{
                         label: "Revenue ($)",
-                        data: productSalesData,
+                        data: productRevenueData,
                     }],
                 })
 
@@ -40,7 +40,7 @@ const ProductSalesChart = () => {
 
     return (
         <div className='flex flex-col gap-3'>
-            <h1 className='text-dark-brown font-header text-lg'>Product Sales of current month</h1>
+            <h1 className='text-dark-brown font-header text-lg'>Revenue of products in current month</h1>
             <div className='flex w-full justify-center items-center'>
                 {!loading && <Pie data={chartData}/>}
             </div>
@@ -48,4 +48,4 @@ const ProductSalesChart = () => {
     )
 }
 
-export default ProductSalesChart
+export default ProductRevenueChart

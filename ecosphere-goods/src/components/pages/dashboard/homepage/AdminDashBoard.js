@@ -2,6 +2,7 @@ import React from 'react'
 import MonthlyRevenueChart from './adminInfoCharts/MonthlyRevenueChart'
 import CategoricalSalesChart from './adminInfoCharts/CategoricalSalesChart'
 import ProductSalesChart from './adminInfoCharts/ProductSalesChart'
+import ProductRevenueChart from './adminInfoCharts/ProductRevenueChart'
 
 const AdminDashBoard = () => {
   return (
@@ -22,7 +23,7 @@ const AdminDashBoard = () => {
             </section>
 
             <section className='aspect-square h-full bg-off-white rounded-3xl p-8 flex-grow'>
-                Most Revenue (Bar chart top 10)
+                <ProductRevenueChart/>
             </section>
 
             <section className='aspect-square h-full bg-off-white rounded-3xl p-8 flex-grow'>
