@@ -35,21 +35,25 @@ const UserTrafficChart = () => {
     }, [])
 
     return (
-        <Bar 
-            data={chartData} 
-            options={{
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'User traffic in the past 12 months',
-                        font: {
-                            size: 18,
-                        },
-                        color: "#362D2D"
+        <div className='flex flex-col gap-3 h-full w-full'>
+            <Bar 
+                data={chartData} 
+                options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'User traffic in the past 12 months',
+                            font: {
+                                size: 18,
+                            },
+                            color: "#362D2D"
+                        }
                     }
-                }
-            }}
-        />
+                }}
+            />
+        </div>
     )
 }
 
