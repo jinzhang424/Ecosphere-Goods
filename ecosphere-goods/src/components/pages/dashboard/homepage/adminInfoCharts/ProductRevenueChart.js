@@ -18,7 +18,7 @@ const ProductRevenueChart = () => {
                 const data = await fetchProductRevenueData(idToken)
                 
                 const dateLabels = data.productNames
-                const productRevenueData = data.productSales
+                const productRevenueData = data.productRevenue
 
                 setChartData({
                     labels: dateLabels,
@@ -37,7 +37,7 @@ const ProductRevenueChart = () => {
 
         getProductSales()
     }, [])
-
+    
     return (
         <div className='flex flex-col gap-3'>
             <h1 className='text-dark-brown font-header text-lg'>Revenue of products in current month</h1>
