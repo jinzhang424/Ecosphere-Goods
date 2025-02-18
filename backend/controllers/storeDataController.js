@@ -3,6 +3,12 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 const { db, admin } = require('../config/firebase.js')
 const { isAdmin } = require('./authController')
 
+const getCurrentMonth = () => {
+    const date = new Date()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0') 
+    return `${date.getFullYear()}-${month}`
+} 
+
 /**
  * This controller controls the general store data such as revenue, user traffic etc.
  */
@@ -14,9 +20,7 @@ const { isAdmin } = require('./authController')
  */
 const getProductsToSalesMap = async () => {
     try {
-        const date = new Date()
-        const month = (date.getMonth() + 1).toString().padStart(2, '0') 
-        const yearAndMonth = `${date.getFullYear()}-${month}`
+        const yearAndMonth = getCurrentMonth()
 
         // Getting the product to sales map
         const curMonthSalesSnap = await db.collection('monthly_store_data').doc(yearAndMonth).get()
@@ -192,10 +196,26 @@ const fetchProductRevenueData = async (req, res) => {
     }
 } 
 
-const updateMonthlyUserTraffic = (req, res) => {
+const updateMonthlyUserTraffic = async (req, res) => {
+    console.log('*** Updating monthly user traffic ***')
 
     try {
-        db.collection('monthly_store_data')
+        const yearAndMonth = getCurrentMonth()
+        const curMontRef =  db.collection('monthly_store_data').doc(yearAndMonth)
+        const curMonthSnap = await curMontRef.get()
+        const curMonthData = curMonthSnap.data()
+        
+        // Checking if user_traffic field exists. If so set our user traffic variable to the field value + 1
+        let userTraffic = 0;
+        if (curMonthData.user_traffic !== undefined) {
+            userTraffic = curMonthData.user_traffic + 1
+        } 
+
+        await curMontRef.update({
+            user_traffic: userTraffic
+        })
+
+        return res.status(201).json({ success: true, data: userTraffic })
     } catch (error) {
         console.log(error.message)
         res.status(500).json({ success: false, message: error.message})
@@ -206,5 +226,6 @@ module.exports = {
     fetchMonthlyRevenueData, 
     fetchCategoricalSalesData, 
     fetchProductSalesData, 
-    fetchProductRevenueData 
+    fetchProductRevenueData,
+    updateMonthlyUserTraffic
 }
