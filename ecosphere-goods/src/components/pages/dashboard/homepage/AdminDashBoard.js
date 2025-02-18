@@ -3,6 +3,7 @@ import MonthlyRevenueChart from './adminInfoCharts/MonthlyRevenueChart'
 import CategoricalSalesChart from './adminInfoCharts/CategoricalSalesChart'
 import ProductSalesChart from './adminInfoCharts/ProductSalesChart'
 import ProductRevenueChart from './adminInfoCharts/ProductRevenueChart'
+import UserTrafficChart from './adminInfoCharts/UserTrafficChart'
 
 const AdminDashBoard = () => {
   return (
@@ -27,7 +28,7 @@ const AdminDashBoard = () => {
             </section>
 
             <section className='aspect-square h-full bg-off-white rounded-3xl p-8 flex-grow'>
-                User Traffic (Line chart)
+                <UserTrafficChart/>
             </section>
         </div>
     </div>
