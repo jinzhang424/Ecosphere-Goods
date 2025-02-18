@@ -222,7 +222,11 @@ const updateMonthlyUserTraffic = async (req, res) => {
     }
 }
 
-const fetchMonthlyUserTraffic = async (req, res) => {
+const fetchUserTraffic = async (req, res) => {
+    if (!isAdmin(req.user?.uid)) {
+        return res.status(400).json({ success: false, message: 'Insufficient Permissions'})
+    }
+
     try {
         // Limiting docs to the first 12
         const curMonthRef =  db.collection('monthly_store_data').orderBy(admin.firestore.FieldPath.documentId(), 'desc').limit(12)
@@ -243,7 +247,7 @@ const fetchMonthlyUserTraffic = async (req, res) => {
         const dates = userTrafficAndDates.map(({ date }) => date)
         const userTraffic = userTrafficAndDates.map(({ user_traffic }) => user_traffic)
 
-        return res.status(201).json({ success: true, date: { dates, userTraffic }})
+        return res.status(201).json({ success: true, data: { dates, userTraffic }})
     } catch (error) {
         console.log(error.message)
         return res.status(500).json({ success: false, message: error.message})
@@ -256,5 +260,5 @@ module.exports = {
     fetchProductSalesData, 
     fetchProductRevenueData,
     updateMonthlyUserTraffic,
-    fetchMonthlyUserTraffic
+    fetchUserTraffic
 }
