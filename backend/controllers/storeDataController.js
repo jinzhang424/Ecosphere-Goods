@@ -224,12 +224,26 @@ const updateMonthlyUserTraffic = async (req, res) => {
 
 const fetchMonthlyUserTraffic = async (req, res) => {
     try {
-        const yearAndMonth = getCurrentMonth()
-        const curMontRef =  db.collection('monthly_store_data').doc(yearAndMonth)
-        const curMonthSnap = await curMontRef.get()
-        const curMonthData = curMonthSnap.data()
+        // Limiting docs to the first 12
+        const curMonthRef =  db.collection('monthly_store_data').orderBy(admin.firestore.FieldPath.documentId(), 'desc').limit(12)
+        const curMonthSnap = await curMonthRef.get()
 
-        return res.status(201).json({ success: true, userTraffic: curMonthData.user_traffic })
+        // Reversing them so they're in ascending order
+        const reversedDocs = curMonthSnap.docs.reverse()
+        
+        const userTrafficAndDates = reversedDocs.map((doc) => {
+            const data = doc.data()
+
+            return {
+                date: doc.id,
+                user_traffic: data.user_traffic || 0
+            }
+        })
+
+        const dates = userTrafficAndDates.map(({ date }) => date)
+        const userTraffic = userTrafficAndDates.map(({ user_traffic }) => user_traffic)
+
+        return res.status(201).json({ success: true, date: { dates, userTraffic }})
     } catch (error) {
         console.log(error.message)
         return res.status(500).json({ success: false, message: error.message})
