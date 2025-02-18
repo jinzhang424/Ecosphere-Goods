@@ -33,6 +33,7 @@ import { handleSetCustomUserClaims } from './api/userAuth';
 
 import TruckLoader from './components/animations/TruckLoader';
 import PaginationProvider from './components/utility/pagination/PaginationContext';
+import { updateUserTraffic } from './api/storeDataHandling';
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,18 @@ function App() {
 
     return unsubscribe
   }, [dispatch])
+
+  useEffect(() => {
+    const incrementUserTraffic = () => {
+      try {
+        updateUserTraffic()
+      } catch (error) {
+        console.error(error.message)
+      }
+    }
+
+    incrementUserTraffic()
+  }, [])
 
   console.log('Current user:', user)
 

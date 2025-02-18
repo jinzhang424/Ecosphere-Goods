@@ -70,3 +70,11 @@ export const fetchUserTraffic = async (idToken) => {
         throw new Error(error.message)
     }
 }
+
+export const updateUserTraffic = async () => {
+    try {
+        const response = await axios.post('/store-data/update-user-traffic')
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
