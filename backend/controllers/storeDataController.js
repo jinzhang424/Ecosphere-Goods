@@ -19,7 +19,7 @@ const getProductsToSalesMap = async () => {
         const yearAndMonth = `${date.getFullYear()}-${month}`
 
         // Getting the product to sales map
-        const curMonthSalesSnap = await db.collection('monthly_sales_data').doc(yearAndMonth).get()
+        const curMonthSalesSnap = await db.collection('monthly_store_data').doc(yearAndMonth).get()
         const productSalesData = curMonthSalesSnap.data()
         const productToSales = productSalesData?.productsToSales
 
@@ -96,7 +96,7 @@ const fetchCategoricalSalesData = async (req, res) => {
 
     console.log('*** Fetching categorical sales data ***')
     try {
-        const monthlySalesRef = db.collection('monthly_sales_data')
+        const monthlySalesRef = db.collection('monthly_store_data')
         const monthlySalesSnap = await monthlySalesRef.orderBy(admin.firestore.FieldPath.documentId(), "desc").limit(12).get()
         const categorySnap = await db.collection('product_categories').get()
 
@@ -191,6 +191,16 @@ const fetchProductRevenueData = async (req, res) => {
         return res.status(500).json({ success: false, message: error.message })
     }
 } 
+
+const updateMonthlyUserTraffic = (req, res) => {
+
+    try {
+        db.collection('monthly_store_data')
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({ success: false, message: error.message})
+    }
+}
 
 module.exports = { 
     fetchMonthlyRevenueData, 

@@ -78,7 +78,7 @@ const updateMonthlySalesData = async (req, res) => {
 
         console.log("YYYY/MM: ", yearAndMonth)
 
-        const monthlySalesDoc = db.collection('monthly_sales_data').doc(yearAndMonth)
+        const monthlySalesDoc = db.collection('monthly_store_data').doc(yearAndMonth)
         const monhtlySalesSnap = await monthlySalesDoc.get()
         const monthlySalesData = monhtlySalesSnap.data()
 
