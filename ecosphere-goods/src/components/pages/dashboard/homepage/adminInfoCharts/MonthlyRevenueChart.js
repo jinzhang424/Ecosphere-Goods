@@ -39,9 +39,24 @@ const MonthlyRevenueChart = () => {
     }, [])
 
     return (
-        <div className='flex flex-col gap-3'>
-            <h1 className='text-dark-brown font-header text-lg'>Revenue of the past 30 Days</h1>
-            {!loading && <Bar data={chartData}/>}
+        <div className='flex flex-col gap-3 h-full w-full'>
+            <Bar 
+                data={chartData}
+                options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Revenue of the past 30 Days',
+                            font: {
+                                size: 18,
+                            },
+                            color: "#362D2D"
+                        }
+                    }
+                }}
+            />
         </div>
     )
 }

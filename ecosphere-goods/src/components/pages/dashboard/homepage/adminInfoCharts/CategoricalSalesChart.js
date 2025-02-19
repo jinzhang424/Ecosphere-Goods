@@ -30,11 +30,24 @@ const CategoricalSalesChart = () => {
     }, [])
 
     return (
-        <div className='flex flex-col gap-3'>
-            <h1 className='text-dark-brown font-header text-lg'>
-                Categorical Sales data of path 12 months
-            </h1>
-            <Line data={formattedCategoricalSalesData} />
+        <div className='flex flex-col gap-3 h-full w-full'>
+            <Line 
+                data={formattedCategoricalSalesData} 
+                options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Categorical Sales data of path 12 months',
+                            font: {
+                                size: 18,
+                            },
+                            color: "#362D2D"
+                        }
+                    }
+                }}
+            />
         </div>
     )
 }

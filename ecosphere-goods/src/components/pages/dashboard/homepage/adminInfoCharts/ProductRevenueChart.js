@@ -39,24 +39,24 @@ const ProductRevenueChart = () => {
     }, [])
     
     return (
-        <div className='flex flex-col gap-3'>
-            <div className='flex w-full justify-center items-center'>
-                {!loading && <Pie 
-                    data={chartData}
-                    options={{ 
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Product revenue of current month',
-                                font: {
-                                    size: 18,
-                                },
-                                color: "#362D2D"
-                            }
-                        }}
-                    }
-                />}
-            </div>
+        <div className='flex flex-col gap-3 h-full w-full'>
+            <Pie 
+                data={chartData}
+                options={{ 
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Product revenue of current month',
+                            font: {
+                                size: 18,
+                            },
+                            color: "#362D2D"
+                        }
+                    }}
+                }
+            />
         </div>
     )
 }
