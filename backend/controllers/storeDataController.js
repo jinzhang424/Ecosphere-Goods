@@ -78,7 +78,10 @@ const fetchMonthlyRevenueData = async (req, res) => {
             revenue: dailyRevenue[date]
         }))
 
-        return res.status(201).json({ success: true, data: revenueData})
+        // Reversing revenue data so that its in ascending order
+        const reversedRevenueData = revenueData.reverse()
+
+        return res.status(201).json({ success: true, data: reversedRevenueData })
     } catch (error) {
         console.error(error.message)
         return res.status(500).json({ success: false, message: 'Error occurred while fetching data' })
