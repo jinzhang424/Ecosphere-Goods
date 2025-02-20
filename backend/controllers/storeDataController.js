@@ -73,15 +73,18 @@ const fetchMonthlyRevenueData = async (req, res) => {
         })
 
         // Formatting the response
-        const revenueData = Object.keys(dailyRevenue).map((date) => ({
+        const revenueDataAndDates = Object.keys(dailyRevenue).map((date) => ({
             date,
             revenue: dailyRevenue[date]
         }))
 
         // Reversing revenue data so that its in ascending order
-        const reversedRevenueData = revenueData.reverse()
+        const reversedRevenueAndDates = revenueDataAndDates.reverse()
 
-        return res.status(201).json({ success: true, data: reversedRevenueData })
+        const revenueData = reversedRevenueAndDates.map(({ revenue }) => revenue)
+        const dates = reversedRevenueAndDates.map(({ date }) => date)
+
+        return res.status(201).json({ success: true, data: {labels: revenueData, data: dates} })
     } catch (error) {
         console.error(error.message)
         return res.status(500).json({ success: false, message: 'Error occurred while fetching data' })
@@ -124,7 +127,7 @@ const fetchCategoricalSalesData = async (req, res) => {
             })
         }))
 
-        return res.status(201).json({ success: true, data: {categorySalesData: categorySales, dates: dates} })
+        return res.status(201).json({ success: true, data: {data: categorySales, labels: dates} })
     } catch (error) {
         console.error(error.message)
         return res.status(500).json({ success: false, message: 'Error occurred while fetching categorical sales data'})
@@ -152,7 +155,7 @@ const fetchProductSalesData = async (req, res) => {
         const productNames = await Promise.all(productNamesPromises)
         const productSales = productToSales ? Object.values(productToSales).map((sales) => sales) : []
 
-        return res.status(201).json({ success: true, data: { productNames, productSales } })
+        return res.status(201).json({ success: true, data: { labels: productNames, data: productSales } })
 
     } catch (error) {
         console.log(error.message)
@@ -192,7 +195,7 @@ const fetchProductRevenueData = async (req, res) => {
         const productNames = productRevenueAndNames.map(({productName}) => productName)
         const productRevenue = productRevenueAndNames.map(({productRevenue}) => productRevenue)
 
-        return res.status(201).json({ success: true, data: { productNames, productRevenue }})
+        return res.status(201).json({ success: true, data: { labels: productNames, data: productRevenue }})
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ success: false, message: error.message })
@@ -250,7 +253,7 @@ const fetchUserTraffic = async (req, res) => {
         const dates = userTrafficAndDates.map(({ date }) => date)
         const userTraffic = userTrafficAndDates.map(({ user_traffic }) => user_traffic)
 
-        return res.status(201).json({ success: true, data: { dates, userTraffic }})
+        return res.status(201).json({ success: true, data: { labels: dates, data: userTraffic }})
     } catch (error) {
         console.log(error.message)
         return res.status(500).json({ success: false, message: error.message})
