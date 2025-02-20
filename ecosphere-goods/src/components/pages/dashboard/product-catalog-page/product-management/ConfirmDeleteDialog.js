@@ -43,8 +43,8 @@ export default function ConfirmDeleteDialog({ productId, productName }) {
                         </span>
                         
                         <div className='space-x-6 flex items-center'>
-                            <OpacityButton bgColor="bg-green-600" onClick={handleDelete} label='Yes' loading={loading}/>
-                            <OpacityButton bgColor="bg-red-600" onClick={handleClose} label='No'/>
+                            <OpacityButton bgColor="bg-green-600" onClick={handleDelete} loading={loading}>Yes</OpacityButton>
+                            <OpacityButton bgColor="bg-red-600" onClick={handleClose}>No</OpacityButton>
                         </div>
                     </div>
                 </dialog>
