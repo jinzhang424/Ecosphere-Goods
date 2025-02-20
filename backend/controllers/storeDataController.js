@@ -84,7 +84,7 @@ const fetchMonthlyRevenueData = async (req, res) => {
         const revenueData = reversedRevenueAndDates.map(({ revenue }) => revenue)
         const dates = reversedRevenueAndDates.map(({ date }) => date)
 
-        return res.status(201).json({ success: true, data: {labels: revenueData, data: dates} })
+        return res.status(201).json({ success: true, data: {labels: dates, datasets: [{data: revenueData, datasetLabel: "Revenue ($)"}]} })
     } catch (error) {
         console.error(error.message)
         return res.status(500).json({ success: false, message: 'Error occurred while fetching data' })
@@ -116,8 +116,8 @@ const fetchCategoricalSalesData = async (req, res) => {
         const dates = categoricalSalesDocsReversed.map((doc) => doc.id)
 
         const categorySales = categories.map((category) => ({
-            category: category,
-            sales: categoricalSalesDocsReversed.map((doc) => {
+            datasetLabel: category,
+            data: categoricalSalesDocsReversed.map((doc) => {
                 const categoryToSales = doc.data().categoryToSales
                 if (categoryToSales) {
                     return categoryToSales[category] === undefined ? 0 : categoryToSales[category]
@@ -127,7 +127,7 @@ const fetchCategoricalSalesData = async (req, res) => {
             })
         }))
 
-        return res.status(201).json({ success: true, data: {data: categorySales, labels: dates} })
+        return res.status(201).json({ success: true, data: {datasets: categorySales, labels: dates} })
     } catch (error) {
         console.error(error.message)
         return res.status(500).json({ success: false, message: 'Error occurred while fetching categorical sales data'})
@@ -155,7 +155,7 @@ const fetchProductSalesData = async (req, res) => {
         const productNames = await Promise.all(productNamesPromises)
         const productSales = productToSales ? Object.values(productToSales).map((sales) => sales) : []
 
-        return res.status(201).json({ success: true, data: { labels: productNames, data: productSales } })
+        return res.status(201).json({ success: true, data: { labels: productNames, datasets: [{data: productSales}] } })
 
     } catch (error) {
         console.log(error.message)
@@ -195,7 +195,7 @@ const fetchProductRevenueData = async (req, res) => {
         const productNames = productRevenueAndNames.map(({productName}) => productName)
         const productRevenue = productRevenueAndNames.map(({productRevenue}) => productRevenue)
 
-        return res.status(201).json({ success: true, data: { labels: productNames, data: productRevenue }})
+        return res.status(201).json({ success: true, data: { labels: productNames, datasets: [{data: productRevenue}] }})
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ success: false, message: error.message })
@@ -253,7 +253,7 @@ const fetchUserTraffic = async (req, res) => {
         const dates = userTrafficAndDates.map(({ date }) => date)
         const userTraffic = userTrafficAndDates.map(({ user_traffic }) => user_traffic)
 
-        return res.status(201).json({ success: true, data: { labels: dates, data: userTraffic }})
+        return res.status(201).json({ success: true, data: { labels: dates, datasets: [{data: userTraffic}] }})
     } catch (error) {
         console.log(error.message)
         return res.status(500).json({ success: false, message: error.message})
