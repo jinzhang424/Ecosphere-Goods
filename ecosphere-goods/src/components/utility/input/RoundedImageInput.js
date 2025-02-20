@@ -48,7 +48,10 @@ const RoundedImageInput = () => {
     }
 
     return (
-        <div className={`w-full h-full rounded-full cursor-pointer ${ image === undefined ? 'opacity-90 hover:opacity-100' : '' } rounded-full overflow-hidden`} onClick={() => document.getElementById('image-input').click()}>
+        <div 
+            className={`w-full h-full rounded-full cursor-pointer ${ image === undefined ? 'opacity-80 hover:opacity-100' : '' } rounded-full overflow-hidden`} 
+            onClick={() => document.getElementById('image-input').click()}
+        >
             <input 
                 type="file" 
                 accept='image/*'
@@ -58,7 +61,7 @@ const RoundedImageInput = () => {
             />
 
             { image === undefined ? (
-                <CgProfile className='w-full h-full'/>
+                <CgProfile className='w-full h-full text-dark-brown'/>
             ) : (
                 <img src={image} className='w-full h-full object-cover object-center' alt=''/>
             )}
