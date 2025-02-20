@@ -30,12 +30,11 @@ const CategoricalSalesChart = () => {
     }, [])
 
     return (
-        <div className='flex flex-col gap-3 h-full w-full'>
+        <>
             <Line 
                 data={formattedCategoricalSalesData} 
                 options={{
                     responsive: true,
-                    maintainAspectRatio: false,
                     plugins: {
                         title: {
                             display: true,
@@ -48,7 +47,7 @@ const CategoricalSalesChart = () => {
                     }
                 }}
             />
-        </div>
+        </>
     )
 }
 

@@ -39,12 +39,11 @@ const ProductRevenueChart = () => {
     }, [])
     
     return (
-        <div className='flex flex-col gap-3 h-full w-full'>
+        <>
             <Pie 
                 data={chartData}
                 options={{ 
                     responsive: true,
-                    maintainAspectRatio: true,
                     plugins: {
                         title: {
                             display: true,
@@ -57,7 +56,7 @@ const ProductRevenueChart = () => {
                     }}
                 }
             />
-        </div>
+        </>
     )
 }
 

@@ -35,11 +35,10 @@ const UserTrafficChart = () => {
     }, [])
 
     return (
-        <div className='flex flex-col gap-3 h-full w-full'>
+        <>
             <Bar 
                 data={chartData} 
                 options={{
-                    responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
                         title: {
@@ -53,7 +52,7 @@ const UserTrafficChart = () => {
                     }
                 }}
             />
-        </div>
+        </>
     )
 }
 
