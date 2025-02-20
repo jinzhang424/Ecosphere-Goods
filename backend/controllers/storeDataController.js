@@ -195,7 +195,7 @@ const fetchProductRevenueData = async (req, res) => {
         const productNames = productRevenueAndNames.map(({productName}) => productName)
         const productRevenue = productRevenueAndNames.map(({productRevenue}) => productRevenue)
 
-        return res.status(201).json({ success: true, data: { labels: productNames, datasets: [{data: productRevenue}] }})
+        return res.status(201).json({ success: true, data: { labels: productNames, datasets: [{data: productRevenue,}] }})
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ success: false, message: error.message })
@@ -253,7 +253,7 @@ const fetchUserTraffic = async (req, res) => {
         const dates = userTrafficAndDates.map(({ date }) => date)
         const userTraffic = userTrafficAndDates.map(({ user_traffic }) => user_traffic)
 
-        return res.status(201).json({ success: true, data: { labels: dates, datasets: [{data: userTraffic}] }})
+        return res.status(201).json({ success: true, data: { labels: dates, datasets: [{data: userTraffic, datasetLabel: "User Traffic"}] }})
     } catch (error) {
         console.log(error.message)
         return res.status(500).json({ success: false, message: error.message})

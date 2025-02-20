@@ -7,7 +7,7 @@ const UserTrafficChart = () => {
     return (
         <>
             <Chart 
-                title="Product revenue of current month" 
+                title="User traffic of past 12 months" 
                 type="bar" 
                 maintainAspectRatio={false}
                 fetchData={fetchUserTraffic}
