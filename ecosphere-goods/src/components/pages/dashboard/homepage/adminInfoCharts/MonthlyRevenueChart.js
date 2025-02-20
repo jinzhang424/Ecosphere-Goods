@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { fetchMonthlyRevenueData } from '../../../../../api/storeDataHandling'
-import { Bar } from 'react-chartjs-2'
-import { Chart as ChartJS } from "chart.js/auto";
+import Chart from '../../../../utility/charts/Chart';
 import { auth } from '../../../../../firebase';
 
 const MonthlyRevenueChart = () => {
-    const [loading, setLoading] = useState(true)
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [{ label: "", data: [] }],
@@ -23,12 +21,11 @@ const MonthlyRevenueChart = () => {
                 setChartData({
                     labels: dateLabels,
                     datasets: [{
+                        fill: true,
                         label: "Revenue ($)",
                         data: revenueData,
                     }],
                 })
-
-                setLoading(false)
 
             } catch (error) {
                 console.error(error.message)
@@ -40,21 +37,10 @@ const MonthlyRevenueChart = () => {
 
     return (
         <>
-            <Bar 
-                data={chartData}
-                options={{
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Revenue of the past 30 Days',
-                            font: {
-                                size: 18,
-                            },
-                            color: "#362D2D"
-                        }
-                    }
-                }}
+            <Chart 
+                data={chartData} 
+                title="Revenue of the past 30 Days" 
+                type="line" 
             />
         </>
     )

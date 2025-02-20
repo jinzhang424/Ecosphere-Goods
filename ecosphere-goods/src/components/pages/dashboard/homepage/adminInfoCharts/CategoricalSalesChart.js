@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Line } from 'react-chartjs-2'
-import { Chart as ChartJS } from "chart.js/auto";
+import Chart from '../../../../utility/charts/Chart';
 import { auth } from '../../../../../firebase';
  import { fetchCategoricalSalesData } from '../../../../../api/storeDataHandling';
 
 const CategoricalSalesChart = () => {
-    const [formattedCategoricalSalesData, setformattedCategoricalSalesData] = useState({
+    const [chartData, setChartData] = useState({
         labels: [],
         datasets: [{ label: "", data: [] }],
     })
@@ -18,12 +17,13 @@ const CategoricalSalesChart = () => {
             const formattedCategoricalSalesData = {
                 labels: categoricalSalesData.dates,
                 datasets: categoricalSalesData.categorySalesData.map((categorySale) => ({
+                    fill: true,
                     label: categorySale.category,
                     data: categorySale.sales
                 }))
             }
 
-            setformattedCategoricalSalesData(formattedCategoricalSalesData)
+            setChartData(formattedCategoricalSalesData)
         }
 
         getCategoricalSalesData()
@@ -31,21 +31,10 @@ const CategoricalSalesChart = () => {
 
     return (
         <>
-            <Line 
-                data={formattedCategoricalSalesData} 
-                options={{
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Categorical Sales data of path 12 months',
-                            font: {
-                                size: 18,
-                            },
-                            color: "#362D2D"
-                        }
-                    }
-                }}
+            <Chart 
+                key={"CategoricalSalesChart"} 
+                data={chartData} title="Categorical Sales data of path 12 months" 
+                type="line"
             />
         </>
     )

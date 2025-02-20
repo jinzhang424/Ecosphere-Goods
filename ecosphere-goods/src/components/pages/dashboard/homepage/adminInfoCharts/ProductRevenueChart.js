@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { fetchProductRevenueData } from '../../../../../api/storeDataHandling'
-import { Pie } from 'react-chartjs-2'
-import { Chart as ChartJS } from "chart.js/auto";
+import Chart from '../../../../utility/charts/Chart';
 import { auth } from '../../../../../firebase';
 
 const ProductRevenueChart = () => {
-    const [loading, setLoading] = useState(true)
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [{ label: "", data: [] }],
@@ -28,8 +26,6 @@ const ProductRevenueChart = () => {
                     }],
                 })
 
-                setLoading(false)
-
             } catch (error) {
                 console.error(error.message)
             }
@@ -39,24 +35,7 @@ const ProductRevenueChart = () => {
     }, [])
     
     return (
-        <>
-            <Pie 
-                data={chartData}
-                options={{ 
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Product revenue of current month',
-                            font: {
-                                size: 18,
-                            },
-                            color: "#362D2D"
-                        }
-                    }}
-                }
-            />
-        </>
+        <Chart data={chartData} title="Product revenue of current month" type="pie" />
     )
 }
 

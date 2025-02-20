@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { fetchProductSalesData } from '../../../../../api/storeDataHandling'
-import { Pie } from 'react-chartjs-2'
-import { Chart as ChartJS, plugins, Title } from "chart.js/auto";
+import Chart from '../../../../utility/charts/Chart';
 import { auth } from '../../../../../firebase';
 
 const ProductSalesChart = () => {
-    const [loading, setLoading] = useState(true)
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [{ label: "", data: [] }],
@@ -23,12 +21,10 @@ const ProductSalesChart = () => {
                 setChartData({
                     labels: dateLabels,
                     datasets: [{
-                        label: "Revenue ($)",
+                        label: "Sales ($)",
                         data: productSalesData,
                     }],
                 })
-
-                setLoading(false)
 
             } catch (error) {
                 console.error(error.message)
@@ -38,25 +34,10 @@ const ProductSalesChart = () => {
         getProductSales()
     }, [])
 
+    console.log("PRODUCT SALES CHART DATA", chartData)
+
     return (
-        <>
-            <Pie 
-                data={chartData} 
-                options={{ 
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Product Sales of current month',
-                            font: {
-                                size: 18,
-                            },
-                            color: "#362D2D"
-                        }
-                    }}
-                }
-            />
-        </>
+        <Chart data={chartData} title="Product Sales of current month" type="pie" />
     )
 }
 

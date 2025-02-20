@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { fetchUserTraffic } from '../../../../../api/storeDataHandling'
-import { Bar } from 'react-chartjs-2'
-import { Chart as ChartJS, plugins, Title } from "chart.js/auto";
+import Chart from '../../../../utility/charts/Chart';
 import { auth } from '../../../../../firebase';
 
 const UserTrafficChart = () => {
@@ -36,22 +35,7 @@ const UserTrafficChart = () => {
 
     return (
         <>
-            <Bar 
-                data={chartData} 
-                options={{
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'User traffic in the past 12 months',
-                            font: {
-                                size: 18,
-                            },
-                            color: "#362D2D"
-                        }
-                    }
-                }}
-            />
+            <Chart data={chartData} title="Product revenue of current month" type="bar" maintainAspectRatio={false}/>
         </>
     )
 }
