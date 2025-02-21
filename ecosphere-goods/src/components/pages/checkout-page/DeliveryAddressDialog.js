@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login, selectUser } from '../../../features/userSlice';
 import { fetchDeliveryInfo, updateDeliveryInfo } from '../../../api/userInfoHandling';
 import { toast } from 'react-toastify';
+import { auth } from '../../../firebase';
 
 const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
     const [address, setAddress] = useState('')
@@ -19,7 +20,8 @@ const DeliveryAddressDialog = ({ open = false, closeDialog }) => {
         event.preventDefault()
         setLoading(true)
         try {
-            await updateDeliveryInfo(user.uid, address, country, zipCode, phoneNumber)
+            const idToken = await auth.currentUser.getIdToken()
+            await updateDeliveryInfo(address, country, zipCode, phoneNumber, idToken)
             const deliveryInfo = await fetchDeliveryInfo(user.uid)
             
             dispatch(login({
