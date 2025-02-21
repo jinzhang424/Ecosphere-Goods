@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import BasicInfo from './BasicInfo'
 import DeliveryInfo from './DeliveryInfo'
 import RoundedImageInput from '../../../utility/input/RoundedImageInput'
@@ -14,7 +14,7 @@ const DashBoardSettingsPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true);
-    
+
     const formData = new FormData(formRef.current)
     const data = Object.fromEntries(formData.entries())
     console.log(data)

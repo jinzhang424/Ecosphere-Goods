@@ -13,21 +13,24 @@ const PersonalInfo = () => {
                 <TextInputWithHeading 
                     heading="First Name" 
                     className='flex-grow' 
-                    placeholder={user.firstName ? user.firstName : "First Name"}
+                    placeholder="First Name"
                     name="firstName"
+                    value={user.firstName}
                 />
                 <TextInputWithHeading 
                     heading="Last Name" 
                     className='flex-grow' 
-                    placeholder={user.lastName ? user.lastName : "Last Name"}
+                    placeholder="Last Name"
                     name="lastName"
+                    value={user.lastName}
                 />
             </div>
 
             <TextInputWithHeading 
                 heading="Email" 
-                placeholder={user.email ? user.email : 'example123@gmail.com'}
+                placeholder='example123@gmail.com'
                 name="email"
+                value={user.email}
             />
         </SettingsSection>
     )
