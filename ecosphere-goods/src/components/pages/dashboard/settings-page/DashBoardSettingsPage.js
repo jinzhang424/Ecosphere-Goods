@@ -55,16 +55,18 @@ const DashBoardSettingsPage = () => {
       <h1 className='text-header font-header w-full border-b-2 border-dark-brown border-opacity-10 pb-4'>Settings</h1>
 
       <div className='flex text-dark-brown font-header gap-2 text-lg h-8 items-center'>
-        <div className='w-8 aspect-square'><RoundedImageInput/></div>
+        <div className='w-12 aspect-square'><RoundedImageInput/></div>
         <p>{user.firstName ? user.firstName : 'Your'}</p>
         <p>{user.lastName ? user.lastName : 'Name'}</p>
       </div>
       
-      <form ref={formRef} className='grid grid-cols-2 gap-8' onSubmit={handleSubmit}>
-        <BasicInfo/>
-        <DeliveryInfo/>
+      <form ref={formRef} className='flex flex-col gap-8' onSubmit={handleSubmit}>
+        <div className='grid grid-cols-2 gap-8'>
+          <BasicInfo/>
+          <DeliveryInfo/>
+        </div>
 
-        <div className='max-w-44'>
+        <div className='ml-auto'>
           <UncontainedButton loading={loading}>
             Save Changes
           </UncontainedButton>
