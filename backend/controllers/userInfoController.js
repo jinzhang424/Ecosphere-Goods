@@ -1,16 +1,19 @@
 const { db } = require("../config/firebase")
 
-const setDeliveryInfo = async (req, res) => {
+const updateDeliveryInfo = async (req, res) => {
     console.log('*** Updating Delivery Info ***')
-    const { userID, address, country, zipCode, phoneNumber } = req.body
+    const { address, country, zipCode, phoneNumber } = req.body
+    const uid = req.user?.uid
 
-    if (!userID || !address) {
-        console.error('Missing user id or delivery address')
-        return res.status(400).json({ success: false, message: 'Missing user id or delivery address'})
+    console.log(req.body)
+
+    if (!address || !country || !zipCode || !phoneNumber) {
+        console.error('Missing parameters')
+        return res.status(400).json({ success: false, message: 'Missing parameters'})
     }
 
     try {
-        await db.collection('customers').doc(userID).update({
+        await db.collection('customers').doc(uid).update({
             deliveryInfo: {
                 address: address,
                 zipCode: zipCode,
@@ -90,4 +93,4 @@ const fetchProfileImage = async (req, res) => {
     }
 }
 
-module.exports = { setDeliveryInfo, fetchDeliveryInfo, setProfileImage, fetchProfileImage }
+module.exports = { updateDeliveryInfo, fetchDeliveryInfo, setProfileImage, fetchProfileImage }

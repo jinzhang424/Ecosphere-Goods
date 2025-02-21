@@ -5,6 +5,8 @@ import RoundedImageInput from '../../../utility/input/RoundedImageInput'
 import UncontainedButton from '../../../utility/general-buttons/UncontainedButton'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../../../features/userSlice'
+import { updateDeliveryInfo } from '../../../../api/userInfoHandling'
+import { auth } from '../../../../firebase'
 
 const DashBoardSettingsPage = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +19,17 @@ const DashBoardSettingsPage = () => {
 
     const formData = new FormData(formRef.current)
     const data = Object.fromEntries(formData.entries())
-    console.log(data)
+    
+    try {
+      console.log(data)
+      const idToken = await auth.currentUser.getIdToken()
+
+      await updateDeliveryInfo(data.address, data.country, data.zipCode, data.phone, idToken)
+
+      console.log('SUCCEESSFULY UDPATED INFO')
+    } catch (error) {
+      console.error(error.message);
+    }
 
     setLoading(false);
   }

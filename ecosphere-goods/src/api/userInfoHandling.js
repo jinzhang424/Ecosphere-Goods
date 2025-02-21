@@ -1,12 +1,19 @@
 import axios from "axios"
 
-export const updateDeliveryInfo = async (userID, address, country, zipCode, phoneNumber) => {
+export const updateDeliveryInfo = async (address, country, zipCode, phoneNumber, idToken) => {
     try {
-        await axios.post('/user-info/set-delivery-info', {
-            userID, address, country, zipCode, phoneNumber
+        await axios.post('/user-info/update-delivery-info', {
+            address, 
+            country, 
+            zipCode, 
+            phoneNumber
+        }, {
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            }
         })
     } catch (error) {
-        throw new Error('Error while updating delivery address')
+        throw new Error(error.message)
     }
 }
 
