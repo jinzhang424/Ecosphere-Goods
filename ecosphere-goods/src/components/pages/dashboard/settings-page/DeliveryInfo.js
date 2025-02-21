@@ -13,10 +13,12 @@ const DeliveryInfo = () => {
             <TextInputWithHeading 
                 heading="Address"
                 placeholder={deliveryInfo?.address ? deliveryInfo?.address : 'Example 6 St'}
+                name="address"
             />
             <TextInputWithHeading 
                 heading="Country"
                 placeholder={deliveryInfo?.country ? deliveryInfo?.country : 'Country'}
+                name="country"
             />
 
             <div className='flex gap-8'>
@@ -24,10 +26,12 @@ const DeliveryInfo = () => {
                     heading="Phone"
                     className="flex-grow"
                     placeholder={deliveryInfo?.phoneNumber ? deliveryInfo?.phoneNumber : 'Phone'}
+                    name="phone"
                 />
                 <TextInputWithHeading 
                     heading="Zip Code"
                     placeholder={deliveryInfo?.zipCode ? deliveryInfo?.zipCode : 'Zip Code'}
+                    name="zipCode"
                 />
             </div>
         </SettingsSection>

@@ -1,11 +1,11 @@
 import React from 'react'
 import TextInput from './TextInput'
 
-const TextInputWithHeading = ({ heading, placeholder, className }) => {
+const TextInputWithHeading = ({ heading, placeholder, className, name }) => {
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
-        <h2 className='font-header'>{heading}</h2>
-        <TextInput placeholder={placeholder}/>
+        <label className='font-header'>{heading}</label>
+        <TextInput placeholder={placeholder} name={name}/>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import BasicInfo from './BasicInfo'
 import DeliveryInfo from './DeliveryInfo'
 import RoundedImageInput from '../../../utility/input/RoundedImageInput'
@@ -7,7 +7,20 @@ import { useSelector } from 'react-redux'
 import { selectUser } from '../../../../features/userSlice'
 
 const DashBoardSettingsPage = () => {
+  const [loading, setLoading] = useState(false);
   const user = useSelector(selectUser)
+  const formRef = useRef(null)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true);
+    
+    const formData = new FormData(formRef.current)
+    const data = Object.fromEntries(formData.entries())
+    console.log(data)
+
+    setLoading(false);
+  }
 
   return (
     <div className='flex flex-col gap-8 bg-off-white rounded-3xl h-full p-8 text-dark-brown'>
@@ -19,16 +32,16 @@ const DashBoardSettingsPage = () => {
         <p>{user.lastName ? user.lastName : 'Name'}</p>
       </div>
       
-      <div className='grid grid-cols-2 gap-8'>
+      <form ref={formRef} className='grid grid-cols-2 gap-8' onSubmit={handleSubmit}>
         <BasicInfo/>
         <DeliveryInfo/>
-      </div>
 
-      <div className='max-w-44'>
-        <UncontainedButton>
-          Save Changes
-        </UncontainedButton>
-      </div>
+        <div className='max-w-44'>
+          <UncontainedButton loading={loading}>
+            Save Changes
+          </UncontainedButton>
+        </div>
+      </form>
     </div>
   )
 }
