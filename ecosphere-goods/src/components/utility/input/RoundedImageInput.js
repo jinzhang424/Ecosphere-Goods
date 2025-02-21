@@ -36,10 +36,6 @@ const RoundedImageInput = () => {
             await setProfileImage(user.uid, imageUrl)
 
             dispatch(login({
-                uid: user.uid,
-                email: user.email,
-                role: user.role,
-                deliveryInfo: user.deliveryInfo,
                 profile_image: user.profile_image,
             }))
         } catch (error) {
