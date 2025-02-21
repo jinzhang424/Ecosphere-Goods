@@ -31,6 +31,7 @@ const PersonalInfo = () => {
                 placeholder='example123@gmail.com'
                 name="email"
                 value={user.email}
+                type='email'
             />
         </SettingsSection>
     )
