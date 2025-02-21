@@ -3,15 +3,17 @@ import BasicInfo from './BasicInfo'
 import DeliveryInfo from './DeliveryInfo'
 import RoundedImageInput from '../../../utility/input/RoundedImageInput'
 import UncontainedButton from '../../../utility/general-buttons/UncontainedButton'
-import { useSelector } from 'react-redux'
-import { selectUser } from '../../../../features/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { login, selectUser } from '../../../../features/userSlice'
 import { updateBasicInfo, updateDeliveryInfo } from '../../../../api/userInfoHandling'
 import { auth } from '../../../../firebase'
+import { toast, ToastContainer } from 'react-toastify'
 
 const DashBoardSettingsPage = () => {
   const [loading, setLoading] = useState(false);
   const user = useSelector(selectUser)
   const formRef = useRef(null)
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -27,9 +29,22 @@ const DashBoardSettingsPage = () => {
       await updateDeliveryInfo(data.address, data.country, data.zipCode, data.phone, idToken);
       await updateBasicInfo(data.email, data.firstName, data.lastName, idToken);
 
-      console.log('SUCCEESSFULY UDPATED INFO')
+      dispatch(login({
+        email: data.email,
+        deliveryInfo: {
+          address: data.address,
+          country: data.country,
+          zipCode: data.zipCode,
+          phoneNumber: data.phone
+        },
+        firstName: data.firstName,
+        lastName: data.lastName
+      }))
+
+      toast.success("Successfully saved changes.")
     } catch (error) {
       console.error(error.message);
+      toast.error("Error occurred while saving changes.")
     }
 
     setLoading(false);
@@ -55,6 +70,8 @@ const DashBoardSettingsPage = () => {
           </UncontainedButton>
         </div>
       </form>
+
+      <ToastContainer/>
     </div>
   )
 }
