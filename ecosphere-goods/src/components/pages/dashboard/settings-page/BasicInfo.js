@@ -11,14 +11,14 @@ const PersonalInfo = () => {
         <SettingsSection heading={'Basic Info'}>
             <div className='flex gap-4 w-full'>
                 <TextInputWithHeading 
-                    heading="First Name" 
+                    label="First Name" 
                     className='flex-grow' 
                     placeholder="First Name"
                     name="firstName"
                     value={user.firstName}
                 />
                 <TextInputWithHeading 
-                    heading="Last Name" 
+                    label="Last Name" 
                     className='flex-grow' 
                     placeholder="Last Name"
                     name="lastName"
@@ -27,7 +27,7 @@ const PersonalInfo = () => {
             </div>
 
             <TextInputWithHeading 
-                heading="Email" 
+                label="Email" 
                 placeholder='example123@gmail.com'
                 name="email"
                 value={user.email}

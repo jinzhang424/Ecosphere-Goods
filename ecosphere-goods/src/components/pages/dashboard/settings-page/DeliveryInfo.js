@@ -11,13 +11,13 @@ const DeliveryInfo = () => {
     return (
         <SettingsSection heading="Delivery Info">
             <TextInputWithHeading 
-                heading="Address"
+                label="Address"
                 placeholder='Example 6 St'
                 name="address"
                 value={deliveryInfo?.address}
             />
             <TextInputWithHeading 
-                heading="Country"
+                label="Country"
                 placeholder='Country'
                 name="country"
                 value={deliveryInfo?.country}
@@ -25,14 +25,14 @@ const DeliveryInfo = () => {
 
             <div className='flex gap-8'>
                 <TextInputWithHeading 
-                    heading="Phone"
+                    label="Phone"
                     className="flex-grow"
                     placeholder='Phone'
                     name="phone"
                     value={deliveryInfo?.phoneNumber}
                 />
                 <TextInputWithHeading 
-                    heading="Zip Code"
+                    label="Zip Code"
                     placeholder='Zip Code'
                     name="zipCode"
                     value={deliveryInfo?.zipCode}
