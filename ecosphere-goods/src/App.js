@@ -73,6 +73,7 @@ function App() {
         let role
         let deliveryInfo
         let profileImage
+        const displayNameArr = auth.currentUser.displayName.split(" ")
 
         try {
           deliveryInfo = await fetchDeliveryInfo(userAuth.uid)
@@ -93,6 +94,8 @@ function App() {
           deliveryInfo: deliveryInfo,
           role: role,
           profile_image: profileImage,
+          firstName: displayNameArr[0],
+          lastName: displayNameArr[1]
         }))
       } else {
         dispatch(logout())

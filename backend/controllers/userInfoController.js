@@ -1,4 +1,4 @@
-const { db } = require("../config/firebase")
+const { db, admin } = require("../config/firebase")
 
 const updateDeliveryInfo = async (req, res) => {
     console.log('*** Updating Delivery Info ***')
@@ -26,6 +26,25 @@ const updateDeliveryInfo = async (req, res) => {
     } catch (error) {
         console.log(error.message)
         return res.status(500).json({ success: false, message: 'Error updating or adding delivery address' })
+    }
+}
+
+const updateBasicInfo = async (req, res) => {
+    console.log("*** Updating basic info ***")
+
+    const { email, firstName, lastName } = req.body;
+    const uid = req.user?.uid;
+
+    try {
+        await admin.auth().updateUser(uid, {
+            email: email,
+            displayName: `${firstName} ${lastName}`
+        })
+
+        return res.status(201).json({ success: true, message: "Successfully updated basic info"})
+    } catch (error) {
+        console.error(error.message)
+        return res.status(500).json({ success: false, message: "Error occurred while updating basic info" })
     }
 }
 
@@ -93,4 +112,4 @@ const fetchProfileImage = async (req, res) => {
     }
 }
 
-module.exports = { updateDeliveryInfo, fetchDeliveryInfo, setProfileImage, fetchProfileImage }
+module.exports = { updateDeliveryInfo, fetchDeliveryInfo, setProfileImage, fetchProfileImage, updateBasicInfo }

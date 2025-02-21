@@ -17,6 +17,22 @@ export const updateDeliveryInfo = async (address, country, zipCode, phoneNumber,
     }
 }
 
+export const updateBasicInfo = async (email, firstName, lastName, idToken) => {
+    try {
+        await axios.post('/user-info/update-basic-info', {
+            email,
+            firstName,
+            lastName
+        }, {
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            }
+        })
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
 export const fetchDeliveryInfo = async (userID) => {
     try {
         const response = await axios.get(`/user-info/delivery-info/${userID}`)
