@@ -1,17 +1,17 @@
 import React from 'react'
-import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
-const ContainedBrownButton = ({ clickAction, children }) => {
+const ContainedBrownButton = ({ onClick = async () => {}, children, loading = false, rounded = true, type = '' }) => {
+
   return (
-    <Button 
-        onClick={clickAction}
-        variant='contained'
-        sx={{
-            backgroundColor: '#362D2D'
-        }}
+    <button 
+      className={`flex justify-center items-centers bg-dark-brown border-2 border-dark-brown text-off-white p-3 ${rounded ? 'rounded-full' : 'rounded-lg'} w-full font-header`}
+      onClick={() => onClick()}
+      type={type}
     >
-        {children}
-    </Button>
+      <span className={`${loading ? 'opacity-0' : ''}`}>{children}</span>
+      <CircularProgress color='#362D2D' size={24} className={`absolute ${loading ? '' : 'opacity-0'}`} thickness={4}/>
+    </button>
   )
 }
 
