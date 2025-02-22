@@ -12,7 +12,7 @@ const ContainedBrownButton = ({ onClick = async () => {}, children, rounded = tr
 
   return (
     <button 
-      className={`bg-dark-brown text-off-white p-3 ${rounded ? 'rounded-full' : 'rounded-lg'} w-full font-header`}
+      className={`bg-dark-brown border-2 border-dark-brown text-off-white p-3 ${rounded ? 'rounded-full' : 'rounded-lg'} w-full font-header`}
       onClick={handleClick}
       type={type}
     >
