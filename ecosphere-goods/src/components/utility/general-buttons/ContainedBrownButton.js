@@ -10,7 +10,7 @@ const ContainedBrownButton = ({ onClick = async () => {}, children, loading = fa
       type={type}
     >
       <span className={`${loading ? 'opacity-0' : ''}`}>{children}</span>
-      <CircularProgress color='#362D2D' size={24} className={`absolute ${loading ? '' : 'opacity-100'}`} thickness={4}/>
+      <CircularProgress color='#362D2D' size={24} className={`absolute ${loading ? '' : 'opacity-0'}`} thickness={4}/>
     </button>
   )
 }
