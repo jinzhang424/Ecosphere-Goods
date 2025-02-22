@@ -10,6 +10,7 @@ import UncontainedButton from '../../../utility/general-buttons/UncontainedButto
 import { auth } from '../../../../firebase';
 import { GoogleAuthProvider, sendEmailVerification, signInWithPopup } from 'firebase/auth';
 import { FaGoogle } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const SignInPanel = () => {
     const navigate = useNavigate()
@@ -76,12 +77,15 @@ const SignInPanel = () => {
                     variant="outlined" 
                     fullWidth
                 />
+
                 <PasswordTextField setPassword={ setPassword } label='Password'/>
+
                 <div className='flex justify-between w-full'>
                     <p>Remember Me</p>
-                    <button onClick={() => navigate('/reset-password')} className='font-header cursor-pointer hover:underline'>
+                    
+                    <Link to='/reset-password' className='font-header cursor-pointer hover:underline'>
                         Forgot Password?
-                    </button>
+                    </Link>
                 </div>
 
                 {/** Login Button */}
@@ -92,6 +96,7 @@ const SignInPanel = () => {
                 </div>
             </Box>
 
+            {/** Other sign in options */}
             <div className='flex items-center opacity-40'>
                 <div className='bg-dark-brown flex-grow h-0.5 opacity-50'/>
                 <p className='pr-3 pl-3 text-dark-brown font-header'>or continue with</p>

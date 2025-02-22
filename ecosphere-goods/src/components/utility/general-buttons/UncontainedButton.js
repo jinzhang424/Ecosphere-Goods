@@ -1,11 +1,11 @@
 import React from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 
-const UncontainedButton = ({ children, onClick = () => {}, loading = false, bgColor='dark-brown', color='dark-brown', transitionColor='off-white' }) => {
+const UncontainedButton = ({ children, onClick = () => {}, loading = false, bgColor='dark-brown', color='dark-brown', transitionColor='off-white', rounded = true }) => {
 
     return (
         <button 
-            className={`border-3 font-header border-${color} text-${color} bg-${bgColor} bg-opacity-0 hover:bg-opacity-100 p-3 w-full hover:text-${transitionColor} transition ease-in-out duration-300 rounded-full`}
+            className={`border-3 font-header border-${color} text-${color} bg-${bgColor} bg-opacity-0 hover:bg-opacity-100 p-3 w-full hover:text-${transitionColor} transition ease-in-out duration-300 ${rounded ? 'rounded-full' : 'rounded-lg'}`}
             onClick={ onClick }
 
         >
