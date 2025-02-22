@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ToastContainer } from 'react-toastify';
-import PasswordResetPanel from './PasswordResetPanel';
+import ResetPanel from './ResetPanel';
 import SuccessPanel from './SuccessPanel';
 
 const PasswordResetPage = () => {
@@ -15,7 +15,7 @@ const PasswordResetPage = () => {
                     className='flex w-full h-full transition-transform ease-in-out duration-300' 
                     style={{ transform: `translateX(-${slide * 100}%)` }}
                 >
-                    <PasswordResetPanel nextSlide={() => setSlide(1)}/>
+                    <ResetPanel nextSlide={() => setSlide(1)}/>
                     <SuccessPanel prevSlide={() => setSlide(0)}/>
                 </div>
             </div>

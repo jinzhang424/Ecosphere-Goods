@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../../../firebase';
 import { toast } from 'react-toastify';
+import PanelContainer from './PanelContainer';
 
-const PasswordResetPanel = ({ nextSlide }) => {
+const ResetPanel = ({ nextSlide }) => {
     const formRef = useRef(null)
     const navigate = useNavigate()
 
@@ -27,16 +28,15 @@ const PasswordResetPanel = ({ nextSlide }) => {
         }
     }
 
+    const heading = "Forgot your password?"
+    const bodyText = "Enter your email below and we'll send you a password reset link!"
+
     return (
-        <div className='flex flex-col w-full h-full items-center text-dark-brown justify-between flex-shrink-0 p-10'>
-            <div className='rounded-full border-8 p-4 border-dark-brown'>
-                <BiLock size={100}/>
-            </div>
-
-            <h1 className='font-header text-header text-center'>Forgot your password?</h1>
-
-            <p className='text-center w-11/12'>Enter your email below and we'll send you a password reset link!</p>
-            
+        <PanelContainer
+            icon={<BiLock size={100}/>}
+            heading={heading}
+            bodyText={bodyText}
+        >
             <form ref={formRef} className="flex flex-col w-full gap-8" onSubmit={handleSend}>
                 <TextInputWithHeading 
                     type='email' 
@@ -66,8 +66,8 @@ const PasswordResetPanel = ({ nextSlide }) => {
                     </div>
                 </div>
             </form>
-        </div>
+        </PanelContainer>
     )
 }
 
-export default PasswordResetPanel
+export default ResetPanel

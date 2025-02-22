@@ -3,6 +3,7 @@ import { GiPartyPopper } from "react-icons/gi";
 import ContainedBrownButton from '../../../utility/general-buttons/ContainedBrownButton'
 import UncontainedButton from '../../../utility/general-buttons/UncontainedButton';
 import { useNavigate } from 'react-router-dom';
+import PanelContainer from './PanelContainer';
 
 const SuccessPanel = ({ prevSlide }) => {
     const navigate = useNavigate()
@@ -11,16 +12,15 @@ const SuccessPanel = ({ prevSlide }) => {
         navigate('/user-portal')
     }
 
+    const heading = "Password resent link successfully sent!"
+    const bodyText = "We have sent the password reset link and instructions to your inbox."
+
     return (
-        <div className='flex flex-col w-full h-full items-center text-dark-brown justify-between flex-shrink-0 p-10'>
-            <div className='rounded-full border-8 p-4 border-dark-brown'>
-                <GiPartyPopper size={100}/>
-            </div>
-
-            <h1 className='font-header text-header text-center'>Password resent link successfully sent!</h1>
-
-            <p className='text-center w-11/12'>We have sent the password reset link and instructions to your inbox.</p>
-
+        <PanelContainer 
+            icon={<GiPartyPopper size={100}/>}
+            heading={heading}
+            bodyText={bodyText}
+        >
             <div className='grid grid-cols-2 w-full gap-24'>
                 <div className='flex-grow'>
                     <UncontainedButton 
@@ -41,7 +41,7 @@ const SuccessPanel = ({ prevSlide }) => {
                     </ContainedBrownButton>
                 </div>
             </div>
-        </div>
+        </PanelContainer>
     )
 }
 
