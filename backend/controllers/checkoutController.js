@@ -14,6 +14,9 @@ const fetchCheckoutSessionID = async (req, res) => {
 
     try {
         const customerRef = db.collection('customers').doc(uid)
+        const customerSnap = await customerRef.get()
+        const customerData = customerSnap.data()
+
         const orderRef = customerRef.collection('checkout_sessions')
         
         const lineItems = []
@@ -40,6 +43,7 @@ const fetchCheckoutSessionID = async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
+            customer_email: customerData.email,
             success_url: successUrl,
             cancel_url: cancelUrl,
             metadata: {
