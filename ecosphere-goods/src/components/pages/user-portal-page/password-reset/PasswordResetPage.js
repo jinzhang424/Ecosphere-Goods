@@ -14,7 +14,9 @@ const PasswordResetPage = () => {
         e.preventDefault()
 
         const formData = new FormData(formRef.current)
-        const data = Object.entries(formData.entries())
+        const data = Object.fromEntries(formData.entries())
+
+        console.log(data)
 
         try {
             await sendPasswordResetEmail(auth, data.email)
@@ -36,7 +38,12 @@ const PasswordResetPage = () => {
                 <p className='text-center w-11/12'>Enter your email below and we'll send you a password reset link!</p>
                 
                 <form ref={formRef} className="flex flex-col w-full gap-8" onSubmit={handleSend}>
-                    <TextInputWithHeading type='email' className="w-full" name="email"/>
+                    <TextInputWithHeading 
+                        type='email' 
+                        className="w-full" 
+                        name="email"
+                        placeholder="example123@gmail.com"
+                    />
 
                     <div className='flex w-full gap-24'>
                         <div 
