@@ -8,7 +8,7 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../../../firebase';
 import { toast } from 'react-toastify';
 
-const PasswordResetPanel = () => {
+const PasswordResetPanel = ({ nextSlide }) => {
     const formRef = useRef(null)
     const navigate = useNavigate()
 
@@ -18,11 +18,9 @@ const PasswordResetPanel = () => {
         const formData = new FormData(formRef.current)
         const data = Object.fromEntries(formData.entries())
 
-        console.log(data)
-
         try {
             await sendPasswordResetEmail(auth, data.email)
-            toast.success('Email has successfully been sent to your inbox inbox!')
+            nextSlide()
         } catch (error) {
             toast.error(error.message)
             console.error(error.message)
