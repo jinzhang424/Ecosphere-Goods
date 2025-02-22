@@ -15,6 +15,7 @@ import VerificationPage from './components/pages/verification-page/VerificationP
 import DashBoardOrdersPage from './components/pages/dashboard/orders-page/DashBoardOrdersPage'
 import DashBoardHomePage from './components/pages/dashboard/homepage/DashBoardHomePage';
 import ProductCatalogPage from './components/pages/dashboard/product-catalog-page/ProductCatalogPage';
+import DashBoardSettingsPage from './components/pages/dashboard/settings-page/DashBoardSettingsPage';
 
 // Layouts
 import MainLayout from './components/page-layouts/MainLayout';
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
       { path: 'home', element: <DashBoardHomePage />},
       { path: 'admin/product-catalog', element: <ProductCatalogPage />},
       { path: 'orders', element: <PaginationProvider><DashBoardOrdersPage/></PaginationProvider>},
+      { path: 'settings', element: <DashBoardSettingsPage/>},
     ]
   },
   { path: '/user-portal', element: <UserPortalPage /> },
@@ -71,6 +73,7 @@ function App() {
         let role
         let deliveryInfo
         let profileImage
+        const displayNameArr = auth.currentUser.displayName.split(" ")
 
         try {
           deliveryInfo = await fetchDeliveryInfo(userAuth.uid)
@@ -91,6 +94,8 @@ function App() {
           deliveryInfo: deliveryInfo,
           role: role,
           profile_image: profileImage,
+          firstName: displayNameArr[0],
+          lastName: displayNameArr[1]
         }))
       } else {
         dispatch(logout())
