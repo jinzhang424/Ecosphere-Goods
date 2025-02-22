@@ -79,7 +79,9 @@ const SignInPanel = () => {
                 <PasswordTextField setPassword={ setPassword } label='Password'/>
                 <div className='flex justify-between w-full'>
                     <p>Remember Me</p>
-                    <p className='font-header cursor-pointer hover:underline'>Forgot Password?</p>
+                    <button onClick={() => navigate('/reset-password')} className='font-header cursor-pointer hover:underline'>
+                        Forgot Password?
+                    </button>
                 </div>
 
                 {/** Login Button */}
