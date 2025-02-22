@@ -33,7 +33,7 @@ const RegisterSlider = ({ children }) => {
             </div>
             
             <div className='flex justify-between'>
-                <ContainedBrownButton clickAction={prevSlide} label="Back"/>
+                <ContainedBrownButton onClick={prevSlide} label="Back"/>
                     <div className='flex items-center space-x-3'>
                         {children.map((_, index) => (
                             <FaCircle 
@@ -43,7 +43,7 @@ const RegisterSlider = ({ children }) => {
                             />
                         ))}
                     </div>
-                <ContainedBrownButton clickAction={nextSlide} label="Next"/>
+                <ContainedBrownButton onClick={nextSlide} label="Next"/>
             </div>
         </div>
     )

@@ -5,6 +5,7 @@ import { BiLock } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../../../firebase';
+import ContainedBrownButton from '../../../utility/general-buttons/ContainedBrownButton'
 
 const PasswordResetPage = () => {
     const formRef = useRef(null)
@@ -46,21 +47,24 @@ const PasswordResetPage = () => {
                     />
 
                     <div className='flex w-full gap-24'>
-                        <div 
-                            className='flex-grow' 
-                            onClick={() => navigate(-1)}
-                        >
-                            <UncontainedButton rounded={false}>
+                        <div className='flex-grow'>
+                            <UncontainedButton 
+                                onClick={() => navigate(-1)} 
+                                rounded={false}
+                            >
                                 Cancel
                             </UncontainedButton>
                         </div>
 
-                        <button 
-                            className='font-header bg-dark-brown text-off-white p-3 pl-4 pr-4 rounded-lg flex-grow' 
-                            type='submit'
-                        >
-                            Send
-                        </button>
+                        <div className='flex-grow'>
+                            <ContainedBrownButton 
+                                className='font-header bg-dark-brown text-off-white p-3 pl-4 pr-4 rounded-lg flex-grow' 
+                                type='submit'
+                                rounded={false}
+                            >
+                                Send
+                            </ContainedBrownButton>
+                        </div>
                     </div>
                 </form>
             </div>
