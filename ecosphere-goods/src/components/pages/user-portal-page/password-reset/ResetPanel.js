@@ -52,7 +52,10 @@ const ResetPanel = ({ nextSlide }) => {
                 <div className='grid grid-cols-2 w-full gap-24'>
                     <div className='flex-grow'>
                         <UncontainedButton 
-                            onClick={() => navigate(-1)} 
+                            onClick={(e) => {
+                                e.preventDefault()
+                                navigate(-1)
+                            }} 
                             rounded={false}
                         >
                             Cancel
