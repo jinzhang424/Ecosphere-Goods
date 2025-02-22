@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import TextInputWithHeading from '../../../utility/input/TextInputWithHeading'
 import UncontainedButton from '../../../utility/general-buttons/UncontainedButton';
 import { BiLock } from "react-icons/bi";
@@ -12,8 +12,10 @@ import PanelContainer from './PanelContainer';
 const ResetPanel = ({ nextSlide }) => {
     const formRef = useRef(null)
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     const handleSend = async (e) => {
+        setLoading(true)
         e.preventDefault()
 
         const formData = new FormData(formRef.current)
@@ -26,6 +28,8 @@ const ResetPanel = ({ nextSlide }) => {
             toast.error(error.message)
             console.error(error.message)
         }
+
+        setLoading(false)
     }
 
     const heading = "Forgot your password?"
@@ -60,6 +64,7 @@ const ResetPanel = ({ nextSlide }) => {
                             className='font-header bg-dark-brown text-off-white p-3 pl-4 pr-4 rounded-lg flex-grow' 
                             type='submit'
                             rounded={false}
+                            loading={loading}
                         >
                             Send
                         </ContainedBrownButton>

@@ -1,23 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 
-const ContainedBrownButton = ({ onClick = async () => {}, children, rounded = true, type = '' }) => {
-  const [loading, setLoading] = useState(false)
-
-  const handleClick = async () => {
-    setLoading(true)
-    await onClick()
-    setLoading(false)
-  }
+const ContainedBrownButton = ({ onClick = async () => {}, children, loading = false, rounded = true, type = '' }) => {
 
   return (
     <button 
-      className={`bg-dark-brown border-2 border-dark-brown text-off-white p-3 ${rounded ? 'rounded-full' : 'rounded-lg'} w-full font-header`}
-      onClick={handleClick}
+      className={`flex justify-center items-centers bg-dark-brown border-2 border-dark-brown text-off-white p-3 ${rounded ? 'rounded-full' : 'rounded-lg'} w-full font-header`}
+      onClick={() => onClick()}
       type={type}
     >
       <span className={`${loading ? 'opacity-0' : ''}`}>{children}</span>
-      <CircularProgress color='#362D2D' size={24} className={`absolute ${loading ? '' : 'opacity-0'}`} thickness={4}/>
+      <CircularProgress color='#362D2D' size={24} className={`absolute ${loading ? '' : 'opacity-100'}`} thickness={4}/>
     </button>
   )
 }
