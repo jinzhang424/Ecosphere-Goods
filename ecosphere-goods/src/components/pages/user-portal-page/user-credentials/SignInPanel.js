@@ -79,14 +79,10 @@ const SignInPanel = () => {
                 />
 
                 <PasswordTextField setPassword={ setPassword } label='Password'/>
-
-                <div className='flex justify-between w-full'>
-                    <p>Remember Me</p>
-                    
-                    <Link to='/reset-password' className='font-header cursor-pointer hover:underline'>
-                        Forgot Password?
-                    </Link>
-                </div>
+ 
+                <Link to='/reset-password' className='self-end font-header cursor-pointer hover:underline'>
+                    Forgot Password?
+                </Link>
 
                 {/** Login Button */}
                 <div className='w-4/6'>
