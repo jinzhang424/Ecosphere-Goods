@@ -62,7 +62,7 @@ const SignInPanel = () => {
     }
     
     return (
-        <div className='w-full space-y-8 flex-shrink-0 p-32'>
+        <div className='flex flex-col w-full gap-8 flex-shrink-0 p-32'>
             <BackToBrowsingButton>Back To Browsing</BackToBrowsingButton>
             <h1 className='text-header font-LHeader'>Sign In</h1>
             <Box
