@@ -11,6 +11,7 @@ import NotFoundPage from './components/pages/error-pages/NotFoundPage';
 import InsufficientPermissionsPage from './components/pages/error-pages/InsufficientPermissionsPage';
 import VerificationPage from './components/pages/verification-page/VerificationPage';
 import PasswordResetPage from './components/pages/user-portal-page/password-reset/PasswordResetPage';
+import AboutUsPage from './components/pages/about-us-page/AboutUsPage';
 
 // Dashboard
 import DashBoardOrdersPage from './components/pages/dashboard/orders-page/DashBoardOrdersPage'
@@ -45,7 +46,8 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'products', element: <ProductsPage /> },
       { path: '/insufficient-permissions', element: <InsufficientPermissionsPage/> },
-      { path: '*', element: <NotFoundPage/>}
+      { path: '*', element: <NotFoundPage/>},
+      { path: '/about-us', element: <AboutUsPage/>}
     ],
   },
   {
