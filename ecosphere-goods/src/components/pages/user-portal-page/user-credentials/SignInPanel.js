@@ -62,7 +62,7 @@ const SignInPanel = () => {
     }
     
     return (
-        <div className='w-full space-y-8 flex-shrink-0 p-32'>
+        <div className='flex flex-col w-full gap-8 flex-shrink-0 p-32'>
             <BackToBrowsingButton>Back To Browsing</BackToBrowsingButton>
             <h1 className='text-header font-LHeader'>Sign In</h1>
             <Box
@@ -79,14 +79,10 @@ const SignInPanel = () => {
                 />
 
                 <PasswordTextField setPassword={ setPassword } label='Password'/>
-
-                <div className='flex justify-between w-full'>
-                    <p>Remember Me</p>
-                    
-                    <Link to='/reset-password' className='font-header cursor-pointer hover:underline'>
-                        Forgot Password?
-                    </Link>
-                </div>
+ 
+                <Link to='/reset-password' className='self-end font-header cursor-pointer hover:underline'>
+                    Forgot Password?
+                </Link>
 
                 {/** Login Button */}
                 <div className='w-4/6'>

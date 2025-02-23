@@ -77,7 +77,8 @@ function App() {
         let role
         let deliveryInfo
         let profileImage
-        const displayNameArr = auth.currentUser.displayName.split(" ")
+        const displayName = auth?.currentUser?.displayName
+        const displayNameArr = displayName ? displayName?.split(" ") : new Array("", "")
 
         try {
           deliveryInfo = await fetchDeliveryInfo(userAuth.uid)
@@ -85,7 +86,7 @@ function App() {
           await handleSetCustomUserClaims(userAuth.uid)
 
           await auth.currentUser.getIdToken(true); 
-          const idTokenResult = await auth.currentUser.getIdTokenResult();
+          const idTokenResult = await auth?.currentUser?.getIdTokenResult();
           
           role = idTokenResult.claims.admin ? 'admin' : 'customer';
         } catch (error) {
