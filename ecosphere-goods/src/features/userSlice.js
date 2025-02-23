@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 
 export const userSlice = createSlice({
     name: 'user',
@@ -13,6 +15,7 @@ export const userSlice = createSlice({
 
         logout: (state) => {
             state.user = null
+            signOut(auth).catch((error) => console.error("Error signing out:", error))
         }
     }
 })
