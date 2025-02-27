@@ -16,10 +16,15 @@ const OrderDisplay = ({ order }) => {
     <div className='bg-light-brown bg-opacity-10 h-full rounded-3xl p-6'>
       <span className='flex items-center justify-between pb-4 border-b-2 border-dark-brown border-opacity-10'>
         <OrderHeading orderID={order.orderID}/>
+
         {/** Displays order status selector if the user is admin, otherwise only display the status */}
         { user.role === 'admin' ? 
           (
-            <OrderStatusSelector initialStatus={order.orderData.order_status} orderID={order.orderID} uid={order.customer_id}/>
+            <OrderStatusSelector 
+              initialStatus={order.orderData.order_status} 
+              orderID={order.orderID} 
+              uid={order.customer_id}
+            />
           ) : (
             <OrderStatus orderStatus={order.orderData.order_status}/>
           )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaCircle } from "react-icons/fa";
 
-const OrderStatus = ({ orderStatus }) => {
+const OrderStatus = ({ orderStatus, children }) => {
   let orderStatusColor;
 
   switch(orderStatus) {
@@ -20,9 +20,10 @@ const OrderStatus = ({ orderStatus }) => {
   }
 
   return (
-    <div className={`flex items-center space-x-3 p-2 pl-4 pr-4 rounded-full bg-opacity-30 ${orderStatusColor} hover:outline`}>
-      <FaCircle/>
+    <div className={`flex items-center space-x-3 p-2 pl-4 pr-4 rounded-full bg-opacity-30 w-full ${orderStatusColor} hover:outline`}>
+      <FaCircle size={12}/>
       <p className='font-header'>{orderStatus}</p>
+      <div>{children}</div>
     </div>
   )
 }
