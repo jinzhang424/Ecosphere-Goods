@@ -16,10 +16,10 @@ export const fetchOrders = async (idToken) => {
     }
 }
 
-export const fetchOrderByID = async (orderID, idToken) => {
+export const fetchOrderByID = async (uid, orderID, idToken) => {
 
     try {
-        const response = await axios.get(`/order/${orderID}`, {
+        const response = await axios.get(`/order/${uid}/${orderID}`, {
             headers: {
                 Authorization: `Bearer ${idToken}`
             }

@@ -85,8 +85,7 @@ const fetchOrders = async (req, res) => {
 
 const fetchOrderByID = async (req, res) => {
     console.log('Fetching Order By ID')
-    const { orderID } = req.params
-    const uid = req.user?.uid
+    const { uid, orderID } = req.params
     
     if (!orderID) {
         console.log('Order ID is undefined')
