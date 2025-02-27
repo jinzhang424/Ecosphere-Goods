@@ -8,7 +8,7 @@ const getAllOrders = async () => {
 
         const orderPromise = snapshot.docs.map(async (doc) => {
             const customerData = doc.data()
-            const ordersSnap = await doc.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
+            const ordersSnap = await doc.ref.collection('checkout_sessions').get()
 
             const orders = ordersSnap.docs.map((order) => ({
                 customer_id: doc.id, 
@@ -129,7 +129,7 @@ const updateOrderStatus = async (req, res) => {
         if (!isAdmin(reqUID)) {
             res.status(403).json({ success: false, message: 'Insufficient permissions '});
         }
-        
+
         const customerDoc = db.collection('customers').doc(uid);
         
         // Updating the status
