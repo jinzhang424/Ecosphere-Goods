@@ -1,7 +1,10 @@
 import React from 'react'
 import { FaCircle } from "react-icons/fa";
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../../../features/userSlice';
 
 const OrderStatus = ({ orderStatus, children }) => {
+  const user = useSelector(selectUser)
   let orderStatusColor;
 
   switch(orderStatus) {
@@ -20,10 +23,10 @@ const OrderStatus = ({ orderStatus, children }) => {
   }
 
   return (
-    <div className={`flex items-center space-x-3 p-2 pl-4 pr-4 rounded-full bg-opacity-30 w-full ${orderStatusColor} hover:outline`}>
+    <div className={`flex items-center space-x-3 p-2 pl-4 pr-4 rounded-full bg-opacity-30 w-full ${orderStatusColor} ${user.role === 'admin' && 'hover:outline'}`}>
       <FaCircle size={12}/>
       <p className='font-header'>{orderStatus}</p>
-      <div>{children}</div>
+      {children}
     </div>
   )
 }

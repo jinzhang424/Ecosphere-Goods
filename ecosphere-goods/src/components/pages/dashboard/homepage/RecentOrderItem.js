@@ -15,7 +15,7 @@ const RecentOrderItem = ({ order }) => {
         <div className='flex flex-col space-y-3 w-full flex-shrink-0 border-2 border-dark-brown border-opacity-20 p-6 rounded-2xl'>
             <div className='flex justify-between'>
                 <OrderHeading orderID={order.orderID}/>
-                <OrderStatus orderStatus={orderData.order_status}/>
+                <div className='w-32'><OrderStatus orderStatus={orderData.order_status}/></div>
             </div>
             
             <div className='flex space-x-2'>
