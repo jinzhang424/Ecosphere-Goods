@@ -9,6 +9,7 @@ import TruckComponentLoader from '../../../animations/TruckComponentLoader'
 import PaginationButtons from '../../../utility/pagination/PaginationButtons'
 import { PaginationContext } from '../../../utility/pagination/PaginationContext'
 import { auth } from '../../../../firebase'
+import { ToastContainer } from 'react-toastify'
 
 const DashBoardOrdersPage = () => {
   const { orders, setOrders } = useContext(OrderContext)

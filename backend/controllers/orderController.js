@@ -114,4 +114,34 @@ const fetchOrderByID = async (req, res) => {
     }
 }
 
-module.exports = { fetchOrders, fetchOrderByID }
+const updateOrderStatus = async (req, res) => {
+    console.log('*** Updating order status ***')
+    const { newOrderStatus } = req.body;
+    const { uid, orderID } = req.params; 
+    const reqUID = req.user?.uid;
+    
+    if (!isAdmin(reqUID)) {
+        res.status(403).json({ success: false, message: 'Insufficient permissions '});
+    }
+
+    if (!orderID || !newOrderStatus) {
+        console.log('Missing order id or a new order status')
+        return res.status(400).json({ success: false, message: 'Missing order id or a new order status'})
+    }
+
+    try {
+        const customerDoc = db.collection('customers').doc(uid);
+        
+        // Updating the status
+        await customerDoc.collection('checkout_sessions').doc(orderID).update({
+            order_status: newOrderStatus
+        })
+
+        return res.status(201).json({ success: true, message: 'Successfully updated the order status'});
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ succces: false, message: err.message })
+    }
+}
+
+module.exports = { fetchOrders, fetchOrderByID, updateOrderStatus }

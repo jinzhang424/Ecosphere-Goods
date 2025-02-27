@@ -19,7 +19,7 @@ const OrderDisplay = ({ order }) => {
         {/** Displays order status selector if the user is admin, otherwise only display the status */}
         { user.role === 'admin' ? 
           (
-            <OrderStatusSelector initialStatus={order.orderData.order_status}/>
+            <OrderStatusSelector initialStatus={order.orderData.order_status} orderID={order.orderID} uid={order.customer_id}/>
           ) : (
             <OrderStatus orderStatus={order.orderData.order_status}/>
           )

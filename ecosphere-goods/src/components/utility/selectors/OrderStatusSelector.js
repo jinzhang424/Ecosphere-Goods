@@ -1,14 +1,30 @@
 import React, { useState } from 'react';
 import OrderStatus from '../../pages/dashboard/orders-page/OrderStatus';
+import { updateOrderStatus } from '../../../api/orderHandling';
+import { toast } from 'react-toastify';
+import { auth } from '../../../firebase';
 
-export default function OrderStatusSelector({ initialStatus }) {
+export default function OrderStatusSelector({ initialStatus, orderID, uid }) {
   const [orderStatus, setOrderStatus] = useState(initialStatus);
   const [open, setOpen] = useState(false)
   const statusOptions = ['Cancelled', 'Pending', 'Delivered'];
 
-  const handleSelect = (option) => {
+  const handleSelect = async (option) => {
+    setOpen(false)
+    await handleUpdateOrderStatus(option);
     setOrderStatus(option);
-    setOpen(false);
+  }
+
+  const handleUpdateOrderStatus = async (option) => {
+    try {
+      const idToken = await auth.currentUser.getIdToken();
+      await updateOrderStatus(orderID, uid, option, idToken);
+
+      toast.success('Successfully updated order status');
+    } catch (error) {
+      console.error(error.message);
+      toast.error(error.message);
+    }
   }
 
   return (

@@ -32,3 +32,24 @@ export const fetchOrderByID = async (orderID, idToken) => {
         throw new Error('Error while fetching order id')
     }
 }
+
+export const updateOrderStatus = async (orderID, uid, newOrderStatus, idToken) => {
+    try {
+        const response = await axios.patch(`/order/update-order-status/${uid}/${orderID}`, 
+            {
+                newOrderStatus
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${idToken}`
+                }
+            }
+        )
+
+        return response.data.data
+
+    } catch (error) {
+        console.error(error.message)
+        throw new Error('Error while fetching order id')
+    }
+}
