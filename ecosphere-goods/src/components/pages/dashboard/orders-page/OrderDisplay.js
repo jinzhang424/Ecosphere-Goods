@@ -3,7 +3,7 @@ import OrderItem from './OrderItem'
 import unitToDollarString from '../../../../utility-functions/unitToDollarString';
 import { Link } from 'react-router-dom';
 import OrderHeading from './OrderHeading';
-import OrderStatus from './OrderStatus';
+import OrderStatusSelector from '../../../utility/selectors/OrderStatusSelector';
 
 const OrderDisplay = ({ order }) => {
 
@@ -13,7 +13,7 @@ const OrderDisplay = ({ order }) => {
     <div className='bg-light-brown bg-opacity-10 h-full rounded-3xl p-6'>
       <span className='flex items-center justify-between pb-4 border-b-2 border-dark-brown border-opacity-10'>
         <OrderHeading orderID={order.orderID}/>
-        <OrderStatus orderStatus={order.orderData.order_status}/>
+        <OrderStatusSelector initialStatus={order.orderData.order_status}/>
       </span>
 
       <div className='grid grid-rows-2'>
