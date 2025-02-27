@@ -119,10 +119,6 @@ const updateOrderStatus = async (req, res) => {
     const { newOrderStatus } = req.body;
     const { uid, orderID } = req.params; 
     const reqUID = req.user?.uid;
-    
-    if (!isAdmin(reqUID)) {
-        res.status(403).json({ success: false, message: 'Insufficient permissions '});
-    }
 
     if (!orderID || !newOrderStatus) {
         console.log('Missing order id or a new order status')
@@ -130,6 +126,10 @@ const updateOrderStatus = async (req, res) => {
     }
 
     try {
+        if (!isAdmin(reqUID)) {
+            res.status(403).json({ success: false, message: 'Insufficient permissions '});
+        }
+        
         const customerDoc = db.collection('customers').doc(uid);
         
         // Updating the status
