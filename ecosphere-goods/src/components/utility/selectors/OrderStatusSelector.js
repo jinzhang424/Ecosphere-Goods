@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaCircle } from "react-icons/fa";
 import OrderStatus from '../../pages/dashboard/orders-page/OrderStatus';
 
 export default function OrderStatusSelector({ initialStatus }) {
