@@ -43,7 +43,7 @@ const OrderDisplay = ({ order }) => {
         <p className='font-header text-dark-brown'>Total: {unitToDollarString(order.orderData.total_price)}</p>
         <Link 
           className='font-header p-2 pl-5 pr-5 bg-dark-brown bg-opacity-0 text-dark-brown rounded-full border-2 border-dark-brown hover:bg-opacity-100 hover:text-off-white transition-all ease-in-out duration-300'
-          to={`${order.customer_id}/${order.orderID}`}
+          to={`/dashboard/order/${order.customer_id}/${order.orderID}`}
         >
             View Order
         </Link>
