@@ -3,6 +3,7 @@ import { fetchOrderByID } from '../../../../api/orderHandling'
 import { auth } from '../../../../firebase';
 import { useParams } from 'react-router-dom';
 import { fetchTrackingInfo } from '../../../../api/trackingHandling';
+import PackageTrackingMap from '../../../utility/googleMaps/PackageTrackingMap';
 
 const OrderPage = () => {
     const [orderData, setOrderData] = useState({})
@@ -24,11 +25,24 @@ const OrderPage = () => {
         getOrderData();
     }, [orderID, uid])
 
+    // useEffect(() => {
+    //     const getTrackingData = async () => {
+    //         try {
+    //             const res = await fetchTrackingInfo('ITD-0-12345678')
+    //             console.log(res)
+    //         } catch (err) {
+    //             console.error(err.message)
+    //         }
+    //     }
+
+    //     getTrackingData();
+    // }, [])
+
     console.log(orderData)
 
     return (
         <div className='w-full h-full bg-off-white rounded-3xl'>
-            
+            <PackageTrackingMap/>
         </div>
     )
 }
