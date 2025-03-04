@@ -1,5 +1,16 @@
 const axios = require("axios")
-const { fetchPackageLocation } = require('../api/TrackingMoreApi')
+const { fetchPackageLocation, postTracking } = require('../api/TrackingMoreApi')
+
+const createTracking = async (orderID) => {
+    console.log("*** Creating tracking ***");
+
+    try {
+        await postTracking(orderID, "new-zealand-post")
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).json({ message: error.message })
+    }
+}
 
 const getPackageLocation = async (req, res) => {
     console.log("*** Fetching tracking info ***")
@@ -16,4 +27,4 @@ const getPackageLocation = async (req, res) => {
     }
 }
 
-module.exports = { getPackageLocation }
+module.exports = { getPackageLocation, createTracking }
