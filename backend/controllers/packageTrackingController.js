@@ -1,19 +1,20 @@
-const axios = require("axios")
 const { fetchPackageLocation, postTracking } = require('../api/TrackingMoreApi')
 
 const createTracking = async (orderID) => {
     console.log("*** Creating tracking ***");
 
     try {
-        await postTracking(orderID, "new-zealand-post")
+        await postTracking(orderID, "new-zealand-post");
+        
+        return;
     } catch (error) {
-        console.error(error.message)
-        res.status(500).json({ message: error.message })
+        console.error(error.message);
+        return res.status(500).json({ message: error.message });
     }
 }
 
 const getPackageLocation = async (req, res) => {
-    console.log("*** Fetching tracking info ***")
+    console.log("*** Getting package location ***")
     const { trackingNumber } = req.params
 
     try {
