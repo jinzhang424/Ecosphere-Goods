@@ -2,14 +2,28 @@ require('dotenv').config();
 const axios = require("axios")
 
 const fetchPackageLocation = async (trackingNumber) => {
-    axios.get(`https://api.trackingmore.com/v4/trackings/get?tracking_numbers=TEST1234123421`, {
-        headers: {
-            "Tracking-Api-Key": process.env.TRACKINGMORE_API_KEY
+    try {
+        const res = axios.get(`https://api.trackingmore.com/v4/trackings/get?tracking_numbers=${trackingNumber}`, {
+            headers: {
+                "Tracking-Api-Key": process.env.TRACKINGMORE_API_KEY
+            }
+        })
+
+        const destinationTrackInfo = res.data.destination_info.trackinfo;
+        const originTrackInfo = res.data.origin_info.trackinfo;
+
+        if (destinationTrackInfo) {
+            return res.status(201).json({ destinationTrackInfo });
+        } else {
+            return res.status(201).json({ originTrackInfo });
         }
-    })
+
+    } catch (error) {
+        throw new Error(error.message)
+    }
 }
 
-// !!! IMPORTANT !!! Tracking number needs to be updated. Currently we are only creating test packages.
+// !!! IMPORTANT !!! Tracking number needs to be updated to match the orderID
 const postTracking = async (orderID, destinationCountry, destinationCity, customerEmail, customer_sms, postcode) => {
     try {
         axios.post("https://api.trackingmore.com/v4/trackings/create", 
