@@ -1,8 +1,7 @@
 import React from 'react'
 import { APIProvider, Map } from "@vis.gl/react-google-maps"
-import Directions from './Directions'
 
-const PackageTrackingMap = () => {
+const GoogleMaps = ({ children }) => {
     const startPos = {lat: 53.54992, lng: 10.00678};
 
     return (
@@ -14,11 +13,11 @@ const PackageTrackingMap = () => {
                     mapId="package_tracking_map" 
                     fullscreenControl={false}
                 >
-                    <Directions/>
+                    { children }
                 </Map>
             </div>
         </APIProvider>
     )
 }
 
-export default PackageTrackingMap
+export default GoogleMaps

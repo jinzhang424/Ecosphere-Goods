@@ -3,7 +3,8 @@ import { fetchOrderByID } from '../../../../api/orderHandling'
 import { auth } from '../../../../firebase';
 import { useParams } from 'react-router-dom';
 import { fetchTrackingInfo } from '../../../../api/trackingHandling';
-import PackageTrackingMap from '../../../utility/googleMaps/PackageTrackingMap';
+import GoogleMaps from '../../../utility/googleMaps/GoogleMaps';
+import Directions from '../../../utility/googleMaps/Directions';
 
 const OrderPage = () => {
     const [orderData, setOrderData] = useState({});
@@ -43,7 +44,9 @@ const OrderPage = () => {
 
     return (
         <div className='w-full h-full bg-off-white rounded-3xl'>
-            <PackageTrackingMap/>
+            <GoogleMaps>
+                <Directions/>
+            </GoogleMaps>
         </div>
     )
 }
