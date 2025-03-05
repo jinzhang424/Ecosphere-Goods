@@ -1,28 +1,26 @@
 require('dotenv').config();
 const axios = require("axios")
 
-const fetchPackageLocation = async (req, res) => {
-    const { trackingNumber } = req.params;
+const fetchPackageLocation = async (trackingNumber) => {
 
     try {
-        const trackingRes = axios.get(`https://api.trackingmore.com/v4/trackings/get?tracking_numbers=${trackingNumber}`, {
+        const res = await axios.get(`https://api.trackingmore.com/v4/trackings/get?tracking_numbers=${trackingNumber}`, {
             headers: {
                 "Tracking-Api-Key": process.env.TRACKINGMORE_API_KEY
             }
         })
 
-        const destinationTrackInfo = trackingRes.data.destination_info.trackinfo;
-        const originTrackInfo = trackingRes.data.origin_info.trackinfo;
+        const destinationTrackInfo = res.data.data[0].destination_info.trackinfo;
+        const originTrackInfo = res.data.data[0].origin_info.trackinfo;
 
         if (destinationTrackInfo) {
-            return res.status(201).json({ success:true, destinationTrackInfo });
+            return destinationTrackInfo;
         } else {
-            return res.status(201).json({ success:true, originTrackInfo });
+            return originTrackInfo;
         }
 
     } catch (error) {
         console.error(error.message);
-        return res.status(500).json({ success: false, message: error.message})
     }
 }
 

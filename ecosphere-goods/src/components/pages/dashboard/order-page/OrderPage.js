@@ -6,7 +6,8 @@ import { fetchTrackingInfo } from '../../../../api/trackingHandling';
 import PackageTrackingMap from '../../../utility/googleMaps/PackageTrackingMap';
 
 const OrderPage = () => {
-    const [orderData, setOrderData] = useState({})
+    const [orderData, setOrderData] = useState({});
+    const [trackingData, setTrackingData] = useState({})
     const {uid, orderID} = useParams();
 
     useEffect(() => {
@@ -25,18 +26,18 @@ const OrderPage = () => {
         getOrderData();
     }, [orderID, uid])
 
-    // useEffect(() => {
-    //     const getTrackingData = async () => {
-    //         try {
-    //             const res = await fetchTrackingInfo('ITD-0-12345678')
-    //             console.log(res)
-    //         } catch (err) {
-    //             console.error(err.message)
-    //         }
-    //     }
+    useEffect(() => {
+        const getTrackingData = async () => {
+            try {
+                const res = await fetchTrackingInfo('TEST1234123421')
+                console.log(res)
+            } catch (err) {
+                console.error(err.message)
+            }
+        }
 
-    //     getTrackingData();
-    // }, [])
+        getTrackingData();
+    }, [])
 
     console.log(orderData)
 

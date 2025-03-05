@@ -35,9 +35,8 @@ const getPackageLocation = async (req, res) => {
 
     try {
         const trackingRes = await fetchPackageLocation(trackingNumber);
-        const trackInfo = trackingRes.data.trackinfo
-        const location = trackInfo[trackInfo.length].location
-        return res.status(201).json({ location })
+
+        return res.status(201).json({ data: trackingRes })
     } catch (err) {
         console.error(err.message)
         return res.status(500).json({ message: err.message })
