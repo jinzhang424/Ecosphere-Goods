@@ -109,7 +109,7 @@ const updateSuccessfulOrder = async (req, res) => {
         const customerSnap = await db.collection('customers').doc(paymentIntent.metadata.uid).get();
         const checkoutSessionDoc = customerSnap.ref.collection('checkout_sessions').doc(paymentIntent.metadata.orderID)
 
-        await createTracking(paymentIntent.metadata.orderID);
+        await createTracking(paymentIntent.metadata.orderID, paymentIntent.metadata.uid);
         await checkoutSessionDoc.update({
             order_status: "Pending"
         })
