@@ -98,8 +98,6 @@ const updateSuccessfulOrder = async (req, res) => {
         const event = req.body
         const paymentIntent = event.data.object;
 
-        console.log(paymentIntent.id)
-
         if (event.type !== 'checkout.session.completed' || paymentIntent.payment_status !== 'paid') {
             console.error('User did not pay or the request did not have checkout.session.completed.')
             console.error('Event Type: ', event.type, 'Payment Status: ', paymentIntent.payment_status)
