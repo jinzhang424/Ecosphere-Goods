@@ -13,11 +13,7 @@ const fetchPackageLocation = async (trackingNumber) => {
         const destinationTrackInfo = res.data.data[0].destination_info.trackinfo;
         const originTrackInfo = res.data.data[0].origin_info.trackinfo;
 
-        if (destinationTrackInfo) {
-            return destinationTrackInfo;
-        } else {
-            return originTrackInfo;
-        }
+        return { destinationTrackInfo, originTrackInfo };
 
     } catch (error) {
         console.error(error.message);

@@ -30,8 +30,8 @@ const OrderPage = () => {
     useEffect(() => {
         const getTrackingData = async () => {
             try {
-                const res = await fetchTrackingInfo('TEST1234123421')
-                console.log(res)
+                const res = await fetchTrackingInfo('TEST1234123442')
+                console.log('Hey', res)
             } catch (err) {
                 console.error(err.message)
             }
