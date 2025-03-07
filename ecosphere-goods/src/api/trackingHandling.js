@@ -2,9 +2,9 @@ import axios from "axios"
 
 export const fetchTrackingInfo = async (trackingNumber) => {
     try {
-        const res = axios.get(`/package-tracking/package-info/${trackingNumber}`) 
+        const res = await axios.get(`/package-tracking/package-info/${trackingNumber}`) 
 
-        return res
+        return res.data.data;
     } catch (err) {
         throw new Error(err.message)
     }
