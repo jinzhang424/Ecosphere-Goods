@@ -3,8 +3,6 @@ import { fetchOrderByID } from '../../../../api/orderHandling'
 import { auth } from '../../../../firebase';
 import { useParams } from 'react-router-dom';
 import { fetchTrackingInfo } from '../../../../api/trackingHandling';
-import GoogleMaps from '../../../utility/googleMaps/GoogleMaps';
-import Directions from '../../../utility/googleMaps/Directions';
 
 const OrderPage = () => {
     const [orderData, setOrderData] = useState({});
@@ -30,8 +28,10 @@ const OrderPage = () => {
     useEffect(() => {
         const getTrackingData = async () => {
             try {
-                const res = await fetchTrackingInfo('TEST1234123442')
-                console.log('Hey', res)
+                const data = await fetchTrackingInfo('TEST1234123442');
+                setTrackingData(data);
+                
+                console.log(data)
             } catch (err) {
                 console.error(err.message)
             }
@@ -43,10 +43,7 @@ const OrderPage = () => {
     console.log(orderData)
 
     return (
-        <div className='w-full h-full bg-off-white rounded-3xl'>
-            <GoogleMaps>
-                <Directions/>
-            </GoogleMaps>
+        <div className='w-full h-full bg-off-white rounded-3xl p-8'>
         </div>
     )
 }
