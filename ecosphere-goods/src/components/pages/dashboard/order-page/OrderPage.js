@@ -4,6 +4,8 @@ import { auth } from '../../../../firebase';
 import { useParams } from 'react-router-dom';
 import { fetchTrackingInfo } from '../../../../api/trackingHandling';
 import { FaCircle } from "react-icons/fa";
+import convertToDateString from '../../../../utility-functions/covertToDateString';
+import unitToDollarString from '../../../../utility-functions/unitToDollarString';
 
 const OrderPage = () => {
     const [orderData, setOrderData] = useState({});
@@ -58,77 +60,102 @@ const OrderPage = () => {
         getTrackingData();
     }, [])
 
-    console.log(trackingData)
+    console.log(orderData)
 
     return (
         <div className='w-full h-full bg-off-white rounded-3xl relative p-8'>
             <h1 className='text-header font-header'>Order Tracking</h1>
             
-            {/** Transit data display */}
-            <div className='flex flex-col overflow-y-scroll h-full max-h-[500px] max-w-[50%] [&::-webkit-scrollbar]:hidden'>
-                {trackingData.originTrackInfo.length > 0 && trackingData.originTrackInfo.map((trackInfo, index) => (
-                    <>
-                        <div className='grid grid-cols-[80px_50px_auto] grid-rows-[auto_auto] items-center text-dark-brown' key={index}>
-                            {/** Checkpoint Date and time */}
-                            <div className='ml-auto'>
-                                <p className='font-header text-right'>{trackInfo.checkpoint_date[0]}</p>
-                                <p className='text-right'>{trackInfo.checkpoint_date[1]}</p>
-                            </div>
-
-                            {/** Icon */}
-                            <div className="flex justify-center items-center">
-                                <FaCircle />
-                            </div>
-
-                            {/** Checkpoint Info */}
-                            <div className='bg-light-brown p-4 rounded-xl bg-opacity-30'>
-                                <p className='text-left font-header'>{trackInfo.location} | {trackInfo.checkpoint_delivery_status}</p>
-                                <p>{trackInfo.tracking_detail}</p>
-                            </div>
-
-                            {/** Dots */}
-                            {index !== temp.length - 1 && (
-                                <div className="flex flex-col justify-center items-center row-start-2 col-start-2 h-fit gap-4 opacity-40">
-                                    {dots.map((_, index) => (
-                                        <FaCircle key={index} size={8}/>
-                                    ))}
+            <div className='flex gap-8'>
+                {/** Transit data display */}
+                <div className='flex flex-col overflow-y-scroll h-full max-h-[500px] max-w-[50%] [&::-webkit-scrollbar]:hidden w-full'>
+                    {trackingData.originTrackInfo.length > 0 && trackingData.originTrackInfo.map((trackInfo, index) => (
+                        <>
+                            <div className='grid grid-cols-[80px_50px_auto] grid-rows-[auto_auto] items-center text-dark-brown' key={index}>
+                                {/** Checkpoint Date and time */}
+                                <div className='ml-auto'>
+                                    <p className='font-header text-right'>{trackInfo.checkpoint_date[0]}</p>
+                                    <p className='text-right'>{trackInfo.checkpoint_date[1]}</p>
                                 </div>
-                            )}
-                        </div>
-                    </>
-                ))}
 
-                {trackingData.destinationTrackInfo.length > 0 && trackingData.destinationTrackInfo.map((trackInfo, index) => (
-                    <>
-                        <div className='grid grid-cols-[80px_50px_auto] grid-rows-[auto_auto] items-center text-dark-brown' key={index}>
-                            {/** Checkpoint Date and time */}
-                            <div className='ml-auto'>
-                                <p className='font-header text-right'>{trackInfo.checkpoint_date[0]}</p>
-                                <p className='text-right'>{trackInfo.checkpoint_date[1]}</p>
-                            </div>
-
-                            {/** Icon */}
-                            <div className="flex justify-center items-center">
-                                <FaCircle />
-                            </div>
-
-                            {/** Checkpoint Info */}
-                            <div className='bg-light-brown p-4 rounded-xl bg-opacity-30'>
-                                <p className='text-left font-header'>{trackInfo.location} | {trackInfo.checkpoint_delivery_status}</p>
-                                <p>{trackInfo.tracking_detail}</p>
-                            </div>
-
-                            {/** Dots */}
-                            {index !== temp.length - 1 && (
-                                <div className="flex flex-col justify-center items-center row-start-2 col-start-2 h-fit gap-4 opacity-40">
-                                    {dots.map((_, index) => (
-                                        <FaCircle key={index} size={8}/>
-                                    ))}
+                                {/** Icon */}
+                                <div className="flex justify-center items-center">
+                                    <FaCircle />
                                 </div>
-                            )}
+
+                                {/** Checkpoint Info */}
+                                <div className='bg-light-brown p-4 rounded-xl bg-opacity-30'>
+                                    <p className='text-left font-header'>{trackInfo.location} | {trackInfo.checkpoint_delivery_status}</p>
+                                    <p>{trackInfo.tracking_detail}</p>
+                                </div>
+
+                                {/** Dots */}
+                                {index !== temp.length - 1 && (
+                                    <div className="flex flex-col justify-center items-center row-start-2 col-start-2 h-fit gap-4 opacity-40">
+                                        {dots.map((_, index) => (
+                                            <FaCircle key={index} size={8}/>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </>
+                    ))}
+
+                    {trackingData.destinationTrackInfo.length > 0 && trackingData.destinationTrackInfo.map((trackInfo, index) => (
+                        <>
+                            <div className='grid grid-cols-[80px_50px_auto] grid-rows-[auto_auto] items-center text-dark-brown' key={index}>
+                                {/** Checkpoint Date and time */}
+                                <div className='ml-auto'>
+                                    <p className='font-header text-right'>{trackInfo.checkpoint_date[0]}</p>
+                                    <p className='text-right'>{trackInfo.checkpoint_date[1]}</p>
+                                </div>
+
+                                {/** Icon */}
+                                <div className="flex justify-center items-center">
+                                    <FaCircle />
+                                </div>
+
+                                {/** Checkpoint Info */}
+                                <div className='bg-light-brown p-4 rounded-xl bg-opacity-30'>
+                                    <p className='text-left font-header'>{trackInfo.location} | {trackInfo.checkpoint_delivery_status}</p>
+                                    <p>{trackInfo.tracking_detail}</p>
+                                </div>
+
+                                {/** Dots */}
+                                {index !== temp.length - 1 && (
+                                    <div className="flex flex-col justify-center items-center row-start-2 col-start-2 h-fit gap-4 opacity-40">
+                                        {dots.map((_, index) => (
+                                            <FaCircle key={index} size={8}/>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </>
+                    ))}
+                </div>
+
+                <div className='flex flex-col max-w-[50%] w-full'>
+                    <section className='flex flex-col border-3 border-dark-brown rounded-xl border-opacity-30 p-8 gap-4'>
+                        <h1 className='font-header text-subtitle'>Order Details</h1>
+                        <div className='flex flex-col gap-2'>
+                            <div className='flex justify-between'>
+                                <p className='font-header w-1/2'>Email:</p>
+                                <p className='w-1/2'>{orderData.customer_email}</p>
+                            </div>
+                            <div className='flex justify-between'>
+                                <p className='font-header w-1/2'>Date Ordered:</p>
+                                <p className='w-1/2'>{convertToDateString(orderData.orderData.created._nanoseconds, orderData.orderData.created._seconds)}</p>
+                            </div>
+                            <div className='flex justify-between'>
+                                <p className='font-header w-1/2'>Total Cost: </p>
+                                <p className='w-1/2'>{unitToDollarString(orderData.orderData.total_price)}</p>
+                            </div>
                         </div>
-                    </>
-                ))}
+                    </section>
+                    <section>
+
+                    </section>
+                </div>
             </div>
         </div>
     )
