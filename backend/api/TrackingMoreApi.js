@@ -11,8 +11,8 @@ const fetchPackageLocation = async (trackingNumber) => {
         })
 
         const data = res.data.data[0];
-        const destinationTrackInfo = data.destination_info.trackinfo;
-        const originTrackInfo = data.origin_info.trackinfo;
+        const destinationTrackInfo = data.destination_info.trackinfo.reverse();
+        const originTrackInfo = data.origin_info.trackinfo.reverse();
 
         return { destinationTrackInfo, originTrackInfo };
 
