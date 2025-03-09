@@ -64,14 +64,14 @@ const OrderPage = () => {
         <div className='w-full h-full bg-off-white rounded-3xl relative p-8'>
             <h1 className='text-header font-header'>Order Tracking</h1>
             
-            <div className='flex gap-8 mt-8'>
+            <div className='flex gap-16 mt-8'>
                 {/** Transit data display */}
                 <div className='flex flex-col overflow-y-scroll h-full max-h-[500px] max-w-[50%] [&::-webkit-scrollbar]:hidden w-full'>
                     <TrackCheckpoints trackData={trackingData.originTrackInfo}/>
                     <TrackCheckpoints trackData={trackingData.destinationTrackInfo}/>
                 </div>
 
-                <div className='flex flex-col max-w-[50%] w-full'>
+                <div className='flex flex-col max-w-[50%] w-full gap-8'>
                     {/** Basic Order Info */}
                     <section className='flex flex-col border-3 border-dark-brown rounded-xl border-opacity-30 p-8 gap-4'>
                         <h1 className='font-header text-subtitle'>Order Details</h1>
@@ -99,10 +99,35 @@ const OrderPage = () => {
 
                     {/** All products display */}
                     <section>
-                        
+                        <h1 className='font-header text-subtitle'>Products Ordered</h1>
+                        <div className='mt-4 overflow-y-scroll [&::-webkit-scrollbar]:hidden'>
+                            {orderData.orderData.products.map((product) => (
+                                <ProductDisplay
+                                    img={product.images[0]}
+                                    name={product.name}
+                                    unitAmount={product.priceData.unit_amount}
+                                    quantity={product.quantity}
+                                />
+                            ))}
+                        </div>
                     </section>
                 </div>
             </div>
+        </div>
+    )
+}
+
+const ProductDisplay = ({ img, name, unitAmount, quantity }) => {
+    return (
+        <div className='grid grid-cols-[minmax(48px,_64px)_1fr_1fr_1fr] items-center text-center rounded-lg bg-light-brown bg-opacity-20 overflow-hidden'>
+            <img 
+                className='max-w-16 max-h-16 aspect-square object-cover'
+                src={img} 
+                alt="" 
+            />
+            <p>{name}</p>
+            <p>{unitToDollarString(unitAmount)}</p>
+            <p>{[quantity]}</p>
         </div>
     )
 }
