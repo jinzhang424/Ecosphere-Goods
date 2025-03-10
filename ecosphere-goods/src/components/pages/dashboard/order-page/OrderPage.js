@@ -101,7 +101,7 @@ const OrderPage = () => {
                     <section>
                         <h1 className='font-header text-subtitle'>Products Ordered</h1>
                         <div className='mt-4 overflow-y-scroll [&::-webkit-scrollbar]:hidden'>
-                            {orderData.orderData.products.map((product) => (
+                            {orderData.orderData && orderData.orderData.products.map((product) => (
                                 <ProductDisplay
                                     img={product.images[0]}
                                     name={product.name}

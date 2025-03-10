@@ -6,7 +6,7 @@ const TrackCheckpoints = ({trackData}) => {
 
     return (
         <>
-            {trackData.map((data, index) => (
+            {trackData && trackData.map((data, index) => (
                 <div className='grid grid-cols-[80px_50px_auto] grid-rows-[auto_auto] items-center text-dark-brown' key={index}>
                     {/** Checkpoint Date and time */}
                     <div className='ml-auto'>
