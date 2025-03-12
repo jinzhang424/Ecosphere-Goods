@@ -1,7 +1,17 @@
 import React from 'react'
 import { FaCircle } from "react-icons/fa";
+import { IoMailOpenOutline } from "react-icons/io5"; // inforeceived
+import { FaTruckArrowRight } from "react-icons/fa6"; // transit
+import { GoPackageDependents } from "react-icons/go"; // pickup 
+import { LuPackageCheck } from "react-icons/lu"; // delivered
 
-const TrackCheckpoints = ({trackData}) => {
+/**
+ * 
+ * @param {*} trackData the tracking data
+ * @param {*} trailingDots set to true if the last node should also have dots for spacing
+ * @returns 
+ */
+const TrackCheckpoints = ({trackData, trailingDots = false}) => {
     const dots = new Array(5).fill(0);
 
     return (
@@ -26,7 +36,7 @@ const TrackCheckpoints = ({trackData}) => {
                     </div>
 
                     {/** Dots */}
-                    {index !== trackData.length - 1 && (
+                    {index === trackData.length - 1 ? trailingDots : true && (
                         <div className="flex flex-col justify-center items-center row-start-2 col-start-2 h-fit gap-4 opacity-40">
                             {dots.map((_, index) => (
                                 <FaCircle key={index} size={8}/>

@@ -8,6 +8,21 @@ import unitToDollarString from '../../../../utility-functions/unitToDollarString
 import BasicInfoDisplay from '../../../utility/BasicInfoDisplay';
 import TrackCheckpoints from './TrackCheckpoints';
 
+const adjustCheckpointDates = (trackInfo) => {
+    return trackInfo.map((trackData) => {
+        const dateAndTime = trackData?.checkpoint_date?.split("T");
+        const adjustedDate = dateAndTime[0]?.replaceAll("-", "/")
+        
+        return {
+            ...trackData,
+            'checkpoint_date': [
+                adjustedDate,
+                dateAndTime[1]
+            ]
+        };
+    })
+}
+
 const OrderPage = () => {
     const [orderData, setOrderData] = useState({});
     const [trackingData, setTrackingData] = useState({})
@@ -34,20 +49,11 @@ const OrderPage = () => {
             try {
                 const data = await fetchTrackingInfo('TEST1234123442');
                 
-                const adjustedOriginTrackInfo = data.originTrackInfo.map((trackInfo) => {
-                    const dateAndTime = trackInfo.checkpoint_date?.split("T");
-                    const adjustedDate = dateAndTime[0].replaceAll("-", "/")
-                    
-                    return {
-                        ...trackInfo,
-                        'checkpoint_date': [
-                            adjustedDate,
-                            dateAndTime[1]
-                        ]
-                    };
-                })
+                const adjustedOriginTrackInfo = adjustCheckpointDates(data?.originTrackInfo)
+                const adjustedDestinationTrackInfo = adjustCheckpointDates(data?.destinationTrackInfo)
 
                 data.originTrackInfo = adjustedOriginTrackInfo;
+                data.destinationTrackInfo = adjustedDestinationTrackInfo
 
                 setTrackingData(data);
             } catch (err) {
@@ -67,8 +73,8 @@ const OrderPage = () => {
             <div className='flex gap-16 mt-8'>
                 {/** Transit data display */}
                 <div className='flex flex-col overflow-y-scroll h-full max-h-[500px] max-w-[50%] [&::-webkit-scrollbar]:hidden w-full'>
-                    <TrackCheckpoints trackData={trackingData.originTrackInfo}/>
-                    <TrackCheckpoints trackData={trackingData.destinationTrackInfo}/>
+                    <TrackCheckpoints trackData={trackingData?.originTrackInfo} trailingDots={true}/>
+                    <TrackCheckpoints trackData={trackingData?.destinationTrackInfo}/>
                 </div>
 
                 <div className='flex flex-col max-w-[50%] w-full gap-8'>
@@ -107,6 +113,7 @@ const OrderPage = () => {
                                     name={product.name}
                                     unitAmount={product.priceData.unit_amount}
                                     quantity={product.quantity}
+                                    key={product.id}
                                 />
                             ))}
                         </div>
