@@ -145,6 +145,10 @@ const fetchProductSalesData = async (req, res) => {
     try {
         const productToSales = await getProductsToSalesMap()
 
+        if (!productToSales) {
+            return res.status(201).json({ success: true, data: { labels: [], datasets: [{data: []}] } })
+        }
+
         // Creating an array of all the product's name
         const productNamesPromises = Object.keys(productToSales).map(async (productId) => {
             const productSnap = await db.collection('products').doc(productId).get()
@@ -173,6 +177,10 @@ const fetchProductRevenueData = async (req, res) => {
 
     try {
         const productToSales = await getProductsToSalesMap()
+
+        if (!productToSales) {
+            return res.status(201).json({ success: true, data: { labels: [], datasets: [{data: [],}] }})
+        }
 
         const productRevenuePromises = Object.entries(productToSales).map(async ([productId, quantity]) => {
             // Getting product data

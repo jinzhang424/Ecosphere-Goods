@@ -1,5 +1,6 @@
 const { db } = require('../config/firebase')
 const Stripe = require('stripe');
+const { createTracking } = require('./packageTrackingController');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const updateCategoricalSales = async (monthlySalesData, products, monthlySalesDoc) => {
@@ -84,6 +85,7 @@ const updateMonthlySalesData = async (req, res) => {
 
         await updateCategoricalSales(monthlySalesData, products, monthlySalesDoc)
         await updateProductSales(monthlySalesData, products, monthlySalesDoc)
+        await createTracking()
 
         return res.status(201).json({ success: true, message: 'Successfully updated monthly sales data'})
     } catch (error) {
@@ -91,4 +93,31 @@ const updateMonthlySalesData = async (req, res) => {
     }
 }
 
-module.exports = { updateMonthlySalesData }
+const updateSuccessfulOrder = async (req, res) => {
+    try {
+        const event = req.body
+        const paymentIntent = event.data.object;
+
+        if (event.type !== 'checkout.session.completed' || paymentIntent.payment_status !== 'paid') {
+            console.error('User did not pay or the request did not have checkout.session.completed.')
+            console.error('Event Type: ', event.type, 'Payment Status: ', paymentIntent.payment_status)
+            return res.status(400).json({ success: false, message: 'User did not pay or the request did not have checkout.session.completed.'})
+        }
+
+        const customerSnap = await db.collection('customers').doc(paymentIntent.metadata.uid).get();
+        const checkoutSessionDoc = customerSnap.ref.collection('checkout_sessions').doc(paymentIntent.metadata.orderID)
+
+        await createTracking(paymentIntent.metadata.orderID, paymentIntent.metadata.uid);
+        await checkoutSessionDoc.update({
+            order_status: "Pending"
+        })
+
+        return res.status(201).json({ message: "Updated the successful order" })
+
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ message: error.message});
+    }
+}
+
+module.exports = { updateMonthlySalesData, updateSuccessfulOrder }

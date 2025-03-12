@@ -8,7 +8,7 @@ const getAllOrders = async () => {
 
         const orderPromise = snapshot.docs.map(async (doc) => {
             const customerData = doc.data()
-            const ordersSnap = await doc.ref.collection('checkout_sessions').where('order_status', '!=', 'Delivered').get()
+            const ordersSnap = await doc.ref.collection('checkout_sessions').get()
 
             const orders = ordersSnap.docs.map((order) => ({
                 customer_id: doc.id, 
@@ -85,8 +85,7 @@ const fetchOrders = async (req, res) => {
 
 const fetchOrderByID = async (req, res) => {
     console.log('Fetching Order By ID')
-    const { orderID } = req.params
-    const uid = req.user?.uid
+    const { uid, orderID } = req.params
     
     if (!orderID) {
         console.log('Order ID is undefined')
@@ -114,4 +113,34 @@ const fetchOrderByID = async (req, res) => {
     }
 }
 
-module.exports = { fetchOrders, fetchOrderByID }
+const updateOrderStatus = async (req, res) => {
+    console.log('*** Updating order status ***')
+    const { newOrderStatus } = req.body;
+    const { uid, orderID } = req.params; 
+    const reqUID = req.user?.uid;
+
+    if (!orderID || !newOrderStatus) {
+        console.log('Missing order id or a new order status')
+        return res.status(400).json({ success: false, message: 'Missing order id or a new order status'})
+    }
+
+    try {
+        if (!isAdmin(reqUID)) {
+            res.status(403).json({ success: false, message: 'Insufficient permissions '});
+        }
+
+        const customerDoc = db.collection('customers').doc(uid);
+        
+        // Updating the status
+        await customerDoc.collection('checkout_sessions').doc(orderID).update({
+            order_status: newOrderStatus
+        })
+
+        return res.status(201).json({ success: true, message: 'Successfully updated the order status'});
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ succces: false, message: err.message })
+    }
+}
+
+module.exports = { fetchOrders, fetchOrderByID, updateOrderStatus }

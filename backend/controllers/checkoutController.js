@@ -39,6 +39,16 @@ const fetchCheckoutSessionID = async (req, res) => {
             products.push({id: item.productId, quantity: parseInt(item.quantity), ...productData})
         }
 
+        const docRef = await orderRef.add({
+            mode: 'payment',
+            products: products,
+            line_items: lineItems,
+            success_url: successUrl,
+            cancel_url: cancelUrl,
+            order_status: 'Cancelled',
+            total_price: parseInt(subtotal) + 500,
+        })
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: lineItems,
@@ -48,23 +58,13 @@ const fetchCheckoutSessionID = async (req, res) => {
             cancel_url: cancelUrl,
             metadata: {
                 uid: uid,
+                orderID: docRef.id,
                 products: JSON.stringify(products.map((product) => ({ 
                     id: product.id, 
                     quantity: product.quantity, 
                     category: product.metadata.itemCategory 
                 }))),
-            } 
-        })
-
-        await orderRef.add({
-            mode: 'payment',
-            products: products,
-            line_items: lineItems,
-            success_url: successUrl,
-            cancel_url: cancelUrl,
-            order_status: 'Cancelled',
-            total_price: parseInt(subtotal) + 500,
-            sessionId: session.id
+            },
         })
 
         return res.status(201).json({ success: true, data: session.id})
