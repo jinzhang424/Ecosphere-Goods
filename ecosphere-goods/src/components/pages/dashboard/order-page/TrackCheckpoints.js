@@ -1,9 +1,5 @@
 import React from 'react'
 import { FaCircle } from "react-icons/fa";
-import { IoMailOpenOutline } from "react-icons/io5"; // inforeceived
-import { FaTruckArrowRight } from "react-icons/fa6"; // transit
-import { GoPackageDependents } from "react-icons/go"; // pickup 
-import { LuPackageCheck } from "react-icons/lu"; // delivered
 
 /**
  * 
@@ -14,16 +10,14 @@ import { LuPackageCheck } from "react-icons/lu"; // delivered
 const TrackCheckpoints = ({trackData, trailingDots = false}) => {
     const dots = new Array(5).fill(0);
 
-    console.log(trailingDots)
-
     return (
         <>
             {trackData && trackData.map((data, index) => (
                 <div className='grid grid-cols-[80px_50px_auto] grid-rows-[auto_auto] items-center text-dark-brown' key={index}>
                     {/** Checkpoint Date and time */}
-                    <div className='ml-auto font-header text-right'>
-                        <p>{data.checkpoint_date[0]}</p>
-                        <p className='opacity-80'>{data.checkpoint_date[1]}</p>
+                    <div className='ml-auto'>
+                        <p className='font-header text-right'>{data.checkpoint_date[0]}</p>
+                        <p className='text-right'>{data.checkpoint_date[1]}</p>
                     </div>
 
                     {/** Icon */}
