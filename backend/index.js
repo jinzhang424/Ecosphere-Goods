@@ -17,7 +17,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware setup
-app.use(cors()); // Enable Cross-Origin Resource Sharing
+const corsOptions = {
+    origin: ['https://ecosphere-goods.web.app/', 'https://localhost:3000']
+}
+
+app.use(cors(corsOptions)); // Enable Cross-Origin Resource Sharing
 app.use(bodyParser.json()); // Parse JSON bodies from requests
 
 // Root route
