@@ -14,14 +14,8 @@ const packageTrackingRoutes = require('./routes/packageTrackinigRoutes')
 
 // Create an Express app
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware setup
-const corsOptions = {
-    origin: ['https://ecosphere-goods.web.app/', 'http://localhost:3000']
-}
-
-app.use(cors(corsOptions)); // Enable Cross-Origin Resource Sharing
 app.use(bodyParser.json()); // Parse JSON bodies from requests
 
 // Root route
@@ -29,10 +23,9 @@ app.get('/', (req, res) => {
     res.send('Backend is running.');
 });
 
-
-// Start server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.use((req, res, next) => {
+    console.log(req.path, req.method);
+    next();
 });
 
 // Routes
@@ -44,3 +37,5 @@ app.use('/api/user-info', userInfoRoutes)
 app.use('/api/store-data', storeDataRoutes)
 app.use('/api/stripe-webhook', stripeEventRoutes)
 app.use('/api/package-tracking', packageTrackingRoutes)
+
+module.exports = app;
