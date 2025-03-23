@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const updateDeliveryInfo = async (address, country, zipCode, phoneNumber, idToken) => {
     try {
-        await axios.post('/user-info/update-delivery-info', {
+        await axios.post('/api/user-info/update-delivery-info', {
             address, 
             country, 
             zipCode, 
@@ -19,7 +19,7 @@ export const updateDeliveryInfo = async (address, country, zipCode, phoneNumber,
 
 export const updateBasicInfo = async (email, firstName, lastName, idToken) => {
     try {
-        await axios.post('/user-info/update-basic-info', {
+        await axios.post('/api/user-info/update-basic-info', {
             email,
             firstName,
             lastName
@@ -35,7 +35,7 @@ export const updateBasicInfo = async (email, firstName, lastName, idToken) => {
 
 export const fetchDeliveryInfo = async (userID) => {
     try {
-        const response = await axios.get(`/user-info/delivery-info/${userID}`)
+        const response = await axios.get(`/api/user-info/delivery-info/${userID}`)
 
         return response.data.data
     } catch (error) {
@@ -46,7 +46,7 @@ export const fetchDeliveryInfo = async (userID) => {
 
 export const setProfileImage = async (userID, profileImage) => {
     try {
-        await axios.post('/user-info/set-profile-image', {
+        await axios.post('/api/user-info/set-profile-image', {
             userID, profileImage
         })
     } catch (error) {
@@ -57,7 +57,7 @@ export const setProfileImage = async (userID, profileImage) => {
 
 export const fetchProfileImage = async (userID) => {
     try {
-        const response = await axios.get(`/user-info/profile-image/${userID}`)
+        const response = await axios.get(`/api/user-info/profile-image/${userID}`)
 
         return response.data.data
     } catch (error) {

@@ -10,7 +10,7 @@ export const handleSignIn = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const idToken = await userCredential.user.getIdToken();
-        await axios.post('http://localhost:5000/auth/sign-in', { idToken });
+        await axios.post('/api/auth/sign-in', { idToken });
     } catch (error) {
         throw new Error('Error signing in. Please check your email and password.')
     }
@@ -26,7 +26,7 @@ export const registerUser = async (email, password, passwordMatch) => {
     }
 
     try {
-        await axios.post('/auth/register', { email, password });
+        await axios.post('/api/auth/register', { email, password });
     } catch (error) {
         throw new Error('Error occured while registering.');
     }
@@ -34,7 +34,7 @@ export const registerUser = async (email, password, passwordMatch) => {
 
 export const handleSetCustomUserClaims = async (uid) => {
     try {
-        await axios.post('/auth/set-custom-user-claims', {
+        await axios.post('/api/auth/set-custom-user-claims', {
             uid
         })
     } catch (error) {

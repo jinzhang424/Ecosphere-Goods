@@ -7,7 +7,7 @@ export const fetchCheckoutSessionID = async (idToken, cartItems, successUrl, can
         quantity: item.quantity
     }))
     
-    const response = await axios.get('/checkout/fetch-session-id', {
+    const response = await axios.get('/api/checkout/fetch-session-id', {
         params: {
             cartItemsIDs,
             successUrl,

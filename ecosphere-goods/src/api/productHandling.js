@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost = Infinity, order = 'Newest') => {
     try {
-        const response = await axios.get('/products/fetch-products', {
+        const response = await axios.get('/api/products/fetch-products', {
             params: {
                 minUnitCost,
                 maxUnitCost,
@@ -20,7 +20,7 @@ export const fetchProducts = async (filters = [], minUnitCost = 0, maxUnitCost =
 
 export const addNewProduct = async (name, price, subcategory, image, category, idToken) => {
     try {
-        const response = await axios.post('/products/add-new-product', {
+        const response = await axios.post('/api/products/add-new-product', {
             name,
             price,
             subcategory,
@@ -41,7 +41,7 @@ export const addNewProduct = async (name, price, subcategory, image, category, i
 
 export const deleteProduct = async(productId, idToken) => {
     try {
-        await axios.delete('/products/delete-product', { 
+        await axios.delete('/api/products/delete-product', { 
             data: { productId },
             headers: {
                 Authorization: `Bearer ${idToken}`
@@ -55,7 +55,7 @@ export const deleteProduct = async(productId, idToken) => {
 export const updateProduct = async(product, IDs, idToken) => {
 
     try {
-        await axios.put('/products/update-product', {
+        await axios.put('/api/products/update-product', {
             productId: IDs.productId,
             priceId: IDs.priceId,
             name: product.name,
@@ -77,7 +77,7 @@ export const updateProduct = async(product, IDs, idToken) => {
 export const fetchProductById = async(productID) => {
     
     try {
-        const response = await axios.get(`/products/${productID}`)
+        const response = await axios.get(`/api/products/${productID}`)
 
         return response.data.data
     } catch (error) {

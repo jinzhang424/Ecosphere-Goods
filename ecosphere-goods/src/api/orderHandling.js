@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const fetchOrders = async (idToken) => {
     try {
-        const response = await axios.get('/order/fetch-orders', {
+        const response = await axios.get('/api/order/fetch-orders', {
             headers: {
                 Authorization: `Bearer ${idToken}`
             }
@@ -19,7 +19,7 @@ export const fetchOrders = async (idToken) => {
 export const fetchOrderByID = async (uid, orderID, idToken) => {
 
     try {
-        const response = await axios.get(`/order/${uid}/${orderID}`, {
+        const response = await axios.get(`/api/order/${uid}/${orderID}`, {
             headers: {
                 Authorization: `Bearer ${idToken}`
             }
@@ -35,7 +35,7 @@ export const fetchOrderByID = async (uid, orderID, idToken) => {
 
 export const updateOrderStatus = async (orderID, uid, newOrderStatus, idToken) => {
     try {
-        const response = await axios.patch(`/order/update-order-status/${uid}/${orderID}`, 
+        const response = await axios.patch(`/api/order/update-order-status/${uid}/${orderID}`, 
             {
                 newOrderStatus
             },

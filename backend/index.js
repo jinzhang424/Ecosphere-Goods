@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware setup
 const corsOptions = {
-    origin: ['https://ecosphere-goods.web.app/', 'https://localhost:3000']
+    origin: ['https://ecosphere-goods.web.app/', 'http://localhost:3000']
 }
 
 app.use(cors(corsOptions)); // Enable Cross-Origin Resource Sharing
@@ -36,11 +36,11 @@ app.listen(PORT, () => {
 });
 
 // Routes
-app.use('/auth', authRoutes)
-app.use('/products', productRoutes)
-app.use('/order', orderRoutes)
-app.use('/checkout', checkoutRoutes)
-app.use('/user-info', userInfoRoutes)
-app.use('/store-data', storeDataRoutes)
-app.use('/stripe-webhook', stripeEventRoutes)
-app.use('/package-tracking', packageTrackingRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/products', productRoutes)
+app.use('/api/order', orderRoutes)
+app.use('/api/checkout', checkoutRoutes)
+app.use('/api/user-info', userInfoRoutes)
+app.use('/api/store-data', storeDataRoutes)
+app.use('/api/stripe-webhook', stripeEventRoutes)
+app.use('/api/package-tracking', packageTrackingRoutes)

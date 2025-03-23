@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const fetchMonthlyRevenueData = async (idToken) => {
     try {
-        const response = await axios.get('/store-data/monthly-revenue', {
+        const response = await axios.get('/api/store-data/monthly-revenue', {
             headers: {
                 Authorization: `Bearer ${idToken}`
             }
@@ -16,7 +16,7 @@ export const fetchMonthlyRevenueData = async (idToken) => {
 
 export const fetchCategoricalSalesData = async (idToken) => {
     try {
-        const response = await axios.get('/store-data/categorical-sales', {
+        const response = await axios.get('/api/store-data/categorical-sales', {
             headers: {
                 Authorization: `Bearer ${idToken}`
             }
@@ -30,7 +30,7 @@ export const fetchCategoricalSalesData = async (idToken) => {
 
 export const fetchProductSalesData = async (idToken) => {
     try {
-        const response = await axios.get('/store-data/product-sales', {
+        const response = await axios.get('/api/store-data/product-sales', {
             headers: {
                 Authorization: `Bearer ${idToken}`
             }
@@ -44,7 +44,7 @@ export const fetchProductSalesData = async (idToken) => {
 
 export const fetchProductRevenueData = async (idToken) => {
     try {
-        const response = await axios.get('/store-data/product-revenue', {
+        const response = await axios.get('/api/store-data/product-revenue', {
             headers: {
                 Authorization: `Bearer ${idToken}`
             }
@@ -58,7 +58,7 @@ export const fetchProductRevenueData = async (idToken) => {
 
 export const fetchUserTraffic = async (idToken) => {
     try {
-        const response = await axios.get('/store-data/user-traffic', {
+        const response = await axios.get('/api/store-data/user-traffic', {
             headers: {
                 Authorization: `Bearer ${idToken}`
             }
@@ -73,7 +73,7 @@ export const fetchUserTraffic = async (idToken) => {
 
 export const updateUserTraffic = async () => {
     try {
-        const response = await axios.post('/store-data/update-user-traffic')
+        const response = await axios.post('/api/store-data/update-user-traffic')
     } catch (error) {
         throw new Error(error.message)
     }
